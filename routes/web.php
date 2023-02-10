@@ -1,7 +1,10 @@
 <?php
+use App\Http\Livewire\Users;
+use App\Http\Livewire\Categories;
+use App\Http\Livewire\Brands;
+use App\Http\Livewire\Models;
+use App\Http\Livewire\Sellers;
 use App\Http\Controllers\UserController;
-
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
@@ -27,10 +30,15 @@ use App\Http\Controllers\CampaignController;
 Route::redirect('/', 'login');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    
 
+    
     //users
-    Route::get('/users/users', [UserController::class, 'index'])->name('users');
-
+    Route::get('/users', Users::class);
+    Route::get('/categories', Categories::class);
+    Route::get('/brands', Brands::class);
+    Route::get('/models', Models::class);
+    Route::get('/sellers', Sellers::class);
 
 
     // Route for the getting the data feed
