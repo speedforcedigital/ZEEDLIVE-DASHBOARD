@@ -45,7 +45,7 @@
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{$modal['brand_id']}}</div>
+                                <div class="text-left">{{$modal['brand']}}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <button wire:click="edit({{$modal['id']}})" class="btn border-slate-200 hover:border-slate-300">

@@ -7,35 +7,24 @@ use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\WithFileUploads;
 use CURLFile;
-class Users extends Component
+class Admins extends Component
 {
     use WithFileUploads;
     public $user_id, $name, $email, $mobile, $gender, $role, $password,$type,$image;
-    public $viewUser = false;
     public $updateMode = false;
-    public $filterUser = false;
-    public $filterType = '';
-
+    public $addUser = false;
     public function render()
     {
-    $url = baseUrl().'user/details';
+    $url = baseUrl().'all/users';
     $data = makeCurlRequest($url, 'GET');
-    if($this->filterUser)
-    {
-        $users = $this->filterUser;
-        $users_count = count($users);
-    }
-    else
-    {
-        $users = $data['Users'];
-        $users_count = count($users); 
-    }
+    $admins = $data['User'];
+    $admins_count = count($admins); 
     //pagination
     $page = request()->query('page', 1);
     $perPage = 10;
-    $users = new LengthAwarePaginator(
-        array_slice($users, ($page - 1) * $perPage, $perPage),
-        count($users),
+    $admins = new LengthAwarePaginator(
+        array_slice($admins, ($page - 1) * $perPage, $perPage),
+        count($admins),
         $perPage,
         $page,
         [
@@ -43,21 +32,9 @@ class Users extends Component
             'query' => request()->query()
         ]
     );
-    if($this->viewUser)
-    {
-        return view('livewire.users', [
-            'users' => $users, 
-            'users_count' => $users_count, 
-            'viewUser' => $this->viewUser, 
-            'userProfile' => $this->userProfile,
-            'filterType' => $this->filterType
-        ]);
-    }
-    else
-    {
-        return view('livewire.users', compact('users', 'users_count'));
+        return view('livewire.admins', compact('admins', 'admins_count'));
     }  
-    }
+    
 
     public function delete($id)
     {  
@@ -70,29 +47,23 @@ class Users extends Component
     }
     }
 
-    public function view($id)
-    {
-        $this->viewUser = true;
-        $url = baseUrl()."user/details/".$id;
-        $data = makeCurlRequest($url, 'GET');
-        $this->userProfile = $data['User'];
-    }
-
     public function edit($id)
     {
         $url = baseUrl()."user/details/".$id;
         $data = makeCurlRequest($url, 'GET');
         $singleUser = $data['User'];
+        echo "<pre>";print_r($singleUser);die();
         $this->user_id =   $singleUser['id'];
         $this->name = $singleUser['name'];
         $this->email = $singleUser['email'];
         $this->mobile = $singleUser['mobile'];
         $this->gender = $singleUser['gender'];
-        $this->role = $singleUser['role_id'];
+        $this->role = $singleUser['rank'];
         $this->type = $singleUser['accountDetail']['type'];
-        $this->image = $singleUser['accountDetail']['profile_image'];
+        $this->type = $singleUser['accountDetail']['profile_image'];
         $this->password = '';
         $this->updateMode = true;
+        $this->addUser = false;
     }
 
     public function updated($field)
@@ -102,7 +73,6 @@ class Users extends Component
             'email' => 'required',
             'mobile' => 'required',
             'gender' => 'required',
-            'role' => 'required',
             'password' => 'required',
         ]);
     }
@@ -114,22 +84,21 @@ class Users extends Component
             'email' => 'required',
             'mobile' => 'required',
             'gender' => 'required',
-            'role' => 'required',
             'password' => 'required',
         ]);
-        $image = $this->image;
-        $path = $image->getRealPath();
-        $postData = [
-            'role_id' => $this->role,
-            'name' => $this->name,
-            'email' => $this->email,
-            'mobile' => $this->mobile,
-            'gender' => $this->gender,
-            'type' => $this->type,
-            'password' => $this->password,
-            'image' => new \CURLFile($path, "image/jpeg",$image),
-        ];
-        $url = baseUrl()."update/user/details/".$this->user_id;
+         $image = $this->image;
+         $path = $image->getRealPath();
+         $postData = [
+             'role' => 'Admin',
+             'name' => $this->name,
+             'email' => $this->email,
+             'mobile' => $this->mobile,
+             'gender' => $this->gender,
+             'type' => $this->type,
+             'password' => $this->password,
+             'image' => new \CURLFile($path, "image/jpeg",$image),
+         ];
+        $url = ($this->user_id) ? baseUrl()."update/user/details/".$this->user_id : baseUrl()."create/users";
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']==1)
         {
@@ -137,6 +106,7 @@ class Users extends Component
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
         $this->updateMode = false;
+        $this->addUser = false;
         $this->resetInputFields();
     }
 
@@ -149,33 +119,12 @@ class Users extends Component
         $this->role = '';
         $this->type = '';
         $this->password = '';
+        $this->user_id='';
     }
 
-    public function filterUser($filterUser)
-    {  
-    if($filterUser=='seller')
+    public function add()
     {
-      $filter = 'all/sellers';
-      $key = 'User';
-      $filterType='seller';
-    }
-    elseif($filterUser=='buyer')
-    {
-        $filter = 'all/buyers';
-        $key = 'User';
-        $filterType='buyer';
-    }
-    else
-    {
-        $filter = 'user/details';
-        $key = 'Users';
-        $filterType='all';
-    }
-    $url = baseUrl().$filter;
-    $data = makeCurlRequest($url, 'GET');
-    $this->filterUser = $data[$key];
-    $this->filterType = $filterType;
+        $this->addUser = true;
     }
 
-    
 }

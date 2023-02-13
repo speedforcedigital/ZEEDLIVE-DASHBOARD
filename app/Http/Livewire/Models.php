@@ -12,6 +12,7 @@ class Models extends Component
     public  $model_id, $brand_id, $name, $image;
     public $addModel = false;
     public $updateMode = false;
+    public $brandList = false;
     public function render()
     {
     $url = baseUrl().'list/modal';
@@ -36,6 +37,9 @@ class Models extends Component
 
     public function add()
     {
+        $url = baseUrl().'list/brand';
+        $brandList = makeCurlRequest($url, 'GET');
+        $this->brandList = $brandList;
         $this->addModel = true;
     }
     public function updated($field)
@@ -99,6 +103,9 @@ class Models extends Component
         $this->brand_id =   $singleModel['brand_id'];
         $this->name = $singleModel['name'];
         $this->image = $singleModel['image'];
+        $url = baseUrl().'list/brand';
+        $brandList = makeCurlRequest($url, 'GET');
+        $this->brandList = $brandList;
         $this->updateMode = true;
     } 
    

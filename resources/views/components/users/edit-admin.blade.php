@@ -67,20 +67,7 @@
                         @error('gender')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                             <!-- End -->
                         </div>
-
-                        <div>
-                    <!-- Start -->
-                        <label class="block text-sm font-medium mb-1" for="country">User Role</label>
-                        <select id="country" class="form-input w-full" wire:model="role">
-                            <option value="">Select</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Seller</option>
-                            <option value="3">Buyer</option>
-                        </select>
-                        @error('role')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-                    <!-- End -->
-                        </div>
-
+                        
                         <div>
                     <!-- Start -->
                         <label class="block text-sm font-medium mb-1" for="country">Type</label>
@@ -100,7 +87,6 @@
                             </div>
                             <!-- End -->
                         </div>
-
                         
                    </div>
 
@@ -118,7 +104,7 @@
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2">Update User</span>
+                    <span class="hidden xs:block ml-2"><?= $this->updateMode ? 'Update User' : 'Add User' ?></span>
                 </button>
                </div>
 

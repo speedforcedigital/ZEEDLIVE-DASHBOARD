@@ -6,11 +6,7 @@
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
                 <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
-            @if($addBrand)
-            Add Brand ✨
-            @else
-            Brands ✨
-            @endif
+            Offers ✨
             </h1>
             </div>
 
@@ -19,25 +15,14 @@
 
                 <!-- Delete button -->
                 <x-actions.delete-button />
-                @if(!$addBrand && !$updateMode)
-                <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Brand</button>
-                @endif
             </div>
 
         </div>
 
         <!-- Table -->
-    @if($addBrand)
-    <x-brands.add-brand />
-    @elseif($updateMode)
-    <x-brands.add-brand />
-    @else
-    <x-brands.brands-table :brands="$brands" :count="$total_brand" />
-    <!-- Pagination -->
+    <x-offers.offers-table :offers="$offers" :count="$total_offers" />
+   <!-- Pagination -->
    <div class="mt-8">
-            {{$brands->links()}}
+            {{$offers->links()}}
         </div>
     </div>
-    @endif
-
-   

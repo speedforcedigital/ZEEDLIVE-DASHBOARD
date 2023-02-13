@@ -15,8 +15,10 @@
 
                 <!-- Delete button -->
                 <x-actions.delete-button />
-                <button class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Brand</button>
-               
+                <!-- Add customer button -->
+                <button wire:click="filterSeller('pending')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='pending' || $this->filterType=='') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Pending</button>
+                <button wire:click="filterSeller('verified')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='verified') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Verified</button>
+                <button wire:click="filterSeller('rejected')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='rejected') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Rejected</button>
             </div>
 
         </div>

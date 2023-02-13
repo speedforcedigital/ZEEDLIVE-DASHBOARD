@@ -12,11 +12,11 @@ class Brands extends Component
     public  $brand_id, $name, $image, $category_id;
     public $addBrand = false;
     public $updateMode = false;
+    public $categoryList = false;
     public function render()
     {
     $url = baseUrl().'list/brand';
     $data = makeCurlRequest($url, 'GET');
-    // echo "<pre>";print_r($data);die();
     $brands = $data['Brands'];
     $total_brand = $data['total_brand'];
     //pagination
@@ -37,6 +37,9 @@ class Brands extends Component
 
     public function add()
     {
+        $url = baseUrl().'list/category';
+        $categoryList = makeCurlRequest($url, 'GET');
+        $this->categoryList = $categoryList;
         $this->addBrand = true;
     }
 
@@ -101,6 +104,9 @@ class Brands extends Component
         $this->category_id =   $singleBrand['id'];
         $this->name = $singleBrand['name'];
         $this->image = $singleBrand['image'];
+        $url = baseUrl().'list/category';
+        $categoryList = makeCurlRequest($url, 'GET');
+        $this->categoryList = $categoryList;
         $this->updateMode = true;
     }
     

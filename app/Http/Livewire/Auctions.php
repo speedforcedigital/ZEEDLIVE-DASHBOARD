@@ -5,30 +5,30 @@ use App\Helpers\makeCurlPostRequest;
 use App\Helpers\baseUrl;
 use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
-class Sellers extends Component
+class Auctions extends Component
 {
-    public $filterSeller = false;
+    public $filterAuction = false;
     public $filterType = '';
     public function render()
     {
-    $url = baseUrl().'pending/seller/verification/list';
+    $url = baseUrl().'list/all/auction';
     $data = makeCurlRequest($url, 'GET');
-    if($this->filterSeller)
+    if($this->filterAuction)
     {
-        $sellers = $this->filterSeller;
-        $total_sellers = count($sellers);
+        $auctions = $this->filterAuction;
+        $total_auctions = count($auctions);
     }
     else
     {
-    $sellers = $data['data'];
-    $total_sellers = count($sellers);
+    $auctions = $data['data'];
+    $total_auctions = count($auctions);
     }
     //pagination
     $page = request()->query('page', 1);
     $perPage = 10;
-    $sellers = new LengthAwarePaginator(
-        array_slice($sellers, ($page - 1) * $perPage, $perPage),
-        count($sellers),
+    $auctions = new LengthAwarePaginator(
+        array_slice($auctions, ($page - 1) * $perPage, $perPage),
+        count($auctions),
         $perPage,
         $page,
         [
@@ -36,56 +36,49 @@ class Sellers extends Component
             'query' => request()->query()
         ]
     );
-        return view('livewire.sellers', compact('sellers', 'total_sellers'));
+        return view('livewire.auctions', compact('auctions', 'total_auctions'));
     }
 
-    public function filterSeller($filterSeller)
+    public function filterAuction($filterAuction)
     {  
-    if($filterSeller=='verified')
+    if($filterAuction=='verified')
     {
-      $filter = 'approved/seller/verification/list';
+      $filter = 'list/approved/auction';
       $filterType='verified';
     }
-    elseif($filterSeller=='rejected')
+    elseif($filterAuction=='rejected')
     {
-        $filter = 'declined/seller/verification/list';
+        $filter = 'list/rejected/auction';
         $filterType='rejected';
+    }
+    elseif($filterAuction=='pending')
+    {
+        $filter = 'list/pending/auction';
+        $filterType='pending';
     }
     else
     {
-        $filter = 'pending/seller/verification/list';
-        $filterType='pending';
+        $filter = 'list/all/auction';
+        $filterType='all';
     }
     $url = baseUrl().$filter;
     $data = makeCurlRequest($url, 'GET');
-    $this->filterSeller = $data['data'];
+    $this->filterAuction = $data['data'];
     $this->filterType = $filterType;
     }
-
     public function approved($id)
     {
-        $url = baseUrl().'approve/seller/request/'.$id;
+        $url = baseUrl().'approve/auction/'.$id;
         $data = makeCurlRequest($url, 'GET');
-        if($data['success']==true)
-        {
             $this->dispatchBrowserEvent('alert', 
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
-        }
     }
-
     public function rejected($id)
     {
-        $url = baseUrl().'decline/seller/request/'.$id;
+        $url = baseUrl().'reject/auction/'.$id;
         $data = makeCurlRequest($url, 'GET');
-        if($data['success']==true)
-        {
             $this->dispatchBrowserEvent('alert', 
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
-        }
     }
-
-    
-    
-
-   
+ 
 }

@@ -39,12 +39,10 @@
                             <!-- Start -->
                         <label class="block text-sm font-medium mb-1" for="country">Brand</label>
                         <select id="country" class="form-input w-full" wire:model="brand_id">
-                            <option value="">Select</option>
-                            <option value="1">Bags</option>
-                            <option value="2">Shoes</option>
-                            <option value="3">Watch</option>
-                            <option value="4">Jewellery</option>
-                            <option value="5">Dress</option>
+                        <option value="">Select</option>
+                        @foreach($this->brandList['Brands'] as $brand)
+                            <option value="{{$brand['id']}}">{{$brand['name']}}</option>
+                        @endforeach
                         </select>
                         @error('brand_id')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                             <!-- End -->

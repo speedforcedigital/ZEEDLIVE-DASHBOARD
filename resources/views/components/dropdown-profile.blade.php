@@ -9,9 +9,9 @@
         @click.prevent="open = !open"
         :aria-expanded="open"                        
     >
-        <img class="w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" width="32" height="32" alt="{{ Auth::user()->name }}" />
+        <img class="w-8 h-8 rounded-full" src="https://api.staging.zeedlive.com/image/user_profile/{{Session::get('profile_image')}}" width="32" height="32" alt="{{Session::get('name')}}" />
         <div class="flex items-center truncate">
-            <span class="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{{ Auth::user()->name }}</span>
+            <span class="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{{Session::get('name')}}</span>
             <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
                 <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
             </svg>
@@ -31,7 +31,7 @@
         x-cloak                    
     >
         <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            <div class="font-medium text-slate-800">{{ Auth::user()->name }}</div>
+            <div class="font-medium text-slate-800">{{Session::get('name')}}</div>
             <div class="text-xs text-slate-500 italic">Administrator</div>
         </div>
         <ul>
