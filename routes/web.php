@@ -9,6 +9,7 @@ use App\Http\Livewire\Auctions;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Offers;
 use App\Http\Livewire\customFields;
+use App\Http\Livewire\globalFields;
 use App\Http\Livewire\Admins;
 use App\Http\Livewire\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/notifications', Notifications::class);
     Route::get('/offers', Offers::class);
     Route::get('/custom/fields', customFields::class);
+    Route::get('/global/fields', globalFields::class);
     Route::get('/admins', Admins::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');   
 });

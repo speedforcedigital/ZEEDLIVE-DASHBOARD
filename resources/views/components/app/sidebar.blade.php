@@ -72,7 +72,7 @@
                     </li>
                     <!-- Categories -->
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
-                        <a class="block text-slate-200 categoryNav hover:text-white truncate transition duration-150" href="/categories">
+                        <a @click="handleClick" data-attr="category" class="block text-slate-200 sameNav hover:text-white truncate transition duration-150" href="/categories">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -162,7 +162,7 @@
                                         </a>                                    
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="#">
+                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/global/fields">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Global Fields</span>
                                         </a>                                  
                                 </li>
@@ -261,3 +261,9 @@
 
     </div>
 </div>
+
+<script>
+    function handleClick(e) {
+       
+    }
+</script>

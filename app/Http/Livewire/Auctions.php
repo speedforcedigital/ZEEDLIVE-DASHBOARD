@@ -13,7 +13,7 @@ class Auctions extends Component
     {
     $url = baseUrl().'list/all/auction';
     $data = makeCurlRequest($url, 'GET');
-    if($this->filterAuction)
+    if($this->filterAuction || $this->filterType)
     {
         $auctions = $this->filterAuction;
         $total_auctions = count($auctions);
@@ -66,8 +66,10 @@ class Auctions extends Component
     $this->filterAuction = $data['data'];
     $this->filterType = $filterType;
     }
-    public function approved($id)
+    public function approved($id,$collection_id)
     {
+        $urlCollectionStatus = baseUrl().'edit/collection/status/'.$collection_id;
+        makeCurlRequest($urlCollectionStatus, 'GET');
         $url = baseUrl().'approve/auction/'.$id;
         $data = makeCurlRequest($url, 'GET');
             $this->dispatchBrowserEvent('alert', 

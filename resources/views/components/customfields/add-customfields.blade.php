@@ -22,9 +22,6 @@
                             </div>
                             <!-- End -->
                         </div>
-
-            
-
                 <div>
                             <!-- Start -->
                         <label class="block text-sm font-medium mb-1" for="country">Category</label>
@@ -50,9 +47,19 @@
                             <!-- End -->
                 </div>
 
-
-
-                   </div>
+                
+                    @foreach ($this->fields as $index => $field)
+                    <div>
+                        <div>
+                        <label class="block text-sm font-medium mb-1" for="country">Value {{$index + 1}}</label>
+                            <input type="text" class="form-input w-full" wire:model="fields.{{ $index }}">
+                            <button wire:click.prevent="removeField({{ $index }})" style="color:red">Remove</button>
+                            @error('fields.' . $index) <span class="text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    @endforeach
+                    <button wire:click.prevent="addField" style="font-size: large;font-weight: bold;">Add more</button>
+            </div>
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">
                 <div></div>
                 <div></div>

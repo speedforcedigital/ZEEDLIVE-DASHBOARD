@@ -11,6 +11,7 @@ class customFields extends Component
     public $addCustomField = false;
     public $updateMode = false;
     public $categoryList = false;
+    public $fields = [];
     public function render()
     {
     $url = baseUrl().'get/customFields/all';
@@ -59,6 +60,22 @@ class customFields extends Component
             'category_id' => 'required',
             'type' => 'required',
         ]);
+        $postData['custom_field_title'] = $this->custom_field_title;
+        $postData['category_id'] = $this->category_id;
+        $postData['type'] = $this->type;
+        $postData['values'] = json_encode($this->fields);
+        $postData = json_encode($postData);
+        $url = baseUrl()."add/customFields";
+        $data = makeCurlPostRequest($url, 'POST',$postData);
+        if($data['success']=true)
+        {
+            $this->dispatchBrowserEvent('alert', 
+                    ['type' => 'success',  'message' => ''.$data['message'].'']);
+        }
+        $this->addCustomField = false;
+        $this->resetInputFields();
+
+
     }
     private function resetInputFields()
     {
@@ -67,7 +84,26 @@ class customFields extends Component
         $this->type = '';
     }
 
-    
+    public function delete($id)
+    { 
+    $url = baseUrl()."delete/dynamicField/custom/".$id;
+    $data = makeCurlRequest($url, 'DELETE');
+    if($data['success']=true)
+    {
+        $this->dispatchBrowserEvent('alert', 
+                ['type' => 'success',  'message' => ''.$data['message'].'']);
+    }
+    }
 
+    public function addField()
+    {
+        $this->fields[] = '';
+    }
+
+    public function removeField($index)
+    {
+        unset($this->fields[$index]);
+        $this->fields = array_values($this->fields);
+    }
     
 }

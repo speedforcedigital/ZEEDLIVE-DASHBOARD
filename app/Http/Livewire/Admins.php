@@ -52,7 +52,6 @@ class Admins extends Component
         $url = baseUrl()."user/details/".$id;
         $data = makeCurlRequest($url, 'GET');
         $singleUser = $data['User'];
-        echo "<pre>";print_r($singleUser);die();
         $this->user_id =   $singleUser['id'];
         $this->name = $singleUser['name'];
         $this->email = $singleUser['email'];

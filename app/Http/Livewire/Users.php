@@ -20,7 +20,7 @@ class Users extends Component
     {
     $url = baseUrl().'user/details';
     $data = makeCurlRequest($url, 'GET');
-    if($this->filterUser)
+    if($this->filterUser || $this->filterType)
     {
         $users = $this->filterUser;
         $users_count = count($users);

@@ -1,3 +1,7 @@
+
+        
+ 
+
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
@@ -8,7 +12,7 @@
 
         <!-- Table -->
         <div class="overflow-x-auto">
-            <table class="table-auto w-full">
+            <table class="table-auto w-full" id="dataTable">
                 <!-- Table header -->
                 <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
                     <tr>
@@ -78,7 +82,7 @@
                             </td>
                     @if($this->filterType=='all' || $this->filterType=='pending' || $this->filterType=='')       
                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <button wire:click="approved({{ $auction['auction']['id'] }})" class="btn border-slate-200 hover:border-slate-300">
+                            <button wire:click="approved({{ $auction['auction']['id'] }},{{$auction['auction']['collection_id']}})" class="btn border-slate-200 hover:border-slate-300">
                                 <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
                                     <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
                                 </svg>
@@ -131,3 +135,10 @@
         }))
     })    
 </script>
+
+<script>
+            $(document).ready(function () {
+                $('#dataTable').DataTable();
+
+            });
+        </script>

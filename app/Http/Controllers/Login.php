@@ -19,6 +19,7 @@
             $data = makeCurlPostRequest($url, 'POST',$postData);
             if($data['success']==1)
             {
+                Session::put('token', $data['token']);
                 Session::put('name', $data['user']['name']);
                 Session::put('rank', $data['user']['rank']);
                 Session::put('profile_image', $data['user']['accountDetail']['profile_image']); 
@@ -26,6 +27,7 @@
             }
             elseif($data['success']=='')
             {
+                Session::flash('status', ''.$data['message'].'');
                 return redirect('/');
             }
         } 
