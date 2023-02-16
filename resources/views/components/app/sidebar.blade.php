@@ -1,3 +1,11 @@
+<?php 
+$array = Session::get('permissions');
+$keys = array();
+foreach ($array as $element) {
+$keys = array_merge($keys, array_keys($element));
+}
+$keys = array_unique($keys);
+?>
 <div>
     <!-- Sidebar backdrop (mobile only) -->
     <div
@@ -56,8 +64,8 @@
                     <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">ZEEDLIVE</span>
                 </h3>
                 <ul class="mt-3">
-                    
                    <!-- Dashboard -->
+                   @if(in_array('Dashboard', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/dashboard">
                             <div class="flex items-center justify-between">
@@ -70,7 +78,9 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     <!-- Categories -->
+                    @if(in_array('Category', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a @click="handleClick" data-attr="category" class="block text-slate-200 sameNav hover:text-white truncate transition duration-150" href="/categories">
                             <div class="flex items-center justify-between">
@@ -83,7 +93,9 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     <!-- Brands -->
+                    @if(in_array('Modal', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/brands">
                             <div class="flex items-center justify-between">
@@ -96,7 +108,9 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     <!-- Modals -->
+                    @if(in_array('Brand', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/models">
                             <div class="flex items-center justify-between">
@@ -109,7 +123,9 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     <!-- Auctions -->
+                    @if(in_array('Auction', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/auctions">
                             <div class="flex items-center justify-between">
@@ -122,7 +138,9 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     <!-- Offers -->
+                    @if(in_array('Offers', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/offers">
                             <div class="flex items-center justify-between">
@@ -135,6 +153,7 @@
                             </div>
                         </a>
                     </li>
+                    @endif
                     <!-- Dynamic Fields -->
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" x-data="{ open: false }">
                         <a class="block text-slate-200 hover:text-white transition duration-150" :class="open && 'hover:text-slate-200'" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
@@ -156,20 +175,25 @@
                         </a>
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1" :class="{ 'hidden': !open }" x-cloak>
+                            @if(in_array('Custom Field', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/custom/fields">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Custom Fields</span>
                                         </a>                                    
                                 </li>
+                                @endif
+                                @if(in_array('Global Field', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/global/fields">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Global Fields</span>
                                         </a>                                  
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
                     <!-- Messages -->
+                    @if(in_array('Notifications', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/notifications">
                             <div class="flex items-center justify-between">
@@ -183,7 +207,7 @@
                             </div>
                         </a>
                     </li>
-
+                    @endif
                 </ul>
             </div>
             <!-- More group -->
@@ -214,21 +238,26 @@
                         </a>
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1" :class="{ 'hidden': !open }" x-cloak>
+                            @if(in_array('App  User', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/users">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">List</span>
                                         </a>                                    
                                 </li>
+                                @endif
+                                @if(in_array('Seller Verification', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/sellers">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Seller Verification</span>
                                         </a>                                  
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
 
                     <!-- Admin Users -->
+                    @if(in_array('Admin User', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/admins">
                             <div class="flex items-center justify-between">
@@ -241,6 +270,7 @@
                             </div>
                         </a>
                     </li>
+                    @endif
 
                 </ul>
             </div>

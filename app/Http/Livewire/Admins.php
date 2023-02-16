@@ -11,8 +11,10 @@ class Admins extends Component
 {
     use WithFileUploads;
     public $user_id, $name, $email, $mobile, $gender, $role, $password,$type,$image;
+    public $permission = [];
     public $updateMode = false;
     public $addUser = false;
+    public $rolePermission = false;
     public function render()
     {
     $url = baseUrl().'all/users';
@@ -59,7 +61,7 @@ class Admins extends Component
         $this->gender = $singleUser['gender'];
         $this->role = $singleUser['rank'];
         $this->type = $singleUser['accountDetail']['type'];
-        $this->type = $singleUser['accountDetail']['profile_image'];
+        $this->image = $singleUser['accountDetail']['profile_image'];
         $this->password = '';
         $this->updateMode = true;
         $this->addUser = false;
@@ -85,6 +87,21 @@ class Admins extends Component
             'gender' => 'required',
             'password' => 'required',
         ]);
+
+        $array = $this->permission;
+        $groupedArray = array();
+        foreach ($array as $element) {
+            preg_match('/^{(.+?):(.+?)}$/', $element, $matches); 
+            $category = $matches[1];
+            $action = $matches[2];
+            if (!array_key_exists($category, $groupedArray)) {
+                $groupedArray[$category] = array(); 
+            }
+            array_push($groupedArray[$category], $action);
+        }
+        $json = json_encode(array_map(function($k, $v) { return array($k => $v); }, array_keys($groupedArray), array_values($groupedArray)));
+        $permissions = json_encode($json);
+        
          $image = $this->image;
          $path = $image->getRealPath();
          $postData = [
@@ -95,6 +112,7 @@ class Admins extends Component
              'gender' => $this->gender,
              'type' => $this->type,
              'password' => $this->password,
+             'permissions' => $permissions,
              'image' => new \CURLFile($path, "image/jpeg",$image),
          ];
         $url = ($this->user_id) ? baseUrl()."update/user/details/".$this->user_id : baseUrl()."create/users";
@@ -119,10 +137,14 @@ class Admins extends Component
         $this->type = '';
         $this->password = '';
         $this->user_id='';
+        $this->image='';
     }
 
     public function add()
     {
+        $url = baseUrl().'get/rollPermission';
+        $data = makeCurlRequest($url, 'GET');
+        $this->rolePermission = $data['data'];
         $this->addUser = true;
     }
 

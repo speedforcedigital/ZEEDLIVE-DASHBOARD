@@ -1,3 +1,14 @@
+<?php
+$array = Session::get('permissions');
+//add
+$add_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Category']) && in_array('add', $item['Category'])) {
+    $add_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -19,7 +30,7 @@
 
                 <!-- Delete button -->
                 <x-actions.delete-button />
-                @if(!$addCategory && !$updateMode)
+                @if(!$addCategory && !$updateMode && $add_capability_exists)
                 <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Category</button>
                 @endif
             </div>

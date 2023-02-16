@@ -10,6 +10,7 @@ class globalFields extends Component
     public $global_field;
     public $addGlobalField = false;
     public $updateMode = false;
+    public $fields = [];
     public function render()
     {
     $url = baseUrl().'get/globalFields';
@@ -53,6 +54,7 @@ class globalFields extends Component
         ]);
 
         $postData['global_field'] = $this->global_field;
+        $postData['values'] = json_encode($this->fields);
         $postData = json_encode($postData);
         $url = baseUrl()."add/globalFields";
         $data = makeCurlPostRequest($url, 'POST',$postData);
@@ -80,6 +82,17 @@ class globalFields extends Component
         $this->dispatchBrowserEvent('alert', 
                 ['type' => 'success',  'message' => ''.$data['message'].'']);
     }
+    }
+
+    public function addField()
+    {
+        $this->fields[] = '';
+    }
+
+    public function removeField($index)
+    {
+        unset($this->fields[$index]);
+        $this->fields = array_values($this->fields);
     }
     
 }

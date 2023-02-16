@@ -87,10 +87,41 @@
                             </div>
                             <!-- End -->
                         </div>
-                        
-                   </div>
 
+                        <!-- <div>
+                        <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 mt-6">
+                            <img class="rounded-full" id="imgInp" src="https://api.staging.zeedlive.com/image/user_profile/{{$this->image}}" alt="Patricia Semklo">
+                       </div>
+                       </div> -->
+
+                       <!-- <div class="m-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" />
+                                <span class="text-sm ml-2">Active</span>
+                            </label>  
+                        </div> -->
+
+                   </div>
                    
+            
+                @foreach($this->rolePermission as $val)
+            <div class="mt-6">
+                    <h2 class="text-slate-800 font-semibold mb-2">{{$val['permission_bar']}}</h2>
+                <div class="grid gap-5 md:grid-cols-4 mt-6">
+                @foreach(json_decode($val['actions'], true) as $row)
+                    <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" wire:model="permission" value="<?php echo'{'.$val['permission_bar'].':'.$row.'}'?>" class="form-checkbox" />
+                                <span class="text-sm ml-2">{{ucfirst($row)}}</span>
+                            </label>  
+                    </div>
+                    @endforeach
+               </div>
+            </div>
+                    @endforeach
+
+           
+
 
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">
                 <div></div>
@@ -117,3 +148,14 @@
         </div>
 
     </div>
+
+    @push('scripts')
+  <script>
+imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    blah.src = URL.createObjectURL(file)
+  }
+}
+  </script>
+@endpush
