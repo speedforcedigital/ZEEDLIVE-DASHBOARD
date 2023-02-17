@@ -120,9 +120,6 @@
             </div>
                     @endforeach
 
-           
-
-
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">
                 <div></div>
                 <div></div>
@@ -131,11 +128,14 @@
                 <div></div>
                 <div>
                    <input type="hidden" wire:model="user_id">
-                   <button wire:click.prevent="update()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                   <button wire:click.prevent="update()" wire:loading.class="opacity-50 cursor-wait" wire:target="update" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2"><?= $this->updateMode ? 'Update User' : 'Add User' ?></span>
+                    <span class="hidden xs:block ml-2">
+                    <span wire:loading wire:target="update" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <?= $this->updateMode ? 'Update User' : 'Add User' ?>
+                    </span>
                 </button>
                </div>
 

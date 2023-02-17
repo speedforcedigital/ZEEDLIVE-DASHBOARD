@@ -1,3 +1,14 @@
+<?php
+$array = Session::get('permissions'); 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Offers']) && in_array('list', $item['Offers'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -20,7 +31,9 @@
         </div>
 
         <!-- Table -->
+    @if($list_capability_exists)
     <x-offers.offers-table :offers="$offers" :count="$total_offers" />
+    @endif
    <!-- Pagination -->
    <div class="mt-8">
             {{$offers->links()}}

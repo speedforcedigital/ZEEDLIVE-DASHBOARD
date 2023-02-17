@@ -1,3 +1,22 @@
+<?php
+$array = Session::get('permissions');
+//add
+$add_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Custom Field']) && in_array('add', $item['Custom Field'])) {
+    $add_capability_exists = true;
+    break;
+  }
+} 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Custom Field']) && in_array('list', $item['Custom Field'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -26,7 +45,7 @@
                 <!-- Filter button -->
                 <!-- <x-dropdown-filter align="right" /> -->
                 <!-- Add customer button -->
-                @if(!$this->addCustomField)
+                @if(!$this->addCustomField && $add_capability_exists)
                 <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Custom Field</button>
                 @endif
             </div>
@@ -36,8 +55,12 @@
         <!-- Table -->
         @if($this->addCustomField)
        <x-customfields.add-customfields />
+        @elseif($this->updateMode)
+        <x-customfields.add-customfields />
         @else
+        @if($list_capability_exists)
        <x-customfields.customfields-table :customfields="$customfields" :count="$customfields_count" />
+        @endif
         <!-- Pagination -->
         <div class="mt-8">
                 {{$customfields->links()}}

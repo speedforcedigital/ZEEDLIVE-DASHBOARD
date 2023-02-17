@@ -2,6 +2,7 @@
 namespace App\Http\Livewire;
 use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlPostRequest;
+use App\Helpers\makeCurlFileRequest;
 use App\Helpers\baseUrl;
 use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;

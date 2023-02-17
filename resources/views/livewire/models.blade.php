@@ -1,3 +1,22 @@
+<?php
+$array = Session::get('permissions');
+//add
+$add_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Modal']) && in_array('add', $item['Modal'])) {
+    $add_capability_exists = true;
+    break;
+  }
+} 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Modal']) && in_array('list', $item['Modal'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -19,7 +38,7 @@
 
                 <!-- Delete button -->
                 <x-actions.delete-button />
-                @if(!$addModel && !$updateMode)
+                @if(!$addModel && !$updateMode && $add_capability_exists)
                 <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Model</button>
                 @endif
             </div>
@@ -32,7 +51,9 @@
     @elseif($updateMode)
     <x-models.add-model />
     @else
+    @if($list_capability_exists)
     <x-models.models-table :modals="$modals" :count="$total_model" />
+    @endif
    <!-- Pagination -->
    <div class="mt-8">
             {{$modals->links()}}

@@ -1,3 +1,22 @@
+<?php
+$array = Session::get('permissions');
+//add
+$add_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Admin User']) && in_array('add', $item['Admin User'])) {
+    $add_capability_exists = true;
+    break;
+  }
+} 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Admin User']) && in_array('list', $item['Admin User'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -25,7 +44,7 @@
 
                 <!-- Filter button -->
                 <!-- <x-dropdown-filter align="right" /> -->
-                @if(!$updateMode && !$addUser)
+                @if(!$updateMode && !$addUser && $add_capability_exists)
                 <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Admin User</button>
                 @endif
             </div>
@@ -39,7 +58,9 @@
     @elseif($addUser)
     <x-users.edit-admin />
     @else
+    @if($list_capability_exists)
     <x-users.admin-table :admins="$admins" :count="$admins_count" />
+    @endif
     <!-- Pagination -->
     <div class="mt-8">
             {{$admins->links()}}

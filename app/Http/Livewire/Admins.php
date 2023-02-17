@@ -51,6 +51,9 @@ class Admins extends Component
 
     public function edit($id)
     {
+        $url = baseUrl().'get/rollPermission';
+        $data = makeCurlRequest($url, 'GET');
+        $this->rolePermission = $data['data'];
         $url = baseUrl()."user/details/".$id;
         $data = makeCurlRequest($url, 'GET');
         $singleUser = $data['User'];

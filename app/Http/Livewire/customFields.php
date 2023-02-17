@@ -7,7 +7,7 @@ use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
 class customFields extends Component
 {
-    public $custom_field_title, $category_id, $type;
+    public $custom_field_title, $category_id, $type ,$custom_field_id;
     public $addCustomField = false;
     public $updateMode = false;
     public $categoryList = false;
@@ -64,6 +64,7 @@ class customFields extends Component
         $postData['category_id'] = $this->category_id;
         $postData['type'] = $this->type;
         $postData['values'] = json_encode($this->fields);
+        $postData['custom_field_id'] = $this->custom_field_id;
         $postData = json_encode($postData);
         $url = baseUrl()."add/customFields";
         $data = makeCurlPostRequest($url, 'POST',$postData);
@@ -73,6 +74,7 @@ class customFields extends Component
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
         $this->addCustomField = false;
+        $this->updateMode = false;
         $this->resetInputFields();
 
 
@@ -82,11 +84,12 @@ class customFields extends Component
         $this->custom_field_title = '';
         $this->category_id = '';
         $this->type = '';
+        $this->custom_field_id = '';
     }
 
     public function delete($id)
     { 
-    $url = baseUrl()."delete/dynamicField/custom/".$id;
+    $url = baseUrl()."delte/dynamicField/custom/".$id;
     $data = makeCurlRequest($url, 'DELETE');
     if($data['success']=true)
     {
@@ -104,6 +107,26 @@ class customFields extends Component
     {
         unset($this->fields[$index]);
         $this->fields = array_values($this->fields);
+    }
+
+    public function edit($id)
+    {
+        $url = baseUrl().'list/category';
+        $categoryList = makeCurlRequest($url, 'GET');
+        $this->categoryList = $categoryList;
+        $url = baseUrl()."detail/customFields/".$id;
+        $data = makeCurlRequest($url, 'GET');
+        $singleCustomField = $data['data'];
+        $this->custom_field_title =   $singleCustomField[0]['custom_field_title'];
+        $this->category_id = $singleCustomField[0]['category_id'];
+        $this->type = $singleCustomField[0]['type'];
+        $this->custom_field_id = $singleCustomField[0]['custom_field_id'];
+        $array = json_decode($singleCustomField[0]['values']);
+        if(!empty($array))
+        {
+            $this->fields = $array;
+        }
+        $this->updateMode = true;
     }
     
 }

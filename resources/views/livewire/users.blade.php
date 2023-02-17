@@ -1,3 +1,23 @@
+<?php
+$array = Session::get('permissions'); 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['App  User']) && in_array('list', $item['App  User'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+
+//filter
+$filter_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['App  User']) && in_array('filter', $item['App  User'])) {
+    $filter_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -27,7 +47,7 @@
 
                 <!-- Filter button -->
                 <!-- <x-dropdown-filter align="right" /> -->
-                @if(!$updateMode && !$viewUser)
+                @if(!$updateMode && !$viewUser && $filter_capability_exists)
                 <!-- Add customer button -->
                 <button wire:click="filterUser('all')" class="btn border-slate-200 hover:border-slate-300 <?=($filterType=='all' || $filterType=='') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All Users</button>
                 <button wire:click="filterUser('seller')" class="btn border-slate-200 hover:border-slate-300 <?=($filterType=='seller') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All Sellers</button>
@@ -44,7 +64,9 @@
     @elseif($updateMode)
     <x-users.edit-user />
     @else
+    @if($list_capability_exists)
     <x-users.users-table :users="$users" :count="$users_count" />
+    @endif
     <!-- Pagination -->
     <div class="mt-8">
             {{$users->links()}}

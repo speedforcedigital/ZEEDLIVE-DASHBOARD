@@ -1,7 +1,22 @@
-
-        
- 
-
+<?php
+$array = Session::get('permissions');
+//verification
+$verification_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Auction']) && in_array('verification', $item['Auction'])) {
+    $verification_capability_exists = true;
+    break;
+  }
+} 
+//delete
+$delete_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Auction']) && in_array('delete', $item['Auction'])) {
+    $delete_capability_exists = true;
+    break;
+  }
+}
+?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
@@ -82,16 +97,20 @@
                             </td>
                     @if($this->filterType=='all' || $this->filterType=='pending' || $this->filterType=='')       
                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                        @if($verification_capability_exists)
                             <button wire:click="approved({{ $auction['auction']['id'] }},{{$auction['auction']['collection_id']}})" class="btn border-slate-200 hover:border-slate-300">
                                 <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
                                     <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
                                 </svg>
                             </button>
+                            @endif
+                            @if($delete_capability_exists)
                             <button wire:click="rejected({{ $auction['auction']['id'] }})" class="btn border-slate-200 hover:border-slate-300">
                                 <svg class="w-4 h-4 fill-current text-rose-500 shrink-0" viewBox="0 0 16 16">
                                     <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
                                 </svg>
                             </button>
+                            @endif
                      </td>
                      @endif
                         </tr> 

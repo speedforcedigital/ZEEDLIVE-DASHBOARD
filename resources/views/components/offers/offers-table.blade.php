@@ -1,3 +1,15 @@
+<?php
+$array = Session::get('permissions');
+//verification
+$verification_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Offers']) && in_array('verification', $item['Offers'])) {
+    $verification_capability_exists = true;
+    break;
+  }
+} 
+
+?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
@@ -79,11 +91,13 @@
                             </td>
                             
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            @if($verification_capability_exists)
                             <button wire:click="accept({{ $offer['offer_id'] }})" class="btn border-slate-200 hover:border-slate-300">
                             <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
                                     <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
                                 </svg>
                             </button>
+                            @endif
    
                      </td>
                         </tr> 

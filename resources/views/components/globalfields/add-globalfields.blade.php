@@ -36,10 +36,6 @@
                     @endforeach
                     <button wire:click.prevent="addField" style="font-size: large;font-weight: bold;">Add more</button>
 
-                
-
-
-
                    </div>
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">
                 <div></div>
@@ -48,11 +44,16 @@
                 <div></div>
                 <div></div>
                 <div>
-                   <button wire:click="addGlobalField()" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                <input type="hidden" wire:model="global_field_id">
+                   <button wire:click="addGlobalField()" wire:loading.class="opacity-50 cursor-wait" wire:target="addGlobalField" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2"><?= $this->updateMode ? 'Update Global Field' : 'Add Global Field' ?></span>
+                    <span class="hidden xs:block ml-2">
+                        
+                    <span wire:loading wire:target="addGlobalField" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <?= $this->updateMode ? 'Update Global Field' : 'Add Global Field' ?>
+                    </span>
                 </button>
                </div>
 

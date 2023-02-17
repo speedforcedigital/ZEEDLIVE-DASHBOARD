@@ -1,3 +1,23 @@
+<?php
+$array = Session::get('permissions');
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Seller Verification']) && in_array('list', $item['Seller Verification'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+
+//filter
+$filter_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Seller Verification']) && in_array('filter', $item['Seller Verification'])) {
+    $filter_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -16,16 +36,19 @@
                 <!-- Delete button -->
                 <x-actions.delete-button />
                 <!-- Add customer button -->
+                @if($filter_capability_exists)
                 <button wire:click="filterSeller('pending')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='pending' || $this->filterType=='') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Pending</button>
                 <button wire:click="filterSeller('verified')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='verified') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Verified</button>
                 <button wire:click="filterSeller('rejected')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='rejected') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Rejected</button>
+                @endif
             </div>
 
         </div>
 
         <!-- Table -->
-    
+    @if($list_capability_exists)
     <x-sellers.sellers-table :sellers="$sellers" :count="$total_sellers" />
+    @endif
     <!-- Pagination -->
    <div class="mt-8">
             {{$sellers->links()}}

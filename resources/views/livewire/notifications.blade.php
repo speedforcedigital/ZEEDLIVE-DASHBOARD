@@ -1,3 +1,22 @@
+<?php
+$array = Session::get('permissions');
+//add
+$add_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Notifications']) && in_array('add', $item['Notifications'])) {
+    $add_capability_exists = true;
+    break;
+  }
+} 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Notifications']) && in_array('list', $item['Notifications'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -19,7 +38,7 @@
 
                 <!-- Delete button -->
                 <x-actions.delete-button />
-                @if(!$addNotification && !$updateMode)
+                @if(!$addNotification && !$updateMode && $add_capability_exists)
                 <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Notification</button>
                 @endif
             </div>
@@ -32,7 +51,9 @@
     @elseif($updateMode)
     <x-notification.add-notification />
     @else
+    @if($list_capability_exists)
     <x-notification.notification-table :notification="$notification" :count="$total_notification" />
+    @endif
     @endif
    <!-- Pagination -->
    <div class="mt-8">

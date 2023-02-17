@@ -7,6 +7,14 @@ foreach ($array as $item) {
     $add_capability_exists = true;
     break;
   }
+} 
+//list
+$list_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Category']) && in_array('list', $item['Category'])) {
+    $list_capability_exists = true;
+    break;
+  }
 }
 ?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -43,7 +51,9 @@ foreach ($array as $item) {
     @elseif($updateMode)
     <x-categories.add-category />
     @else
+    @if($list_capability_exists)
     <x-categories.categories-table :categories="$categories" :count="$total_categories" />
+    @endif
     @endif
    <!-- Pagination -->
    <div class="mt-8">
