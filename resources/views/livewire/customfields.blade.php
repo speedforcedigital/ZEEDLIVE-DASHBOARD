@@ -45,7 +45,7 @@ foreach ($array as $item) {
                 <!-- Filter button -->
                 <!-- <x-dropdown-filter align="right" /> -->
                 <!-- Add customer button -->
-                @if(!$this->addCustomField && $add_capability_exists)
+                @if(!$this->addCustomField && $add_capability_exists && !$this->updateMode)
                 <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Custom Field</button>
                 @endif
             </div>

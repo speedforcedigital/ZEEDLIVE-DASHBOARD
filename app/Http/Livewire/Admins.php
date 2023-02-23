@@ -74,7 +74,7 @@ class Admins extends Component
     {
         $validatedDate = $this->validateOnly($field,[
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'mobile' => 'required',
             'gender' => 'required',
             'password' => 'required',
@@ -85,7 +85,7 @@ class Admins extends Component
     {
         $validatedDate = $this->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'mobile' => 'required',
             'gender' => 'required',
             'password' => 'required',
@@ -106,18 +106,36 @@ class Admins extends Component
         $permissions = json_encode($json);
         
          $image = $this->image;
-         $path = $image->getRealPath();
-         $postData = [
-             'role' => 'Admin',
-             'name' => $this->name,
-             'email' => $this->email,
-             'mobile' => $this->mobile,
-             'gender' => $this->gender,
-             'type' => $this->type,
-             'password' => $this->password,
-             'permissions' => $permissions,
-             'image' => new \CURLFile($path, "image/jpeg",$image),
-         ];
+         if(is_file($image))
+         {
+            $path = $image->getRealPath();
+            $image = new \CURLFile($path, "image/jpeg",$image);
+            $postData = [
+                'role' => 'Admin',
+                'name' => $this->name,
+                'email' => $this->email,
+                'mobile' => $this->mobile,
+                'gender' => $this->gender,
+                'type' => $this->type,
+                'password' => $this->password,
+                'permissions' => $permissions,
+                'image' => $image,
+            ];
+         }
+         else
+         {
+            $postData = [
+                'role' => 'Admin',
+                'name' => $this->name,
+                'email' => $this->email,
+                'mobile' => $this->mobile,
+                'gender' => $this->gender,
+                'type' => $this->type,
+                'password' => $this->password,
+                'permissions' => $permissions,
+            ];
+         }
+         
         $url = ($this->user_id) ? baseUrl()."update/user/details/".$this->user_id : baseUrl()."create/users";
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']==1)

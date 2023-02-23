@@ -11,7 +11,7 @@ use CURLFile;
 class Categories extends Component
 {
     use WithFileUploads;
-    public $category_id, $name, $image;
+    public $category_id, $name, $image,$testImage;
     public $addCategory = false;
     public $updateMode = false;
     public function render()
@@ -54,11 +54,21 @@ class Categories extends Component
             'image' => 'required',
         ]);
         $image = $this->image;
+        if(is_file($image)) 
+        {
         $path = $image->getRealPath();
+        $image = new \CURLFile($path, "image/jpeg",$image);
         $postData = [
             'name' => $this->name,
-            'image' => new \CURLFile($path, "image/jpeg",$image),
+            'image' => $image,
         ];
+        } 
+        else 
+        {
+        $postData = [
+            'name' => $this->name,
+        ];
+        }
         $url = ($this->category_id) ? baseUrl()."edit/category/".$this->category_id : baseUrl()."add/category";
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']=true)

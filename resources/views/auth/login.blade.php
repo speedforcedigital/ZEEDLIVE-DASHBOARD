@@ -1,10 +1,5 @@
 <x-authentication-layout>
-    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('ZEEDLIVE') }} ✨</h1>
-    @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-    @endif   
+    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('ZEEDLIVE') }} ✨</h1>   
     <!-- Form -->
     <form method="POST" action="/admin/login">
         @csrf

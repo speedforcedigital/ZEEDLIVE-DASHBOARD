@@ -59,12 +59,24 @@ class Models extends Component
             'image' => 'required',
         ]);
         $image = $this->image;
-        $path = $image->getRealPath();
-        $postData = [
-            'brand_id' => $this->brand_id,
-            'name' => $this->name,
-            'image' => new \CURLFile($path, "image/jpeg",$image),
+        if(is_file($image))
+        {
+            $path = $image->getRealPath();
+            $image = new \CURLFile($path, "image/jpeg",$image);
+            $postData = [
+                'brand_id' => $this->brand_id,
+                'name' => $this->name,
+                'image' => $image,
+            ];
+        }
+        else
+        {
+            $postData = [
+                'brand_id' => $this->brand_id,
+                'name' => $this->name,
         ];
+        }
+        
         $url = ($this->model_id) ? baseUrl()."edit/modal/".$this->model_id : baseUrl()."add/modal";
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']=true)

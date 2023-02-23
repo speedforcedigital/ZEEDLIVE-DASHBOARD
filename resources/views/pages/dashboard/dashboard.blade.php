@@ -63,10 +63,10 @@
                             </div>
                         </td>
                         <td class="p-2">
-                            <div class="text-center">2.4K</div>
+                            <div class="text-center">{{$value['followers']}}</div>
                         </td>
                         <td class="p-2">
-                            <div class="text-center text-emerald-500">3.1k</div>
+                            <div class="text-center text-emerald-500">{{$value['followings']}}</div>
                         </td>
                         
                         <td class="p-2">

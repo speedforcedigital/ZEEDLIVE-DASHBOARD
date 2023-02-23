@@ -196,6 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
 
     ],
 
@@ -210,6 +211,11 @@ return [
     |
     */
 
+    'aliases' => [
+        // Other aliases
+        'Toastr' => Yoeunes\Toastr\Facades\Toastr::class,
+    ],
+    
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

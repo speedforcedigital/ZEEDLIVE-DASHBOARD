@@ -13,6 +13,7 @@ class Auctions extends Component
     {
     $url = baseUrl().'list/all/auction';
     $data = makeCurlRequest($url, 'GET');
+    // echo "<pre>";print_r($data);die();
     if($this->filterAuction || $this->filterType)
     {
         $auctions = $this->filterAuction;

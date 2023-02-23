@@ -61,12 +61,23 @@ class Brands extends Component
             'category_id' => 'required',
         ]);
         $image = $this->image;
-        $path = $image->getRealPath();
-        $postData = [
-            'category_id' => $this->category_id,
-            'name' => $this->name,
-            'image' => new \CURLFile($path, "image/jpeg",$image),
-        ];
+        if(is_file($image))
+        {
+            $path = $image->getRealPath();
+            $image = new \CURLFile($path, "image/jpeg",$image);
+            $postData = [
+                'category_id' => $this->category_id,
+                'name' => $this->name,
+                'image' => $image,
+            ];
+        }
+        else
+        {
+            $postData = [
+                'category_id' => $this->category_id,
+                'name' => $this->name,
+            ];
+        }
         $url = ($this->brand_id) ? baseUrl()."edit/brand/".$this->brand_id : baseUrl()."add/brand";
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']=true)
@@ -93,7 +104,7 @@ class Brands extends Component
     if($data['success']=true)
     {
         $this->dispatchBrowserEvent('alert', 
-                ['type' => 'success',  'message' => ''.$data['Message'].'']);
+                ['type' => 'success',  'message' => ''.$data['message'].'']);
     }
     }
     public function edit($id)

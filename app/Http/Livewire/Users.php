@@ -99,7 +99,7 @@ class Users extends Component
     {
         $validatedDate = $this->validateOnly($field,[
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'mobile' => 'required',
             'gender' => 'required',
             'role' => 'required',
@@ -111,24 +111,40 @@ class Users extends Component
     {
         $validatedDate = $this->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'mobile' => 'required',
             'gender' => 'required',
             'role' => 'required',
             'password' => 'required',
         ]);
         $image = $this->image;
-        $path = $image->getRealPath();
-        $postData = [
-            'role_id' => $this->role,
-            'name' => $this->name,
-            'email' => $this->email,
-            'mobile' => $this->mobile,
-            'gender' => $this->gender,
-            'type' => $this->type,
-            'password' => $this->password,
-            'image' => new \CURLFile($path, "image/jpeg",$image),
-        ];
+        if(is_file($image))
+        {
+            $path = $image->getRealPath();
+            $image = new \CURLFile($path, "image/jpeg",$image);
+            $postData = [
+                'role_id' => $this->role,
+                'name' => $this->name,
+                'email' => $this->email,
+                'mobile' => $this->mobile,
+                'gender' => $this->gender,
+                'type' => $this->type,
+                'password' => $this->password,
+                'image' => $image,
+            ];
+        }
+        else
+        {
+            $postData = [
+                'role_id' => $this->role,
+                'name' => $this->name,
+                'email' => $this->email,
+                'mobile' => $this->mobile,
+                'gender' => $this->gender,
+                'type' => $this->type,
+                'password' => $this->password,
+            ];
+        }
         $url = baseUrl()."update/user/details/".$this->user_id;
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']==1)

@@ -82,7 +82,7 @@ $keys = array_unique($keys);
                     <!-- Categories -->
                     @if(in_array('Category', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
-                        <a @click="handleClick" data-attr="category" class="block text-slate-200 sameNav hover:text-white truncate transition duration-150" href="/categories">
+                        <a data-attr="category" class="block text-slate-200 sameNav hover:text-white truncate transition duration-150" href="/categories">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -291,9 +291,3 @@ $keys = array_unique($keys);
 
     </div>
 </div>
-
-<script>
-    function handleClick(e) {
-       
-    }
-</script>

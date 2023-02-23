@@ -5,6 +5,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Http;
     use Session;
+    use Toastr;
     class Login extends Controller
     {
 
@@ -17,23 +18,23 @@
             $postData = json_encode($postData);
             $url = "https://api.staging.zeedlive.com/api/v1/login";
             $data = makeCurlPostRequest($url, 'POST',$postData);
-            $permissions = $data['user']['accountDetail']['permissions'];
-            $permissions = json_decode($permissions);
-            $permissions = json_decode($permissions, true);
-            // echo "<pre>";print_r($permissions);die();
-            if($data['success']==1)
+            if($data['success']=='')
             {
-                Session::put('token', $data['token']);
-                Session::put('name', $data['user']['name']);
-                Session::put('rank', $data['user']['rank']);
-                Session::put('profile_image', $data['user']['accountDetail']['profile_image']);
-                Session::put('permissions', $permissions);
-                return redirect('/dashboard');
-            }
-            elseif($data['success']=='')
-            {
-                Session::flash('status', ''.$data['message'].'');
+                Toastr::error($data['message'], 'Error');
                 return redirect('/');
             }
+            else
+            {
+                    $permissions = $data['user']['accountDetail']['permissions'];
+                    $permissions = json_decode($permissions);
+                    $permissions = json_decode($permissions, true);
+                    Session::put('token', $data['token']);
+                    Session::put('name', $data['user']['name']);
+                    Session::put('rank', $data['user']['rank']);
+                    Session::put('profile_image', $data['user']['accountDetail']['profile_image']);
+                    Session::put('permissions', $permissions);
+                    return redirect('/dashboard');
+            }
+              
         } 
     }
