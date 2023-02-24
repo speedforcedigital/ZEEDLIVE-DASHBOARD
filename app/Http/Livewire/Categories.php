@@ -11,7 +11,7 @@ use CURLFile;
 class Categories extends Component
 {
     use WithFileUploads;
-    public $category_id, $name, $image,$testImage;
+    public $category_id, $name, $image;
     public $addCategory = false;
     public $updateMode = false;
     public function render()

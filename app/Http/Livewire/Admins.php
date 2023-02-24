@@ -143,6 +143,11 @@ class Admins extends Component
             $this->dispatchBrowserEvent('alert', 
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
+        else
+        {
+            $this->dispatchBrowserEvent('alert', 
+                    ['type' => 'error',  'message' => ''.$data['message'].'']);
+        }
         $this->updateMode = false;
         $this->addUser = false;
         $this->resetInputFields();
