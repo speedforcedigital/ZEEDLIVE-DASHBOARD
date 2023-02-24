@@ -17,6 +17,7 @@ class Admins extends Component
     public $rolePermission = false;
     public function render()
     {
+    //test
     $url = baseUrl().'all/users';
     $data = makeCurlRequest($url, 'GET');
     $admins = $data['User'];
