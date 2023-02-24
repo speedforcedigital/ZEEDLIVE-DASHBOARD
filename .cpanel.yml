@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/zeedlive/public_html/
+    - export DEPLOYPATH=/home/zeedlive/public_html/dashboard.zeedlive.com/
     - /bin/cp * $DEPLOYPATH
