@@ -2,7 +2,8 @@
 $array = Session::get('permissions');
 //delete
 $delete_capability_exists = false;
-foreach ($array as $item) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
   if (isset($item['Brand']) && in_array('delete', $item['Brand'])) {
     $delete_capability_exists = true;
     break;
@@ -10,7 +11,8 @@ foreach ($array as $item) {
 } 
 //edit
 $edit_capability_exists = false;
-foreach ($array as $item) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
   if (isset($item['Brand']) && in_array('edit', $item['Brand'])) {
     $edit_capability_exists = true;
     break;
@@ -48,18 +50,14 @@ foreach ($array as $item) {
                 <!-- Table body -->
                 <tbody class="text-sm divide-y divide-slate-200">
                     <!-- Row -->
-                    <?php $i=0; ?>
+                    <?php $perPage = 10; $startingPoint = (($brands->currentPage() - 1) * $perPage) + 1; ?>
                     @foreach($brands as $brand)
-                    <?php $i++;?>
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{$i}}</div>
+                            <div class="text-left">{{$startingPoint++}}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
-                                    <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="https://api.staging.zeedlive.com/image/brand/{{$brand['image']}}"" width="40" height="40" alt="Patricia Semklo" style="height:45px;width:45px;">
-                                    </div>
                                     <div class="font-medium text-slate-800">{{$brand['name']}}</div>
                                 </div>
                             </td>

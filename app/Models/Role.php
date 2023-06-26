@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Campaign extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    public function members()
+    protected $fillable = [
+        'name'
+    ];
+
+    public function User()
     {
-        return $this->belongsToMany(Marketer::class);
-    }    
+        return $this->hasOne(User::class);
+    }
 }

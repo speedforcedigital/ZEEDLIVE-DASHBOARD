@@ -68,6 +68,6 @@ function makeCurlFileRequest($url,$method,$postData)
 
 function baseUrl()
 {
-    return 'https://api.staging.zeedlive.com/api/v1/admin/';
+    return 'https://api.zeedlive.com/api/v1/admin/';
 }
 ?>

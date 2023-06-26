@@ -10,7 +10,9 @@
            
             {{ucfirst($key)}}
         </h2>
+        @if(ucfirst($key) === 'Pending')
         <div class="text-xs font-semibold text-slate-400 uppercase mb-1">Total Pending Auctions</div>
+        @endif
         <div class="flex items-start">
             <div class="text-3xl font-bold text-slate-800 mr-2">{{$val}}</div>
         </div>

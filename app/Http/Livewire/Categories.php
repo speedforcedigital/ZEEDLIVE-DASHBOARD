@@ -8,6 +8,8 @@ use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\WithFileUploads;
 use CURLFile;
+use App\Models\Category;
+
 class Categories extends Component
 {
     use WithFileUploads;
@@ -16,24 +18,11 @@ class Categories extends Component
     public $updateMode = false;
     public function render()
     {
-    $url = baseUrl().'list/category';
-    $data = makeCurlRequest($url, 'GET');
-    $categories = $data['Categories'];
-    $total_categories = $data['total_category'];
-    //pagination
-    $page = request()->query('page', 1);
-    $perPage = 10;
-    $categories = new LengthAwarePaginator(
-        array_slice($categories, ($page - 1) * $perPage, $perPage),
-        count($categories),
-        $perPage,
-        $page,
-        [
-            'path' => request()->url(),
-            'query' => request()->query()
-        ]
-    );
-        return view('livewire.categories', compact('categories', 'total_categories'));
+        $perPage = 10;
+        $categories = Category::paginate($perPage);
+        $total_categories = Category::count();
+    
+        return view('livewire.categories', compact('categories', 'total_categories'));    
     }
 
     public function add()
@@ -44,38 +33,41 @@ class Categories extends Component
     {
         $validatedDate = $this->validateOnly($field,[
             'name' => 'required',
-            'image' => 'required',
+            'image' => 'nullable',
         ]);
     }
     public function addCategory()
     {
-        $validatedDate = $this->validate([
+        $validatedData = $this->validate([
             'name' => 'required',
-            'image' => 'required',
+            'image' => 'nullable',
         ]);
+
         $image = $this->image;
-        if(is_file($image)) 
-        {
-        $path = $image->getRealPath();
-        $image = new \CURLFile($path, "image/jpeg",$image);
-        $postData = [
-            'name' => $this->name,
-            'image' => $image,
-        ];
-        } 
-        else 
-        {
-        $postData = [
-            'name' => $this->name,
-        ];
+        if (is_file($image)) {
+            $path = $image->getRealPath();
+            $image = new \CURLFile($path, "image/jpeg", $image);
+            $postData = [
+                'name' => $this->name,
+                'image' => $image,
+            ];
+        } else {
+            $postData = [
+                'name' => $this->name,
+            ];
         }
-        $url = ($this->category_id) ? baseUrl()."edit/category/".$this->category_id : baseUrl()."add/category";
-        $data = makeCurlFileRequest($url, 'POST',$postData);
-        if($data['success']=true)
-        {
-            $this->dispatchBrowserEvent('alert', 
-                    ['type' => 'success',  'message' => ''.$data['Message'].'']);
+
+        $url = ($this->category_id) ? baseUrl() . "edit/category/" . $this->category_id : baseUrl() . "add/category";
+        $data = makeCurlFileRequest($url, 'POST', $postData);
+
+        if (isset($data['success']) && $data['success'] == true) {
+            $message = isset($data['Message']) ? $data['Message'] : 'Category added successfully.';
+            $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => $message]);
+        } else {
+            $message = isset($data['Message']) ? $data['Message'] : 'Failed to add category. Please try again.';
+            $this->dispatchBrowserEvent('alert', ['type' => 'error', 'message' => $message]);
         }
+
         $this->addCategory = false;
         $this->updateMode = false;
         $this->resetInputFields();

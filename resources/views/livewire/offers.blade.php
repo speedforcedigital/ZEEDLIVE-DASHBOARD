@@ -2,7 +2,8 @@
 $array = Session::get('permissions'); 
 //list
 $list_capability_exists = false;
-foreach ($array as $item) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
   if (isset($item['Offers']) && in_array('list', $item['Offers'])) {
     $list_capability_exists = true;
     break;

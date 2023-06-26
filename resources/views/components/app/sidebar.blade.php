@@ -1,7 +1,8 @@
 <?php 
 $array = Session::get('permissions');
 $keys = array();
-foreach ($array as $element) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $element) {
 $keys = array_merge($keys, array_keys($element));
 }
 $keys = array_unique($keys);

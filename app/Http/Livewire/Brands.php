@@ -7,6 +7,7 @@ use App\Helpers\baseUrl;
 use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\WithFileUploads;
+use App\Models\Brand;
 class Brands extends Component
 {
     use WithFileUploads;
@@ -16,23 +17,10 @@ class Brands extends Component
     public $categoryList = false;
     public function render()
     {
-    $url = baseUrl().'list/brand';
-    $data = makeCurlRequest($url, 'GET');
-    $brands = $data['Brands'];
-    $total_brand = $data['total_brand'];
-    //pagination
-    $page = request()->query('page', 1);
-    $perPage = 10;
-    $brands = new LengthAwarePaginator(
-        array_slice($brands, ($page - 1) * $perPage, $perPage),
-        count($brands),
-        $perPage,
-        $page,
-        [
-            'path' => request()->url(),
-            'query' => request()->query()
-        ]
-    );
+        $perPage = 10;
+        $brands = Brand::paginate($perPage);
+        $total_brand = Brand::count();
+
         return view('livewire.brands', compact('brands', 'total_brand'));
     }
 

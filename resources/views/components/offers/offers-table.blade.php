@@ -60,27 +60,27 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="https://api.staging.zeedlive.com/image/user_profile/{{$offer['offer_sender'][0]['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
+                                        <img class="rounded-full" src="https://api.zeedlive.com/image/user_profile/{{$offer['user']['accountDetail']['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
-                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['offer_sender'][0]['name'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['user']['name'] }}</a></div>
                                 </div>
                             </td>
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="https://api.staging.zeedlive.com/image/collection/{{$offer['offer_collection'][0]['image']}}" width="40" height="40" alt="Patricia Semklo">
+                                        <img class="rounded-full" src="https://api.zeedlive.com/image/collection/{{$offer['collection']['image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
-                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['offer_collection'][0]['title'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['collection']['title'] }}</a></div>
                                 </div>
                             </td>
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="https://api.staging.zeedlive.com/image/user_profile/{{$offer['offer_receiver'][0]['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
+                                        <img class="rounded-full" src="https://api.zeedlive.com/image/user_profile/{{$offer['receiver']['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
-                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['offer_receiver'][0]['name'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['receiver']['name'] }}</a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

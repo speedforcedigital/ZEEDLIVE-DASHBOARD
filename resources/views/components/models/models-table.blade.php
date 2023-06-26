@@ -48,12 +48,11 @@ foreach ($array as $item) {
                 <!-- Table body -->
                 <tbody class="text-sm divide-y divide-slate-200">
                     <!-- Row -->
-                    <?php $i=0; ?>
+                    <?php $perPage = 10; $startingPoint = (($models->currentPage() - 1) * $perPage) + 1; ?>
                     @foreach($modals as $modal)
-                    <?php $i++;?>
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{$i}}</div>
+                                <div class="text-left">{{$startingPoint++}}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">

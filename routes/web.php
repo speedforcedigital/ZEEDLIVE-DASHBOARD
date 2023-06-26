@@ -7,7 +7,7 @@ use App\Http\Livewire\Models;
 use App\Http\Livewire\Sellers;
 use App\Http\Livewire\Auctions;
 use App\Http\Livewire\Notifications;
-use App\Http\Livewire\Offers;
+use App\Http\Livewire\OffersList;
 use App\Http\Livewire\customFields;
 use App\Http\Livewire\globalFields;
 use App\Http\Livewire\Admins;
@@ -36,7 +36,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/sellers', Sellers::class);
     Route::get('/auctions', Auctions::class);
     Route::get('/notifications', Notifications::class);
-    Route::get('/offers', Offers::class);
+    Route::get('/offers', OffersList::class);
     Route::get('/custom/fields', customFields::class);
     Route::get('/global/fields', globalFields::class);
     Route::get('/admins', Admins::class);

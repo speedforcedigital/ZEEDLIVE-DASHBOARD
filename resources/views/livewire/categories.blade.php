@@ -2,7 +2,8 @@
 $array = Session::get('permissions');
 //add
 $add_capability_exists = false;
-foreach ($array as $item) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
   if (isset($item['Category']) && in_array('add', $item['Category'])) {
     $add_capability_exists = true;
     break;
@@ -10,7 +11,7 @@ foreach ($array as $item) {
 } 
 //list
 $list_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Category']) && in_array('list', $item['Category'])) {
     $list_capability_exists = true;
     break;
