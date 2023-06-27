@@ -50,8 +50,6 @@
                 'permissions' => json_decode(Auth::user()->accountDetail->permissions, true),
             ]);
 
-            dd(session()->all());
-
             return redirect()->to('/dashboard');
               
         } 
