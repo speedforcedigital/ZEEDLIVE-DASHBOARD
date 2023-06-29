@@ -21,8 +21,11 @@ class Categories extends Component
         $perPage = 10;
         $categories = Category::paginate($perPage);
         $total_categories = Category::count();
-    
-        return view('livewire.categories', compact('categories', 'total_categories'));
+
+        return view('livewire.categories', [
+            'categories' => $categories,
+            'total_categories' => $total_categories
+        ]);
     }
 
     public function add()
