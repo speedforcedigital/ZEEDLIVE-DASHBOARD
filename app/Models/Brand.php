@@ -41,7 +41,7 @@ class Brand extends Model
 
     public function models()
     {
-        return $this->hasMany(Model::class, 'brand_id');
+        return $this->hasMany(Modal::class, 'brand_id');
     }    
 
     /**
