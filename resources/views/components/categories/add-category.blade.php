@@ -123,7 +123,7 @@
                 wire:change="selectModel($event.target.value)"
                 @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
                 <option value="">Select a model</option>
-                @if ($selectedBrand)
+                @if (!empty($selectedBrand))
                     @foreach ($selectedBrand->models as $model)
                         <option value="{{ $model->id }}">{{ $model->name }}</option>
                     @endforeach
