@@ -23,6 +23,12 @@
                                 </button>
                             </div>
                             @error('category')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+                            <select size="7" class="custom-select mt-2" disabled>
+                                <!-- Populate with categories from backend -->
+                                <option>Category 1</option>
+                                <option>Category 2</option>
+                                <option>Category 3</option>
+                            </select>
                         </div>
                         <!-- End -->
                     </div>
@@ -40,6 +46,12 @@
                                 </button>
                             </div>
                             @error('brand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+                            <select size="7" class="custom-select mt-2" disabled>
+                                <!-- Populate with brands from backend -->
+                                <option>Brand 1</option>
+                                <option>Brand 2</option>
+                                <option>Brand 3</option>
+                            </select>
                         </div>
                         <!-- End -->
                     </div>
@@ -57,6 +69,12 @@
                                 </button>
                             </div>
                             @error('model')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+                            <select size="7" class="custom-select mt-2" disabled>
+                                <!-- Populate with models from backend -->
+                                <option>Model 1</option>
+                                <option>Model 2</option>
+                                <option>Model 3</option>
+                            </select>
                         </div>
                         <!-- End -->
                     </div>
