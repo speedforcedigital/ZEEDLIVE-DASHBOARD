@@ -71,6 +71,8 @@ class Categories extends Component
         $this->addCategory = false;
         $this->updateMode = false;
         $this->resetInputFields();
+
+        return View::make('components.categories.add-category');
     }
     private function resetInputFields()
     {

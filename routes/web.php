@@ -32,8 +32,10 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/users', Users::class);
 
     Route::get('/categories', Categories::class);
-    Route::get('/categories/add', [Categories::class, 'add'])->name('categories.add');
-
+    Route::get('/categories/add', function () {
+        return view('components.categories.add-category');
+    })->name('categories.add');
+    
     Route::get('/brands', Brands::class);
     Route::get('/models', Models::class);
     Route::get('/sellers', Sellers::class);
