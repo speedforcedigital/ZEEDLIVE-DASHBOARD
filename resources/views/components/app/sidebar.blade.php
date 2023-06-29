@@ -2,10 +2,15 @@
 $array = Session::get('permissions');
 $keys = array();
 $permissionsArray = json_decode($array, true);
-foreach ($permissionsArray as $element) {
-$keys = array_merge($keys, array_keys($element));
+
+if (is_array($permissionsArray)) {
+    foreach ($permissionsArray as $element) {
+        $keys = array_merge($keys, array_keys($element));
+    }
+    $keys = array_unique($keys);
+} else {
+    $permissionsArray = array(); // Assign an empty array if $permissionsArray is null or not an array
 }
-$keys = array_unique($keys);
 ?>
 <div>
     <!-- Sidebar backdrop (mobile only) -->
