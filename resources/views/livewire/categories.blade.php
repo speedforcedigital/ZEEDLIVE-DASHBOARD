@@ -1,3 +1,23 @@
+<?php
+$array = Session::get('permissions');
+//add
+$add_capability_exists = false;
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
+  if (isset($item['Category']) && in_array('add', $item['Category'])) {
+    $add_capability_exists = true;
+    break;
+  }
+} 
+//list
+$list_capability_exists = false;
+foreach ($permissionsArray as $item) {
+  if (isset($item['Category']) && in_array('list', $item['Category'])) {
+    $list_capability_exists = true;
+    break;
+  }
+}
+?>
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
     <!-- Page header -->
     <div class="sm:flex sm:justify-between sm:items-center mb-8">
