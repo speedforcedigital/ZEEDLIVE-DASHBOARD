@@ -8,7 +8,7 @@
 
             <!-- Input Types -->
             <div>
-                <div class="grid gap-5 md:grid-cols-3"> <!-- Changed to 3 columns -->
+                <div class="grid gap-5 md:grid-cols-2"> <!-- Changed to 2 columns -->
 
                     <div>
                         <!-- Start -->
@@ -23,11 +23,13 @@
                                 </button>
                             </div>
                             @error('category')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-                            <select class="custom-select mt-2" disabled>
+                            <select size="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled>
                                 <!-- Populate with categories from backend -->
                                 <option>Category 1</option>
                                 <option>Category 2</option>
                                 <option>Category 3</option>
+                                <option>Category 4</option>
+                                <option>Category 5</option>
                             </select>
                         </div>
                         <!-- End -->
@@ -46,39 +48,46 @@
                                 </button>
                             </div>
                             @error('brand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-                            <select size="7" class="custom-select mt-2" disabled>
+                            <select size="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled>
                                 <!-- Populate with brands from backend -->
                                 <option>Brand 1</option>
                                 <option>Brand 2</option>
                                 <option>Brand 3</option>
+                                <option>Brand 4</option>
+                                <option>Brand 5</option>
                             </select>
                         </div>
                         <!-- End -->
                     </div>
 
+                </div>
+            </div>
+
+            <!-- Additional Column -->
+            <div>
+                <div>
+                    <!-- Start -->
                     <div>
-                        <!-- Start -->
-                        <div>
-                            <label class="block text-sm font-medium mb-1" for="model">Model <span class="text-rose-500">*</span></label>
-                            <div class="flex">
-                                <input id="model" class="form-input w-full" type="text" wire:model="model" required />
-                                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addModel">
-                                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            @error('model')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-                            <select size="7" class="custom-select mt-2" disabled>
-                                <!-- Populate with models from backend -->
-                                <option>Model 1</option>
-                                <option>Model 2</option>
-                                <option>Model 3</option>
-                            </select>
+                        <label class="block text-sm font-medium mb-1" for="model">Model <span class="text-rose-500">*</span></label>
+                        <div class="flex">
+                            <input id="model" class="form-input w-full" type="text" wire:model="model" required />
+                            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addModel">
+                                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                                </svg>
+                            </button>
                         </div>
-                        <!-- End -->
+                        @error('model')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+                        <select size="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" disabled>
+                            <!-- Populate with models from backend -->
+                            <option>Model 1</option>
+                            <option>Model 2</option>
+                            <option>Model 3</option>
+                            <option>Model 4</option>
+                            <option>Model 5</option>
+                        </select>
                     </div>
-
+                    <!-- End -->
                 </div>
             </div>
 
