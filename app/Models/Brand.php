@@ -39,7 +39,7 @@ class Brand extends Model
         return $this->belongsTo('App\Models\Modal', 'id', 'brand_id');
     }
 
-    public function models()
+    public function modals()
     {
         return $this->hasMany(Modal::class, 'brand_id');
     }    

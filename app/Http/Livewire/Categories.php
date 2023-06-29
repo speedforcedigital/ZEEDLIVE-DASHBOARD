@@ -110,7 +110,7 @@ class Categories extends Component
 
     public function selectBrand($brandId)
     {
-        $this->selectedBrand = Brand::with('models')->find($brandId);
+        $this->selectedBrand = Brand::with('modals')->find($brandId);
         // dd($this->selectedBrand);
         $this->selectedModel = null; // Reset the selected model when a new brand is selected
     }
