@@ -16,6 +16,11 @@ class Categories extends Component
     public $selectedBrand;
     public $selectedModel;
 
+    protected $rules = [
+        'name' => 'required',
+        'selectedCategory' => 'required',
+    ];
+
     public function render()
     {
         $perPage = 10;
