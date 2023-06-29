@@ -98,6 +98,7 @@ class Categories extends Component
     public function selectCategory($category)
     {
         $this->selectedCategory = $category;
+        dd($category);
         $this->selectedBrand = null;
         $this->selectedModel = null; // Reset the selected model when a new category is selected
     }
