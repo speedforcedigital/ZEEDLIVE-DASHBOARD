@@ -21,11 +21,13 @@ class Categories extends Component
         $perPage = 10;
         $categories = Category::paginate($perPage);
         $total_categories = Category::count();
+        $selectedCategory = null;
 
         return view('livewire.categories', [
             'categories' => $categories,
-            'total_categories' => $total_categories
-        ]);
+            'total_categories' => $total_categories,
+            'selectedCategory' => $selectedCategory,
+        ]);    
     }
 
     public function add()
