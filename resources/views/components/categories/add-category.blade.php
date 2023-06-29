@@ -1,4 +1,4 @@
-@props(['categories'])
+@props(['categories', 'selectedCategory'])
 
 <style>
 .custom-select {
