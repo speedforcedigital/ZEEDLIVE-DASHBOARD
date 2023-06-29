@@ -36,7 +36,7 @@ class Categories extends Component
 
         return view('livewire.categories', [
             'categories' => $this->categories,
-            'categoriesPaginate' => $categories,
+            'categoriesPaginate' => $categoriesPaginate,
             'total_categories' => $total_categories,
             'selectedCategory' => $this->selectedCategory,
         ]);    
