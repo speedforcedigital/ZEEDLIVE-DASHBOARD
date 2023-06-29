@@ -117,4 +117,12 @@ class Categories extends Component
     {
         $this->selectedModel = $model;
     }
+
+    public function resetSelection()
+    {
+        $this->selectedCategory = null;
+        $this->selectedBrand = null;
+        $this->selectedModel = null;
+    }
+
 }
