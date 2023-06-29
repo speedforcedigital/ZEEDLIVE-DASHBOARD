@@ -8,6 +8,7 @@
     use App\Models\Lot;
     use App\Models\User;
     use Illuminate\Support\Facades\DB;
+    use App\Models\Followers;
 
     class DashboardController extends Controller
     {
