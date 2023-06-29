@@ -118,6 +118,7 @@ class Categories extends Component
     public function selectBrand($brandId)
     {
         $this->selectedBrand = $this->selectedCategory->brands->firstWhere('id', $brandId);
+        dd($this->selectedBrand);
         $this->selectedModal = null;
     }
 
