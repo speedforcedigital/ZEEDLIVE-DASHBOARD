@@ -53,11 +53,11 @@ foreach ($permissionsArray as $item) {
     <x-categories.add-category :categories="$categories" :selectedCategory="$selectedCategory" />
     @else
     @if($list_capability_exists)
-    <x-categories.categories-table :categories="$categories" :count="$total_categories" />
+    <x-categories.categories-table :categories="$categoriesPaginate" :count="$total_categories" />
     @endif
     @endif
    <!-- Pagination -->
    <div class="mt-8">
-            {{$categories->links()}}
+            {{$categoriesPaginate->links()}}
         </div>
     </div>

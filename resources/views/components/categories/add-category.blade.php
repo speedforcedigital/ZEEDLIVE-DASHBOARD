@@ -140,8 +140,8 @@
                 @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
                 <option value="">Select a model</option>
                 @if (isset($selectedBrand) && $selectedBrand->modals)
-                    @foreach ($selectedBrand->modals as $model)
-                        <option value="{{ $model->id }}">{{ $model->name }}</option>
+                    @foreach ($selectedBrand->modals as $modal)
+                        <option value="{{ $modal->id }}">{{ $modal->name }}</option>
                     @endforeach
                 @endif
             </select>

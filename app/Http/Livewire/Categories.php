@@ -15,6 +15,7 @@ class Categories extends Component
     public $selectedCategory;
     public $selectedBrand;
     public $selectedModel;
+    public $categories;
 
     protected $rules = [
         'name' => 'required',
@@ -22,14 +23,20 @@ class Categories extends Component
         'selectedBrand' => 'required',
     ];
 
+    public function mount()
+    {
+        $this->categories = Category::with('brands.modals')->get();
+    }
+
     public function render()
     {
         $perPage = 10;
-        $categories = Category::paginate($perPage);
+        $categoriesPaginate = Category::paginate($perPage);
         $total_categories = Category::count();
 
         return view('livewire.categories', [
-            'categories' => $categories,
+            'categories' => $this->categories,
+            'categoriesPaginate' => $categories,
             'total_categories' => $total_categories,
             'selectedCategory' => $this->selectedCategory,
         ]);    
@@ -103,28 +110,27 @@ class Categories extends Component
 
     public function selectCategory($categoryId)
     {
-        $this->selectedCategory = Category::with('brands')->find($categoryId);
+        $this->selectedCategory = $this->categories->firstWhere('id', $categoryId);
         $this->selectedBrand = null;
-        $this->selectedModel = null; // Reset the selected model when a new category is selected
+        $this->selectedModal = null;
     }
 
     public function selectBrand($brandId)
     {
-        $this->selectedBrand = Brand::with('modals')->find($brandId);
-        // dd($this->selectedBrand);
-        $this->selectedModel = null; // Reset the selected model when a new brand is selected
+        $this->selectedBrand = $this->selectedCategory->brands->firstWhere('id', $brandId);
+        $this->selectedModal = null;
     }
 
-    public function selectModel($model)
+    public function selectModal($modalId)
     {
-        $this->selectedModel = $model;
+        $this->selectedModal = $this->selectedBrand->modals->firstWhere('id', $modalId);
     }
 
     public function resetSelection()
     {
         $this->selectedCategory = null;
         $this->selectedBrand = null;
-        $this->selectedModel = null;
+        $this->selectedModal = null;
     }
 
 }
