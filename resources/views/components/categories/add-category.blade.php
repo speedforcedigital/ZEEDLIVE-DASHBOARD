@@ -91,7 +91,7 @@
                     @endif
                 </select>
                 <button class="mt-2 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500"
-                    @if (!$selectedBrand) disabled @endif>
+                    @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
                     <span class="mr-1">Remove Selected Brand</span>
                     <svg class="w-4 h-4 fill-current opacity-75" viewBox="0 0 16 16">
                         <!-- Remove selected brand logic -->
