@@ -81,50 +81,46 @@
           </div>
 
           <div>
-            <!-- Start -->
-            <div>
-              <label class="block text-sm font-medium mb-1" for="brand">Brand <span class="text-rose-500">*</span></label>
-              <div class="flex">
+    <!-- Start -->
+        <div>
+            <label class="block text-sm font-medium mb-1" for="brand">
+                Brand <span class="text-rose-500">*</span>
+            </label>
+            <div class="flex">
                 <input id="brand" class="form-input w-full" type="text" required />
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand">
-                  <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                  </svg>
-                </button>
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M6.1 0H3.3C1.5 0 0 1.5 0 3.3v2.8C0 7.5 1.5 9 3.3 9h2.8C9 9 10.5 7.5 10.5 5.7V3.3C10.5 1.5 9 0 6.1 0zm0 7H3.3C2.1 7 1 5.9 1 4.7V3.3C1 2.1 2.1 1 3.3 1h2.8C7.9 1 9 2.1 9 3.3v1.4C9 5.9 7.9 7 6.7 7z" />
-                        <path d="M13.1 2H9V.9C9 .4 8.6 0 8.1 0H6.8C6.3 0 5.9.4 5.9.9V2H1.8C1.3 2 0 3.3 0 4.8v5.6C0 11.7 1.3 13 2.8 13h5.6c1.5 0 2.8-1.3 2.8-2.8V4.8C16 3.3 14.7 2 13.1 2zm1.5 8.4c0 .8-.7 1.5-1.5 1.5H2.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5H6v1.2c0 .5.4.9.9.9H8v1.2c0 .5.4.9.9.9H13v1.2z" />
-                    </svg>
-                </button>
-              </div>
-              @error('selectedBrand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-              <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedBrand ? 'no-scroll' : '' }}"
-                    wire:model="selectedBrandId"
-                    wire:change="selectBrand($event.target.value)"
-                    @if (!isset($selectedCategory) || empty($selectedCategory)) disabled @endif>
-                    <!-- Fetch brands from Brand model based on the selected category -->
-                    @if (isset($selectedCategory) && $selectedCategory->brands)
-                        @foreach ($selectedCategory->brands as $brand)
-                            <option value="{{ $brand->id }}" {{ $selectedBrand && $selectedBrand->id == $brand->id ? 'selected' : '' }} class="{{ $selectedBrand && $selectedBrand->id == $brand->id ? 'selected-brand' : '' }}">
-                                {{ $brand->name }}
-                            </option>
-                        @endforeach
-                        
-                    @endif
-                </select>
-                <button class="mt-2 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500"
-                    @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
-                    <span class="mr-1">Remove Selected Brand</span>
-                    <svg class="w-4 h-4 fill-current opacity-75" viewBox="0 0 16 16">
-                        <!-- Remove selected brand logic -->
+                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                 </button>
             </div>
-            <!-- End -->
-          </div>
+            @error('selectedBrand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+            <select size="5"
+                class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedBrand ? 'no-scroll' : '' }}"
+                wire:model="selectedBrandId" wire:change="selectBrand($event.target.value)"
+                @if (!isset($selectedCategory) || empty($selectedCategory) || $selectedBrand) disabled @endif>
+                <!-- Fetch brands from Brand model based on the selected category -->
+                @if (isset($selectedCategory) && $selectedCategory->brands)
+                    @foreach ($selectedCategory->brands as $brand)
+                        <option value="{{ $brand->id }}"
+                            {{ $selectedBrand && $selectedBrand->id == $brand->id ? 'selected' : '' }}
+                            class="{{ $selectedBrand && $selectedBrand->id == $brand->id ? 'selected-brand' : '' }}">
+                            {{ $brand->name }}
+                        </option>
+                    @endforeach
+                @endif
+            </select>
+            <button class="mt-2 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500"
+                @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
+                <span class="mr-1">Remove Selected Brand</span>
+                <svg class="w-4 h-4 fill-current opacity-75" viewBox="0 0 16 16">
+                    <!-- Remove selected brand logic -->
+                </svg>
+            </button>
         </div>
-      </div>
+        <!-- End -->
+    </div>
+
 
       <!-- Additional Column -->
       <div>
