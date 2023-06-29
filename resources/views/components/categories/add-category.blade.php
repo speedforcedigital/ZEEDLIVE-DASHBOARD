@@ -84,7 +84,7 @@
                     @if (!isset($selectedCategory) || empty($selectedCategory)) disabled @endif>
                     <option value="">Select a brand</option>
                     <!-- Fetch brands from Brand model based on the selected category -->
-                    @if ($selectedCategory)
+                    @if (!empty($selectedCategory))
                         @foreach ($selectedCategory->brands as $brand)
                             <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                         @endforeach
