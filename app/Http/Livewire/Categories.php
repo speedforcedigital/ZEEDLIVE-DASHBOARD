@@ -40,6 +40,7 @@ class Categories extends Component
             'categoriesPaginate' => $categoriesPaginate,
             'total_categories' => $total_categories,
             'selectedCategory' => $this->selectedCategory,
+            'selectedBrand' => $this->selectedBrand, // Add this line
             'selectedBrandId' => $this->selectedBrandId, // Add this line
         ]);    
     }
