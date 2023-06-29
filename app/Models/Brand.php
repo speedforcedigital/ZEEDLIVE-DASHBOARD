@@ -41,7 +41,7 @@ class Brand extends Model
 
     public function modals()
     {
-        return $this->hasMany(Modal::class, 'brand_id');
+        return $this->hasMany(Modal::class);
     }    
 
     /**
