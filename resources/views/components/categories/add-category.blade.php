@@ -123,7 +123,7 @@
             <button class="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500">
                 <span class="mr-1">Delete</span>
                 <svg class="w-4 h-4 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M15 5a2 2 0 0 0-2-2h-2V1h-2v2H7a2 2 0 0 0-2 2v1H4v2h1v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V10h1V8h-1V6zm-4-1h2v1h-2V4zM7 5H5V4h2v1zm6 9H7v-1h6v1zm1-2H6V8h8v4z"/>
+                    <path fill-rule="evenodd" d="M14 6a2 2 0 0 1-2-2V3H8v1a2 2 0 0 1-4 0V3H2v2a2 2 0 0 1-2 2v1h16V9a2 2 0 0 1-2-2V6zM6 4v1a1 1 0 0 0 2 0V4H6zm4 0v1h2V4h-2zM4 7v7a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V7H4zm7 0v7h2V7h-2z"/>
                 </svg>
             </button>
 
