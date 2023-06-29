@@ -48,9 +48,9 @@ foreach ($permissionsArray as $item) {
 
         <!-- Table -->
     @if($addCategory)
-    <x-categories.add-category :categories="$categories" />
+    <x-categories.add-category :categories="$categories" :selectedCategory="$selectedCategory" />
     @elseif($updateMode)
-    <x-categories.add-category :categories="$categories" />
+    <x-categories.add-category :categories="$categories" :selectedCategory="$selectedCategory" />
     @else
     @if($list_capability_exists)
     <x-categories.categories-table :categories="$categories" :count="$total_categories" />
