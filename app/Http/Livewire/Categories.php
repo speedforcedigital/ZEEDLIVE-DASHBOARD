@@ -27,7 +27,7 @@ class Categories extends Component
 
     public function add()
     {
-        $this->addCategory = true;
+        return redirect()->route('categories.add');
     }
     public function updated($field)
     {

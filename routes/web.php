@@ -33,9 +33,9 @@ Route::group(['middleware' => 'protected'], function () {
 
     Route::get('/categories', Categories::class);
     Route::get('/categories/add', function () {
-        return view('components.categories.add-category');
+        return view('livewire.categories.add-category');
     })->name('categories.add');
-    
+
     Route::get('/brands', Brands::class);
     Route::get('/models', Models::class);
     Route::get('/sellers', Sellers::class);
