@@ -39,6 +39,7 @@ class Categories extends Component
             'categoriesPaginate' => $categoriesPaginate,
             'total_categories' => $total_categories,
             'selectedCategory' => $this->selectedCategory,
+            'selectedBrandId' => $this->selectedBrandId, // Add this line
         ]);    
     }
 
@@ -117,7 +118,8 @@ class Categories extends Component
 
     public function selectBrand($brandId)
     {
-        $this->selectedBrand = $this->selectedCategory->brands->load('modals')->firstWhere('id', $brandId);
+        $this->selectedBrandId = $brandId;
+        $this->selectedBrand = $this->selectedCategory->brands->firstWhere('id', $brandId);
         $this->selectedModal = null;
     }
 
