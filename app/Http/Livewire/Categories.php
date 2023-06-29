@@ -112,7 +112,8 @@ class Categories extends Component
 
     public function selectCategory($categoryId)
     {
-        $this->selectedCategory = $this->categories->find($categoryId);
+        $this->selectedCategory = Category::find($categoryId);
+        $this->selectedBrandId = null;
         $this->selectedBrand = null;
         $this->selectedModal = null;
     }
@@ -120,19 +121,19 @@ class Categories extends Component
     public function selectBrand($brandId)
     {
         $this->selectedBrandId = $brandId;
-        $this->selectedBrand = $this->selectedCategory->brands->firstWhere('id', $brandId);
-        dd($this->selectedBrand);
+        $this->selectedBrand = Brand::find($brandId);
         $this->selectedModal = null;
     }
 
     public function selectModal($modalId)
     {
-        $this->selectedModal = $this->selectedBrand->modals->firstWhere('id', $modalId);
+        $this->selectedModal = Modal::find($modalId);
     }
 
     public function resetSelection()
     {
         $this->selectedCategory = null;
+        $this->selectedBrandId = null;
         $this->selectedBrand = null;
         $this->selectedModal = null;
     }
