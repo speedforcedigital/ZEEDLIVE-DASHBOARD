@@ -1,6 +1,27 @@
+@props(['categories'])
+
 <style>
 .custom-select {
-  /* Existing styles */
+  display: inline-block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #3c4e71;
+  vertical-align: middle;
+  background: #FFFFFF
+    url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%233c4e71' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e)
+    right 0.75rem center/8px 10px no-repeat;
+  border: 1px solid #c9d2e3;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: auto;
+  padding-right: 0.75rem;
+  background-image: none;
 }
 </style>
 
