@@ -23,6 +23,10 @@
   padding-right: 0.75rem;
   background-image: none;
 }
+.selected-category {
+  background-color: yellow;
+  font-weight: bold;
+}
 </style>
 
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -59,7 +63,7 @@
                     @if ($selectedCategory) disabled @endif>
                     <option value="">Select a category</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected' : '' }}>
+                        <option value="{{ $category->id }}" {{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected' : '' }} class="{{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected-category' : '' }}">
                             {{ $category->name }}
                         </option>
                     @endforeach
