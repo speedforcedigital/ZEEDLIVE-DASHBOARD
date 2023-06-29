@@ -139,9 +139,9 @@
                 wire:change="selectModel($event.target.value)"
                 @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
                 <option value="">Select a model</option>
-                @if (isset($selectedBrand) && $selectedBrand->models)
-                    @foreach ($selectedBrand->models as $model)
-                        <option value="{{ $model->id }}">{{ $model->name }}</option>
+                @if (isset($selectedBrand) && $selectedBrand->modal)
+                    @foreach ($selectedBrand->modal as $modal)
+                        <option value="{{ $modal->id }}">{{ $modal->name }}</option>
                     @endforeach
                 @endif
             </select>
