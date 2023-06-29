@@ -121,7 +121,7 @@ class Categories extends Component
     public function selectBrand($brandId)
     {
         $this->selectedBrandId = $brandId;
-        $this->selectedBrand = Brand::find($brandId);
+        $this->selectedBrand = Brand::with('modals')->find($brandId);
         dd($this->selectedBrand);
         $this->selectedModal = null;
     }
