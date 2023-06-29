@@ -41,8 +41,8 @@ class Brand extends Model
 
     public function models()
     {
-        return $this->hasMany(Modal::class);
-    }
+        return $this->hasMany(Model::class, 'brand_id');
+    }    
 
     /**
    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
