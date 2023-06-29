@@ -22,12 +22,14 @@ class Categories extends Component
         $categories = Category::paginate($perPage);
         $total_categories = Category::count();
     
-        return view('livewire.categories', compact('categories', 'total_categories'));    
+        return view('livewire.categories', compact('categories', 'total_categories'))
+            ->extends('layouts.app') // Optional: Use your main layout file
+            ->section('content'); // Optional: Define the content section     
     }
 
     public function add()
     {
-        return redirect()->route('categories.add');
+        $this->addCategory = true;
     }
     public function updated($field)
     {
