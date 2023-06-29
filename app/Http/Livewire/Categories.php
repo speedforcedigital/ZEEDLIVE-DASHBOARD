@@ -1,101 +1,111 @@
 <?php
+
 namespace App\Http\Livewire;
-use App\Helpers\MakeCurlRequest;
-use App\Helpers\makeCurlPostRequest;
-use App\Helpers\makeCurlFileRequest;
-use App\Helpers\baseUrl;
-use Livewire\Component;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\WithFileUploads;
-use CURLFile;
+
 use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Model;
+use Livewire\Component;
 
 class Categories extends Component
 {
-    use WithFileUploads;
     public $category_id, $name, $image;
     public $addCategory = false;
     public $updateMode = false;
+    public $selectedCategory;
+    public $selectedBrand;
+    public $selectedModel;
+
     public function render()
     {
         $perPage = 10;
         $categories = Category::paginate($perPage);
         $total_categories = Category::count();
-    
-        return view('livewire.categories', compact('categories', 'total_categories'));    
+
+        return view('livewire.categories', compact('categories', 'total_categories'));
     }
 
     public function add()
     {
         $this->addCategory = true;
     }
+
     public function updated($field)
     {
-        $validatedDate = $this->validateOnly($field,[
+        $this->validateOnly($field, [
             'name' => 'required',
-            'image' => 'nullable',
+            'image' => 'nullable|image',
         ]);
     }
+
     public function addCategory()
     {
         $validatedData = $this->validate([
             'name' => 'required',
-            'image' => 'nullable',
+            'image' => 'nullable|image',
         ]);
 
-        $image = $this->image;
-        if (is_file($image)) {
-            $path = $image->getRealPath();
-            $image = new \CURLFile($path, "image/jpeg", $image);
-            $postData = [
-                'name' => $this->name,
-                'image' => $image,
-            ];
-        } else {
-            $postData = [
-                'name' => $this->name,
-            ];
-        }
+        // Save category to the database
+        $category = new Category();
+        $category->name = $this->name;
+        $category->image = $this->image->store('categories', 'public');
+        $category->save();
 
-        $url = ($this->category_id) ? baseUrl() . "edit/category/" . $this->category_id : baseUrl() . "add/category";
-        $data = makeCurlFileRequest($url, 'POST', $postData);
-
-        if (isset($data['success']) && $data['success'] == true) {
-            $message = isset($data['Message']) ? $data['Message'] : 'Category added successfully.';
-            $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => $message]);
-        } else {
-            $message = isset($data['Message']) ? $data['Message'] : 'Failed to add category. Please try again.';
-            $this->dispatchBrowserEvent('alert', ['type' => 'error', 'message' => $message]);
-        }
+        $message = 'Category added successfully.';
+        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => $message]);
 
         $this->addCategory = false;
-        $this->updateMode = false;
         $this->resetInputFields();
     }
+
     private function resetInputFields()
     {
         $this->name = '';
-        $this->image = '';
-        $this->category_id = '';
+        $this->image = null;
+        $this->category_id = null;
     }
+
     public function delete($id)
-    { 
-    $url = baseUrl()."delete/category/".$id;
-    $data = makeCurlRequest($url, 'DELETE');
-    if($data['success']=true)
     {
-        $this->dispatchBrowserEvent('alert', 
-                ['type' => 'success',  'message' => ''.$data['message'].'']);
+        // Delete category from the database
+        Category::find($id)->delete();
+
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'message' => 'Category deleted successfully.'
+        ]);
     }
-    }
+
     public function edit($id)
     {
-        $url = baseUrl()."category/details/".$id;
-        $data = makeCurlRequest($url, 'GET');
-        $singleCategory = $data['Categories'];
-        $this->category_id =   $singleCategory['id'];
-        $this->name = $singleCategory['name'];
-        $this->image = $singleCategory['image'];
+        $category = Category::findOrFail($id);
+        $this->category_id = $category->id;
+        $this->name = $category->name;
+        $this->image = null; // Assuming you don't want to display the current image in the form
         $this->updateMode = true;
-    } 
+    }
+
+    public function cancelEdit()
+    {
+        $this->updateMode = false;
+        $this->resetInputFields();
+    }
+
+    public function selectCategory($category)
+    {
+        $this->selectedCategory = $category;
+        $this->selectedBrand = null;
+        $this->selectedModel = null; // Reset the selected model when a new category is selected
+    }
+
+    public function selectBrand($brand)
+    {
+        $this->selectedBrand = $brand;
+        $this->selectedModel = null; // Reset the selected model when a new brand is selected
+    }
+
+    public function selectModel($model)
+    {
+        $this->selectedModel = $model;
+    }
 }
