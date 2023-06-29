@@ -16,6 +16,7 @@ class Categories extends Component
     public $selectedBrand;
     public $selectedModal;
     public $categories;
+    public $selectedBrandId;
 
     protected $rules = [
         'name' => 'required',
