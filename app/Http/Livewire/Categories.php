@@ -122,6 +122,7 @@ class Categories extends Component
     {
         $this->selectedBrandId = $brandId;
         $this->selectedBrand = Brand::find($brandId);
+        dd($this->selectedBrand);
         $this->selectedModal = null;
     }
 
