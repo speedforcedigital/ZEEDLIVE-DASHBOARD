@@ -19,6 +19,7 @@ class Categories extends Component
     protected $rules = [
         'name' => 'required',
         'selectedCategory' => 'required',
+        'selectedBrand' => 'required',
     ];
 
     public function render()
