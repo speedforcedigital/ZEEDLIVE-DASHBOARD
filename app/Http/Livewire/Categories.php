@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Brand;
-use App\Models\Model;
+use App\Models\Modal;
 use Livewire\Component;
 
 class Categories extends Component
@@ -110,7 +110,7 @@ class Categories extends Component
 
     public function selectBrand($brandId)
     {
-        $this->selectedBrand = Brand::with('modal')->find($brandId);
+        $this->selectedBrand = Brand::with('models')->find($brandId);
         // dd($this->selectedBrand);
         $this->selectedModel = null; // Reset the selected model when a new brand is selected
     }
