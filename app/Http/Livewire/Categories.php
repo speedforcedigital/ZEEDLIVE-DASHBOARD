@@ -14,7 +14,7 @@ class Categories extends Component
     public $updateMode = false;
     public $selectedCategory;
     public $selectedBrand;
-    public $selectedModel;
+    public $selectedModal;
     public $categories;
 
     protected $rules = [
@@ -118,9 +118,8 @@ class Categories extends Component
     public function selectBrand($brandId)
     {
         $this->selectedBrand = $this->selectedCategory->brands->firstWhere('id', $brandId);
-        dd($this->selectedBrand);
         $this->selectedModal = null;
-    }
+    }    
 
     public function selectModal($modalId)
     {
