@@ -1,37 +1,34 @@
 <style>
-.custom-select{
-    display: inline-block;
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #3c4e71;
-    vertical-align: middle;
-    background: #FFFFFF url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%233c4e71' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e) right 0.75rem center/8px 10px no-repeat;
-    border: 1px solid #c9d2e3;
-    border-radius: 6px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    height: auto;
-    padding-right: 0.75rem;
-    background-image: none;
+.custom-select {
+  display: inline-block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #3c4e71;
+  vertical-align: middle;
+  background: #FFFFFF url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%233c4e71' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e) right 0.75rem center/8px 10px no-repeat;
+  border: 1px solid #c9d2e3;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: auto;
+  padding-right: 0.75rem;
+  background-image: none;
 }
 </style>
+
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
     <!-- Page header -->
-
     <div class="border-t border-slate-200">
-
         <!-- Components -->
         <div class="space-y-8 mt-8">
-
             <!-- Input Types -->
             <div>
                 <div class="grid gap-5 md:grid-cols-2"> <!-- Changed to 2 columns -->
-
                     <div>
                         <!-- Start -->
                         <div>
@@ -53,10 +50,15 @@
                                 <option>Category 4</option>
                                 <option>Category 5</option>
                             </select>
+                            <button class="btn bg-red-500 hover:bg-red-600 text-white mt-2" wire:click="removeCategory">
+                                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 7l4.647-4.646a.5.5 0 00-.708-.708L12 6.293 7.354 1.646a.5.5 0 10-.708.708L11.293 7l-4.647 4.646a.5.5 0 10.708.708L12 7.707l4.646 4.647a.5.5 0 00.708-.708L12.707 7z" clip-rule="evenodd" />
+                                </svg>
+                                Remove Selected Category
+                            </button>
                         </div>
                         <!-- End -->
                     </div>
-
                     <div>
                         <!-- Start -->
                         <div>
@@ -78,13 +80,17 @@
                                 <option>Brand 4</option>
                                 <option>Brand 5</option>
                             </select>
+                            <button class="btn bg-red-500 hover:bg-red-600 text-white mt-2" wire:click="removeBrand">
+                                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 7l4.647-4.646a.5.5 0 00-.708-.708L12 6.293 7.354 1.646a.5.5 0 10-.708.708L11.293 7l-4.647 4.646a.5.5 0 10.708.708L12 7.707l4.646 4.647a.5.5 0 00.708-.708L12.707 7z" clip-rule="evenodd" />
+                                </svg>
+                                Remove Selected Brand
+                            </button>
                         </div>
                         <!-- End -->
                     </div>
-
                 </div>
             </div>
-
             <!-- Additional Column -->
             <div>
                 <div>
@@ -108,12 +114,16 @@
                             <option>Model 4</option>
                             <option>Model 5</option>
                         </select>
+                        <button class="btn bg-red-500 hover:bg-red-600 text-white mt-2" wire:click="removeModel">
+                            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12.707 7l4.647-4.646a.5.5 0 00-.708-.708L12 6.293 7.354 1.646a.5.5 0 10-.708.708L11.293 7l-4.647 4.646a.5.5 0 10.708.708L12 7.707l4.646 4.647a.5.5 0 00.708-.708L12.707 7z" clip-rule="evenodd" />
+                            </svg>
+                            Remove Selected Model
+                        </button>
                     </div>
                     <!-- End -->
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
