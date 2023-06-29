@@ -121,10 +121,10 @@
             </select>
 
             <button class="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500">
-            <svg class="c7hxs cz1vo c29x4 cq5uz" viewBox="0 0 16 16">
-                <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
-              </svg>
-                Delete
+                <span class="mr-1">Delete</span>
+                <svg class="w-4 h-4 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M15 5a2 2 0 0 0-2-2h-2V1h-2v2H7a2 2 0 0 0-2 2v1H4v2h1v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V10h1V8h-1V6zm-4-1h2v1h-2V4zM7 5H5V4h2v1zm6 9H7v-1h6v1zm1-2H6V8h8v4z"/>
+                </svg>
             </button>
 
             <button class="btn dark:bg-slate-800 border-slate-200 dark:border-slate-700 c18nt czq29 ciajw">
