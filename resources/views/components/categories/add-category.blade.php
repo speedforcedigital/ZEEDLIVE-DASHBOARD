@@ -84,7 +84,7 @@
                     @if (!isset($selectedCategory) || empty($selectedCategory)) disabled @endif>
                     <option value="">Select a brand</option>
                     <!-- Fetch brands from Brand model based on the selected category -->
-                    @if (!empty($selectedCategory))
+                    @if ($selectedCategory && $selectedCategory->brands)
                         @foreach ($selectedCategory->brands as $brand)
                             <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                         @endforeach
@@ -123,7 +123,7 @@
                 wire:change="selectModel($event.target.value)"
                 @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
                 <option value="">Select a model</option>
-                @if (!empty($selectedBrand))
+                @if ($selectedBrand && $selectedBrand->models)
                     @foreach ($selectedBrand->models as $model)
                         <option value="{{ $model->id }}">{{ $model->name }}</option>
                     @endforeach

@@ -95,17 +95,16 @@ class Categories extends Component
         $this->resetInputFields();
     }
 
-    public function selectCategory($category)
+    public function selectCategory($categoryId)
     {
-        $this->selectedCategory = $category;
-        dd($category);
+        $this->selectedCategory = Category::with('brands')->find($categoryId);
         $this->selectedBrand = null;
         $this->selectedModel = null; // Reset the selected model when a new category is selected
     }
 
-    public function selectBrand($brand)
+    public function selectBrand($brandId)
     {
-        $this->selectedBrand = $brand;
+        $this->selectedBrand = Brand::with('models')->find($brandId);
         $this->selectedModel = null; // Reset the selected model when a new brand is selected
     }
 
