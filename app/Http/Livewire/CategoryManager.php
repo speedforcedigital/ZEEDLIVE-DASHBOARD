@@ -40,6 +40,7 @@ class CategoryManager extends Component
     public function mount()
     {
         $this->categories = Category::with('brands.modals')->get();
+        $this->collectionsCount = 0;
     }
 
     public function render()
@@ -69,6 +70,7 @@ class CategoryManager extends Component
                 $category->delete(); // Delete the category
 
                 $this->resetCategory();
+                $this->collectionsCount = 0;
                 $this->categories = Category::with('brands.modals')->get();
             }
         }
