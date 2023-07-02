@@ -53,8 +53,8 @@
                   </svg>
                 </button>
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
-                <svg class="nucleo-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M18.7 5.7l-.4-.4c-.6-.6-1.7-.6-2.3 0l-1.1 1.1 3.5 3.5 1.1-1.1c.6-.6.6-1.7 0-2.3zM15.2 9.1L5 19.4V23h3.6L20.9 12.7l-1.4-1.4zM3 20h2v2H3v-2z" />
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 0; width: 0; position: absolute;">
+                    <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor"></path>
                 </svg>
                 </button>
               </div>
