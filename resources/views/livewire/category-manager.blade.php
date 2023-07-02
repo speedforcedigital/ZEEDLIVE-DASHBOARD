@@ -150,15 +150,7 @@ foreach ($permissionsArray as $item) {
                   </option>
                   @endforeach
                 </select>
-                <button class="mt-2 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500">
-                  <span class="mr-1">Remove Selected Category</span>
-                  <svg class="w-4 h-4 fill-current opacity-75" viewBox="0 0 24 24">
-                    <path
-                      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </button>
+                
               </div>
               <!-- End -->
             </div>
@@ -198,16 +190,7 @@ foreach ($permissionsArray as $item) {
                   @endforeach
                   @endif
                 </select>
-                <button class="mt-2 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500"
-                  @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
-                  <span class="mr-1">Remove Selected Brand</span>
-                  <svg class="w-4 h-4 fill-current opacity-75" viewBox="0 0 24 24">
-                    <path
-                      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </button>
+                
               </div>
               <!-- End -->
             </div>
@@ -238,17 +221,6 @@ foreach ($permissionsArray as $item) {
                   @endforeach
                   @endif
                 </select>
-
-                <button class="mt-2 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-rose-500"
-                  @if (!isset($selectedModel) || empty($selectedModel)) disabled @endif>
-                  <span class="mr-1">Remove Selected Model</span>
-                  <svg class="w-4 h-4 fill-current opacity-75" viewBox="0 0 24 24">
-                    <path
-                      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </button>
               </div>
               <!-- End -->
             </div>
