@@ -138,18 +138,18 @@ foreach ($permissionsArray as $item) {
                       <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
                   </button>
 
-                <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal'), deleteModalOpen: @entangle('deleteModalOpen') , collectionsCount: '' }">
+                  <div x-data="{ deleteModalOpen: false, collectionsCount: '' }">
 
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="deleteConfirmModal = true" style="height: 38px;">
-                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
-                    </svg>
-                  </button>
+                    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="deleteModalOpen = true" style="height: 38px;">
+                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                            <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
+                        </svg>
+                    </button>
 
-                  <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="deleteModalOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+                    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="deleteModalOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
-                  <!-- Modal dialog -->
-                  <div id="delete-category-modal" class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true" x-show="deleteModalOpen" x-transition:enter="transition ease-in-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true" x-cloak>
+                    <!-- Modal dialog -->
+                    <div id="delete-category-modal" class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true" x-show="deleteModalOpen" x-transition:enter="transition ease-in-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true" x-cloak>
                         <!-- Modal content -->
                         <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="deleteModalOpen = false" @keydown.escape.window="deleteModalOpen = false" style="max-width: 640px;">
                             <!-- Modal header -->
@@ -166,43 +166,42 @@ foreach ($permissionsArray as $item) {
                             </div>
                             <!-- Modal content -->
                             <div class="px-5 py-4">
-                                <div class="text-sm">
-                                    <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">
-                                        This category has {{ $collectionsCount }} collection{{ $collectionsCount > 1 ? 's' : '' }} connected to it and cannot be deleted.
+                                <template x-if="collectionsCount !== ''">
+                                    <div class="text-sm">
+                                        <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">
+                                            <template x-if="collectionsCount > 0">
+                                                This category has <span x-text="collectionsCount"></span> collection<span x-show="collectionsCount > 1">s</span> connected to it and cannot be deleted.
+                                            </template>
+                                            <template x-if="collectionsCount === 0">
+                                                Are you sure you want to delete this category?
+                                            </template>
+                                        </div>
+                                        <div class="text-slate-800 dark:text-slate-100">
+                                            <template x-if="collectionsCount > 0">
+                                                Please remove the collections connected to this category before deleting it.
+                                            </template>
+                                        </div>
                                     </div>
-                                    <div class="text-slate-800 dark:text-slate-100">
-                                        Please remove the collections connected to this category before deleting it.
-                                    </div>
-                                </div>
+                                </template>
                             </div>
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                 <div class="flex justify-end">
-                                    <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen = false">OK</button>
+                                    <template x-if="collectionsCount === 0">
+                                        <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteModalOpen = false">Cancel</button>
+                                        <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeCategory">Delete</button>
+                                    </template>
+                                    <template x-if="collectionsCount > 0">
+                                        <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen = false">OK</button>
+                                    </template>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Delete Category Modal -->
-                    <div id="delete-category-modal" class="fixed inset-0 z-50 flex items-center justify-center" x-show="deleteConfirmModal" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95" aria-hidden="true" x-cloak>
-                        <div class="bg-white dark:bg-slate-800 rounded shadow-lg p-4 max-w-md w-full">
-                            <div class="text-xl text-slate-800 dark:text-slate-100 font-semibold mb-4">Delete Category</div>
-                            <div class="text-slate-800 dark:text-slate-100 mb-6">
-                                Are you sure you want to delete this category?
-                            </div>
-                            <div class="flex justify-end">
-                                <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteConfirmModal = false">Cancel</button>
-                                <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeCategory">Delete</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                
 
-
-                </div>
+            </div>
                 @error('name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                 <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedCategory ? 'no-scroll' : '' }}"
                   wire:model="selectedCategory"
