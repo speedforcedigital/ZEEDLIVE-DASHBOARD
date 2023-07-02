@@ -216,6 +216,32 @@ if (is_array($permissionsArray)) {
                     @endif
                 </ul>
             </div>
+             <!-- Manage Categories/Brands/Models -->
+            <div>
+                    <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
+                        <span class="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">•••</span>
+                        <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">Management for Categories</span>
+                    </h3>
+                    <ul class="mt-3">
+                    
+                        <!-- Admin Users -->
+                        @if(in_array('Admin User', $keys))
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                            <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/manage/category">
+                                <div class="flex items-center justify-between">
+                                    <div class="grow flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                        <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Manage Categories</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        @endif
+
+                    </ul>
+                </div>
             <!-- More group -->
             <div>
                 <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
