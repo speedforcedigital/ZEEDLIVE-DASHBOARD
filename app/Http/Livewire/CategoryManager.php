@@ -145,7 +145,7 @@ class CategoryManager extends Component
         $category->save();
     
         $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
-        $this->resetSelection();
+        $this->resetCategory();
 
         $this->reset(['newCategoryName', 'isEditing']);
     }
