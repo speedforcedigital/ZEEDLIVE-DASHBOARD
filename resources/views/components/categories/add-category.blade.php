@@ -62,7 +62,7 @@
                 </button>
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M1 7h6V1c0-.6.4-1 1-1s1 .4 1 1v6h6c.6 0 1 .4 1 1s-.4 1-1 1h-6v6c0 .6-.4 1-1 1s-1-.4-1-1V9H1c-.6 0-1-.4-1-1s.4-1 1-1z"/>
+                        <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 15C4.7 15 1 11.3 1 8S4.7 1 8 1s7 3.7 7 7-3.7 7-7 7zm-.5-4.5h1v-3h-3v1h2.3l-4.1 4.1 1.4 1.4 4.1-4.1V11z"/>
                     </svg>
                 </button>
               </div>
