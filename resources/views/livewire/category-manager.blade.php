@@ -291,8 +291,6 @@ foreach ($permissionsArray as $item) {
     </div>
   </div>
 </div>
-</div>
-</div>
 
 @push('scripts')
     <script>
