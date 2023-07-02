@@ -213,7 +213,6 @@ foreach ($permissionsArray as $item) {
     </div>
   </div>
 </div>
-</div>
 
 <!-- Edit Category Modal -->
 <div x-data="{ isOpen: @entangle('editModalOpen') }">
@@ -245,3 +244,7 @@ foreach ($permissionsArray as $item) {
         </div>
     </div>
 </div>
+
+
+</div>
+
