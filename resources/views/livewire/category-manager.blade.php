@@ -81,7 +81,7 @@ foreach ($permissionsArray as $item) {
                     </svg>
                   </button>
 
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" x-data="{ modalOpen: false }" @click="modalOpen = true" x-show="!selectedCategory">
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" x-data="{ modalOpen: false }" @click="modalOpen = true" x-show="selectedCategory || selectedCategory === 0">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                         <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
                         <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
@@ -89,6 +89,9 @@ foreach ($permissionsArray as $item) {
                         </g>
                     </svg>
                     </button>
+
+                    <!-- Modal backdrop -->
+                    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="modalOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
                     <!-- Modal dialog -->
                     <div id="feedback-modal" class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true" x-show="modalOpen" x-transition:enter="transition ease-in-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true" x-cloak>
@@ -113,7 +116,7 @@ foreach ($permissionsArray as $item) {
                             <div class="text-slate-800 dark:text-slate-100 mb-3">Editing {{ $selectedCategory ? $selectedCategory->name : '' }}</div>
                         </div>
                         <div>
-                            <input id="category-name" class="form-input w-full px-2 py-1" type="text" wire:model="newCategoryName" required>
+                            <input id="category-name" class="form-input w-full px-2 py-1" type="text" x-model="newCategoryName" required>
                             @error('newCategoryName')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                         </div>
                         </div>
