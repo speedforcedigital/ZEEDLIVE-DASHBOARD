@@ -97,7 +97,7 @@ foreach ($permissionsArray as $item) {
                         class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                         role="dialog"
                         aria-modal="true"
-                        x-show="editModalOpen"
+                        x-show="ModalOpen"
                         x-transition:enter="transition ease-in-out duration-200"
                         x-transition:enter-start="opacity-0 translate-y-4"
                         x-transition:enter-end="opacity-100 translate-y-0"
