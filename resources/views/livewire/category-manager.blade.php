@@ -82,9 +82,11 @@ foreach ($permissionsArray as $item) {
                   </button>
 
                   <div>
+                 
+                  <div x-data="{ modalOpen: false, newCategoryName: '' }">
                     <!-- Modal trigger button -->
                     <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true">
-                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                             <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
                                 <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
                                 <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -106,7 +108,7 @@ foreach ($permissionsArray as $item) {
                                     <button class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400" @click="modalOpen = false">
                                         <div class="sr-only">Close</div>
                                         <svg class="w-4 h-4 fill-current">
-                                            <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                            <path d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
                                         </svg>
                                     </button>
                                 </div>
@@ -121,20 +123,16 @@ foreach ($permissionsArray as $item) {
                                     @error('newCategoryName')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                                 </div>
                             </div>
-                            <!-- Modal footer --> 
+                            <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <button class="border-slate-200 dark:border-slate-700 btn-sm" @click="modalOpen = false">Cancel</button>
+                                    <button class="btn-outline bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = false">Cancel</button>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" wire:click="updateCategory">Update</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
 
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
