@@ -61,11 +61,10 @@ class CategoryManager extends Component
         $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
         $this->resetSelection();
 
-        // Reset the form and close the modal
-        $this->reset(['newCategoryName', 'modalOpen']);
+        $this->reset(['newCategoryName']);
 
         // Emit a custom event to close the modal
-        $this->emit('categoryUpdated');
+        $this->dispatchBrowserEvent('category-updated');
     }
 
     public function closeModal()

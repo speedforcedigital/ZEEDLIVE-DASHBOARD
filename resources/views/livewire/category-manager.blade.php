@@ -266,7 +266,13 @@ foreach ($permissionsArray as $item) {
     <script>
         document.addEventListener('livewire:load', function () {
             Livewire.on('categoryUpdated', function () {
-                Alpine.store('modalOpen', false);
+                // Close the modal
+                document.getElementById('feedback-modal').style.display = 'none';
+            });
+
+            // Listen for the custom event emitted after category update
+            document.addEventListener('category-updated', function () {
+                Livewire.emit('categoryUpdated');
             });
         });
     </script>
