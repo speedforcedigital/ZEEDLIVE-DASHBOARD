@@ -19,7 +19,7 @@ class CategoryManager extends Component
     public $selectedModal;
     public $categories;
     public $selectedBrandId;
-    public $editModalOpen = false;
+    public $modalOpen = false;
 
     protected $rules = [
         'name' => 'required',
@@ -44,7 +44,7 @@ class CategoryManager extends Component
 
     public function editSelection()
     {
-        $this->editModalOpen = true;
+        $this->modalOpen = true;
     }
 
     public function updateCategory()
