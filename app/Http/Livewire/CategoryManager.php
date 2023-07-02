@@ -14,7 +14,7 @@ class CategoryManager extends Component
     public $category_id, $name, $image;
     public $addCategory = false;
     public $updateMode = false;
-    public $selectedCategory;
+    public $selectedCategory = null;
     public $selectedBrand;
     public $selectedModal;
     public $categories;
