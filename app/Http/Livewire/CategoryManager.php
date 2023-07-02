@@ -63,15 +63,15 @@ class CategoryManager extends Component
                 $this->modalOpen = true;
             } else {
                 // If the category is not connected to collections, delete it along with associated brands and models
-                $category->brands()->each(function ($brand) {
-                    $brand->modals()->delete(); // Delete associated models
-                });
+                // $category->brands()->each(function ($brand) {
+                //     $brand->modals()->delete(); // Delete associated models
+                // });
 
-                $category->brands()->delete(); // Delete associated brands
-                $category->delete(); // Delete the category
+                // $category->brands()->delete(); // Delete associated brands
+                // $category->delete(); // Delete the category
 
-                $this->resetCategory();
-                $this->categories = Category::with('brands.modals')->get();
+                // $this->resetCategory();
+                // $this->categories = Category::with('brands.modals')->get();
             }
         }
     }
