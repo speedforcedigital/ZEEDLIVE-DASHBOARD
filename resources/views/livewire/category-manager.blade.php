@@ -140,7 +140,7 @@ foreach ($permissionsArray as $item) {
 
                   <div x-data="{ deleteModalOpen: @entangle('deleteModalOpen') , collectionsCount: '' }">
 
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="removeCategory" style="height: 38px;">
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="deleteConfirmModal" style="height: 38px;">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
                     </svg>
@@ -176,6 +176,28 @@ foreach ($permissionsArray as $item) {
                         </div>
                     </div>
                 </div>
+
+                <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal') }">
+                    <!-- Your existing code here -->
+
+                    <!-- Modal backdrop -->
+                    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="deleteConfirmModal" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+
+                    <!-- Delete Category Modal -->
+                    <div id="delete-category-modal" class="fixed inset-0 z-50 flex items-center justify-center" x-show="deleteConfirmModal" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95" aria-hidden="true" x-cloak>
+                        <div class="bg-white dark:bg-slate-800 rounded shadow-lg p-4 max-w-md w-full">
+                            <div class="text-xl text-slate-800 dark:text-slate-100 font-semibold mb-4">Delete Category</div>
+                            <div class="text-slate-800 dark:text-slate-100 mb-6">
+                                Are you sure you want to delete this category?
+                            </div>
+                            <div class="flex justify-end">
+                                <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteConfirmModal = false">Cancel</button>
+                                <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeCategory">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
 
                 </div>
