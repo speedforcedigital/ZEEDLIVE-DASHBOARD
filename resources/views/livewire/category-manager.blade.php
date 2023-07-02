@@ -74,7 +74,7 @@ foreach ($permissionsArray as $item) {
               <div>
                 <label class="block text-sm font-medium mb-1" for="category">Category <span class="text-rose-500">*</span></label>
                 <div class="flex">
-                  <input id="category" class="form-input w-full" type="text" wire:model="name" required />
+                  <input id="category" class="form-input w-full" type="text" wire:model="categoryName" />
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addCategory">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -162,7 +162,7 @@ foreach ($permissionsArray as $item) {
                   Brand <span class="text-rose-500">*</span>
                 </label>
                 <div class="flex">
-                  <input id="brand" class="form-input w-full" type="text" required />
+                  <input id="brand" class="form-input w-full" type="text"  wire:model="brandName" />
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />

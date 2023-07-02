@@ -52,11 +52,11 @@ class CategoryManager extends Component
     public function addCategory()
     {
         $this->validate([
-            'name' => 'required',
+            'categoryName' => 'required',
         ]);
 
         Category::create([
-            'name' => $this->name,
+            'name' => $this->categoryName,
         ]);
 
         $this->resetCategory();
@@ -67,19 +67,18 @@ class CategoryManager extends Component
     {
         $this->validate([
             'selectedCategory' => 'required',
-            'name' => 'required',
+            'brandName' => 'required',
         ]);
 
         $category = Category::findOrFail($this->selectedCategory);
 
         $category->brands()->create([
-            'name' => $this->name,
+            'name' => $this->brandName,
         ]);
 
         $this->resetBrand();
         $this->categories = Category::with('brands.modals')->get();
     }
-
 
     public function updateCategory()
     {
@@ -127,6 +126,7 @@ class CategoryManager extends Component
     {
         $this->selectedCategory = null;
         $this->newCategoryName = null;
+        $this->categoryName = null;
     }
 
     public function resetBrand()
@@ -134,5 +134,6 @@ class CategoryManager extends Component
         $this->selectedBrandId = null;
         $this->selectedBrand = null;
         $this->selectedModal = null;
+        $this->brandName = null;
     }
 }
