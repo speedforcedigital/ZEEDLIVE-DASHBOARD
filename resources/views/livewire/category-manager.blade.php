@@ -213,3 +213,5 @@ foreach ($permissionsArray as $item) {
     </div>
   </div>
 </div>
+
+@livewireScripts
