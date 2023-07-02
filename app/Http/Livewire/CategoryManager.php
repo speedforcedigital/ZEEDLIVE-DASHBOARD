@@ -61,7 +61,7 @@ class CategoryManager extends Component
         $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
         $this->resetSelection();
 
-        $this->modalOpen = false; // Manually close the modal
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function selectCategory($categoryId)

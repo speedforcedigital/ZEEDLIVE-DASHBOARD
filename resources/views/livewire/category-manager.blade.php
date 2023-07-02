@@ -83,7 +83,7 @@ foreach ($permissionsArray as $item) {
 
                   <div>
                  
-                  <div x-data="{ modalOpen: false, newCategoryName: '' }">
+                  <div x-data="{ modalOpen: false, newCategoryName: '' }" wire:refresh>
                     <!-- Modal trigger button -->
                     <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true">
                         <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
@@ -261,3 +261,11 @@ foreach ($permissionsArray as $item) {
 </div>
 </div>
 </div>
+
+<script>
+    window.addEventListener('close-modal', event => {
+        setTimeout(() => {
+            Livewire.emit('refreshComponent');
+        }, 500); // Adjust the delay as needed
+    });
+</script>
