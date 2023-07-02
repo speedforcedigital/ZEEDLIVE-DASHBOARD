@@ -197,7 +197,7 @@ foreach ($permissionsArray as $item) {
           </div>
 
           <!-- Additional Column -->
-          <div>
+          <div class="mt-2">
             <div>
               <!-- Start -->
               <div>
