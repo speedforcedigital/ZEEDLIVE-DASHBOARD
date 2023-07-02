@@ -90,9 +90,9 @@ foreach ($permissionsArray as $item) {
                             <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
                         </g>
                     </svg>
-                </button>
-                    <!-- Modal dialog -->
-                    <div
+
+                     <!-- Modal dialog -->
+                     <div
                         id="feedback-modal"
                         class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                         role="dialog"
@@ -140,6 +140,7 @@ foreach ($permissionsArray as $item) {
                             </div>
                         </div>
                     </div>
+                </button>
 
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
