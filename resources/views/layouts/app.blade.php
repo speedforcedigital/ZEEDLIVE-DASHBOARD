@@ -274,5 +274,7 @@ window.addEventListener('alert', event => {
                 }
             });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.4.0/dist/alpine.js" defer></script>
+
     </body>
 </html>

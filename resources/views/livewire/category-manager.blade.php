@@ -87,7 +87,7 @@ foreach ($permissionsArray as $item) {
                         <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
                         <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
                         </g>
-                    </svg>
+                        </svg>
                     </button>
 
                     <!-- Modal backdrop -->
