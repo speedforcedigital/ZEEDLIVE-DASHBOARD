@@ -57,7 +57,7 @@
                         <td class="p-2">
                             <div class="flex items-center">
                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="https://api.staging.zeedlive.com/image/user_profile/{{$value['profileImage'][0]['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
+                                        <img class="rounded-full" src="https://api.zeedlive.com/image/user_profile/{{$value['profileImage'][0]['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
                                 <div class="text-slate-800">{{$value['name']}}</div>
                             </div>
