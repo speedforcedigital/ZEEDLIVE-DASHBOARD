@@ -29,7 +29,7 @@ class CategoryManager extends Component
     public $modalName = null;
     public $selectedModal = null; 
     public $removeCategoryId = null;
-    public $collectionsCount = 0;
+    public $collectionsCount;
 
     protected $rules = [
         'name' => 'required',
