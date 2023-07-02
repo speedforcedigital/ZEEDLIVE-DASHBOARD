@@ -58,6 +58,8 @@ class CategoryManager extends Component
         $category->name = $this->newCategoryName;
         $category->save();
     
+        $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
+
         $this->modalOpen = false;
         $this->resetSelection();
     }
