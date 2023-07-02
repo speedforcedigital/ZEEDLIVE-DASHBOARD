@@ -133,6 +133,7 @@ foreach ($permissionsArray as $item) {
                         </div>
                     </div>
                 </div>
+            </div>
 
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
