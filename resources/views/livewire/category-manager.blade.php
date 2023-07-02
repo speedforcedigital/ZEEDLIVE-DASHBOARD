@@ -83,14 +83,32 @@ foreach ($permissionsArray as $item) {
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                   </svg>
                 </button>
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="editSelection">
-                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-                        <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
-                            <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
-                            <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </button>
+               
+               
+                <div x-data="{ modalOpen: false }">
+
+                    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="editSelection">
+                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+                            <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
+                                <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
+                                <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                    </button>
+
+                    <!-- Modal backdrop -->
+                    <div
+                        class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                        x-show="modalOpen"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-out duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        aria-hidden="true"
+                        x-cloak
+                    ></div>
 
                 <!-- Modal dialog -->
                 <div
