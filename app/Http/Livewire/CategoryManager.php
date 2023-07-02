@@ -16,7 +16,6 @@ class CategoryManager extends Component
     public $updateMode = false;
     public $selectedCategory = null;
     public $selectedBrand;
-    public $selectedModal;
     public $categories;
     public $selectedBrandId;
     public $modalOpen = false;
@@ -163,6 +162,6 @@ class CategoryManager extends Component
     public function resetModal()
     {
         $this->modalName = null;
-        $this->selectedModal = null; // Reset the selectedModel property
+        $this->selectedModal = null; 
     }
 }
