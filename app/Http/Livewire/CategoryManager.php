@@ -70,7 +70,7 @@ class CategoryManager extends Component
                 $category->brands()->delete(); // Delete associated brands
                 $category->delete(); // Delete the category
 
-                $this->resetSelection();
+                $this->resetCategory();
                 $this->categories = Category::with('brands.modals')->get();
             }
         }
