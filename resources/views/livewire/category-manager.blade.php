@@ -138,7 +138,7 @@ foreach ($permissionsArray as $item) {
                       <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
                   </button>
 
-                  <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal'), deleteModalOpen: @entangle('deleteModalOpen') , collectionsCount: '' }">
+                <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal'), deleteModalOpen: @entangle('deleteModalOpen') , collectionsCount: '' }">
 
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="deleteConfirmModal = true" style="height: 38px;">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
@@ -183,11 +183,6 @@ foreach ($permissionsArray as $item) {
                             </div>
                         </div>
                     </div>
-                    <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal') }">
-                    <!-- Your existing code here -->
-
-                    <!-- Modal backdrop -->
-                    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="deleteConfirmModal" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
                     <!-- Delete Category Modal -->
                     <div id="delete-category-modal" class="fixed inset-0 z-50 flex items-center justify-center" x-show="deleteConfirmModal" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95" aria-hidden="true" x-cloak>
@@ -202,7 +197,6 @@ foreach ($permissionsArray as $item) {
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
 
                 
