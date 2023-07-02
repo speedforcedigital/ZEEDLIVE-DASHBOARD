@@ -18,7 +18,10 @@ class CategoryManager extends Component
     public $selectedBrand;
     public $categories;
     public $selectedBrandId;
-    public $modalOpen = false;
+
+    public $editModalOpen = false;
+    public $deleteModalOpen = false;
+
     public $newCategoryName = null;
     public $isEditing = false;
     public $categoryName = null; // Add this line
@@ -60,7 +63,7 @@ class CategoryManager extends Component
             if ($this->collectionsCount > 0) {
                 // If the category is connected to collections, show a modal
                 $this->removeCategoryId = $category->id;
-                $this->modalOpen = true;
+                $this->deleteModalOpen = true;
             } else {
                 // If the category is not connected to collections, delete it along with associated brands and models
                 // $category->brands()->each(function ($brand) {
@@ -76,12 +79,9 @@ class CategoryManager extends Component
         }
     }
 
-
-
-
     public function editSelection()
     {
-        $this->isEditing = true;
+        $this->editModalOpen = true;
     }
 
     public function addCategory()
@@ -152,7 +152,7 @@ class CategoryManager extends Component
 
     public function closeModal()
     {
-        $this->modalOpen = false;
+        $this->editModalOpen = false;
     }
 
     public function selectCategory($categoryId)
