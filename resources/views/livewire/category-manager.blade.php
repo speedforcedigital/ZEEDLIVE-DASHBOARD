@@ -97,8 +97,7 @@ foreach ($permissionsArray as $item) {
                     </button>
 
                     <!-- Modal backdrop -->
-                    <div
-                        class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
                         x-show="modalOpen"
                         x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0"
@@ -111,21 +110,20 @@ foreach ($permissionsArray as $item) {
                     ></div>
 
                 <!-- Modal dialog -->
-                <div
-                        id="feedback-modal"
-                        class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                        role="dialog"
-                        aria-modal="true"
-                        x-show="ModalOpen"
-                        x-transition:enter="transition ease-in-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-4"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        x-transition:leave="transition ease-in-out duration-200"
-                        x-transition:leave-start="opacity-100 translate-y-0"
-                        x-transition:leave-end="opacity-0 translate-y-4"
-                        aria-hidden="true"
-                        x-cloak
-                    >
+                <div id="feedback-modal"
+                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                    role="dialog"
+                    aria-modal="true"
+                    x-show="modalOpen"
+                    x-transition:enter="transition ease-in-out duration-200"
+                    x-transition:enter-start="opacity-0 translate-y-4"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    x-transition:leave="transition ease-in-out duration-200"
+                    x-transition:leave-start="opacity-100 translate-y-0"
+                    x-transition:leave-end="opacity-0 translate-y-4"
+                    aria-hidden="true"
+                    x-cloak
+                >
                         <!-- Modal content -->
                         <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="editModalOpen = false" @keydown.escape.window="editModalOpen = false" style="max-width: 640px;">
                             <!-- Modal header -->
