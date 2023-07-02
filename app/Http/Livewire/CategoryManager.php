@@ -25,7 +25,8 @@ class CategoryManager extends Component
     public $brandName = null; // Add this line
     public $modalName = null;
     public $selectedModal = null; 
-    
+    public $removeCategoryId = null;
+
     protected $rules = [
         'name' => 'required',
         'selectedCategory' => 'required',
@@ -46,6 +47,28 @@ class CategoryManager extends Component
             'selectedBrandId' => $this->selectedBrandId, // Add this line
         ]);    
     }
+
+    public function removeCategory()
+    {
+        if ($this->selectedCategory) {
+            $category = Category::findOrFail($this->selectedCategory['id']);
+
+            // Check if the category is connected to any collections
+            $collectionsCount = $category->collections()->count();
+
+            if ($collectionsCount > 0) {
+                // If the category is connected to collections, show a modal
+                $this->removeCategoryId = $category->id;
+                $this->modalOpen = true;
+            } else {
+                // If the category is not connected to collections, delete it directly
+                $category->delete();
+                $this->resetSelection();
+                $this->categories = Category::with('brands.modals')->get();
+            }
+        }
+    }
+
 
     public function editSelection()
     {

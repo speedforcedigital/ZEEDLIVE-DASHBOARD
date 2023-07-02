@@ -142,6 +142,35 @@ foreach ($permissionsArray as $item) {
                         <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
                     </svg>
                   </button>
+
+                  <!-- Modal dialog -->
+                    <div id="delete-category-modal" class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true" x-show="modalOpen" x-transition:enter="transition ease-in-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true" x-cloak>
+                        <!-- Modal content -->
+                        <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false" style="max-width: 640px;">
+                            <!-- Modal header -->
+                            <div class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                <div class="font-semibold text-slate-800 dark:text-slate-100">Remove Category</div>
+                            </div>
+                            <!-- Modal content -->
+                            <div class="px-5 py-4">
+                                <div class="text-sm">
+                                    <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">
+                                        This category has {{ $collectionsCount }} collection{{ $collectionsCount > 1 ? 's' : '' }} connected to it and cannot be deleted.
+                                    </div>
+                                    <div class="text-slate-800 dark:text-slate-100">
+                                        Please remove the collections connected to this category before deleting it.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
+                                <div class="flex justify-end">
+                                    <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="modalOpen = false">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 @error('name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                 <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedCategory ? 'no-scroll' : '' }}"
