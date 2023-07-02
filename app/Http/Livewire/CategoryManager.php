@@ -20,6 +20,7 @@ class CategoryManager extends Component
     public $categories;
     public $selectedBrandId;
     public $modalOpen = false;
+    public $newCategoryName = null;
 
     protected $rules = [
         'name' => 'required',
@@ -49,6 +50,7 @@ class CategoryManager extends Component
 
     public function updateCategory()
     {
+        $this->selectedCategory->name = $this->newCategoryName; // Update the category name
         $this->selectedCategory->save();
         $this->modalOpen = false;
         $this->resetSelection();
@@ -60,6 +62,7 @@ class CategoryManager extends Component
         $this->selectedBrandId = null;
         $this->selectedBrand = null;
         $this->selectedModal = null;
+        $this->newCategoryName = $this->selectedCategory->name; // Set the new category name
     }
 
     public function selectBrand($brandId)
@@ -80,5 +83,6 @@ class CategoryManager extends Component
         $this->selectedBrandId = null;
         $this->selectedBrand = null;
         $this->selectedModal = null;
+        $this->newCategoryName = null;
     }
 }
