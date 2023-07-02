@@ -26,6 +26,7 @@ class CategoryManager extends Component
     public $modalName = null;
     public $selectedModal = null; 
     public $removeCategoryId = null;
+    public $collectionsCount = 0;
 
     protected $rules = [
         'name' => 'required',
@@ -54,9 +55,9 @@ class CategoryManager extends Component
             $category = Category::findOrFail($this->selectedCategory['id']);
 
             // Check if the category is connected to any collections
-            $collectionsCount = $category->collections()->count();
+            $this->collectionsCount = $category->collections()->count();
 
-            if ($collectionsCount > 0) {
+            if ($this->collectionsCount > 0) {
                 // If the category is connected to collections, show a modal
                 $this->removeCategoryId = $category->id;
                 $this->modalOpen = true;
@@ -68,6 +69,7 @@ class CategoryManager extends Component
             }
         }
     }
+
 
 
     public function editSelection()
