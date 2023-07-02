@@ -262,10 +262,27 @@ foreach ($permissionsArray as $item) {
 </div>
 </div>
 
+@push('scripts')
 <script>
-    window.addEventListener('close-modal', event => {
-        setTimeout(() => {
-            Livewire.emit('refreshComponent');
-        }, 500); // Adjust the delay as needed
+    document.addEventListener('livewire:load', function () {
+        Livewire.hook('message.processed', function (message, component) {
+            if (message.updateQueue.hasOwnProperty('modalOpen')) {
+                const modalOpen = message.updateQueue.modalOpen.newValue;
+                if (!modalOpen) {
+                    document.getElementById('feedback-modal').classList.remove('opacity-100');
+                    document.getElementById('feedback-modal').classList.add('opacity-0');
+                    document.getElementById('feedback-modal').classList.remove('translate-y-0');
+                    document.getElementById('feedback-modal').classList.add('translate-y-4');
+                    document.body.classList.remove('overflow-hidden');
+                } else {
+                    document.getElementById('feedback-modal').classList.remove('opacity-0');
+                    document.getElementById('feedback-modal').classList.add('opacity-100');
+                    document.getElementById('feedback-modal').classList.remove('translate-y-4');
+                    document.getElementById('feedback-modal').classList.add('translate-y-0');
+                    document.body.classList.add('overflow-hidden');
+                }
+            }
+        });
     });
 </script>
+@endpush
