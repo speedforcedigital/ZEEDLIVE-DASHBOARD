@@ -60,13 +60,9 @@ class CategoryManager extends Component
             // Check if the category is connected to any collections
             $this->collectionsCount = $category->collections()->count();
 
-            if ($this->collectionsCount > 0) {
-                // If the category is connected to collections, show a modal
-                $this->removeCategoryId = $category->id;
-                $this->deleteModalOpen = true;
-            } else {
+            if ($this->collectionsCount === 0) {
                 $category->brands()->each(function ($brand) {
-                    $brand->modals()->delete(); // Delete associated models
+                    $brand->modals()->delete(); // Delete associated modals
                 });
 
                 $category->brands()->delete(); // Delete associated brands
