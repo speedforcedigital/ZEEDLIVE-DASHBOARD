@@ -79,7 +79,7 @@ class CategoryManager extends Component
         ]);
 
         $this->resetBrand();
-        $this->categories = Category::with('brands.modals')->get();
+        $this->selectedCategory['brands'] = $category->brands;
     }
 
     public function updateCategory()
