@@ -24,8 +24,8 @@ class CategoryManager extends Component
     public $categoryName = null; // Add this line
     public $brandName = null; // Add this line
     public $modalName = null;
-    public $selectedModal = null; // Add the selectedModel property
-
+    public $selectedModal = null; 
+    
     protected $rules = [
         'name' => 'required',
         'selectedCategory' => 'required',
