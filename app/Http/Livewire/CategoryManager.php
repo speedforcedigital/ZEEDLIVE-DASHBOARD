@@ -24,6 +24,8 @@ class CategoryManager extends Component
     public $isEditing = false;
     public $categoryName = null; // Add this line
     public $brandName = null; // Add this line
+    public $modelName = null;
+    public $selectedModel = null; // Add the selectedModel property
 
     protected $rules = [
         'name' => 'required',
@@ -82,7 +84,7 @@ class CategoryManager extends Component
         $this->selectedCategory['brands'] = $category->brands;
     }
 
-    public function addModel()
+    public function addModal()
     {
         $this->validate([
             'selectedBrand' => 'required',
@@ -92,7 +94,7 @@ class CategoryManager extends Component
         $brand = Brand::findOrFail($this->selectedBrand['id']);
 
         $brand->modals()->create([
-            'name' => $this->modelName,
+            'name' => $this->modalName,
         ]);
 
         $this->resetModal();
@@ -160,6 +162,7 @@ class CategoryManager extends Component
 
     public function resetModal()
     {
-        $this->selectedModal = null;
+        $this->modalName = null;
+        $this->selectedModal = null; // Reset the selectedModel property
     }
 }
