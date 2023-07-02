@@ -112,11 +112,10 @@ foreach ($permissionsArray as $item) {
                         <!-- Modal content -->
                         <div class="px-5 py-4">
                             <div class="text-sm">
-                                <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">Category Name</div>
-                                <div class="text-slate-800 dark:text-slate-100 mb-3">Editing {{ $selectedCategory ? $selectedCategory->name : '' }}</div>
+                                <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">Editing {{ $selectedCategory ? $selectedCategory->name : '' }}</div>
                             </div>
                             <div>
-                                <input id="category-name" class="form-input w-full px-2 py-1" type="text" x-model="newCategoryName" required>
+                                <input id="category-name" class="form-input w-full px-2 py-1" type="text" x-model="newCategoryName">
                                 @error('newCategoryName')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                             </div>
                         </div>
