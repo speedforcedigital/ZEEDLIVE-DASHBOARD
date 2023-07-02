@@ -225,8 +225,8 @@ foreach ($permissionsArray as $item) {
                   Brand <span class="text-rose-500">*</span>
                 </label>
                 <div class="flex">
-                  <input id="brand" class="form-input w-full" type="text"  wire:model="brandName" required/>
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand">
+                  <input id="brand" class="form-input w-full" type="text"  wire:model="brandName" required  @if (!isset($selectedCategory) || empty($selectedCategory)) disabled @endif/>
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand" @if (!isset($selectedCategory) || empty($selectedCategory)) disabled @endif>
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
@@ -264,8 +264,8 @@ foreach ($permissionsArray as $item) {
               <div x-data="{ selectedCategory: @entangle('selectedCategory') }">
                 <label class="block text-sm font-medium mb-1" for="model">Model <span class="text-rose-500">*</span></label>
                 <div class="flex">
-                  <input id="model" class="form-input w-full" type="text"wire:model="modalName" required @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif />
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addModal" @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
+                  <input id="model" class="form-input w-full" type="text"wire:model="modalName" required />
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addModal">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
