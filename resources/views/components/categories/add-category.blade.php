@@ -53,9 +53,9 @@
                   </svg>
                 </button>
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
-                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                    <path d="M1 7h6V1c0-.6.4-1 1-1s1 .4 1 1v6h6c.6 0 1 .4 1 1s-.4 1-1 1h-6v6c0 .6-.4 1-1 1s-1-.4-1-1V9H1c-.6 0-1-.4-1-1s.4-1 1-1z" transform="translate(16, 0) scale(-1, 1)"/>
-                    </svg>
+                <svg class="nucleo-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M18.7 5.7l-.4-.4c-.6-.6-1.7-.6-2.3 0l-1.1 1.1 3.5 3.5 1.1-1.1c.6-.6.6-1.7 0-2.3zM15.2 9.1L5 19.4V23h3.6L20.9 12.7l-1.4-1.4zM3 20h2v2H3v-2z" />
+                </svg>
                 </button>
               </div>
               @error('name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
