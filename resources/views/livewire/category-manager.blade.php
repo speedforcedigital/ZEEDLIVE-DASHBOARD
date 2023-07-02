@@ -121,7 +121,7 @@ foreach ($permissionsArray as $item) {
                                     @error('newCategoryName')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                                 </div>
                             </div>
-                            <!-- Modal footer -->
+                            <!-- Modal footer --> 
                             <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                 <div class="flex flex-wrap justify-end space-x-2">
                                     <button class="border-slate-200 dark:border-slate-700" @click="modalOpen = false">Cancel</button>
