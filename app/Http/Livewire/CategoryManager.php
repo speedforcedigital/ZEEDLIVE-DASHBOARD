@@ -117,6 +117,7 @@ class CategoryManager extends Component
         $this->validate([
             'selectedBrand' => 'required',
             'modalName' => 'required',
+            'selectedModal' => 'required',
         ]);
 
         $brand = Brand::findOrFail($this->selectedBrand['id']);
