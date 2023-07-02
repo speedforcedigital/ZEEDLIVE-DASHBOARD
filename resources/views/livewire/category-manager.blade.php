@@ -262,10 +262,10 @@ foreach ($permissionsArray as $item) {
 </div>
 </div>
 
-<livewire:offline>
-    <script>
-        document.addEventListener('livewire:offline', function () {
+<script>
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('modalClosed', function () {
             Alpine.store('modalOpen', false);
         });
-    </script>
-</livewire:offline>
+    });
+</script>
