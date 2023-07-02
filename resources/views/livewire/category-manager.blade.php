@@ -85,7 +85,7 @@ foreach ($permissionsArray as $item) {
                   <div x-data="{ modalOpen: false, newCategoryName: '' }">
 
                   <!-- Modal trigger button -->
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true">
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true" style="height: 38px;">
                         <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                             <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
                                 <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
