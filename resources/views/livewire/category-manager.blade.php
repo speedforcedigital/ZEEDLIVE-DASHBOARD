@@ -83,7 +83,7 @@ foreach ($permissionsArray as $item) {
 
                   <div>
                  
-                  <div x-data="{ modalOpen: false, newCategoryName: '' }" wire:refresh>
+                  <div x-data="{ modalOpen: false, newCategoryName: '' }">
                     <!-- Modal trigger button -->
                     <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true">
                         <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
@@ -126,7 +126,7 @@ foreach ($permissionsArray as $item) {
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <button class="btn-sm border-slate-200 dark:border-slate-700" wire:click="closeModal">Cancel</button>
+                                    <button class="btn-sm border-slate-200 dark:border-slate-700" @click="modalOpen = false">Cancel</button>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" wire:click="updateCategory">Update</button>
                                 </div>
                             </div>
@@ -261,28 +261,3 @@ foreach ($permissionsArray as $item) {
 </div>
 </div>
 </div>
-
-@push('scripts')
-<script>
-    document.addEventListener('livewire:load', function () {
-        Livewire.hook('message.processed', function (message, component) {
-            if (message.updateQueue.hasOwnProperty('modalOpen')) {
-                const modalOpen = message.updateQueue.modalOpen.newValue;
-                if (!modalOpen) {
-                    document.getElementById('feedback-modal').classList.remove('opacity-100');
-                    document.getElementById('feedback-modal').classList.add('opacity-0');
-                    document.getElementById('feedback-modal').classList.remove('translate-y-0');
-                    document.getElementById('feedback-modal').classList.add('translate-y-4');
-                    document.body.classList.remove('overflow-hidden');
-                } else {
-                    document.getElementById('feedback-modal').classList.remove('opacity-0');
-                    document.getElementById('feedback-modal').classList.add('opacity-100');
-                    document.getElementById('feedback-modal').classList.remove('translate-y-4');
-                    document.getElementById('feedback-modal').classList.add('translate-y-0');
-                    document.body.classList.add('overflow-hidden');
-                }
-            }
-        });
-    });
-</script>
-@endpush
