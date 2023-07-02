@@ -123,7 +123,7 @@ foreach ($permissionsArray as $item) {
                       <!-- Modal footer -->
                       <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                         <div class="flex flex-wrap justify-end space-x-2">
-                        <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300" @click="modalOpen = false"> Cancel </button>
+                        <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300" x-on:click="modalOpen = false"> Cancel </button>
                           <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" wire:click="updateCategory">Update</button>
                         </div>
                       </div>
