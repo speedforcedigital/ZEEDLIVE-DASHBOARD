@@ -19,6 +19,7 @@ class CategoryManager extends Component
     public $selectedModal;
     public $categories;
     public $selectedBrandId;
+    public $editModalOpen = false;
 
     protected $rules = [
         'name' => 'required',
@@ -39,6 +40,18 @@ class CategoryManager extends Component
             'selectedBrand' => $this->selectedBrand, // Add this line
             'selectedBrandId' => $this->selectedBrandId, // Add this line
         ]);    
+    }
+
+    public function editSelection()
+    {
+        $this->editModalOpen = true;
+    }
+
+    public function updateCategory()
+    {
+        $this->selectedCategory->save();
+        $this->editModalOpen = false;
+        $this->resetSelection();
     }
 
     public function selectCategory($categoryId)
