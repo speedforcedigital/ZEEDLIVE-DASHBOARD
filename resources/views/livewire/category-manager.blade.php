@@ -261,7 +261,7 @@ foreach ($permissionsArray as $item) {
           <div class="mt-2">
             <div>
               <!-- Start -->
-              <div>
+              <div x-data="{ selectedCategory: @entangle('selectedCategory') }">
                 <label class="block text-sm font-medium mb-1" for="model">Model <span class="text-rose-500">*</span></label>
                 <div class="flex">
                   <input id="model" class="form-input w-full" type="text"wire:model="modalName" required x-bind:disabled="!selectedCategory" />
