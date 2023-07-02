@@ -64,7 +64,7 @@ class CategoryManager extends Component
             } else {
                 // If the category is not connected to collections, delete it along with associated brands and models
                 $category->brands()->each(function ($brand) {
-                    $brand->models()->delete(); // Delete associated models
+                    $brand->modals()->delete(); // Delete associated models
                 });
 
                 $category->brands()->delete(); // Delete associated brands
