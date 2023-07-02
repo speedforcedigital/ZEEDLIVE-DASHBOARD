@@ -81,18 +81,19 @@ foreach ($permissionsArray as $item) {
                     </svg>
                   </button>
 
-                    <!-- Modal trigger button -->
-                    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true">
-                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-                        <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
-                            <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
-                            <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </g>
-                    </svg>
-                </button>
-
-                  <div>
+                    
                   <div x-data="{ modalOpen: false, newCategoryName: '' }">
+
+                  <!-- Modal trigger button -->
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true">
+                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+                            <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
+                                <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
+                                <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </g>
+                        </svg>
+                    </button>
+
                     <!-- Modal backdrop -->
                     <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="modalOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
@@ -132,7 +133,6 @@ foreach ($permissionsArray as $item) {
                         </div>
                     </div>
                 </div>
-            </div>
 
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
