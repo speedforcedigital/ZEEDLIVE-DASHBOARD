@@ -72,16 +72,16 @@ foreach ($permissionsArray as $item) {
             <div>
               <!-- Start -->
               <div>
-              <label class="block text-sm font-medium mb-1" for="category">Category <span class="text-rose-500">*</span></label>
+                <label class="block text-sm font-medium mb-1" for="category">Category <span class="text-rose-500">*</span></label>
                 <div class="flex">
-                    <input id="category" class="form-input w-full" type="text" wire:model="categoryName" required />
-                    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addCategory">
-                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                            <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                        </svg>
-                    </button>
-                </div>
+                  <input id="category" class="form-input w-full" type="text" wire:model="categoryName" required/>
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addCategory">
+                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                    </svg>
+                  </button>
 
+                    
                   <div x-data="{ modalOpen: @entangle('isEditing') , newCategoryName: '' }">
 
                   <!-- Modal trigger button -->
@@ -158,17 +158,17 @@ foreach ($permissionsArray as $item) {
             <div>
               <!-- Start -->
               <div>
-              <label class="block text-sm font-medium mb-1" for="brand">Brand <span class="text-rose-500">*</span></label>
+                <label class="block text-sm font-medium mb-1" for="brand">
+                  Brand <span class="text-rose-500">*</span>
+                </label>
                 <div class="flex">
-                    <input id="brand" class="form-input w-full" type="text" wire:model="brandName" required />
-                    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand">
-                        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                            <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                        </svg>
-                    </button>
-                </div>
-
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetBrand">
+                  <input id="brand" class="form-input w-full" type="text"  wire:model="brandName" required/>
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand">
+                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                    </svg>
+                  </button>
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetBrand">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
                       <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
                   </button>
