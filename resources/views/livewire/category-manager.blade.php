@@ -90,36 +90,6 @@ foreach ($permissionsArray as $item) {
                         </g>
                     </svg>
                 </button>
-                <!-- Edit Category Modal -->
- <div x-data="{ isOpen: @entangle('editModalOpen') }">
-    <div x-show="isOpen" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <!-- Background overlay -->
-            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-            <!-- Modal panel -->
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Edit Category
-                            </h3>
-                            <div class="mt-2">
-                                <input id="edit-category" class="form-input w-full" type="text" wire:model.defer="selectedCategory.name" required />
-                                @error('selectedCategory.name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="updateCategory">Save</button>
-                    <button class="btn bg-gray-300 hover:bg-gray-400 text-gray-800" x-on:click="isOpen = false">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
                         <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
@@ -247,3 +217,47 @@ foreach ($permissionsArray as $item) {
 </div>
 </div>
 
+<!-- Edit Category Modal -->
+<div x-data="{ isOpen: @entangle('modalOpen') }">
+    <button class="btn c5e6b cdsge c7qs0" @click.prevent="isOpen = true" aria-controls="feedback-modal">Edit Category</button>
+    <!-- Modal backdrop -->
+    <div class="bg-slate-900 cw1h6 cn21v cryht cl8sr cmayk" x-show="isOpen" x-transition:enter="c64rw cuqwi cl6tz" x-transition:enter-start="opacity-0" x-transition:enter-end="c0inn" x-transition:leave="c64rw cuqwi ctadz" x-transition:leave-start="c0inn" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+    <!-- Modal dialog -->
+    <div id="feedback-modal" class="flex items-center justify-center cejl6 c2ksj cryht cl8sr cmayk cdmac cn2cr" role="dialog" aria-modal="true" x-show="isOpen" x-transition:enter="c64rw cw5sv cl6tz" x-transition:enter-start="opacity-0 c1x7j" x-transition:enter-end="c0inn csmxb" x-transition:leave="c64rw cw5sv cl6tz" x-transition:leave-start="c0inn csmxb" x-transition:leave-end="opacity-0 c1x7j" x-cloak>
+        <div class="bg-white dark:bg-slate-800 rounded cm7c4 c5gd2 c21iq cym6n c96ud" @click.outside="isOpen = false" @keydown.escape.window="isOpen = false">
+            <!-- Modal header -->
+            <div class="border-slate-200 dark:border-slate-700 cqyqv c7q80 cks8x">
+                <div class="flex items-center cc2cs">
+                    <div class="text-slate-800 dark:text-slate-100 ca8f5">Edit Category</div>
+                    <button class="cccp8 c3d0i camw1 c4cuk" @click="isOpen = false">
+                        <div class="czsjw">Close</div>
+                        <svg class="c7hxs c29x4 cq5uz">
+                            <path d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Modal content -->
+            <div class="c7q80 cpnas">
+                <div class="text-sm">
+                    <div class="text-slate-800 dark:text-slate-100 cz4nn cm3dd">Edit the category name</div>
+                </div>
+                <div class="cfohq">
+                    <div>
+                        <label class="block text-sm cz4nn ca5ph" for="category-name">Category Name <span class="ciajw">*</span></label>
+                        <input id="category-name" class="c04hc c96ud czv4r cwkie" type="text" wire:model="name" required>
+                        @error('name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="border-slate-200 dark:border-slate-700 cannk c7q80 cpnas">
+                <div class="flex flex-wrap justify-end cb50h">
+                    <button class="border-slate-200 dark:border-slate-700 c18nt czq29 cywsn c24n3 cijix" @click="isOpen = false">Cancel</button>
+                    <button class="c5e6b cdsge c7qs0 cijix" wire:click="updateCategory">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Edit Category Modal -->
