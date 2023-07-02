@@ -21,6 +21,7 @@ class CategoryManager extends Component
     public $selectedBrandId;
     public $modalOpen = false;
     public $newCategoryName = null;
+    public $isEditing = false;
 
     protected $rules = [
         'name' => 'required',
@@ -45,7 +46,7 @@ class CategoryManager extends Component
 
     public function editSelection()
     {
-        $this->modalOpen = true;
+        $this->isEditing = true;
     }
 
     public function updateCategory()
@@ -61,10 +62,7 @@ class CategoryManager extends Component
         $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
         $this->resetSelection();
 
-        $this->reset(['newCategoryName']);
-
-        // Emit a custom event to close the modal
-        $this->dispatchBrowserEvent('category-updated');
+        $this->reset(['newCategoryName', 'isEditing']);
     }
 
     public function closeModal()

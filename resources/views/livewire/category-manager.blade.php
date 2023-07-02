@@ -82,7 +82,7 @@ foreach ($permissionsArray as $item) {
                   </button>
 
                     
-                  <div x-data="{ modalOpen: false, newCategoryName: '' }">
+                  <div x-data="{ modalOpen: @entangle('isEditing') , newCategoryName: '' }">
 
                   <!-- Modal trigger button -->
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="modalOpen = true" style="height: 38px;">
