@@ -212,9 +212,8 @@ foreach ($permissionsArray as $item) {
       </div>
     </div>
   </div>
-</div>
 
-<!-- Edit Category Modal -->
+  <!-- Edit Category Modal -->
 <div x-data="{ isOpen: @entangle('editModalOpen') }">
     <div x-show="isOpen" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -246,5 +245,6 @@ foreach ($permissionsArray as $item) {
 </div>
 
 
+</div>
 </div>
 
