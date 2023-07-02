@@ -72,7 +72,7 @@ class CategoryManager extends Component
             'brandName' => 'required',
         ]);
 
-        $category = Category::findOrFail($this->selectedCategory);
+        $category = Category::findOrFail($this->selectedCategory['id']);
 
         $category->brands()->create([
             'name' => $this->brandName,
