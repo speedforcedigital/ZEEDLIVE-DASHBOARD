@@ -9,7 +9,7 @@
         @click.prevent="open = !open"
         :aria-expanded="open"                        
     >
-        <img class="w-8 h-8 rounded-full" src="https://api.staging.zeedlive.com/image/user_profile/{{Session::get('profile_image')}}" width="32" height="32" alt="{{Session::get('name')}}" />
+        <img class="w-8 h-8 rounded-full" src="https://api.zeedlive.com/image/user_profile/{{Session::get('profile_image')}}" width="32" height="32" alt="{{Session::get('name')}}" />
         <div class="flex items-center truncate">
             <span class="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{{Session::get('name')}}</span>
             <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
