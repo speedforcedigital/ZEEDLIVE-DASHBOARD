@@ -50,7 +50,7 @@ class CategoryManager extends Component
     public function updateCategory()
     {
         $this->selectedCategory->save();
-        $this->editModalOpen = false;
+        $this->modalOpen = false;
         $this->resetSelection();
     }
 

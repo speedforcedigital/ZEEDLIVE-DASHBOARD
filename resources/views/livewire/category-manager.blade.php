@@ -91,13 +91,13 @@ foreach ($permissionsArray as $item) {
                         </g>
                     </svg>
                 </button>
-                <!-- Modal dialog -->
-                <div
+                    <!-- Modal dialog -->
+                    <div
                         id="feedback-modal"
                         class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                         role="dialog"
                         aria-modal="true"
-                        x-show="modalOpen"
+                        x-show="editModalOpen"
                         x-transition:enter="transition ease-in-out duration-200"
                         x-transition:enter-start="opacity-0 translate-y-4"
                         x-transition:enter-end="opacity-100 translate-y-0"
@@ -108,7 +108,7 @@ foreach ($permissionsArray as $item) {
                         x-cloak
                     >
                         <!-- Modal content -->
-                        <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                        <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full max-w-screen-md" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
                             <!-- Modal header -->
                             <div class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
                                 <div class="flex justify-between items-center">
@@ -134,13 +134,13 @@ foreach ($permissionsArray as $item) {
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300" @click="modalOpen = false">Cancel</button>
+                                    <button class="btn-sm border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300" @click="editModalOpen = false">Cancel</button>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" wire:click="updateCategory">Update</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
                         <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
