@@ -54,7 +54,7 @@ class CategoryManager extends Component
             'newCategoryName' => 'required',
         ]);
     
-        $category = Category::find($this->selectedCategory);
+        $category = Category::find($this->selectedCategory->id);
         $category->name = $this->newCategoryName;
         $category->save();
     
