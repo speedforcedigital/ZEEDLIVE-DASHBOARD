@@ -49,6 +49,38 @@ class CategoryManager extends Component
         $this->isEditing = true;
     }
 
+    public function addCategory()
+    {
+        $this->validate([
+            'name' => 'required',
+        ]);
+
+        Category::create([
+            'name' => $this->name,
+        ]);
+
+        $this->resetCategory();
+        $this->categories = Category::with('brands.modals')->get();
+    }
+
+    public function addBrand()
+    {
+        $this->validate([
+            'selectedCategory' => 'required',
+            'name' => 'required',
+        ]);
+
+        $category = Category::findOrFail($this->selectedCategory);
+
+        $category->brands()->create([
+            'name' => $this->name,
+        ]);
+
+        $this->resetBrand();
+        $this->categories = Category::with('brands.modals')->get();
+    }
+
+
     public function updateCategory()
     {
         $this->validate([
