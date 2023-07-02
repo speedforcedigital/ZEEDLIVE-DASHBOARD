@@ -51,13 +51,13 @@ class CategoryManager extends Component
     public function updateCategory()
     {
         $this->validate([
-            'newCategoryName' => 'required', // Validate the new category name
+            'newCategoryName' => 'required',
         ]);
-
-        $category = Category::find($this->selectedCategory->id);
-        $category->name = $this->newCategoryName; // Update the category name
+    
+        $category = Category::find($this->selectedCategory);
+        $category->name = $this->newCategoryName;
         $category->save();
-
+    
         $this->modalOpen = false;
         $this->resetSelection();
     }

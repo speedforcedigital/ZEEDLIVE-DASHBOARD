@@ -119,7 +119,7 @@ foreach ($permissionsArray as $item) {
                                     <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">Editing {{ $selectedCategory ? $selectedCategory->name : '' }}</div>
                                 </div>
                                 <div>
-                                    <input id="category-name" class="form-input w-full px-2 py-1" type="text" x-model="newCategoryName">
+                                    <input id="category-name" class="form-input w-full px-2 py-1" type="text" wire:model="newCategoryName">
                                     @error('newCategoryName')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                                 </div>
                             </div>
