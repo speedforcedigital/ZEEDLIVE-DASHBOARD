@@ -25,10 +25,10 @@ class Category extends Model
     {
         return $this->hasMany(Brand::class);
     }
-    
+
     public function collections()
     {
-        return $this->hasMany(Collection::class);
+        return $this->hasMany(MyCollection::class);
     }
 
 
