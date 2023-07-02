@@ -18,7 +18,7 @@ foreach ($permissionsArray as $item) {
   }
 }
 ?>
-
+<div>
 <style>
 .custom-select {
   display: inline-block;
@@ -212,6 +212,7 @@ foreach ($permissionsArray as $item) {
       </div>
     </div>
   </div>
+</div>
 </div>
 
 @livewireScripts
