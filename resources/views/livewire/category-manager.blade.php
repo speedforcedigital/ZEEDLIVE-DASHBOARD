@@ -81,7 +81,7 @@ foreach ($permissionsArray as $item) {
                     </svg>
                   </button>
                     
-                  <div x-data="{ editModalOpen: @entangle('editModalOpen') , newCategoryName: '' }">
+                <div x-data="{ editModalOpen: @entangle('editModalOpen') , newCategoryName: '' }">
 
                   <!-- Modal trigger button -->
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="editModalOpen = true" style="height: 38px;">
@@ -183,9 +183,7 @@ foreach ($permissionsArray as $item) {
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal') }">
+                    <div x-data="{ deleteConfirmModal: @entangle('deleteConfirmModal') }">
                     <!-- Your existing code here -->
 
                     <!-- Modal backdrop -->
@@ -205,7 +203,9 @@ foreach ($permissionsArray as $item) {
                         </div>
                     </div>
                 </div>
+                </div>
 
+                
 
 
                 </div>
