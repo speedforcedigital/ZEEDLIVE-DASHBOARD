@@ -27,7 +27,7 @@ class CategoryManager extends Component
     public $categoryName = null; // Add this line
     public $brandName = null; // Add this line
     public $modalName = null;
-    public $selectedModal = null; 
+    public $selectedModal; 
     public $removeCategoryId = null;
     public $collectionsCount;
 
