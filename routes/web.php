@@ -33,6 +33,8 @@ Route::group(['middleware' => 'protected'], function () {
 
     Route::get('/categories', Categories::class);
 
+    Route::get('/manage/category', CategoryManager::class)->name('category.manager');
+
     Route::get('/brands', Brands::class);
     Route::get('/models', Models::class);
     Route::get('/sellers', Sellers::class);
