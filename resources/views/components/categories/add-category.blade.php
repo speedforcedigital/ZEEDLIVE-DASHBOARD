@@ -53,7 +53,12 @@
                   </svg>
                 </button>
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper"><line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line><path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+                    <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
+                        <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
+                        <path d="M4,10l7.08-7.05A1.435,1.435,0,1,0,9.05.92L2,8,.5,11.5Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
                 </button>
               </div>
               @error('name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
