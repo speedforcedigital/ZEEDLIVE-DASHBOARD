@@ -82,6 +82,25 @@ class CategoryManager extends Component
         $this->selectedCategory['brands'] = $category->brands;
     }
 
+    public function addModel()
+    {
+        $this->validate([
+            'selectedBrand' => 'required',
+            'modelName' => 'required',
+        ]);
+
+        $brand = Brand::findOrFail($this->selectedBrand['id']);
+
+        $brand->modals()->create([
+            'name' => $this->modelName,
+        ]);
+
+        $this->resetModal();
+
+        // Update the modals for the selected brand
+        $this->selectedBrand['modals'] = $brand->modals;
+    }
+
     public function updateCategory()
     {
         $this->validate([
@@ -137,5 +156,10 @@ class CategoryManager extends Component
         $this->selectedBrand = null;
         $this->selectedModal = null;
         $this->brandName = null;
+    }
+
+    public function resetModal()
+    {
+        $this->selectedModal = null;
     }
 }
