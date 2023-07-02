@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Categories;
+use App\Http\Livewire\CategoryManager;
 use App\Http\Livewire\Brands;
 use App\Http\Livewire\Models;
 use App\Http\Livewire\Sellers;
