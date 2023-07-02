@@ -134,7 +134,7 @@ foreach ($permissionsArray as $item) {
                     </div>
                 </div>
 
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetCategory">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
                       <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
                   </button>
@@ -168,11 +168,9 @@ foreach ($permissionsArray as $item) {
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                   </button>
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetSelection">
-                    <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                      <path d="M6.1 0H3.3C1.5 0 0 1.5 0 3.3v2.8C0 7.5 1.5 9 3.3 9h2.8C9 9 10.5 7.5 10.5 5.7V3.3C10.5 1.5 9 0 6.1 0zm0 7H3.3C2.1 7 1 5.9 1 4.7V3.3C1 2.1 2.1 1 3.3 1h2.8C7.9 1 9 2.1 9 3.3v1.4C9 5.9 7.9 7 6.7 7z" />
-                      <path d="M13.1 2H9V.9C9 .4 8.6 0 8.1 0H6.8C6.3 0 5.9.4 5.9.9V2H1.8C1.3 2 0 3.3 0 4.8v5.6C0 11.7 1.3 13 2.8 13h5.6c1.5 0 2.8-1.3 2.8-2.8V4.8C16 3.3 14.7 2 13.1 2zm1.5 8.4c0 .8-.7 1.5-1.5 1.5H2.8c-.8 0-1.5-.7-1.5-1.5V4.8c0-.8.7-1.5 1.5-1.5H6v1.2c0 .5.4.9.9.9H8v1.2c0 .5.4.9.9.9H13v1.2z" />
-                    </svg>
+                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="resetBrand">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
+                      <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
                   </button>
                 </div>
                 @error('selectedBrand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror

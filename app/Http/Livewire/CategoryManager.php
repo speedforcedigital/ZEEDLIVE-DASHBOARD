@@ -91,12 +91,16 @@ class CategoryManager extends Component
         $this->selectedModal = Modal::find($modalId);
     }
 
-    public function resetSelection()
+    public function resetCategory()
     {
         $this->selectedCategory = null;
+        $this->newCategoryName = null;
+    }
+
+    public function resetBrand()
+    {
         $this->selectedBrandId = null;
         $this->selectedBrand = null;
         $this->selectedModal = null;
-        $this->newCategoryName = null;
     }
 }
