@@ -27,12 +27,6 @@ class Brands extends Component
         return view('livewire.brands', compact('brands', 'total_brand'));
     }
 
-    public function add()
-    {
-        $this->categoryList = Category::pluck('name', 'id')->toArray();
-        $this->addBrand = true;
-        }
-
     public function updated($field)
     {
         $this->validateOnly($field, [
@@ -42,6 +36,7 @@ class Brands extends Component
         ]);
     }
 
+   
     public function addBrand()
     {
         $validatedData = $this->validate([
@@ -83,6 +78,13 @@ class Brands extends Component
         $this->addBrand = false;
         $this->updateMode = false;
         $this->resetInputFields();
+    }
+
+    public function add()
+    {
+        $this->addBrand = true;
+        $this->categoryList = Category::pluck('name', 'id')->toArray();
+        $this->emit('addBrand', $categoryList);
     }
 
     private function resetInputFields()
