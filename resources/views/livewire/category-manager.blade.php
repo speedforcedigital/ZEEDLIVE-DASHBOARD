@@ -278,8 +278,11 @@ foreach ($permissionsArray as $item) {
                   @if (!isset($selectedBrand) || empty($selectedBrand)) disabled @endif>
                   @if (isset($selectedBrand) && $selectedBrand->modals)
                   @foreach ($selectedBrand->modals as $modal)
-                  <option value="{{ $modal->id }}">{{ $modal->name }}</option>
-                  @endforeach
+                        <option value="{{ $modal->id }}" {{ $selectedModal && $selectedModal->id == $modal->id ? 'selected' : '' }}
+                            class="{{ $selectedModal && $selectedModal->id == $modal->id ? 'selected' : '' }}">
+                            {{ $modal->name }}
+                        </option>
+                    @endforeach
                   @endif
                 </select>
               </div>
