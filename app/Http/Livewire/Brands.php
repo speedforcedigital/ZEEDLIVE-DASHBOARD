@@ -28,7 +28,7 @@ class Brands extends Component
 
     public function add()
     {
-        $this->categoryList = Category::all()->toArray();
+        $this->categoryList = Category::pluck('name', 'id')->toArray();
         $this->addBrand = true;
     }
 
