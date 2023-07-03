@@ -32,21 +32,18 @@
 
                 </div>
 
-
                 <div>
                     <!-- Start -->
                     <label class="block text-sm font-medium mb-1" for="country">Category</label>
                     <select id="country" class="form-input w-full" wire:model="category_id">
                         <option value="">Select</option>
                         @foreach($categoryList as $categoryId => $categoryName)
-                        <option value="{{$categoryId}}">{{$categoryName}}</option>
+                            <option value="{{ $categoryId }}">{{ $categoryName }}</option>
                         @endforeach
                     </select>
                     @error('category_id')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                     <!-- End -->
                 </div>
-
-
 
                 <input type="hidden" wire:model="brand_id">
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">

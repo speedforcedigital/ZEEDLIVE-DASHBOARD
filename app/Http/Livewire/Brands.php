@@ -22,6 +22,7 @@ class Brands extends Component
         $perPage = 10;
         $brands = Brand::paginate($perPage);
         $total_brand = Brand::count();
+        $this->categoryList = Category::pluck('name', 'id')->toArray();
 
         return view('livewire.brands', compact('brands', 'total_brand'));
     }
