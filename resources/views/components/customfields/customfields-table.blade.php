@@ -1,22 +1,23 @@
 <?php
 $array = Session::get('permissions');
-//delete
-$delete_capability_exists = false;
-foreach ($array as $item) {
-  if (isset($item['Custom Field']) && in_array('delete', $item['Custom Field'])) {
-    $delete_capability_exists = true;
-    break;
-  }
+// Add capability
+$add_capability_exists = false;
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
+    if (isset($item['Custom Field']) && in_array('add', $item['Custom Field'])) {
+        $add_capability_exists = true;
+        break;
+    }
 } 
-
-//edit
-$edit_capability_exists = false;
-foreach ($array as $item) {
-  if (isset($item['Custom Field']) && in_array('edit', $item['Custom Field'])) {
-    $edit_capability_exists = true;
-    break;
-  }
-} 
+// List capability
+$list_capability_exists = false;
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
+    if (isset($item['Custom Field']) && in_array('list', $item['Custom Field'])) {
+        $list_capability_exists = true;
+        break;
+    }
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
