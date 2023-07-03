@@ -93,6 +93,8 @@ class CategoryManager extends Component
         ]);
 
         $this->resetCategory();
+        $this->resetBrand();
+        $this->resetModal();
         $this->categories = Category::with('brands.modals')->get();
     }
 
@@ -110,6 +112,7 @@ class CategoryManager extends Component
         ]);
 
         $this->resetBrand();
+        $this->resetModal();
         $this->selectedCategory['brands'] = $category->brands;
     }
 
@@ -145,6 +148,8 @@ class CategoryManager extends Component
     
         $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
         $this->resetCategory();
+        $this->resetBrand();
+        $this->resetModal();
 
         $this->reset(['newCategoryName', 'editModalOpen']);
     }
