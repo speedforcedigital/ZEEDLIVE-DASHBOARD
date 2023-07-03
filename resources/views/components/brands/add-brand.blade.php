@@ -45,6 +45,7 @@
                     <!-- End -->
                 </div>
 
+
                 <input type="hidden" wire:model="brand_id">
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">
                     <div></div>

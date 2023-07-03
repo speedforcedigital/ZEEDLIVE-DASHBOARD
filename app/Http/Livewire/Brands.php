@@ -29,10 +29,9 @@ class Brands extends Component
 
     public function add()
     {
-        $categoryList = Category::pluck('name', 'id')->toArray();
-        $this->categoryList = $categoryList;
+        $this->categoryList = Category::pluck('name', 'id')->toArray();
         $this->addBrand = true;
-    }
+        }
 
     public function updated($field)
     {
