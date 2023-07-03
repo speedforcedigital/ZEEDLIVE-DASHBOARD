@@ -1,5 +1,9 @@
 <?php
 $array = Session::get('permissions');
+$array = Session::get('permissions');
+if (is_string($array)) {
+    $array = json_decode($array, true);
+}
 // Add capability
 $add_capability_exists = false;
 $permissionsArray = json_decode($array, true);
@@ -21,10 +25,10 @@ foreach ($permissionsArray as $item) {
 // edit
 $edit_capability_exists = false;
 foreach ($array as $item) {
-  if (isset($item['Custom Field']) && in_array('edit', $item['Custom Field'])) {
-    $edit_capability_exists = true;
-    break;
-  }
+    if (isset($item['Custom Field']) && in_array('edit', $item['Custom Field'])) {
+        $edit_capability_exists = true;
+        break;
+    }
 }
 ?>
 <x-loading-indicater />
