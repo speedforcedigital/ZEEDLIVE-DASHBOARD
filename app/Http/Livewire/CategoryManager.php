@@ -35,6 +35,7 @@ class CategoryManager extends Component
         'name' => 'required',
         'selectedCategory' => 'required',
         'selectedBrand' => 'required',
+        'selectedModal' => 'required',
     ];
 
     public function mount()
