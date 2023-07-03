@@ -48,11 +48,11 @@ foreach ($permissionsArray as $item) {
         </div>
 
         <!-- Table -->
-    @if ($addBrand || $updateMode)
-        <x-brands.add-brand wire:initial-data="categoryList" />
+        @if ($addBrand || $updateMode)
+          <x-brands.add-brand :categoryList="$categoryList" />
         @else
         @if($list_capability_exists)
-        <x-brands.brands-table :brands="$brands" :count="$total_brand" />
+          <x-brands.brands-table :brands="$brands" :count="$total_brand" />
         @endif
         <!-- Pagination -->
           <div class="mt-8">
