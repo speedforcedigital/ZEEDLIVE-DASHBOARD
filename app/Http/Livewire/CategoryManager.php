@@ -35,7 +35,7 @@ class CategoryManager extends Component
         'name' => 'required',
         'selectedCategory' => 'required',
         'selectedBrand' => 'required',
-        'selectedModal' => 'required_with:selectedBrand',
+        'selectedModal' => 'required_if:selectedBrand',
     ];
 
     public function mount()
@@ -121,7 +121,7 @@ class CategoryManager extends Component
         $this->validate([
             'selectedBrand' => 'required',
             'modalName' => 'required',
-            'selectedModal' => 'required_with:selectedBrand',
+            'selectedModal' => 'required_if:selectedBrand',
         ]);
 
         $brand = Brand::findOrFail($this->selectedBrand['id']);
