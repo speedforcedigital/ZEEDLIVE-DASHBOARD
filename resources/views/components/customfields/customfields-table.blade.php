@@ -82,7 +82,7 @@ foreach ($permissionsArray as $item) {
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
 
-                                <div class="text-left">{{ !empty($customfield['values']) ? implode(",",$customfield['values']) : 'Textual' }}</div>
+                            <div class="text-left">{{ !empty($customfield['values']) ? implode(",", (array)$customfield['values']) : 'Textual' }}</div>
                             </td>          
                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                         @if($edit_capability_exists)
