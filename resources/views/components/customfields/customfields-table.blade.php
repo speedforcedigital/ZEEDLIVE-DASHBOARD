@@ -18,6 +18,14 @@ foreach ($permissionsArray as $item) {
         break;
     }
 }
+// edit
+$edit_capability_exists = false;
+foreach ($array as $item) {
+  if (isset($item['Custom Field']) && in_array('edit', $item['Custom Field'])) {
+    $edit_capability_exists = true;
+    break;
+  }
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
