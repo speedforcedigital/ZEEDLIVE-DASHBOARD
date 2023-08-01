@@ -8,35 +8,29 @@ use App\Models\Auction; // Replace "Auction" with your actual Eloquent model nam
 
 class Auctions extends Component
 {
-    public $filterAuction = false;
     public $filterType = '';
 
     public function render()
     {
         // Replace this with your actual Eloquent query to fetch all auctions from the database
         $query = Auction::query();
-        
-        if ($this->filterAuction || $this->filterType) {
-            // If filters are applied, adjust the query accordingly
-            if ($this->filterType === 'verified') {
-                $query->where('status', 'verified');
-            } elseif ($this->filterType === 'rejected') {
-                $query->where('status', 'rejected');
-            } elseif ($this->filterType === 'pending') {
-                $query->where('status', 'pending');
-            }
-            
-            $auctions = $query->get();
-            $total_auctions = count($auctions);
-        } else {
-            // If no filters are applied, fetch all auctions
-            $auctions = $query->get();
-            $total_auctions = count($auctions);
+
+        // If filters are applied, adjust the query accordingly
+        if ($this->filterType === 'verified') {
+            $query->where('status', 'verified');
+        } elseif ($this->filterType === 'rejected') {
+            $query->where('status', 'rejected');
+        } elseif ($this->filterType === 'pending') {
+            $query->where('status', 'pending');
         }
+
+        // Fetch all auctions without applying filters if no filter is selected
+        $auctions = $query->get();
 
         // Pagination
         $page = request()->query('page', 1);
         $perPage = 10;
+        $total_auctions = count($auctions);
         $auctions = new LengthAwarePaginator(
             $auctions->forPage($page, $perPage),
             $total_auctions,
@@ -53,22 +47,7 @@ class Auctions extends Component
 
     public function filterAuction($filterAuction)
     {  
-        if ($filterAuction === 'verified') {
-            $this->filterAuctionByStatus('verified');
-        } elseif ($filterAuction === 'rejected') {
-            $this->filterAuctionByStatus('rejected');
-        } elseif ($filterAuction === 'pending') {
-            $this->filterAuctionByStatus('pending');
-        } else {
-            $this->filterAuctionByStatus('all');
-        }
-    }
-
-    private function filterAuctionByStatus($status)
-    {
-        // Replace this with your actual Eloquent query to filter auctions by status
-        $this->filterAuction = Auction::where('status', $status)->get();
-        $this->filterType = $status;
+        $this->filterType = $filterAuction;
     }
 
     public function approved($id, $collection_id)
