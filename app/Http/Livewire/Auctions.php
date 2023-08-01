@@ -4,7 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Models\Auction; // Replace "Auction" with your actual Eloquent model name
+use App\Models\Auction;
+use App\Models\Collection;
 
 class Auctions extends Component
 {
@@ -52,14 +53,18 @@ class Auctions extends Component
 
     public function approved($id, $collection_id)
     {
-        // Replace this with your actual Eloquent code to update the status of the auction
-        $collectionStatus = Collection::find($collection_id); // Replace "Collection" with your actual Eloquent model name for collections
-        $collectionStatus->status = 'approved';
-        $collectionStatus->save();
+        // Replace this with your actual Eloquent code to update the status of the collection and auction
+        $collectionStatus = Collection::find($collection_id);
+        if ($collectionStatus) {
+            $collectionStatus->status = 'approved';
+            $collectionStatus->save();
+        }
         
-        $auction = Auction::find($id); // Replace "Auction" with your actual Eloquent model name
-        $auction->status = 'approved';
-        $auction->save();
+        $auction = Auction::find($id);
+        if ($auction) {
+            $auction->status = 'approved';
+            $auction->save();
+        }
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
     }
@@ -67,9 +72,11 @@ class Auctions extends Component
     public function rejected($id)
     {
         // Replace this with your actual Eloquent code to update the status of the auction
-        $auction = Auction::find($id); // Replace "Auction" with your actual Eloquent model name
-        $auction->status = 'rejected';
-        $auction->save();
+        $auction = Auction::find($id);
+        if ($auction) {
+            $auction->status = 'rejected';
+            $auction->save();
+        }
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction rejected.']);
     }

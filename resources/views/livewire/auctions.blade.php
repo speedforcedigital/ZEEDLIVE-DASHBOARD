@@ -1,24 +1,20 @@
-<?php
-$array = Session::get('permissions');
-//add
-$list_capability_exists = false;
-$permissionsArray = json_decode($array, true);
-foreach ($permissionsArray as $item) {
-  if (isset($item['Auction']) && in_array('list', $item['Auction'])) {
-    $list_capability_exists = true;
-    break;
-  }
-} 
-//list
-$filter_capability_exists = false;
-$permissionsArray = json_decode($array, true);
-foreach ($permissionsArray as $item) {
-  if (isset($item['Auction']) && in_array('filter', $item['Auction'])) {
-    $filter_capability_exists = true;
-    break;
-  }
-}
-?>
+@php
+    $permissionsArray = json_decode(Session::get('permissions'), true);
+    $verification_capability_exists = false;
+    $delete_capability_exists = false;
+
+    foreach ($permissionsArray as $item) {
+        if (isset($item['Auction'])) {
+            if (in_array('verification', $item['Auction'])) {
+                $verification_capability_exists = true;
+            }
+            if (in_array('delete', $item['Auction'])) {
+                $delete_capability_exists = true;
+            }
+        }
+    }
+@endphp
+
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
     <!-- Page header -->
     <div class="sm:flex sm:justify-between sm:items-center mb-8">

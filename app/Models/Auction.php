@@ -1,39 +1,40 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Auction extends Model
 {
-
     protected $table = 'auction';
     public $timestamps = true;
-        protected $dates = ['end_time','start_time'];
+    protected $dates = ['end_time', 'start_time'];
     protected $fillable = [
-      'start_time',
-      'end_time',
-      'buy_now',
-      'buy_now_price',
-      'auction_status',
-      'type',
-      'user_id',
-      'collection_id',
-      'auction_start_price',
-      'counter_status',
+        'start_time',
+        'end_time',
+        'buy_now',
+        'buy_now_price',
+        'auction_status',
+        'type',
+        'user_id',
+        'collection_id',
+        'auction_start_price',
+        'counter_status',
     ];
 
     protected $appends = [
-      'createdTimeAgo',
-  ];
+        'createdTimeAgo',
+    ];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', "user_id");
+        return $this->belongsTo(User::class, "user_id");
     }
 
-    public function lot(){
-      return $this->HasOne('App\Models\Lot','auction_id','id');
+    public function lot()
+    {
+        return $this->hasOne(Lot::class, 'auction_id', 'id');
     }
 
     public function getCreatedTimeAgoAttribute()
