@@ -15,7 +15,7 @@
     }
 @endphp
 
-<x-loading-indicator />
+<x-loading-indicater />
 
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
