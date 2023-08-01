@@ -30,12 +30,12 @@
             <!-- Delete button -->
             <x-actions.delete-button />
             <!-- Add customer button -->
-            @if($verification_capability_exists)
+            <!-- @if($verification_capability_exists)
                 <button wire:click="filterAuction('all')" class="btn border-slate-200 hover:border-slate-300 {{ ($this->filterType == 'all' || $this->filterType == '') ? 'bg-indigo-500 text-white' : 'text-indigo-500' }}">All</button>
                 <button wire:click="filterAuction('pending')" class="btn border-slate-200 hover:border-slate-300 {{ ($this->filterType == 'pending') ? 'bg-indigo-500 text-white' : 'text-indigo-500' }}">Pending</button>
                 <button wire:click="filterAuction('verified')" class="btn border-slate-200 hover:border-slate-300 {{ ($this->filterType == 'verified') ? 'bg-indigo-500 text-white' : 'text-indigo-500' }}">Active</button>
                 <button wire:click="filterAuction('rejected')" class="btn border-slate-200 hover:border-slate-300 {{ ($this->filterType == 'rejected') ? 'bg-indigo-500 text-white' : 'text-indigo-500' }}">Rejected</button>
-            @endif
+            @endif -->
         </div>
     </div>
 
