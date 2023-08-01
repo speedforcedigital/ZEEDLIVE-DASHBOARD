@@ -42,9 +42,7 @@ class Auctions extends Component
                 'query' => request()->query(),
             ]
         );
-
-        dd($auctions);
-
+        
         return view('livewire.auctions', compact('auctions', 'total_auctions'));
     }
 
