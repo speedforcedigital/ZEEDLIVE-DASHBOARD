@@ -28,7 +28,7 @@
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Delete button -->
-            <x-actions.delete-button />
+            <!-- <x-actions.delete-button /> -->
             <!-- Add customer button -->
             <!-- @if($verification_capability_exists)
                 <button wire:click="filterAuction('all')" class="btn border-slate-200 hover:border-slate-300 {{ ($this->filterType == 'all' || $this->filterType == '') ? 'bg-indigo-500 text-white' : 'text-indigo-500' }}">All</button>
@@ -46,6 +46,6 @@
 
     <!-- Pagination -->
     <div class="mt-8">
-        {{ $auctions->links() }}
+        <!-- {{ $auctions->links() }} -->
     </div>
 </div>
