@@ -1,5 +1,5 @@
 <x-authentication-layout>
-    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('ZEEDLIVE') }} ✨</h1> - Test v21  
+    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('ZEEDLIVE') }} ✨</h1> - Test v22  
     <!-- Form -->
     <form method="POST" action="/admin/login">
         @csrf
