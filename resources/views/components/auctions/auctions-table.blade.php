@@ -1,16 +1,18 @@
 <?php
 $array = Session::get('permissions');
-//verification
+//add
 $verification_capability_exists = false;
-foreach ($array as $item) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
   if (isset($item['Auction']) && in_array('verification', $item['Auction'])) {
     $verification_capability_exists = true;
     break;
   }
 } 
-//delete
+//list
 $delete_capability_exists = false;
-foreach ($array as $item) {
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
   if (isset($item['Auction']) && in_array('delete', $item['Auction'])) {
     $delete_capability_exists = true;
     break;
