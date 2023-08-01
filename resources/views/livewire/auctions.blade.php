@@ -40,9 +40,9 @@
     </div>
 
     <!-- Table -->
-    @if($verification_capability_exists)
+    <!-- @if($verification_capability_exists)
         <x-auctions.auctions-table :auctions="$auctions" :count="$total_auctions" />
-    @endif
+    @endif -->
 
     <!-- Pagination -->
     <div class="mt-8">
