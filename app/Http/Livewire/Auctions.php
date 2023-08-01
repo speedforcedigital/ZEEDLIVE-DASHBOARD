@@ -43,6 +43,8 @@ class Auctions extends Component
             ]
         );
 
+        dd($auctions);
+
         return view('livewire.auctions', compact('auctions', 'total_auctions'));
     }
 
