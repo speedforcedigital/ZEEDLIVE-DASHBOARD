@@ -11,9 +11,9 @@
     }
 
     // Now that the loop has finished, $auctionPermissions will contain the values
-    <!-- dd($auctionPermissions); -->
 
     if ($auctionPermissions) {
+        dd($auctionPermissions);
         if (in_array('verification', $auctionPermissions)) {
             $verification_capability_exists = true;
         }
