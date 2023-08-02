@@ -6,12 +6,39 @@
         // Check if 'Auction' key exists in the current item
         if (isset($item['Auction']) && is_array($item['Auction'])) {
             $auctionPermissions = $item['Auction'];
-            // Display the values within the 'Auction' section
-            dd($auctionPermissions);
             break; // Stop the loop once 'Auction' section is found
+        }
+
+        if ($auctionPermissions) {
+            if (in_array('verification', $auctionPermissions)) {
+                $verification_capability_exists = true;
+            }
+            if (in_array('delete', $auctionPermissions)) {
+                $delete_capability_exists = true;
+            }
         }
     }
 @endphp
+<?php
+$array = Session::get('permissions');
+//add
+$verification_capability_exists = false;
+$permissionsArray = json_decode($array, true);
+foreach ($permissionsArray as $item) {
+  if (isset($item['Auction']) && in_array('verification', $item['Auction'])) {
+    $verification_capability_exists = true;
+    break;
+  }
+} 
+//list
+$delete_capability_exists = false;
+foreach ($permissionsArray as $item) {
+  if (isset($item['Auction']) && in_array('delete', $item['Auction'])) {
+    $delete_capability_exists = true;
+    break;
+  }
+}
+?>
 
 @props(['auctions', 'count'])
 
