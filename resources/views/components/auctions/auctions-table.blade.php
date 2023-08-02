@@ -6,6 +6,8 @@
     dd($permissionsArray);
 
     foreach ($permissionsArray as $item) {
+        dd($item['Auction']);
+
         if (isset($item['Auction'])) {
             if (in_array('verification', $item['Auction'])) {
                 $verification_capability_exists = true;
