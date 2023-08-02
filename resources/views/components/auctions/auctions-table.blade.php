@@ -4,6 +4,7 @@
     $delete_capability_exists = false;
 
     foreach ($permissionsArray as $item) {
+        dd($item);
         if (isset($item['Auction']) && is_array($item['Auction'])) {
             if (in_array('verification', $item['Auction'])) {
                 $verification_capability_exists = true;
