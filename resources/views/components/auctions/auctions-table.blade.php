@@ -56,11 +56,13 @@
                                 <!-- ... -->
                                 @if($this->filterType=='all' || $this->filterType=='pending' || $this->filterType=='')       
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        @if($verification_capability_exists)
                                             <button wire:click="approved({{ $auction['auction']['id'] }}, {{$auction['auction']['collection_id']}})" class="btn border-slate-200 hover:border-slate-300">
                                                 <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
                                                     <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
                                                 </svg>
                                             </button>
+                                        @endif
                                         @if($delete_capability_exists)
                                             <button wire:click="rejected({{ $auction['auction']['id'] }})" class="btn border-slate-200 hover:border-slate-300">
                                                 <svg class="w-4 h-4 fill-current text-rose-500 shrink-0" viewBox="0 0 16 16">
