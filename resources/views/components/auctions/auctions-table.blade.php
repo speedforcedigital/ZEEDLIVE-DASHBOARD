@@ -1,6 +1,8 @@
 @php
     $permissionsArray = json_decode(Session::get('permissions'), true);
     $auctionPermissions = null;
+    $verification_capability_exists = false;
+    $delete_capability_exists = false;
 
     foreach ($permissionsArray as $item) {
         // Check if 'Auction' key exists in the current item
@@ -13,7 +15,6 @@
     // Now that the loop has finished, $auctionPermissions will contain the values
 
     if ($auctionPermissions) {
-        dd($auctionPermissions);
         if (in_array('verification', $auctionPermissions)) {
             $verification_capability_exists = true;
         }
