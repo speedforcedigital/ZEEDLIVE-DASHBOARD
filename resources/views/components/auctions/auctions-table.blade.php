@@ -4,9 +4,16 @@
     $delete_capability_exists = false;
 
     // Check for 'Auction' section in the permissions
-    dd($permissionsArray['Category']);
-    $auctionPermissions = $permissionsArray['Auction'] ?? null;
-    if ($auctionPermissions && is_array($auctionPermissions)) {
+    $auctionPermissions = null;
+    foreach ($permissionsArray as $item) {
+        if (isset($item['Auction']) && is_array($item['Auction'])) {
+            $auctionPermissions = $item['Auction'];
+            break; // Stop the loop once 'Auction' section is found
+        }
+    }
+
+    // Set the verification and delete capabilities based on 'Auction' section
+    if ($auctionPermissions) {
         if (in_array('verification', $auctionPermissions)) {
             $verification_capability_exists = true;
         }
@@ -15,6 +22,7 @@
         }
     }
 @endphp
+
 
 @props(['auctions', 'count'])
 
