@@ -25,6 +25,7 @@
     </header>
 
     @if (!empty($auctions) && count($auctions) > 0)
+    dd($auctions);
         <div x-data="handleSelect">
             <!-- Table -->
             <div class="overflow-x-auto">
