@@ -11,7 +11,7 @@
     }
 
     // Now that the loop has finished, $auctionPermissions will contain the values
-    dd($auctionPermissions);
+    <!-- dd($auctionPermissions); -->
 
     if ($auctionPermissions) {
         if (in_array('verification', $auctionPermissions)) {
