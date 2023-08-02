@@ -3,8 +3,6 @@
     $verification_capability_exists = false;
     $delete_capability_exists = false;
 
-    dd($permissionsArray);
-
     foreach ($permissionsArray as $item) {
         dd($item['Auction']);
 
