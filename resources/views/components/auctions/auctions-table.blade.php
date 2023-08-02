@@ -3,6 +3,7 @@ $array = Session::get('permissions');
 //add
 $verification_capability_exists = false;
 $permissionsArray = json_decode($array, true);
+dd($permissionsArray);
 foreach ($permissionsArray as $item) {
   if (isset($item['Auction']) && in_array('verification', $item['Auction'])) {
     $verification_capability_exists = true;
