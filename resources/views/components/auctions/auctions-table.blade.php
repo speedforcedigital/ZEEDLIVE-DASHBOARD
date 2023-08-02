@@ -4,7 +4,7 @@
     $delete_capability_exists = false;
 
     // Check for 'Auction' section in the permissions
-    dd($permissionsArray['Modal']);
+    dd($permissionsArray['Category']);
     $auctionPermissions = $permissionsArray['Auction'] ?? null;
     if ($auctionPermissions && is_array($auctionPermissions)) {
         if (in_array('verification', $auctionPermissions)) {
