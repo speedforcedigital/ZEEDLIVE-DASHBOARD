@@ -7,9 +7,7 @@
         if (isset($item['Auction']) && is_array($item['Auction'])) {
             $auctionPermissions = $item['Auction'];
             // Display the values within the 'Auction' section
-            foreach ($auctionPermissions as $permission) {
-                dd($permission);
-            }
+            dd($auctionPermissions);
             break; // Stop the loop once 'Auction' section is found
         }
     }
