@@ -64,7 +64,7 @@
                                 </td>
                                 <!-- Add other table data here -->
                                 <!-- ... -->
-                                @if($this->filterType=='all' || $this->filterType=='pending' || $this->filterType=='')       
+                                <!-- @if($this->filterType=='all' || $this->filterType=='pending' || $this->filterType=='')       
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         @if($verification_capability_exists)
                                             <button wire:click="approved({{ $auction['auction']['id'] }}, {{$auction['auction']['collection_id']}})" class="btn border-slate-200 hover:border-slate-300">
@@ -82,7 +82,7 @@
                                             </button>
                                         @endif
                                     </td>
-                                @endif
+                                @endif -->
                             </tr>                      
                         @endforeach
                     </tbody>
