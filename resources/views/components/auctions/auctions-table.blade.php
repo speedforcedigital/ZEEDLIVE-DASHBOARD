@@ -6,10 +6,10 @@
         // Check if 'Auction' key exists in the current item
         if (isset($item['Auction']) && is_array($item['Auction'])) {
             $auctionPermissions = $item['Auction'];
+            dd($auctionPermissions);
             break; // Stop the loop once 'Auction' section is found
         }
 
-        dd($auctionPermissions);
 
         if ($auctionPermissions) {
             if (in_array('verification', $auctionPermissions)) {
