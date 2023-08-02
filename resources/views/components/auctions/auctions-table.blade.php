@@ -8,7 +8,7 @@
             $auctionPermissions = $item['Auction'];
             // Display the values within the 'Auction' section
             foreach ($auctionPermissions as $permission) {
-                echo $permission . "<br>";
+                dd($permission);
             }
             break; // Stop the loop once 'Auction' section is found
         }
