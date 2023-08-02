@@ -3,24 +3,14 @@
     $verification_capability_exists = false;
     $delete_capability_exists = false;
 
-    foreach ($permissionsArray as $item) {
-        // Check if the item is an array
-        if (is_array($item)) {
-            // Check if 'Auction' key exists and is an array
-            if (isset($item['Auction']) && is_array($item['Auction'])) {
-                if (in_array('verification', $item['Auction'])) {
-                    $verification_capability_exists = true;
-                }
-                if (in_array('delete', $item['Auction'])) {
-                    $delete_capability_exists = true;
-                }
-            } else {
-                // Debugging: Output the item if 'Auction' key is not accessible
-                dd($item);
-            }
-        } else {
-            // Debugging: Output the item if it is not an array
-            dd($item);
+    // Check for 'Auction' section in the permissions
+    $auctionPermissions = $permissionsArray['Auction'] ?? null;
+    if ($auctionPermissions && is_array($auctionPermissions)) {
+        if (in_array('verification', $auctionPermissions)) {
+            $verification_capability_exists = true;
+        }
+        if (in_array('delete', $auctionPermissions)) {
+            $delete_capability_exists = true;
         }
     }
 @endphp
