@@ -9,6 +9,8 @@
             break; // Stop the loop once 'Auction' section is found
         }
 
+        dd($auctionPermissions);
+
         if ($auctionPermissions) {
             if (in_array('verification', $auctionPermissions)) {
                 $verification_capability_exists = true;
