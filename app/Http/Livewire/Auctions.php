@@ -3,9 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Models\Auction;
-use App\Models\Collection;
+use Illuminate\Support\Facades\DB;
 
 class Auctions extends Component
 {
@@ -13,36 +11,22 @@ class Auctions extends Component
 
     public function render()
     {
-        // Replace this with your actual Eloquent query to fetch all auctions from the database
-        $query = Auction::query();
+        $perPage = 10;
 
         // If filters are applied, adjust the query accordingly
         if ($this->filterType === 'verified') {
-            $query->where('status', 'verified');
+            $auctions = DB::table('auctions')->where('status', 'verified')->paginate($perPage);
         } elseif ($this->filterType === 'rejected') {
-            $query->where('status', 'rejected');
+            $auctions = DB::table('auctions')->where('status', 'rejected')->paginate($perPage);
         } elseif ($this->filterType === 'pending') {
-            $query->where('status', 'pending');
+            $auctions = DB::table('auctions')->where('status', 'pending')->paginate($perPage);
+        } else {
+            // Fetch all auctions without applying filters if no filter is selected
+            $auctions = DB::table('auctions')->paginate($perPage);
         }
 
-        // Fetch all auctions without applying filters if no filter is selected
-        $auctions = $query->get();
+        $total_auctions = $auctions->total();
 
-        // Pagination
-        $page = request()->query('page', 1);
-        $perPage = 10;
-        $total_auctions = count($auctions);
-        $auctions = new LengthAwarePaginator(
-            $auctions->forPage($page, $perPage),
-            $total_auctions,
-            $perPage,
-            $page,
-            [
-                'path' => request()->url(),
-                'query' => request()->query(),
-            ]
-        );
-        
         return view('livewire.auctions', compact('auctions', 'total_auctions'));
     }
 
@@ -53,30 +37,17 @@ class Auctions extends Component
 
     public function approved($id, $collection_id)
     {
-        // Replace this with your actual Eloquent code to update the status of the collection and auction
-        $collectionStatus = Collection::find($collection_id);
-        if ($collectionStatus) {
-            $collectionStatus->status = 'approved';
-            $collectionStatus->save();
-        }
-        
-        $auction = Auction::find($id);
-        if ($auction) {
-            $auction->status = 'approved';
-            $auction->save();
-        }
+        // Update the status of the collection and auction
+        DB::table('collections')->where('id', $collection_id)->update(['status' => 'approved']);
+        DB::table('auctions')->where('id', $id)->update(['status' => 'approved']);
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
     }
 
     public function rejected($id)
     {
-        // Replace this with your actual Eloquent code to update the status of the auction
-        $auction = Auction::find($id);
-        if ($auction) {
-            $auction->status = 'rejected';
-            $auction->save();
-        }
+        // Update the status of the auction
+        DB::table('auctions')->where('id', $id)->update(['status' => 'rejected']);
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction rejected.']);
     }
