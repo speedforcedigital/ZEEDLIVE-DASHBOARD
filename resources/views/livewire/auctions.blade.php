@@ -15,12 +15,12 @@
                     <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
                     <td>{{ $auction->admin_status }}</td>
                     <td>
-                        @if ($auction->status !== 'approved')
+                        @if ($auction->admin_status !== 'Approved')
                             <button wire:click="approved({{ $auction->id }}, {{ $auction->collection_id }})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                                 Approve
                             </button>
                         @endif
-                        @if ($auction->status !== 'rejected')
+                        @if ($auction->admin_status !== 'Rejected')
                             <button wire:click="rejected({{ $auction->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 Reject
                             </button>
