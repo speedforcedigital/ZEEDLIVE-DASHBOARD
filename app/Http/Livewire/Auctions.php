@@ -54,6 +54,7 @@ class Auctions extends Component
     public function approved($id, $collection_id)
     {
         // Update the status of the collection and auction
+        dd($id);
         DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);

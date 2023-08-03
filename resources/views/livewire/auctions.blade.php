@@ -39,7 +39,7 @@
                             </td>
                             
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <button wire:click="approved({{$auction->id}}, {{$auction->collection_id}})" class="btn border-slate-200 hover:border-slate-300">Approve</button>
+                            <button wire:click="approved({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Approve</button>
                             <button wire:click="rejected({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Reject</button>
                             </td>
                         </tr>                 
