@@ -10,11 +10,9 @@
         </thead>
         <tbody>
             @foreach ($auctions as $auction)
-            {{ dd($auction) }}
-
                 <tr>
                     <td>{{ $auction->id }}</td>
-                    <td>{{ $auction->title }}</td>
+                    <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
                     <td>{{ $auction->status }}</td>
                     <td>
                         @if ($auction->status !== 'approved')

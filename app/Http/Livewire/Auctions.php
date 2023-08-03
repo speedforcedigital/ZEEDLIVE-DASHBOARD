@@ -15,15 +15,31 @@ class Auctions extends Component
 
         // If filters are applied, adjust the query accordingly
         if ($this->filterType === 'verified') {
-            $auctions = DB::table('auction')->where('status', 'verified')->paginate($perPage);
+            $auctions = DB::table('auction')
+                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
+                            ->select('auction.*', 'my_collections.title as collection_title')
+                            ->where('status', 'verified')
+                            ->paginate($perPage);
         } elseif ($this->filterType === 'rejected') {
-            $auctions = DB::table('auction')->where('status', 'rejected')->paginate($perPage);
+            $auctions = DB::table('auction')
+                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
+                            ->select('auction.*', 'my_collections.title as collection_title')
+                            ->where('status', 'rejected')
+                            ->paginate($perPage);
         } elseif ($this->filterType === 'pending') {
-            $auctions = DB::table('auction')->where('status', 'pending')->paginate($perPage);
+            $auctions = DB::table('auction')
+                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
+                            ->select('auction.*', 'my_collections.title as collection_title')
+                            ->where('status', 'pending')
+                            ->paginate($perPage);
         } else {
             // Fetch all auctions without applying filters if no filter is selected
-            $auctions = DB::table('auction')->paginate($perPage);
+            $auctions = DB::table('auction')
+                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
+                            ->select('auction.*', 'my_collections.title as collection_title')
+                            ->paginate($perPage);
         }
+
 
         $total_auctions = $auctions->total();
 
