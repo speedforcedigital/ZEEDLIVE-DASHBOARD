@@ -10,6 +10,8 @@
         </thead>
         <tbody>
             @foreach ($auctions as $auction)
+            {{ dd($auction) }}
+
                 <tr>
                     <td>{{ $auction->id }}</td>
                     <td>{{ $auction->title }}</td>
