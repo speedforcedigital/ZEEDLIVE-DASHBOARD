@@ -1,41 +1,89 @@
-<div>
-    <table class="table-auto w-full">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($auctions as $auction)
-                <tr>
-                    <td>{{ $auction->id }}</td>
-                    <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
-                    <td>{{ $auction->admin_status }}</td>
-                    <td>
-                        @if ($auction->admin_status !== 'Approved')
-                            <button wire:click="approved({{ $auction->id }}, {{ $auction->collection_id }})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Approve
-                            </button>
-                        @endif
-                        @if ($auction->admin_status !== 'Rejected')
-                            <button wire:click="rejected({{ $auction->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Reject
-                            </button>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+<x-loading-indicater />
+<div class="bg-white shadow-lg rounded-sm border border-slate-200">
+    <header class="px-5 py-4">
+        <h2 class="font-semibold text-slate-800">All Auctions <span class="text-slate-400 font-medium">{{$total_auctions}}</span></h2>
+    </header>
 
-    {{ $auctions->links() }}
+    <div x-data="handleSelect">
 
-    <script>
-        window.addEventListener('alert', event => { 
-            alert(event.detail.message); 
-        })
-    </script>
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                <!-- Table header -->
+                <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
+                    <tr>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Sr No</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Title</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Action</div>
+                        </th>
+                    </tr>
+                </thead>
+                <!-- Table body -->
+                <tbody class="text-sm divide-y divide-slate-200">
+                    <!-- Row -->
+                    <?php $perPage = 10; $startingPoint = (($auctions->currentPage() - 1) * $perPage) + 1; ?>
+                    @foreach($auctions as $auction)
+                        <tr>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="text-left">{{$startingPoint++}}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="flex items-center">
+                                    <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
+                                </div>
+                            </td>
+                            
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <button wire:click="approved({{$auction->id}}, {{$auction->collection_id}})" class="btn border-slate-200 hover:border-slate-300">Approve</button>
+                            <button wire:click="rejected({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Reject</button>
+                            </td>
+                        </tr>                 
+                    @endforeach
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="px-5 py-3">
+                {{ $auctions->links() }}
+            </div>
+
+        </div>
+    </div>
 </div>
+<script>
+    // A basic demo function to handle "select all" functionality
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('handleSelect', () => ({
+            selectall: false,
+            selectAction() {
+                countEl = document.querySelector('.table-items-action');
+                if (!countEl) return;
+                checkboxes = document.querySelectorAll('input.table-item:checked');
+                document.querySelector('.table-items-count').innerHTML = checkboxes.length;
+                if (checkboxes.length > 0) {
+                    countEl.classList.remove('hidden');
+                } else {
+                    countEl.classList.add('hidden');
+                }
+            },
+            toggleAll() {
+                this.selectall = !this.selectall;
+                checkboxes = document.querySelectorAll('input.table-item');
+                [...checkboxes].map((el) => {
+                    el.checked = this.selectall;
+                });
+                this.selectAction();
+            },
+            uncheckParent() {
+                this.selectall = false;
+                document.getElementById('parent-checkbox').checked = false;
+                this.selectAction();
+            }
+        }))
+    })    
+</script>
