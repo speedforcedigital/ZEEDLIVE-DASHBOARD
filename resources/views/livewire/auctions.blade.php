@@ -13,7 +13,7 @@
                 <tr>
                     <td>{{ $auction->id }}</td>
                     <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
-                    <td>{{ $auction->status }}</td>
+                    <td>{{ $auction->admin_status }}</td>
                     <td>
                         @if ($auction->status !== 'approved')
                             <button wire:click="approved({{ $auction->id }}, {{ $auction->collection_id }})" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
