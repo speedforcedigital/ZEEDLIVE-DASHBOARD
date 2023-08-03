@@ -54,8 +54,7 @@ class Auctions extends Component
     public function approved($id, $collection_id)
     {
         // Update the status of the collection and auction
-        DB::table('my_collections')->where('id', $collection_id)->update(['status' => 'approved']);
-        DB::table('auction')->where('id', $id)->update(['status' => 'approved']);
+        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
     }
@@ -63,7 +62,7 @@ class Auctions extends Component
     public function rejected($id)
     {
         // Update the status of the auction
-        DB::table('auction')->where('id', $id)->update(['status' => 'rejected']);
+        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
 
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction rejected.']);
     }
