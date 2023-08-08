@@ -1,5 +1,5 @@
-<x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
+    <x-loading-indicater />
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">All Auctions <span class="text-slate-400 font-medium">{{$total_auctions}}</span></h2>
     </header>
@@ -17,6 +17,9 @@
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Title</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
@@ -37,12 +40,21 @@
                                     <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
                                 </div>
                             </td>
-                            
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <button wire:click="approved({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Approve</button>
-                            <button wire:click="rejected({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Reject</button>
+                            <div class="flex items-center">
+                                    <div class="font-medium text-slate-800">{{$auction->admin_status}}</div>
+                                </div>
                             </td>
-                        </tr>                 
+
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if (in_array($auction->admin_status ,["Pending", "Rejected"]) )
+                                <button wire:click="approved({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Approve</button>
+                                @endif
+                                @if (in_array($auction->admin_status ,["Pending", "Approved"]) )
+                                <button wire:click="rejected({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Reject</button>
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -85,5 +97,5 @@
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

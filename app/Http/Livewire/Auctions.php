@@ -40,19 +40,19 @@ class Auctions extends Component
                             ->paginate($perPage);
         }
 
-
         $total_auctions = $auctions->total();
-
         return view('livewire.auctions', compact('auctions', 'total_auctions'));
     }
 
+
     public function filterAuction($filterAuction)
-    {  
+    {
         $this->filterType = $filterAuction;
     }
 
     public function approved($id)
     {
+
         // Update the status of the collection and auction
         DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
 
