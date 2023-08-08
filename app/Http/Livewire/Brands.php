@@ -36,7 +36,7 @@ class Brands extends Component
         ]);
     }
 
-   
+
     public function addBrand()
     {
         $validatedData = $this->validate([

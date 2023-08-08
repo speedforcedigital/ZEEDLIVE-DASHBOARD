@@ -69,7 +69,7 @@
             }
 
             return view('pages/dashboard/dashboard', compact('data', 'ranking_data'));
-        } 
+        }
 
         public function getFollowers($id)
         {

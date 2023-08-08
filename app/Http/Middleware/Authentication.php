@@ -22,7 +22,7 @@ class Authentication
         }
         else
         {
-          return redirect('/');  
+          return redirect('/');
         }
     }
 }
