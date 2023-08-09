@@ -1,21 +1,22 @@
 <?php
 $array = Session::get('permissions');
 //edit
+$permissionsArray = json_decode($array, true);
 $edit_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Admin User']) && in_array('edit', $item['Admin User'])) {
     $edit_capability_exists = true;
     break;
   }
-} 
+}
 //delete
 $delete_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Admin User']) && in_array('delete', $item['Admin User'])) {
     $delete_capability_exists = true;
     break;
   }
-} 
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
@@ -78,7 +79,7 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">{{ $user['rank'] }}</button>
 
-                                
+
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($edit_capability_exists)
@@ -94,10 +95,10 @@ foreach ($array as $item) {
                                     <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
                                 </svg>
                             </button>
-                            @endif   
+                            @endif
                      </td>
-                        </tr> 
-                                           
+                        </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -135,5 +136,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

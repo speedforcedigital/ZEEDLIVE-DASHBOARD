@@ -1,8 +1,11 @@
 <?php
 $array = Session::get('permissions');
-//view
+//view$array = Session::get('permissions');
+//list
+$permissionsArray = json_decode($array, true);
+
 $view_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['App  User']) && in_array('view', $item['App  User'])) {
     $view_capability_exists = true;
     break;
@@ -10,20 +13,20 @@ foreach ($array as $item) {
 }
 //edit
 $edit_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['App  User']) && in_array('edit', $item['App  User'])) {
     $edit_capability_exists = true;
     break;
   }
-} 
+}
 //delete
 $delete_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['App  User']) && in_array('delete', $item['App  User'])) {
     $delete_capability_exists = true;
     break;
   }
-} 
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
@@ -86,7 +89,7 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">{{ $user['rank'] }}</button>
 
-                                
+
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($edit_capability_exists)
@@ -114,10 +117,10 @@ foreach ($array as $item) {
                             <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                             </svg>
                             </button>
-                            @endif   
+                            @endif
                      </td>
-                        </tr> 
-                                           
+                        </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -155,5 +158,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

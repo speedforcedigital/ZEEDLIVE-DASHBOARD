@@ -1,21 +1,22 @@
 <?php
-$array = Session::get('permissions');
+$permissionsArray = Session::get('permissions');
 //verification
+$permissions = json_decode($permissionsArray, true);
 $verification_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissions as $item) {
   if (isset($item['Seller Verification']) && in_array('verification', $item['Seller Verification'])) {
     $verification_capability_exists = true;
     break;
   }
-} 
+}
 //delete
 $delete_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissions as $item) {
   if (isset($item['Seller Verification']) && in_array('delete', $item['Seller Verification'])) {
     $delete_capability_exists = true;
     break;
   }
-} 
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
@@ -93,7 +94,7 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">{{ $seller['status'] }}</button>
                             </td>
-                    @if($this->filterType=='pending' || $this->filterType=='')       
+                    @if($this->filterType=='pending' || $this->filterType=='')
                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                            @if($verification_capability_exists)
                             <button wire:click="approved({{ $seller['user']['id'] }})" class="btn border-slate-200 hover:border-slate-300">
@@ -113,8 +114,8 @@ foreach ($array as $item) {
                             @endif
                      </td>
                      @endif
-                        </tr> 
-                                           
+                        </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -152,5 +153,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

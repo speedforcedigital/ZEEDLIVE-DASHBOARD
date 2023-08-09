@@ -1,14 +1,15 @@
 <?php
-$array = Session::get('permissions');
+$permissionsArray = Session::get('permissions');
 //verification
+$permissions = json_decode($permissionsArray, true);
 $verification_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissions as $item) {
+
   if (isset($item['Offers']) && in_array('verification', $item['Offers'])) {
     $verification_capability_exists = true;
     break;
   }
-} 
-
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
@@ -40,7 +41,7 @@ foreach ($array as $item) {
                             <div class="font-semibold text-left">Time To End</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Status</div>
+                            <div class="font-semibold text-left">Moderator Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
@@ -69,9 +70,13 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
+                                        @if(isset($offer['collection']))
                                         <img class="rounded-full" src="https://api.zeedlive.com/image/collection/{{$offer['collection']['image']}}" width="40" height="40" alt="Patricia Semklo">
+                                        @endif
                                     </div>
+                                    @if(isset($offer['collection']))
                                     <div class="font-medium text-slate-800"><a href="#">{{ $offer['collection']['title'] }}</a></div>
+                                    @endif
                                 </div>
                             </td>
 
@@ -89,7 +94,7 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">{{ $offer['modrator_status'] }}</button>
                             </td>
-                            
+
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($verification_capability_exists)
                             <button wire:click="accept({{ $offer['offer_id'] }})" class="btn border-slate-200 hover:border-slate-300">
@@ -98,13 +103,14 @@ foreach ($array as $item) {
                                 </svg>
                             </button>
                             @endif
-   
+
                      </td>
-                        </tr> 
-                                           
+                        </tr>
+
                     @endforeach
                 </tbody>
             </table>
+                <!-- Pagination -->
 
         </div>
     </div>
@@ -139,5 +145,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

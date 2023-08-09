@@ -1,12 +1,14 @@
 <?php
 namespace App\Http\Livewire;
+use CURLFile;
+use App\Models\User;
+use Livewire\Component;
+use App\Helpers\baseUrl;
+use Livewire\WithFileUploads;
 use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlFileRequest;
-use App\Helpers\baseUrl;
-use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\WithFileUploads;
-use CURLFile;
+
 class Admins extends Component
 {
     use WithFileUploads;
@@ -17,35 +19,22 @@ class Admins extends Component
     public $rolePermission = false;
     public function render()
     {
-    //tes
-    $url = baseUrl().'all/users';
-    $data = makeCurlRequest($url, 'GET');
-    $admins = $data['User'];
-    $admins_count = count($admins); 
-    //pagination
-    $page = request()->query('page', 1);
-    $perPage = 10;
-    $admins = new LengthAwarePaginator(
-        array_slice($admins, ($page - 1) * $perPage, $perPage),
-        count($admins),
-        $perPage,
-        $page,
-        [
-            'path' => request()->url(),
-            'query' => request()->query()
-        ]
-    );
+        //tes
+        $admins = User::where('is_deleted', 0)->where('rank', 'Admin');
+
+        $admins_count = $admins->get()->count();
+        $admins =   $admins->paginate(10);
         return view('livewire.admins', compact('admins', 'admins_count'));
-    }  
-    
+    }
+
 
     public function delete($id)
-    {  
+    {
     $url = baseUrl()."delete/user/".$id;
     $data = makeCurlRequest($url, 'DELETE');
     if($data['success']==1)
     {
-        $this->dispatchBrowserEvent('alert', 
+        $this->dispatchBrowserEvent('alert',
                 ['type' => 'success',  'message' => ''.$data['Message'].'']);
     }
     }
@@ -95,17 +84,17 @@ class Admins extends Component
         $array = $this->permission;
         $groupedArray = array();
         foreach ($array as $element) {
-            preg_match('/^{(.+?):(.+?)}$/', $element, $matches); 
+            preg_match('/^{(.+?):(.+?)}$/', $element, $matches);
             $category = $matches[1];
             $action = $matches[2];
             if (!array_key_exists($category, $groupedArray)) {
-                $groupedArray[$category] = array(); 
+                $groupedArray[$category] = array();
             }
             array_push($groupedArray[$category], $action);
         }
         $json = json_encode(array_map(function($k, $v) { return array($k => $v); }, array_keys($groupedArray), array_values($groupedArray)));
         $permissions = json_encode($json);
-        
+
          $image = $this->image;
          if(is_file($image))
          {
@@ -136,17 +125,17 @@ class Admins extends Component
                 'permissions' => $permissions,
             ];
          }
-         
+
         $url = ($this->user_id) ? baseUrl()."update/user/details/".$this->user_id : baseUrl()."create/users";
         $data = makeCurlFileRequest($url, 'POST',$postData);
         if($data['success']==1)
         {
-            $this->dispatchBrowserEvent('alert', 
+            $this->dispatchBrowserEvent('alert',
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
         else
         {
-            $this->dispatchBrowserEvent('alert', 
+            $this->dispatchBrowserEvent('alert',
                     ['type' => 'error',  'message' => ''.$data['message'].'']);
         }
         $this->updateMode = false;

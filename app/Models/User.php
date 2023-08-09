@@ -32,27 +32,26 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'device_token'
     ];
     protected $appends = [
-        'accountDetail','role', 'follower', 'following', 'collection', 'AuctualRate'
+        'accountDetail','role', 'follower', 'following', 'collection',
     ];
-    public function getAuctualRateAttribute()
-    {
-        $getRanking = DB::table('rating')
-        ->selectRaw('seller_id , name , SUM(rating) as "totalRate", COUNT(seller_id) as "totalCount" ')
-        ->join('users', 'users.id', '=', 'rating.seller_id')
-        ->groupBy('seller_id')
-        ->where('seller_id',$this->id)
-        ->get();
-        if(!$getRanking->isEmpty())
-        {
-            $AuctualRate =  sprintf("%.2f", $getRanking[0]->totalRate/$getRanking[0]->totalCount);  
-            $data=($AuctualRate < 1000 ? $AuctualRate : thousand_format($AuctualRate));
-        }
-        else
-        {
-            $data = '0.00';
-        }
-        return $data;
-    }
+    // public function getAuctualRateAttribute()
+    // {
+    //   $getRanking = DB::table('rating')
+    // ->selectRaw('seller_id, name, SUM(rating) as "totalRate", COUNT(seller_id) as "totalCount" ')
+    // ->join('users', 'users.id', '=', 'rating.seller_id')
+    // ->groupBy('seller_id', 'name') // Include 'name' in the GROUP BY clause
+    // ->where('seller_id', $this->id)
+    // ->get();
+
+    //         dd($getRanking);
+    //     if (!$getRanking->isEmpty()) {
+    //         $AuctualRate =  sprintf("%.2f", $getRanking[0]->totalRate / $getRanking[0]->totalCount);
+    //         $data = ($AuctualRate < 1000 ? $AuctualRate : thousand_format($AuctualRate));
+    //     } else {
+    //         $data = '0.00';
+    //     }
+    //     return $data;
+    // }
 
     public function getAccountDetailAttribute()
     {

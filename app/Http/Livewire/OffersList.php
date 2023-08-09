@@ -12,22 +12,10 @@ class OffersList extends Component
 
     public function render()
     {
+        $perPage= 10 ;
         $offers = Offers::with(['user', 'receiver', 'collection'])->get();
         $total_offers = count($offers);
-
-        // Pagination
-        $page = request()->query('page', 1);
-        $perPage = 10;
-        $offers = new LengthAwarePaginator(
-            array_slice($offers->toArray(), ($page - 1) * $perPage, $perPage),
-            count($offers),
-            $perPage,
-            $page,
-            [
-                'path' => request()->url(),
-                'query' => request()->query(),
-            ]
-        );
+        $offers = Offers::with(['user', 'receiver', 'collection'])->paginate($perPage);
 
         return view('livewire.offers', compact('offers', 'total_offers'));
     }
@@ -36,7 +24,7 @@ class OffersList extends Component
     {
         $offer = Offers::find($id);
         // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
-        $offer->accepted = true;
+        $offer->is_accepted = true;
         $offer->save();
 
         $this->dispatchBrowserEvent('alert', [

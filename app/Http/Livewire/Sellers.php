@@ -1,65 +1,42 @@
 <?php
 namespace App\Http\Livewire;
-use App\Helpers\MakeCurlRequest;
-use App\Helpers\makeCurlPostRequest;
-use App\Helpers\baseUrl;
 use Livewire\Component;
+use App\Helpers\baseUrl;
+use App\Helpers\MakeCurlRequest;
+use App\Models\SellerVerification;
+use App\Helpers\makeCurlPostRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
+
 class Sellers extends Component
 {
-    public $filterSeller = false;
+    public $filterSeller = null;
     public $filterType = '';
     public function render()
     {
-    $url = baseUrl().'pending/seller/verification/list';
-    $data = makeCurlRequest($url, 'GET');
-    if($this->filterSeller)
-    {
-        $sellers = $this->filterSeller;
-        $total_sellers = count($sellers);
-    }
-    else
-    {
-    $sellers = $data['data'];
-    $total_sellers = count($sellers);
-    }
-    //pagination
-    $page = request()->query('page', 1);
-    $perPage = 10;
-    $sellers = new LengthAwarePaginator(
-        array_slice($sellers, ($page - 1) * $perPage, $perPage),
-        count($sellers),
-        $perPage,
-        $page,
-        [
-            'path' => request()->url(),
-            'query' => request()->query()
-        ]
-    );
+        if ($this->filterSeller != null) {
+            $sellers = $this->filterSeller->paginate(10);
+            $total_sellers = $this->filterSeller->get()->count();
+            $this->filterSeller = null;
+        } else {
+            $sellers = SellerVerification::where('status', 'Pending')->with('User')->orderBy('seller_verifications.id', 'desc');
+            $total_sellers = $sellers->get()->count();
+            $sellers = $sellers->paginate(10);
+        }
+
+
         return view('livewire.sellers', compact('sellers', 'total_sellers'));
     }
 
     public function filterSeller($filterSeller)
-    {  
-    if($filterSeller=='verified')
     {
-      $filter = 'approved/seller/verification/list';
-      $filterType='verified';
-    }
-    elseif($filterSeller=='rejected')
-    {
-        $filter = 'declined/seller/verification/list';
-        $filterType='rejected';
-    }
-    else
-    {
-        $filter = 'pending/seller/verification/list';
-        $filterType='pending';
-    }
-    $url = baseUrl().$filter;
-    $data = makeCurlRequest($url, 'GET');
-    $this->filterSeller = $data['data'];
-    $this->filterType = $filterType;
+        if ($filterSeller == 'verified') {
+            $list = SellerVerification::where('status', 'Approved')->with('User');
+        } elseif ($filterSeller == 'rejected') {
+            $list = SellerVerification::where('status', 'Rejected')->with('User');
+        } else {
+            $list = SellerVerification::where('status', 'Pending')->with('User');
+        }
+        $this->filterSeller = $list;
     }
 
     public function approved($id)
@@ -68,7 +45,7 @@ class Sellers extends Component
         $data = makeCurlRequest($url, 'GET');
         if($data['success']==true)
         {
-            $this->dispatchBrowserEvent('alert', 
+            $this->dispatchBrowserEvent('alert',
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
     }
@@ -79,13 +56,13 @@ class Sellers extends Component
         $data = makeCurlRequest($url, 'GET');
         if($data['success']==true)
         {
-            $this->dispatchBrowserEvent('alert', 
+            $this->dispatchBrowserEvent('alert',
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
     }
 
-    
-    
 
-   
+
+
+
 }

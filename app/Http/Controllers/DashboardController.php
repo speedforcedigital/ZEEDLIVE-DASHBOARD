@@ -42,12 +42,7 @@
             ];
 
             // get ranking data from database
-            $getRanking = DB::table('rating')
-                ->selectRaw('seller_id , name , SUM(rating) as "totalRate", COUNT(seller_id) as "totalCount" ')
-                ->join('users', 'users.id', '=', 'rating.seller_id')
-                ->groupBy('seller_id')
-                ->orderBy('totalRate','DESC')
-                ->get();
+            $getRanking = null;
 
             $i=0;
             $ranking_data = [];
