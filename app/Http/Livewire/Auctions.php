@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 class Auctions extends Component
 {
     public $filterType = '';
+    public $modalStates = [];
+    public $deleteModalOpen = false;
 
     public function render()
     {
@@ -39,9 +41,12 @@ class Auctions extends Component
                             ->select('auction.*', 'my_collections.title as collection_title')
                             ->paginate($perPage);
         }
-
         $total_auctions = $auctions->total();
-        return view('livewire.auctions', compact('auctions', 'total_auctions'));
+          foreach ($auctions as $item) {
+            $this->modalStates[$item->id] = false;
+        }
+        $modalStates = $this->modalStates;
+        return view('livewire.auctions', compact('auctions', 'total_auctions','modalStates'));
     }
 
 
@@ -52,11 +57,11 @@ class Auctions extends Component
 
     public function approved($id)
     {
-
+        $this->showModal = true;
         // Update the status of the collection and auction
-        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
+        // DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
 
-        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
+        // $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
     }
 
     public function rejected($id)

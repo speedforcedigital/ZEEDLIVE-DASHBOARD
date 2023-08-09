@@ -24,8 +24,8 @@ class Offers extends Model
         'updated_at'
     ];
 
-    public function user()
-    {
+public function user()
+{
         return $this->belongsTo('App\Models\User','offer_sender_id','id');
     }
 

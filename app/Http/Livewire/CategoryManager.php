@@ -27,7 +27,7 @@ class CategoryManager extends Component
     public $categoryName = null; // Add this line
     public $brandName = null; // Add this line
     public $modalName = null;
-    public $selectedModal; 
+    public $selectedModal;
     public $removeCategoryId = null;
     public $collectionsCount;
 
@@ -51,7 +51,7 @@ class CategoryManager extends Component
             'selectedCategory' => $this->selectedCategory,
             'selectedBrand' => $this->selectedBrand, // Add this line
             'selectedBrandId' => $this->selectedBrandId, // Add this line
-        ]);    
+        ]);
     }
 
     public function removeCategory()
@@ -141,11 +141,11 @@ class CategoryManager extends Component
         $this->validate([
             'newCategoryName' => 'required',
         ]);
-    
+
         $category = Category::find($this->selectedCategory->id);
         $category->name = $this->newCategoryName;
         $category->save();
-    
+
         $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
         $this->resetCategory();
         $this->resetBrand();
@@ -198,6 +198,6 @@ class CategoryManager extends Component
     public function resetModal()
     {
         $this->modalName = null;
-        $this->selectedModal = null; 
+        $this->selectedModal = null;
     }
 }

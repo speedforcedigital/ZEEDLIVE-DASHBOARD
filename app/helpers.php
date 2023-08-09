@@ -1,6 +1,9 @@
 <?php
+
+use Illuminate\Support\Facades\Session;
 function makeCurlRequest($url, $method)
 {
+
     $curl = curl_init();
     curl_setopt_array($curl, [
     CURLOPT_URL => $url,

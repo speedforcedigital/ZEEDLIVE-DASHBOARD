@@ -1,5 +1,5 @@
 <?php
-$array = Session::get('permissions'); 
+$array = Session::get('permissions');
 //list
 $list_capability_exists = false;
 $permissionsArray = json_decode($array, true);
@@ -34,7 +34,7 @@ foreach ($permissionsArray as $item) {
             Edit Profile ✨
             @else
             App Users ✨
-            @endif    
+            @endif
             </h1>
             </div>
 
