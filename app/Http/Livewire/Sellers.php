@@ -13,6 +13,7 @@ class Sellers extends Component
 {
     public $filterSeller = null;
     public $filterType = '';
+      protected $listeners = ['openUserView' => 'openUserView'];
     public function render()
     {
         if ($this->filterSeller != null) {
@@ -70,5 +71,10 @@ class Sellers extends Component
             'alert',
             ['type' => 'success', 'message' => 'Seller Request Rejected successfully.']
         );
+    }
+
+    public function openUserView($id)
+    {
+       return redirect()->route('users', ['userId' => $id]);
     }
 }
