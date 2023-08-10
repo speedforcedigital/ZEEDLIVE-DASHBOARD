@@ -30,7 +30,7 @@ use App\Http\Controllers\Login;
 Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
-    Route::get('/users', Users::class);
+    Route::get('/users', Users::class)->name("users");
 
     Route::get('/categories', Categories::class);
 
@@ -45,5 +45,5 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/custom/fields', customFields::class);
     Route::get('/global/fields', globalFields::class);
     Route::get('/admins', Admins::class);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');   
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

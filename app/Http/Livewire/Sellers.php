@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Livewire;
+use App\Models\Role;
+use App\Models\User;
 use Livewire\Component;
 use App\Helpers\baseUrl;
 use App\Helpers\MakeCurlRequest;
@@ -11,6 +13,7 @@ class Sellers extends Component
 {
     public $filterSeller = null;
     public $filterType = '';
+      protected $listeners = ['openUserView' => 'openUserView'];
     public function render()
     {
         if ($this->filterSeller != null) {
@@ -29,6 +32,7 @@ class Sellers extends Component
 
     public function filterSeller($filterSeller)
     {
+        $this->filterType = $filterSeller;
         if ($filterSeller == 'verified') {
             $list = SellerVerification::where('status', 'Approved')->with('User');
         } elseif ($filterSeller == 'rejected') {
@@ -41,28 +45,36 @@ class Sellers extends Component
 
     public function approved($id)
     {
-        $url = baseUrl().'approve/seller/request/'.$id;
-        $data = makeCurlRequest($url, 'GET');
-        if($data['success']==true)
-        {
-            $this->dispatchBrowserEvent('alert',
-                    ['type' => 'success',  'message' => ''.$data['message'].'']);
-        }
+        $role = Role::where('name', 'Seller')->first();
+        $seller =  SellerVerification::where('user_id', $id)->where('status', 'Pending')->first();
+        $seller->status = "Approved";
+        $seller->save();
+        $user = User::where("id", $id)->first();
+        $user->seller_type = $seller->seller_type;
+        $user->role_id = $role->id;
+        $user->is_seller = 1;
+        $user->rank = "Seller";
+        $user->save();
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success',  'message' => 'Seller Request Approved successfully.']
+        );
     }
 
     public function rejected($id)
     {
-        $url = baseUrl().'decline/seller/request/'.$id;
-        $data = makeCurlRequest($url, 'GET');
-        if($data['success']==true)
-        {
-            $this->dispatchBrowserEvent('alert',
-                    ['type' => 'success',  'message' => ''.$data['message'].'']);
-        }
+        $role = Role::where('name', 'Seller')->first();
+        $seller =  SellerVerification::where('user_id', $id)->first();
+        $seller->status = "Rejected";
+        $seller->save();
+        $this->dispatchBrowserEvent(
+            'alert',
+            ['type' => 'success', 'message' => 'Seller Request Rejected successfully.']
+        );
     }
 
-
-
-
-
+    public function openUserView($id)
+    {
+       return redirect()->route('users', ['userId' => $id]);
+    }
 }

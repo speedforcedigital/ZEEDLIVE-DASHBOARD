@@ -18,6 +18,9 @@ class Users extends Component
     public $userProfile;
     public $filterUser = false;
     public $filterType = '';
+    protected $listeners = [
+        'views'
+    ];
 
     public function render()
     {
@@ -25,7 +28,10 @@ class Users extends Component
         $users_count = count($users);
         $users = User::with('Role')->where("id", "<>", auth()->user()->id)->orderBy('users.id','desc')->paginate(10);
 
-
+        if(request()->userId)
+        {
+            $this->view(request()->userId);
+        }
         if ($this->viewUser) {
             return view('livewire.users', [
                 'users' => $users,
