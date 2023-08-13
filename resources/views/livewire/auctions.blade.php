@@ -10,8 +10,17 @@
         </div>
 
         <!-- Table -->
-        <table class="table-auto w-full">
-            <!-- Table header -->
+    <div class="bg-white shadow-lg rounded-sm border border-slate-200">
+    <header class="px-5 py-4">
+        <h2 class="font-semibold text-slate-800">All Brands <span class="text-slate-400 font-medium">{{$count}}</span></h2>
+    </header>
+
+    <div x-data="handleSelect">
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                            <!-- Table header -->
             <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
                 <tr>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -60,6 +69,9 @@
                 @endforeach
             </tbody>
         </table>
+</div>
+</div>
+</div>
 
         <!-- Pagination -->
         <div class="px-5 py-3">
