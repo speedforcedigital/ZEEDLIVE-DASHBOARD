@@ -50,16 +50,25 @@ class Auctions extends Component
 
     public function approved($id)
     {
-        $this->selectedAuctionId = $id;
-        $this->selectedActionType = 'approve';
-        $this->dispatchBrowserEvent('openModal');
+        // Update the status of the collection and auction
+        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
+
+        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
     }
-    
+
     public function rejected($id)
     {
-        $this->selectedAuctionId = $id;
-        $this->selectedActionType = 'reject';
-        $this->dispatchBrowserEvent('openModal');
+        // Update the status of the auction
+        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
+
+        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction rejected.']);
+    }
+
+    public function openModal($type, $id)
+    {
+        $this->actionType = $type === 'approve' ? 'accept' : 'reject';
+        $this->auctionId = $id;
+        $this->showModal = true;
     }
 
     public function performAction()
