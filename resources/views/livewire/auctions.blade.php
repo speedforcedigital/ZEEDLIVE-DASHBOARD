@@ -65,78 +65,7 @@
         <div class="px-5 py-3">
           {{ $auctions->links() }}
           </div>
-      </div>
-    @endif
-
-
-<div class="bg-white shadow-lg rounded-sm border border-slate-200">
-    <div x-data="handleSelect">
-
-        <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">All Auctions <span class="text-slate-400 font-medium">{{$total_auctions}}</span></h2>
-        </header>
-
-        <!-- Table -->
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full">
-                <!-- Table header -->
-                <thead class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
-                    <tr>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Sr No</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Title</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Status</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Action</div>
-                        </th>
-                    </tr>
-                </thead>
-                <!-- Table body -->
-                <tbody class="text-sm divide-y divide-slate-200">
-                    <!-- Row -->
-                    <?php $perPage = 10; $startingPoint = (($auctions->currentPage() - 1) * $perPage) + 1; ?>
-                    @foreach($auctions as $auction)
-                        <tr>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="text-left">{{$startingPoint++}}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="flex items-center">
-                                    <div class="font-medium text-slate-800">{{$auction->collection_title}}</div>
-                                </div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="flex items-center">
-                                    <div class="font-medium text-slate-800">{{$auction->admin_status}}</div>
-                                </div>
-                            </td>
-
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            @if (in_array($auction->admin_status ,["Pending", "Rejected"]))
-                            <button wire:click="rejected({{ $auction->id }})" class="btn border-rose-500 hover:border-rose-600">Reject</button>
-                            @endif
-                            @if (in_array($auction->admin_status ,["Pending", "Approved"]))
-                            <button wire:click="approved({{ $auction->id }})" class="btn border-green-500 hover:border-green-600">Accept</button>
-                            @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-            <!-- Pagination -->
-            <div class="px-5 py-3">
-                {{ $auctions->links() }}
-            </div>
-
-        </div>
     </div>
-</div>
 <script>
     // A basic demo function to handle "select all" functionality
     document.addEventListener('alpine:init', () => {
