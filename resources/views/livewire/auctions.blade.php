@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    
+
     <x-loading-indicater />
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">All Auctions <span class="text-slate-400 font-medium">{{$total_auctions}}</span></h2>
@@ -87,20 +87,12 @@
                             </td>
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if (in_array($auction->admin_status ,["Pending", "Rejected"]) )
-                                <button wire:click="approved({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Approve</button>
-                                @endif
-                                @if (in_array($auction->admin_status ,["Pending", "Approved"]) )
-                                <button wire:click="rejected({{$auction->id}})" class="btn border-slate-200 hover:border-slate-300">Reject</button>
-                                @endif
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if (in_array($auction->admin_status ,["Pending", "Rejected"]) )
-                                    <button wire:click="openModal('reject', {{$auction->id}})" class="btn border-rose-500 hover:border-rose-600">Reject</button>
-                                @endif
-                                @if (in_array($auction->admin_status ,["Pending", "Approved"]) )
-                                    <button wire:click="openModal('approve', {{$auction->id}})" class="btn border-green-500 hover:border-green-600">Accept</button>
-                                @endif
+                            @if (in_array($auction->admin_status ,["Pending", "Rejected"]))
+                                <button wire:click="openModal('reject', {{$auction->id}})" class="btn border-rose-500 hover:border-rose-600">Reject</button>
+                            @endif
+                            @if (in_array($auction->admin_status ,["Pending", "Approved"]))
+                                <button wire:click="openModal('approve', {{$auction->id}})" class="btn border-green-500 hover:border-green-600">Accept</button>
+                            @endif
                             </td>
                         </tr>
                     @endforeach
