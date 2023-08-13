@@ -34,7 +34,7 @@ class Auctions extends Component
         $auctions = $query->orderByDesc('created_at') // Use 'created_at' or appropriate column name
                           ->paginate($perPage);
     
-        $total_auctions = $auctions->total();
+        $total_auctions = $auctions->total(); // Count of all auctions
         foreach ($auctions as $item) {
             $this->modalStates[$item->id] = false;
         }

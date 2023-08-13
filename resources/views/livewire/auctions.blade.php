@@ -12,7 +12,7 @@
         <!-- Table -->
     <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
-        <h2 class="font-semibold text-slate-800">All Brands <span class="text-slate-400 font-medium">{{$count}}</span></h2>
+        <h2 class="font-semibold text-slate-800">All Auctions <span class="text-slate-400 font-medium">{{$total_auctions}}</span></h2>
     </header>
 
     <div x-data="handleSelect">
