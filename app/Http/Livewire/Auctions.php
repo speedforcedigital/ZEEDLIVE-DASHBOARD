@@ -10,7 +10,9 @@ class Auctions extends Component
     public $filterType = '';
     public $modalStates = [];
     public $deleteModalOpen = false;
-
+    public $selectedAuctionId;
+    public $selectedActionType;
+    
     public function render()
     {
         $perPage = 10;
@@ -48,18 +50,29 @@ class Auctions extends Component
 
     public function approved($id)
     {
-        $this->showModal = true;
-        // Update the status of the collection and auction
-        // DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
-
-        // $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction approved.']);
+        $this->selectedAuctionId = $id;
+        $this->selectedActionType = 'approve';
+        $this->dispatchBrowserEvent('openModal');
     }
-
+    
     public function rejected($id)
     {
-        // Update the status of the auction
-        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
-
-        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction rejected.']);
+        $this->selectedAuctionId = $id;
+        $this->selectedActionType = 'reject';
+        $this->dispatchBrowserEvent('openModal');
     }
+
+    public function performAction()
+{
+    if ($this->selectedActionType === 'approve') {
+        // Update the status of the collection and auction
+        DB::table('auction')->where('id', $this->selectedAuctionId)->update(['admin_status' => 'Approved']);
+    } elseif ($this->selectedActionType === 'reject') {
+        // Update the status of the auction
+        DB::table('auction')->where('id', $this->selectedAuctionId)->update(['admin_status' => 'Rejected']);
+    }
+
+    $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'Auction action performed.']);
+}
+    
 }
