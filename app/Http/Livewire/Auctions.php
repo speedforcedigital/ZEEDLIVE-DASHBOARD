@@ -14,41 +14,32 @@ class Auctions extends Component
     public function render()
     {
         $perPage = 10;
-
+    
         // If filters are applied, adjust the query accordingly
+        $query = DB::table('auction')
+            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
+            ->select('auction.*', 'my_collections.title as collection_title');
+    
         if ($this->filterType === 'verified') {
-            $auctions = DB::table('auction')
-                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
-                            ->select('auction.*', 'my_collections.title as collection_title')
-                            ->where('status', 'verified')
-                            ->paginate($perPage);
+            $query->where('status', 'verified');
         } elseif ($this->filterType === 'rejected') {
-            $auctions = DB::table('auction')
-                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
-                            ->select('auction.*', 'my_collections.title as collection_title')
-                            ->where('status', 'rejected')
-                            ->paginate($perPage);
+            $query->where('status', 'rejected');
         } elseif ($this->filterType === 'pending') {
-            $auctions = DB::table('auction')
-                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
-                            ->select('auction.*', 'my_collections.title as collection_title')
-                            ->where('status', 'pending')
-                            ->paginate($perPage);
-        } else {
-            // Fetch all auctions without applying filters if no filter is selected
-            $auctions = DB::table('auction')
-                            ->join('my_collections', 'auction.collection_id', '=', 'my_collections.id')
-                            ->select('auction.*', 'my_collections.title as collection_title')
-                            ->paginate($perPage);
+            $query->where('status', 'pending');
         }
+    
+        // Order the auctions by their creation or update date (replace 'created_at' with appropriate column)
+        $auctions = $query->orderByDesc('created_at') // Use 'created_at' or appropriate column name
+                          ->paginate($perPage);
+    
         $total_auctions = $auctions->total();
-          foreach ($auctions as $item) {
+        foreach ($auctions as $item) {
             $this->modalStates[$item->id] = false;
         }
         $modalStates = $this->modalStates;
-        return view('livewire.auctions', compact('auctions', 'total_auctions','modalStates'));
-    }
-
+    
+        return view('livewire.auctions', compact('auctions', 'total_auctions', 'modalStates'));
+    }    
 
     public function filterAuction($filterAuction)
     {
