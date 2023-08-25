@@ -1,12 +1,17 @@
 <?php
 namespace App\Http\Livewire;
 use CURLFile;
+use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use App\Helpers\baseUrl;
+use App\Models\AccountDetail;
 use Livewire\WithFileUploads;
+use App\Models\RolePermission;
 use App\Helpers\MakeCurlRequest;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\makeCurlFileRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Admins extends Component
@@ -41,9 +46,7 @@ class Admins extends Component
 
     public function edit($id)
     {
-        $url = baseUrl().'get/rollPermission';
-        $data = makeCurlRequest($url, 'GET');
-        $this->rolePermission = $data['data'];
+        $this->rolePermission =RolePermission::all();
         $url = baseUrl()."user/details/".$id;
         $data = makeCurlRequest($url, 'GET');
         $singleUser = $data['User'];
@@ -92,55 +95,53 @@ class Admins extends Component
             }
             array_push($groupedArray[$category], $action);
         }
-        $json = json_encode(array_map(function($k, $v) { return array($k => $v); }, array_keys($groupedArray), array_values($groupedArray)));
+        $json = json_encode(array_map(function ($k, $v) {
+            return array($k => $v);
+        }, array_keys($groupedArray), array_values($groupedArray)));
         $permissions = json_encode($json);
+        $image = $this->image;
 
-         $image = $this->image;
-         if(is_file($image))
-         {
-            $path = $image->getRealPath();
-            $image = new \CURLFile($path, "image/jpeg",$image);
-            $postData = [
-                'role' => 'Admin',
-                'name' => $this->name,
-                'email' => $this->email,
-                'mobile' => $this->mobile,
-                'gender' => $this->gender,
-                'type' => $this->type,
-                'password' => $this->password,
-                'permissions' => $permissions,
-                'image' => $image,
-            ];
-         }
-         else
-         {
-            $postData = [
-                'role' => 'Admin',
-                'name' => $this->name,
-                'email' => $this->email,
-                'mobile' => $this->mobile,
-                'gender' => $this->gender,
-                'type' => $this->type,
-                'password' => $this->password,
-                'permissions' => $permissions,
-            ];
-         }
+        $role = Role::where('name', "Admin")->first();
+        try {
+            DB::beginTransaction();
 
-        $url = ($this->user_id) ? baseUrl()."update/user/details/".$this->user_id : baseUrl()."create/users";
-        $data = makeCurlFileRequest($url, 'POST',$postData);
-        if($data['success']==1)
-        {
-            $this->dispatchBrowserEvent('alert',
-                    ['type' => 'success',  'message' => ''.$data['message'].'']);
+            $user = new User();
+            $user->name = $this->name;
+            $user->email = $this->email;
+            $user->password = bcrypt($this->password);
+            $user->mobile = $this->mobile;
+            $user->role_id = $role->id;
+            $user->gender = $this->gender;
+            $user->rank = "Admin";
+            $user->save();
+            $accountDetail = new AccountDetail();
+            $accountDetail->user_id = $user->id;
+            $imageName = "zeed/apis/users/profile/default.jpg";
+            if (isset($this->image)) {
+                $uploadedFile = $this->image;
+                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+                $imageName = Storage::disk('s3')->put('zeed/apis/users/profile', $uploadedFile, $imageName, "public");
+            }
+            $user->image = $imageName;
+            $user->is_admin = 1;
+            $user->save();
+            $accountDetail->profile_image = $imageName;
+            $accountDetail->permissions = $permissions;
+            $accountDetail->save();
+
+
+            $this->updateMode = false;
+            $this->addUser = false;
+            $this->resetInputFields();
+
+            DB::commit();
+        } catch (\Exception $th) {
+            DB::rollBack();
+            $this->dispatchBrowserEvent(
+                'alert',
+                ['type' => 'success', 'message' => $th->getMessage()]
+            );
         }
-        else
-        {
-            $this->dispatchBrowserEvent('alert',
-                    ['type' => 'error',  'message' => ''.$data['message'].'']);
-        }
-        $this->updateMode = false;
-        $this->addUser = false;
-        $this->resetInputFields();
     }
 
     private function resetInputFields()
@@ -158,9 +159,7 @@ class Admins extends Component
 
     public function add()
     {
-        $url = baseUrl().'get/rollPermission';
-        $data = makeCurlRequest($url, 'GET');
-        $this->rolePermission = $data['data'];
+        $this->rolePermission = RolePermission::all();
         $this->addUser = true;
     }
 

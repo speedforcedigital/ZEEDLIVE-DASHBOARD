@@ -8,7 +8,7 @@ foreach ($permissionsArray as $item) {
         $add_capability_exists = true;
         break;
     }
-} 
+}
 // List capability
 $list_capability_exists = false;
 $permissionsArray = json_decode($array, true);

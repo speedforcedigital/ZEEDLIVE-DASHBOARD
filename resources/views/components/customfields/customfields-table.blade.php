@@ -1,10 +1,6 @@
 <?php
 $array = Session::get('permissions');
-$array = Session::get('permissions');
-if (is_string($array)) {
-    $array = json_decode($array, true);
-}
-// Add capability
+
 $add_capability_exists = false;
 $permissionsArray = json_decode($array, true);
 foreach ($permissionsArray as $item) {
@@ -12,10 +8,9 @@ foreach ($permissionsArray as $item) {
         $add_capability_exists = true;
         break;
     }
-} 
+}
 // List capability
 $list_capability_exists = false;
-$permissionsArray = json_decode($array, true);
 foreach ($permissionsArray as $item) {
     if (isset($item['Custom Field']) && in_array('list', $item['Custom Field'])) {
         $list_capability_exists = true;
@@ -24,9 +19,16 @@ foreach ($permissionsArray as $item) {
 }
 // edit
 $edit_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
     if (isset($item['Custom Field']) && in_array('edit', $item['Custom Field'])) {
         $edit_capability_exists = true;
+        break;
+    }
+}
+$delete_capability_exists = false;
+foreach ($permissionsArray as $item) {
+    if (isset($item['Custom Field']) && in_array('delete', $item['Custom Field'])) {
+        $delete_capability_exists = true;
         break;
     }
 }
@@ -61,12 +63,12 @@ foreach ($array as $item) {
                             <div class="font-semibold text-left">Values</div>
                         </th>
 
-                        
-                       
+
+
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
                         </th>
-                       
+
                     </tr>
                 </thead>
                 <!-- Table body -->
@@ -95,7 +97,7 @@ foreach ($array as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
 
                             <div class="text-left">{{ !empty($customfield['values']) ? implode(",", (array)$customfield['values']) : 'Textual' }}</div>
-                            </td>          
+                            </td>
                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                         @if($edit_capability_exists)
                            <button wire:click="edit({{$customfield['custom_field_id']}})" class="btn border-slate-200 hover:border-slate-300">
@@ -113,8 +115,8 @@ foreach ($array as $item) {
                             </button>
                             @endif
                      </td>
-                    </tr> 
-                                           
+                    </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -152,5 +154,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

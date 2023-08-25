@@ -8,7 +8,7 @@ foreach ($permissionsArray as $item) {
     $add_capability_exists = true;
     break;
   }
-} 
+}
 //list
 $list_capability_exists = false;
 $permissionsArray = json_decode($array, true);
@@ -31,7 +31,7 @@ foreach ($permissionsArray as $item) {
             Add Global Field ✨
             @else
             Global Fields ✨
-            @endif   
+            @endif
             </h1>
             </div>
 

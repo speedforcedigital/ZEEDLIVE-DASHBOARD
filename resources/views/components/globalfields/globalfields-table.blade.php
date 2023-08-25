@@ -1,17 +1,18 @@
 <?php
 $array = Session::get('permissions');
 //delete
+$permissionsArray = json_decode($array, true);
+
 $delete_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Global Field']) && in_array('delete', $item['Global Field'])) {
     $delete_capability_exists = true;
     break;
   }
 }
-
 //edit
 $edit_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Global Field']) && in_array('edit', $item['Global Field'])) {
     $edit_capability_exists = true;
     break;
@@ -44,13 +45,14 @@ foreach ($array as $item) {
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
                         </th>
-                       
+
                     </tr>
                 </thead>
                 <!-- Table body -->
                 <tbody class="text-sm divide-y divide-slate-200">
                     <!-- Row -->
-                    <?php $i=0; ?>
+                    <?php $i=0;
+                    ?>
                     @foreach($globalfields as $globalfield)
                     <?php $i++;?>
                         <tr>
@@ -64,8 +66,8 @@ foreach ($array as $item) {
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
 
-                                <div class="text-left">{{ isset($globalfield['values']) ? implode(",",$globalfield['values']) : 'Textual' }}</div>
-                            </td>          
+                                <div class="text-left">{{isset($globalfield['values']) ? implode(",",json_decode($globalfield['values'],true)) : 'Textual' }}</div>
+                            </td>
                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                     @if($edit_capability_exists)
                            <button wire:click="edit({{$globalfield['global_field_id']}})" class="btn border-slate-200 hover:border-slate-300">
@@ -83,8 +85,8 @@ foreach ($array as $item) {
                             </button>
                         @endif
                      </td>
-                    </tr> 
-                                           
+                    </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -122,5 +124,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

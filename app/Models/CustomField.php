@@ -10,7 +10,7 @@ class CustomField extends Model
     use HasFactory;
 
     protected $table = 'custom_fields';
-
+   protected $primaryKey = 'custom_field_id';
     protected $fillable = [
         'custom_field_title',
         'category_id',
