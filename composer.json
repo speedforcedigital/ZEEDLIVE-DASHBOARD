@@ -16,6 +16,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "league/flysystem-aws-s3-v3": "*",
         "livewire/livewire": "^2.11",
         "tymon/jwt-auth": "^2.0",
         "yoeunes/toastr": "^2.3"
@@ -36,9 +37,9 @@
         },
 
         "files": [
- 
+
             "app/helpers.php"
-     
+
         ]
     },
     "autoload-dev": {

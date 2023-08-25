@@ -8,7 +8,7 @@ foreach ($permissionsArray as $item) {
     $add_capability_exists = true;
     break;
   }
-} 
+}
 //list
 $list_capability_exists = false;
 $permissionsArray = json_decode($array, true);
@@ -31,7 +31,7 @@ foreach ($permissionsArray as $item) {
             Edit Admin User ✨
             @else
             Admin Users ✨
-            @endif    
+            @endif
             </h1>
             </div>
 
@@ -54,7 +54,7 @@ foreach ($permissionsArray as $item) {
         </div>
 
         <!-- Table -->
-        
+
     @if($updateMode)
     <x-users.edit-admin />
     @elseif($addUser)
