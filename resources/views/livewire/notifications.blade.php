@@ -8,7 +8,7 @@ foreach ($permissionsArray as $item) {
     $add_capability_exists = true;
     break;
   }
-} 
+}
 //list
 $list_capability_exists = false;
 $permissionsArray = json_decode($array, true);
@@ -27,11 +27,8 @@ foreach ($permissionsArray as $item) {
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
                 <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
-            @if($addNotification)
-            Add Notification ✨
-            @else
+
             Notifications ✨
-            @endif
             </h1>
             </div>
 
@@ -40,9 +37,7 @@ foreach ($permissionsArray as $item) {
 
                 <!-- Delete button -->
                 <x-actions.delete-button />
-                @if(!$addNotification && !$updateMode && $add_capability_exists)
-                <button wire:click="add()" class="btn border-slate-200 hover:border-slate-300 bg-indigo-500 text-white">Add Notification</button>
-                @endif
+
             </div>
 
         </div>

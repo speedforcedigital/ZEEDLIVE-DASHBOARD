@@ -1,38 +1,25 @@
 <?php
 namespace App\Http\Livewire;
+use Livewire\Component;
+use App\Helpers\baseUrl;
+use App\Models\GlobalField;
 use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlPostRequest;
-use App\Helpers\baseUrl;
-use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
+
 class globalFields extends Component
 {
-    public $global_field,$global_field_id;
+    public $global_field, $global_field_id;
     public $addGlobalField = false;
     public $updateMode = false;
     public $fields = [];
     public function render()
     {
-    $url = baseUrl().'get/globalFields';
-    $data = makeCurlRequest($url, 'GET');
-    $globalfields = $data['data']['globalFields'];
-    $globalfields_count = count($globalfields); 
-    //pagination
-    $page = request()->query('page', 1);
-    $perPage = 10;
-    $globalfields = new LengthAwarePaginator(
-        array_slice($globalfields, ($page - 1) * $perPage, $perPage),
-        count($globalfields),
-        $perPage,
-        $page,
-        [
-            'path' => request()->url(),
-            'query' => request()->query()
-        ]
-    );
-    
+
+        $globalfields = GlobalField::paginate(10);
+        $globalfields_count = GlobalField::count();
+        // dd(implode(",", json_decode($globalfields[0]->values,true)));
         return view('livewire.globalfields', compact('globalfields', 'globalfields_count'));
-     
     }
 
     public function add()
@@ -52,39 +39,48 @@ class globalFields extends Component
         $validatedDate = $this->validate([
             'global_field' => 'required',
         ]);
-
-        $postData['global_field'] = $this->global_field;
-        $postData['values'] = json_encode($this->fields);
-        $postData['global_field_id'] = $this->global_field_id;
-        $postData = json_encode($postData);
-        $url = baseUrl()."add/globalFields";
-        $data = makeCurlPostRequest($url, 'POST',$postData);
-        if($data['success']=true)
-        {
-            $this->dispatchBrowserEvent('alert', 
-                    ['type' => 'success',  'message' => ''.$data['message'].'']);
+        $globalFieldData = [
+            'global_field' => $this->global_field,
+            'values' => json_encode($this->fields),
+        ];
+        if ($this->global_field_id) {
+            $globalField = GlobalField::find($this->global_field_id);
+            if ($globalField) {
+                $globalField->update($globalFieldData);
+            }
+        } else {
+            $globalField = GlobalField::create($globalFieldData);
         }
         $this->addGlobalField = false;
         $this->updateMode = false;
         $this->resetInputFields();
 
+        if ($globalField) {
 
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => 'Global field saved successfully!',
+            ]);
+        }
     }
     private function resetInputFields()
     {
         $this->global_field = '';
         $this->global_field_id = '';
+        $this->fields = [];
+
     }
 
     public function delete($id)
-    { 
-    $url = baseUrl()."delte/dynamicField/global/".$id;
-    $data = makeCurlRequest($url, 'DELETE');
-    if($data['success']=true)
     {
-        $this->dispatchBrowserEvent('alert', 
-                ['type' => 'success',  'message' => ''.$data['message'].'']);
-    }
+        $globalField = GlobalField::find($id);
+        if ($globalField) {
+            $globalField->delete();
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => 'Global field deleted successfully!',
+            ]);
+        }
     }
 
     public function addField()
@@ -100,17 +96,18 @@ class globalFields extends Component
 
     public function edit($id)
     {
-        $url = baseUrl()."detail/globalFields/".$id;
-        $data = makeCurlRequest($url, 'GET');
-        $singleGlobalField = $data['data'];
-        $this->global_field =   $singleGlobalField[0]['global_field'];
-        $this->global_field_id = $singleGlobalField[0]['global_field_id'];
-        $array = json_decode($singleGlobalField[0]['values']);
-        if(!empty($array))
-        {
+
+         $this->global_field = GlobalField::all();
+        $singleGlobalField = GlobalField::find($id);
+        $this->global_field = $singleGlobalField->global_field;
+        $this->global_field_id = $singleGlobalField->global_field_id;
+      $array = json_decode($singleGlobalField->values);
+        if (!empty($array)) {
             $this->fields = $array;
         }
+
         $this->updateMode = true;
+
     }
-    
+
 }

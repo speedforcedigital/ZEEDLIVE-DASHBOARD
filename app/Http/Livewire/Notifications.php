@@ -3,6 +3,7 @@ namespace App\Http\Livewire;
 use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlPostRequest;
 use App\Helpers\baseUrl;
+use App\Models\PushNotification;
 use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
 class Notifications extends Component
@@ -12,23 +13,10 @@ class Notifications extends Component
     public $updateMode = false;
     public function render()
     {
-    $url = baseUrl().'get/push/notification';
-    $data = makeCurlRequest($url, 'GET');
-    $notification = $data['report'];
-    $total_notification = count($notification);
-    //pagination
-    $page = request()->query('page', 1);
-    $perPage = 10;
-    $notification = new LengthAwarePaginator(
-        array_slice($notification, ($page - 1) * $perPage, $perPage),
-        count($notification),
-        $perPage,
-        $page,
-        [
-            'path' => request()->url(),
-            'query' => request()->query()
-        ]
-    );
+
+        $notification = PushNotification::paginate(10);
+        $total_notification = PushNotification::count();
+
         return view('livewire.notifications', compact('notification', 'total_notification'));
     }
 
@@ -56,7 +44,7 @@ class Notifications extends Component
         $data = makeCurlPostRequest($url, 'POST',$postData);
         if($data['success']=true)
         {
-            $this->dispatchBrowserEvent('alert', 
+            $this->dispatchBrowserEvent('alert',
                     ['type' => 'success',  'message' => ''.$data['message'].'']);
         }
         $this->addNotification = false;
@@ -70,12 +58,12 @@ class Notifications extends Component
         $this->notification_id = '';
     }
     public function delete($id)
-    { 
+    {
     $url = baseUrl()."delete/push/notification/".$id;
     $data = makeCurlRequest($url, 'DELETE');
     if($data['success']=true)
     {
-        $this->dispatchBrowserEvent('alert', 
+        $this->dispatchBrowserEvent('alert',
                 ['type' => 'success',  'message' => ''.$data['Message'].'']);
     }
     }
@@ -89,5 +77,5 @@ class Notifications extends Component
         $this->title = $singleNotification[0]['title'];
         $this->body = $singleNotification[0]['body'];
         $this->updateMode = true;
-    } 
+    }
 }

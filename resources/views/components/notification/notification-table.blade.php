@@ -1,21 +1,22 @@
 <?php
 $array = Session::get('permissions');
 //edit
+$permissionsArray = json_decode($array, true);
 $edit_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Notifications']) && in_array('edit', $item['Notifications'])) {
     $edit_capability_exists = true;
     break;
   }
-} 
+}
 //delete
 $delete_capability_exists = false;
-foreach ($array as $item) {
+foreach ($permissionsArray as $item) {
   if (isset($item['Notifications']) && in_array('delete', $item['Notifications'])) {
     $delete_capability_exists = true;
     break;
   }
-} 
+}
 ?>
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
@@ -40,9 +41,9 @@ foreach ($array as $item) {
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Body</div>
                         </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                        {{-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
-                        </th>
+                        </th> --}}
                     </tr>
                 </thead>
                 <!-- Table body -->
@@ -66,8 +67,8 @@ foreach ($array as $item) {
                                     <div class="font-medium text-slate-800">{{$val['body']}}</div>
                                 </div>
                             </td>
-                            
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+
+                            {{-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($edit_capability_exists)
                             <button wire:click="edit({{$val['id']}})" class="btn border-slate-200 hover:border-slate-300">
                                 <svg class="w-4 h-4 fill-current text-slate-500 shrink-0" viewBox="0 0 16 16">
@@ -82,9 +83,9 @@ foreach ($array as $item) {
                                 </svg>
                             </button>
                             @endif
-                     </td>
-                        </tr> 
-                                           
+                     </td> --}}
+                        </tr>
+
                     @endforeach
                 </tbody>
             </table>
@@ -122,5 +123,5 @@ foreach ($array as $item) {
                 this.selectAction();
             }
         }))
-    })    
+    })
 </script>

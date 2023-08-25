@@ -1,7 +1,7 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
-        
+
 
         <div class="border-t border-slate-200">
 
@@ -10,9 +10,9 @@
 
                 <!-- Input Types -->
                 <div>
-                    
+
                     <div class="grid gap-5 md:grid-cols-3">
-                        
+
                         <div>
                             <!-- Start -->
                             <div>
@@ -22,7 +22,7 @@
                             </div>
                             <!-- End -->
                         </div>
-                        
+
 
                     @foreach ($this->fields as $index => $field)
                     <div>
@@ -50,7 +50,7 @@
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span class="hidden xs:block ml-2">
-                        
+
                     <span wire:loading wire:target="addGlobalField" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <?= $this->updateMode ? 'Update Global Field' : 'Add Global Field' ?>
                     </span>
@@ -58,7 +58,7 @@
                </div>
 
                 </div>
-                   
+
                 </div>
 
             </div>

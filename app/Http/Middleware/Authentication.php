@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class Authentication
 {
     /**
@@ -22,6 +24,7 @@ class Authentication
         }
         else
         {
+            Auth::logout();
           return redirect('/');
         }
     }

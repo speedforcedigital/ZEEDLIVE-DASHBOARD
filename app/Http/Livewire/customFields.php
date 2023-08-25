@@ -33,7 +33,7 @@ class CustomFields extends Component
 
     public function add()
     {
-        $this->categoryList = Category::pluck('name', 'id')->toArray();
+        $this->categoryList = Category::all();
         $this->addCustomField = true;
     }
 
@@ -52,7 +52,6 @@ class CustomFields extends Component
             'type' => $this->type,
             'values' => json_encode($this->fields),
         ];
-
         if ($this->custom_field_id) {
             $customField = CustomField::find($this->custom_field_id);
             if ($customField) {
@@ -108,18 +107,23 @@ class CustomFields extends Component
 
     public function edit($id)
     {
-        $this->categoryList = Category::pluck('name', 'id')->toArray();
+        $this->categoryList = Category::all();
         $customField = CustomField::find($id);
         if ($customField) {
             $this->custom_field_title = $customField->custom_field_title;
             $this->category_id = $customField->category_id;
             $this->type = $customField->type;
-            $this->custom_field_id = $customField->id;
+            $this->custom_field_id = $customField->custom_field_id;
             $array = json_decode($customField->values);
             if (!empty($array)) {
                 $this->fields = $array;
             }
             $this->updateMode = true;
         }
+    }
+    public function updateCustomField($id)
+    {
+        $customField = CustomField::find($id);
+
     }
 }
