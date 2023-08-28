@@ -3,6 +3,7 @@
 namespace App\Models;
 use DB;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\ZeedliveAccountCreated;
@@ -155,4 +156,10 @@ class User extends Authenticatable implements JWTSubject
          return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
      }
 
+      public function getImageAttribute($value)
+    {
+        if ($value) {
+            return Storage::disk('s3')->url($value);
+        }
+    }
 }

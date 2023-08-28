@@ -1,7 +1,7 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
-        
+
 
         <div class="border-t border-slate-200">
 
@@ -10,9 +10,9 @@
 
                 <!-- Input Types -->
                 <div>
-                    
+
                     <div class="grid gap-5 md:grid-cols-3">
-                        
+
                         <div>
                             <!-- Start -->
                             <div>
@@ -43,7 +43,7 @@
                             <!-- End -->
                         </div>
 
-                        
+
 
                         <div>
                             <!-- Start -->
@@ -54,8 +54,8 @@
                             </div>
                             <!-- End -->
                         </div>
-                        
-                    
+
+
                          <div>
                             <!-- Start -->
                         <label class="block text-sm font-medium mb-1" for="country">Gender</label>
@@ -67,7 +67,7 @@
                         @error('gender')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                             <!-- End -->
                         </div>
-                        
+
                         <div>
                     <!-- Start -->
                         <label class="block text-sm font-medium mb-1" for="country">Type</label>
@@ -88,32 +88,32 @@
                             <!-- End -->
                         </div>
 
-                        <!-- <div>
+                       <div>
                         <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 mt-6">
-                            <img class="rounded-full" id="imgInp" src="https://api.staging.zeedlive.com/image/user_profile/{{$this->image}}" alt="Patricia Semklo">
+                            <img class="rounded-full" id="imgInp" src="{{$this->imageURL}}" alt="{{ $this->name }}">
                        </div>
-                       </div> -->
+                       </div>
 
                        <!-- <div class="m-3">
                             <label class="flex items-center">
                                 <input type="checkbox" class="form-checkbox" />
                                 <span class="text-sm ml-2">Active</span>
-                            </label>  
+                            </label>
                         </div> -->
 
                    </div>
-                   
-            
+
                 @foreach($this->rolePermission as $val)
             <div class="mt-6">
                     <h2 class="text-slate-800 font-semibold mb-2">{{$val['permission_bar']}}</h2>
                 <div class="grid gap-5 md:grid-cols-4 mt-6">
                 @foreach(json_decode($val['actions'], true) as $row)
                     <div>
+{{-- @if(in_array($val['permission_bar'].':'.$row, $this->selectedPermssions)) checked @endif  --}}
                             <label class="flex items-center">
                                 <input type="checkbox" wire:model="permission" value="<?php echo'{'.$val['permission_bar'].':'.$row.'}'?>" class="form-checkbox" />
                                 <span class="text-sm ml-2">{{ucfirst($row)}}</span>
-                            </label>  
+                            </label>
                     </div>
                     @endforeach
                </div>
@@ -140,7 +140,7 @@
                </div>
 
                 </div>
-                   
+
                 </div>
 
             </div>
