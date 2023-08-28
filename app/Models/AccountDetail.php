@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AccountDetail extends Model
 {
@@ -15,4 +16,18 @@ class AccountDetail extends Model
   protected $fillable = [
       'user_id', 'profile_image', 'cover_image','description','tagline','type'
   ];
+  public function getProfileImageAttribute($value)
+    {
+        if ($value) {
+            return Storage::disk('s3')->url($value);
+        }
+        return null;
+    }
+    public function getCoverImageAttribute($value)
+    {
+        if ($value) {
+            return Storage::disk('s3')->url($value);
+        }
+        return null;
+    }
 }
