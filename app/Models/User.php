@@ -156,10 +156,10 @@ class User extends Authenticatable implements JWTSubject
          return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
      }
 
-      public function getImageAttribute($value)
-    {
-        if ($value) {
-            return Storage::disk('s3')->url($value);
-        }
-    }
+    //   public function getImageAttribute($value)
+    // {
+    //     if ($value) {
+    //         return Storage::disk('s3')->url($value);
+    //     }
+    // }
 }

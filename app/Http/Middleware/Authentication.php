@@ -20,7 +20,7 @@ class Authentication
     {
         if(Session::get('rank')=='Admin')
         {
-            return $next($request);
+        return $next($request);
         }
         else
         {
