@@ -1,4 +1,4 @@
-<?php 
+<?php
 $array = Session::get('permissions');
 $keys = array();
 $permissionsArray = json_decode($array, true);
@@ -77,7 +77,9 @@ if (is_array($permissionsArray)) {
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
                                 <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path class="fill-current text-slate-400" d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"></path>
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['dashboard'])){{ 'text-indigo-500' }}@else{{ 'text-slate-400' }}@endif" d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['dashboard'])){{ 'text-indigo-600' }}@else{{ 'text-slate-600' }}@endif" d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['dashboard'])){{ 'text-indigo-200' }}@else{{ 'text-slate-400' }}@endif" d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z" />
                                     </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Dashboard</span>
                                 </div>
@@ -91,9 +93,11 @@ if (is_array($permissionsArray)) {
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/auctions">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                 <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['auctions'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['auctions'])){{ 'text-indigo-600' }}@else{{ 'text-slate-700' }}@endif" d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['auctions'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z" />
+                                    </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Auctions</span>
                                 </div>
                             </div>
@@ -106,9 +110,10 @@ if (is_array($permissionsArray)) {
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/offers">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                        <circle class="fill-current @if(in_array(Request::segment(1), ['offers'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" cx="16" cy="8" r="8" />
+                                        <circle class="fill-current @if(in_array(Request::segment(1), ['offers'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" cx="8" cy="16" r="8" />
+                                    </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Offers</span>
                                 </div>
                             </div>
@@ -116,13 +121,13 @@ if (is_array($permissionsArray)) {
                     </li>
                     @endif
                     <!-- Dynamic Fields -->
-                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" x-data="{ open: false }">
-                        <a class="block text-slate-200 hover:text-white transition duration-150" :class="open && 'hover:text-slate-200'" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
+                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['custom','global'])){{  'bg-slate-900'  }}@endif" x-data="{ open: {{ in_array(Request::segment(1), ['custom','global']) ? 1 : 0 }} }">
+                          <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(1), ['custom'])){{ 'hover:text-slate-200' }}@endif" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path class="fill-current text-slate-600" d="M8.07 16H10V8H8.07a8 8 0 110 8z" />
-                                        <path class="fill-current text-slate-400" d="M15 12L8 6v5H0v2h8v5z" />
+                                        <path class="fill-current text-slate-600" d="M19 5h1v14h-2V7.414L5.707 19.707 5 19H4V5h2v11.586L18.293 4.293 19 5Z" />
+                                        <path class="fill-current text-slate-400" d="M5 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM5 23a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" />
                                     </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Dynamic Fields</span>
                                 </div>
@@ -140,14 +145,14 @@ if (is_array($permissionsArray)) {
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/custom/fields">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Custom Fields</span>
-                                        </a>                                    
+                                        </a>
                                 </li>
                                 @endif
                                 @if(in_array('Global Field', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/global/fields">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Global Fields</span>
-                                        </a>                                  
+                                        </a>
                                 </li>
                                 @endif
                             </ul>
@@ -169,33 +174,40 @@ if (is_array($permissionsArray)) {
                         </a>
                     </li>
                     @endif
-                </ul>
-            </div>
-             <!-- Manage Categories/Brands/Models -->
-            <div>
-                    <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
-                        <span class="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">•••</span>
-                        <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">Management for Categories</span>
-                    </h3>
-                    <ul class="mt-3">
-                    
-                        <!-- Admin Users -->
-                        @if(in_array('Admin User', $keys))
+                           @if(in_array('Admin User', $keys))
                         <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                             <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/manage/category">
                                 <div class="flex items-center justify-between">
                                     <div class="grow flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                             <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 h-6 w-6" viewBox="0 0 24 24" width="44" height="44"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 4h6v6h-6z" />
+                                        <path d="M14 4h6v6h-6z" />
+                                        <path d="M4 14h6v6h-6z" />
+                                        <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                                     </svg>
-                                        <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Manage Categories</span>
+                                        <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Categories</span>
                                     </div>
                                 </div>
                             </a>
                         </li>
                         @endif
+                </ul>
+            </div>
+             <!-- Manage Categories/Brands/Models -->
+            <div>
+                    {{-- <h3 class="text-xs uppercase text-slate-500 font-semibold pl-3">
+                        <span class="hidden lg:block lg:sidebar-expanded:hidden 2xl:hidden text-center w-6" aria-hidden="true">•••</span>
+                        <span class="lg:hidden lg:sidebar-expanded:block 2xl:block">Management for Categories</span>
+                    </h3> --}}
+                    {{-- <ul class="">
 
-                    </ul>
+                        <!-- Admin Users -->
+
+
+                    </ul> --}}
                 </div>
             <!-- More group -->
             <div>
@@ -205,13 +217,13 @@ if (is_array($permissionsArray)) {
                 </h3>
                 <ul class="mt-3">
                     <!-- App Users -->
-                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0" x-data="{ open: false }">
+                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['sellers','users'])){{  'bg-slate-900'  }}@endif" x-data="{ open: {{ in_array(Request::segment(1), ['users','sellers']) ? 1 : 0 }} }">
                         <a class="block text-slate-200 hover:text-white transition duration-150" :class="open && 'hover:text-slate-200'" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                                        <path class="fill-current text-slate-600" d="M8.07 16H10V8H8.07a8 8 0 110 8z" />
-                                        <path class="fill-current text-slate-400" d="M15 12L8 6v5H0v2h8v5z" />
+                                       <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['sellers','users'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z" />
+                                        <path class="fill-current @if(in_array(Request::segment(1), ['sellers','users'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z" />
                                     </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">App Users</span>
                                 </div>
@@ -229,14 +241,14 @@ if (is_array($permissionsArray)) {
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/users">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">List</span>
-                                        </a>                                    
+                                        </a>
                                 </li>
                                 @endif
                                 @if(in_array('Seller Verification', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/sellers">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Seller Verification</span>
-                                        </a>                                  
+                                        </a>
                                 </li>
                                 @endif
                             </ul>
@@ -249,9 +261,13 @@ if (is_array($permissionsArray)) {
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/admins">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                               <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 h-6 w-6" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path  stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                    </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Admin Users</span>
                                 </div>
                             </div>
