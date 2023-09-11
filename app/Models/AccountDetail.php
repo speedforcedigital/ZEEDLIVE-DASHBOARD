@@ -16,18 +16,18 @@ class AccountDetail extends Model
   protected $fillable = [
       'user_id', 'profile_image', 'cover_image','description','tagline','type'
   ];
-  public function getProfileImageAttribute($value)
-    {
-        if ($value) {
-            return Storage::disk('s3')->url($value);
-        }
-        return null;
-    }
-    public function getCoverImageAttribute($value)
-    {
-        if ($value) {
-            return Storage::disk('s3')->url($value);
-        }
-        return null;
-    }
+//   public function getProfileImageAttribute($value)
+//     {
+//         if ($value) {
+//             return Storage::disk('s3')->url($value);
+//         }
+//         return null;
+//     }
+//     public function getCoverImageAttribute($value)
+//     {
+//         if ($value) {
+//             return Storage::disk('s3')->url($value);
+//         }
+//         return null;
+//     }
 }
