@@ -16,8 +16,8 @@ class globalFields extends Component
     public function render()
     {
 
-        $globalfields = GlobalField::paginate(10);
-        $globalfields_count = GlobalField::count();
+        $globalfields = GlobalField::where("global_field", "<>", "Colors")->paginate(10);
+        $globalfields_count = GlobalField::where("global_field", "<>", "Colors")->count();
         // dd(implode(",", json_decode($globalfields[0]->values,true)));
         return view('livewire.globalfields', compact('globalfields', 'globalfields_count'));
     }

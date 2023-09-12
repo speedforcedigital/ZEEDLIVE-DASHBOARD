@@ -21,7 +21,6 @@
         public function index(Request $request)
         {
             $credentials = ['email' => $request->input('email'), 'password' => $request->input('password')];
-
             $validator = Validator::make($credentials, [
                 'email' => 'required|email',
                 'password' => 'required|string|max:50'
@@ -51,6 +50,6 @@
             ]);
 
             return redirect()->to('/dashboard');
-              
-        } 
+
+        }
     }
