@@ -20,6 +20,11 @@ foreach ($permissionsArray as $item) {
   }
 }
 ?>
+ @if (session()->has('message'))
+    <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md">
+        {{ session('message') }}
+    </div>
+    @endif
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -34,6 +39,32 @@ foreach ($permissionsArray as $item) {
             Edit Profile ✨
             @else
             App Users ✨
+            <div class="mb-4 sm:mb-0">
+            <ul class="flex flex-wrap -m-1">
+                <li class="m-1">
+                    <button wire:click="filter('all')"
+                        class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'all' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'all' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                        All <span
+                            class="ml-1 {{ $selected === 'all' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalUsers }}</span>
+                    </button>
+                </li>
+                <li class="m-1">
+                    <button wire:click="filter('sellers')"
+                        class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'sellers' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'sellers' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                        Selers <span
+                            class="ml-1 {{ $selected === 'sellers' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalSellers }}</span>
+                    </button>
+                </li>
+                <li class="m-1">
+                    <button wire:click="filter('buyers')"
+                        class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'buyers' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'buyers' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                        Buyers <span
+                            class="ml-1 {{ $selected === 'buyers' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalBuyers }}</span>
+                    </button>
+                </li>
+            </ul>
+
+        </div>
             @endif
             </h1>
             </div>
@@ -51,9 +82,7 @@ foreach ($permissionsArray as $item) {
                 <!-- <x-dropdown-filter align="right" /> -->
                 @if(!$updateMode && !$viewUser && $filter_capability_exists)
                 <!-- Add customer button -->
-                <button wire:click="filterUser('all')" class="btn border-slate-200 hover:border-slate-300 <?=($filterType=='all' || $filterType=='') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All Users</button>
-                <button wire:click="filterUser('seller')" class="btn border-slate-200 hover:border-slate-300 <?=($filterType=='seller') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All Sellers</button>
-                <button wire:click="filterUser('buyer')" class="btn border-slate-200 hover:border-slate-300 <?=($filterType=='buyer') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All Buyers</button>
+
                 @endif
             </div>
 
@@ -67,7 +96,7 @@ foreach ($permissionsArray as $item) {
     <x-users.edit-user />
     @else
     @if($list_capability_exists)
-    <x-users.users-table :users="$users" :count="$users_count" />
+    <x-users.users-table :users="$users" :totalUsers="$totalUsers" :totalBuyers="$totalBuyers"   :totalSellers="$totalSellers" :selected="$selected"/>
     @endif
     <!-- Pagination -->
     <div class="mt-8">

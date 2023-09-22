@@ -15,10 +15,17 @@ class MyCollection extends Model
     public function seller(){
         return $this->belongsTo(User::class,'offer_receiver_id');
     }
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
     public function auction(){
         return $this->hasOne(Auction::class,'collection_id');
     }
     public function buyer(){
         return $this->belongsTo(User::class,'offer_sender_id');
+    }
+    public function offers()
+    {
+        return $this->hasMany(Offers::class,"collection_id", "id");
     }
 }

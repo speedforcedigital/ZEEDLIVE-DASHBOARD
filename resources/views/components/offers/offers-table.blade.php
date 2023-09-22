@@ -12,6 +12,11 @@ foreach ($permissions as $item) {
 }
 ?>
 <x-loading-indicater />
+    @if (session()->has('message'))
+    <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md">
+        {{ session('message') }}
+    </div>
+    @endif
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">All Offers <span class="text-slate-400 font-medium">{{$count}}</span></h2>
@@ -63,7 +68,7 @@ foreach ($permissions as $item) {
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                         <img class="rounded-full" src="https://api.zeedlive.com/image/user_profile/{{$offer['user']['accountDetail']['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
-                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['user']['name'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="{{ route("user.show",$offer['user']['id'] ) }}">{{ $offer['user']['name'] }}</a></div>
                                 </div>
                             </td>
 
@@ -75,7 +80,7 @@ foreach ($permissions as $item) {
                                         @endif
                                     </div>
                                     @if(isset($offer['collection']))
-                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['collection']['title'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="{{ route("collection.show",$offer['collection']['id'] ) }}">{{ $offer['collection']['title'] }}</a></div>
                                     @endif
                                 </div>
                             </td>
@@ -85,7 +90,7 @@ foreach ($permissions as $item) {
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                         <img class="rounded-full" src="https://api.zeedlive.com/image/user_profile/{{$offer['receiver']['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
-                                    <div class="font-medium text-slate-800"><a href="#">{{ $offer['receiver']['name'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="{{ route("user.show",$offer['receiver']['id'] ) }}">{{ $offer['receiver']['name'] }}</a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -97,11 +102,21 @@ foreach ($permissions as $item) {
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($verification_capability_exists)
+                            @if($offer["is_accepted"] == false)
                             <button wire:click="accept({{ $offer['offer_id'] }})" class="btn border-slate-200 hover:border-slate-300">
                             <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
                                     <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
                                 </svg>
                             </button>
+                            @endif
+                            @if($offer["is_accepted"] == true)
+                            <button wire:click="reject({{ $offer['offer_id'] }})" class="btn border-slate-200 hover:border-slate-300">
+                                <svg class="w-4 h-4 fill-current text-rose-500 shrink-0" viewBox="0 0 16 16">
+                                    <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor" stroke-width="2" />
+                                    <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </button>
+                            @endif
                             @endif
 
                      </td>

@@ -26,10 +26,16 @@ class OffersList extends Component
         // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
         $offer->is_accepted = true;
         $offer->save();
-
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success',
-            'message' => 'Offer accepted successfully.',
-        ]);
+        $message = 'Offer Accepted Sucessfully.';
+        session()->flash('message', $message);
+    }
+    public function reject($id)
+    {
+        $offer = Offers::find($id);
+        // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
+        $offer->is_accepted = false;
+        $offer->save();
+        $message = 'Offer Rejected Sucessfully.';
+        session()->flash('message', $message);
     }
 }

@@ -9,6 +9,7 @@ use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlFileRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+// protected $listeners = [];
 class Users extends Component
 {
     use WithFileUploads;
@@ -18,42 +19,63 @@ class Users extends Component
     public $userProfile;
     public $filterUser = false;
     public $filterType = '';
+    public $filter = 'all';
+    public $selected = 'all';
     protected $listeners = [
-        'views'
+        'views',
+        'viewUsers' => 'view'
     ];
 
     public function render()
     {
-        $users = User::with('Role')->where("id", "<>", auth()->user()->id)->orderBy('users.id','desc')->get();
-        $users_count = count($users);
-        $users = User::with('Role')->where("id", "<>", auth()->user()->id)->orderBy('users.id','desc')->paginate(10);
+        $users = User::with('Role')->where("id", "<>", auth()->user()->id)->where("rank" ,'<>', "Admin")->orderBy('users.id','desc')->paginate(10);
+        $totalUsers = $users->total();
 
+        $sellers = User::with('Role')->where("id", "<>", auth()->user()->id)->where("rank", "Seller")->where("rank" ,'<>', "Admin")->orderBy('users.id','desc')->paginate(10);
+        $totalSellers = $sellers->total();
+
+        $buyers = User::with('Role')->where("id", "<>", auth()->user()->id)->where("rank", "Buyer")->orderBy('users.id','desc')->paginate(10);
+        $totalBuyers = $buyers->total();
+
+        if($this->filter=="all")
+        {
+            $users = $users;
+        }else if($this->filter=="sellers"){
+            $users = $buyers;
+        }else if($this->filter=="buyers"){
+            $users = $buyers;
+        }
+        if($this->updateMode == false && $this->viewUser == false)
+        {
+            return view('livewire.users', compact('users', 'totalUsers','totalSellers','totalBuyers'));
+        }
         if(request()->userId)
         {
             $this->view(request()->userId);
         }
+
         if ($this->viewUser) {
             return view('livewire.users', [
                 'users' => $users,
-                'users_count' => $users_count,
+                'totalUsers' => $totalUsers,
+                'totalSellers' => $totalSellers,
+                'totalBuyers' => $totalBuyers,
                 'viewUser' => $this->viewUser,
                 'userProfile' => $this->userProfile,
                 'filterType' => $this->filterType
             ]);
         } else {
-            return view('livewire.users', compact('users', 'users_count'));
+            return view('livewire.users', compact('users', 'totalUsers','totalSellers','totalBuyers'));
         }
     }
 
     public function delete($id)
     {
-    $url = baseUrl()."delete/user/".$id;
-    $data = makeCurlRequest($url, 'DELETE');
-    if($data['success']==1)
-    {
-        $this->dispatchBrowserEvent('alert',
-                ['type' => 'success',  'message' => ''.$data['Message'].'']);
-    }
+        User::destroy($id);
+        $message = 'User Deleted Sucessfully.';
+        session()->flash('message', $message);
+        return redirect()->route("users");
+
     }
 
     public function view($id)
@@ -76,7 +98,6 @@ class Users extends Component
         $this->role = $singleUser->role_id;
         $this->type = $singleUser->accountDetail->type;
         $this->image = $singleUser->accountDetail->profile_image;
-        $this->password = '';
         $this->updateMode = true;
     }
 
@@ -87,8 +108,7 @@ class Users extends Component
             'email' => 'required|email',
             'mobile' => 'required',
             'gender' => 'required',
-            'role' => 'required',
-            'password' => 'required',
+            'role' => 'required'
         ]);
     }
 
@@ -100,45 +120,24 @@ class Users extends Component
             'mobile' => 'required',
             'gender' => 'required',
             'role' => 'required',
-            'password' => 'required',
         ]);
         $image = $this->image;
-        if(is_file($image))
-        {
-            $path = $image->getRealPath();
-            $image = new \CURLFile($path, "image/jpeg",$image);
-            $postData = [
-                'role_id' => $this->role,
-                'name' => $this->name,
-                'email' => $this->email,
-                'mobile' => $this->mobile,
-                'gender' => $this->gender,
-                'type' => $this->type,
-                'password' => $this->password,
-                'image' => $image,
-            ];
-        }
-        else
-        {
-            $postData = [
-                'role_id' => $this->role,
-                'name' => $this->name,
-                'email' => $this->email,
-                'mobile' => $this->mobile,
-                'gender' => $this->gender,
-                'type' => $this->type,
-                'password' => $this->password,
-            ];
-        }
-        $url = baseUrl()."update/user/details/".$this->user_id;
-        $data = makeCurlFileRequest($url, 'POST',$postData);
-        if($data['success']==1)
-        {
-            $this->dispatchBrowserEvent('alert',
-                    ['type' => 'success',  'message' => ''.$data['message'].'']);
-        }
+
+
+        $user = User::find($this->user_id);
+            $user->role_id = $this->role;
+            $user->name = $this->name;
+            $user->email = $this->email;
+            $user->gender = $this->gender;
+            $user->mobile = $this->mobile;
+            $user->save();
+
         $this->updateMode = false;
+        $this->viewUser = false;
+        $message = 'User Updated Sucessfully.';
+        session()->flash('message', $message);
         $this->resetInputFields();
+        return redirect()->route("users");
     }
 
     private function resetInputFields()
@@ -152,31 +151,12 @@ class Users extends Component
         $this->password = '';
     }
 
-    public function filterUser($filterUser)
-    {
-    if($filterUser=='seller')
-    {
-      $filter = 'all/sellers';
-      $key = 'User';
-      $filterType='seller';
-    }
-    elseif($filterUser=='buyer')
-    {
-        $filter = 'all/buyers';
-        $key = 'User';
-        $filterType='buyer';
-    }
-    else
-    {
-        $filter = 'user/details';
-        $key = 'Users';
-        $filterType='all';
-    }
-    $url = baseUrl().$filter;
-    $data = makeCurlRequest($url, 'GET');
-    $this->filterUser = $data[$key];
-    $this->filterType = $filterType;
-    }
 
+
+    public function filter($type)
+    {
+        $this->filter = $type;
+        $this->selected = $type;
+    }
 
 }

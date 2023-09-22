@@ -31,9 +31,16 @@ foreach ($permissionsArray as $item) {
 <x-loading-indicater />
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
-        <h2 class="font-semibold text-slate-800">All Users <span class="text-slate-400 font-medium">{{ $count }}</span></h2>
+        <h2 class="font-semibold text-slate-800">All Users <span class="text-slate-400 font-medium">{{ $totalUsers }}</span></h2>
     </header>
+    <div class="sm:flex sm:justify-between sm:items-center mb-5">
 
+        <!-- Left side -->
+
+
+
+
+    </div>
     <div x-data="handleSelect">
 
         <!-- Table -->
