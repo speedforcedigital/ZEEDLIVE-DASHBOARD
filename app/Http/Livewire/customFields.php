@@ -25,9 +25,8 @@ class CustomFields extends Component
 
     public function render()
     {
-        $customfields = CustomField::paginate(10);
+        $customfields = CustomField::with("category")->paginate(10);
         $customfields_count = CustomField::count();
-
         return view('livewire.customfields', compact('customfields', 'customfields_count'));
     }
 

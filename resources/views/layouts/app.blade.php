@@ -23,13 +23,60 @@
                 document.querySelector('html').classList.add('dark');
                 document.querySelector('html').style.colorScheme = 'dark';
             }
-        </script>          
+        </script>
     </head>
+    <style>
+        <style>
+    .icon-tabler-check:hover {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+
+    .icon-tabler-ban:hover {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+
+    .icon-tabler-eye:hover {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+    .icon-tabler-device-tv {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+    .icon-tabler-player-stop {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+    .icon-tabler-id {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+</style>
     <body
         class="font-inter antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400"
         :class="{ 'sidebar-expanded': sidebarExpanded }"
         x-data="{ sidebarOpen: false, sidebarExpanded: localStorage.getItem('sidebar-expanded') == 'true' }"
-        x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"    
+        x-init="$watch('sidebarExpanded', value => localStorage.setItem('sidebar-expanded', value))"
     >
 
         <script>
@@ -38,6 +85,7 @@
             } else {
                 document.querySelector('body').classList.remove('sidebar-expanded');
             }
+
         </script>
 
         <!-- Page wrapper -->

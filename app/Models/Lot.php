@@ -184,6 +184,9 @@ class Lot extends Model
     public function auction(){
         return $this->belongsTo('App\Models\Auction');
     }
+    public function collection(){
+        return $this->belongsTo(MyCollection::class,'collection_id');
+    }
     public function category(){
         return $this->belongsTo('App\Models\Category');
     }

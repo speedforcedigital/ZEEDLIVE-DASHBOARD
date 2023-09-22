@@ -15,7 +15,7 @@ const analyticsCard10 = () => {
   const ctx = document.getElementById('analytics-card-10');
   if (!ctx) return;
 
-  fetch('/json-data-feed?datatype=16')
+  fetch('/get/users-by-gender')
     .then(a => {
       return a.json();
     })

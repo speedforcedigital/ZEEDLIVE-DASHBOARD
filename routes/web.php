@@ -1,20 +1,26 @@
 <?php
-use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Orders;
 use App\Http\Livewire\Users;
-use App\Http\Livewire\Categories;
-use App\Http\Livewire\CategoryManager;
+use App\Http\Livewire\Admins;
 use App\Http\Livewire\Brands;
 use App\Http\Livewire\Models;
+use App\Http\Livewire\Listing;
+use App\Http\Livewire\Product;
 use App\Http\Livewire\Sellers;
+use App\Http\Controllers\Login;
 use App\Http\Livewire\Auctions;
-use App\Http\Livewire\Notifications;
+use App\Http\Livewire\Categories;
+use App\Http\Livewire\Collection;
 use App\Http\Livewire\OffersList;
 use App\Http\Livewire\customFields;
 use App\Http\Livewire\globalFields;
-use App\Http\Livewire\Admins;
+use App\Http\Livewire\Notifications;
+use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\CategoryManager;
 use App\Http\Livewire\LoginController;
+use App\Http\Livewire\LiveStreamProduct;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Login;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,20 +32,33 @@ use App\Http\Controllers\Login;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/json-data-feed', [DashboardController::class, 'getDataFeed'])->name('json_data_feed');
 
 Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
     Route::get('/users', Users::class)->name("users");
 
+    Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);
+    Route::get('/get/users-by-age', [DashboardController::class, 'getUsersByAge']);
+    Route::get('/get/users-by-gender', [DashboardController::class, 'getUsersByGender']);
+    Route::get('/user/{id}', [DashboardController::class, 'userView'])->name("user.show");
+    Route::get('/collection/{id}', [DashboardController::class, 'collectionView'])->name("collection.show");
+
+    Route::get('/product/{id}',[ProductController::class, 'view'])->name("product.show");
     Route::get('/categories', Categories::class);
 
     Route::get('/manage/category', CategoryManager::class)->name('category.manager');
 
     Route::get('/brands', Brands::class);
+    Route::get('/orders', Orders::class);
+    Route::get('/collections', Collection::class)->name("collections.index");
     Route::get('/models', Models::class);
     Route::get('/sellers', Sellers::class);
     Route::get('/auctions', Auctions::class);
+    Route::get('/products/standard', Product::class)->name("standard.products");
+    Route::get('/products/live-stream', LiveStreamProduct::class)->name("livestream.products");
+    Route::get('/products/listings', Listing::class)->name("listings.products");
     Route::get('/notifications', Notifications::class);
     Route::get('/offers', OffersList::class);
     Route::get('/custom/fields', customFields::class);

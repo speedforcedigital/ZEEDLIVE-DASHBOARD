@@ -73,7 +73,7 @@ foreach ($permissions as $item) {
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                         <img class="rounded-full" src="https://api.staging.zeedlive.com/image/user_profile/{{$seller['user']['accountDetail']['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
-                                    <div class="font-medium text-slate-800"><a href="#" wire:click="$emit('openUserView', {{ $seller['user']['id'] }})">{{ $seller['user']['name'] }}</a></div>
+                                    <div class="font-medium text-slate-800"><a href="{{ route('user.show',$seller['user']['id']) }}">{{ $seller['user']['name'] }}</a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

@@ -76,7 +76,8 @@ foreach ($permissionsArray as $item) {
                     <!-- Row -->
                     <?php $i=0; ?>
                     @foreach($customfields as $customfield)
-                    <?php $i++;?>
+
+                    <?php $i++;  ?>
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">{{$i}}</div>
@@ -87,7 +88,7 @@ foreach ($permissionsArray as $item) {
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{ $customfield['category'] }}</div>
+                                <div class="text-left">@if($customfield->category) {{   $customfield->category->name }} @else -- @endif</div>
                             </td>
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
