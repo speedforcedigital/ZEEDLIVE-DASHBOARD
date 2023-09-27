@@ -15,12 +15,13 @@ class CategoryManager extends Component
     public $addCategory = false;
     public $updateMode = false;
     public $selectedCategory = null;
-    public $selectedBrand;
+    public $selectedBrand= null;
     public $categories;
     public $selectedBrandId;
 
     public $editModalOpen = false;
     public $deleteModalOpen = false;
+    public $deleteModalOpen2 = false;
 
     public $newCategoryName = null;
     public $isEditing = false;
@@ -75,6 +76,17 @@ class CategoryManager extends Component
                 $this->categories = Category::with('brands.modals')->get();
             }
         }
+    }
+    public function removeBrand()
+    {
+        Brand::destroy($this->selectedBrand['id']);
+        return redirect('manage/category');
+
+    }
+    public function removeModal()
+    {
+        Modal::destroy($this->selectedModal['id']);
+        return redirect('manage/category');
     }
 
     public function editSelection()

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\MyCollection;
+use Illuminate\Database\Eloquent\Model;
 
 class Auction extends Model
 {
@@ -30,6 +31,10 @@ class Auction extends Model
     public function user()
     {
         return $this->belongsTo(User::class, "user_id");
+    }
+    public function collection()
+    {
+        return $this->belongsTo(MyCollection::class, "collection_id");
     }
 
     public function lot()
