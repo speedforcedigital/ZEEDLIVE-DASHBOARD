@@ -233,14 +233,17 @@ class DashboardController extends Controller
             'daily' => [
                 'labels' => $dailyLabels,
                 'data' => $dailyData,
+                'totalSales' => $dailyTransactions->sum('total')
             ],
             'monthly' => [
                 'labels' => $last12MonthsLabels,
                 'data' => $monthlyData,
+                'totalSales' => $monthlyTransactions->sum('total')
             ],
             'yearly' => [
                 'labels' => $last5YearsLabels,
                 'data' => $yearlyData,
+                'totalSales' => $yearlyTransactions->sum('total')
             ],
         ];
 

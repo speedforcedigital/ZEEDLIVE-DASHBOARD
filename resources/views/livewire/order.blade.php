@@ -5,7 +5,7 @@
 
         <!-- Left: Title -->
         <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold"> Standard Products</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold"> Orders</h1>
         </div>
     </div>
     <div class="sm:flex sm:justify-between sm:items-center mb-5">
@@ -89,7 +89,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="font-medium text-slate-800">{{$order->seller->name}}</div>
+                                    <div class="font-medium text-slate-800"> <a href="{{route('user.show',$order->seller->id)}}"> {{$order->seller->name}}</a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -137,44 +137,73 @@
         </div>
           @if($showModal)
         <div class="fixed z-10 inset-0 overflow-y-auto">
-            <div class="flex items-center justify-center min-h-screen px-4">
-                <div class="fixed inset-0 transition-opacity">
-                    <div class="absolute inset-0 bg-gray-800 opacity-50"></div>
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-800 opacity-50"></div>
+        </div>
+
+        <!-- Modal content -->
+        <div class="bg-white rounded-xl w-3/4 md:w-1/2 lg:w-1/3 overflow-hidden shadow-2xl transform transition-all">
+            <!-- Header -->
+            <div class="bg-gray-100 p-5 border-b border-gray-200 rounded-t-xl">
+                <h3 class="text-xl leading-6 font-semibold text-gray-900">
+                    Order Details
+                </h3>
+            </div>
+
+            <!-- Body -->
+            <div class="p-5">
+                <p class="text-gray-700 leading-relaxed"><strong>Seller:</strong> {{ $order->customer->name }}</p>
+                <p class="text-gray-700 leading-relaxed"><strong>Date:</strong> {{ $order->created_at }}</p>
+                <p class="text-gray-700 leading-relaxed"><strong>Price:</strong> ${{ $order->sub_total }}</p>
+
+                <!-- Pictures -->
+                <div class="my-4">
+                    <h4 class="font-semibold mb-2">Pictures:</h4>
+                    <div class="flex space-x-2">
+                        {{-- @foreach($order->pictures as $picture) --}}
+                            <img src="{{ asset('images/product/images/' . $order->lot->image) }}"  class="w-24 h-24 object-cover rounded" />
+                        {{-- @endforeach --}}
+                    </div>
+                </div>
+                <div class="my-4">
+                    <h4 class="font-semibold mb-2">Videos:</h4>
+                    <div class="flex space-x-2">
+                        {{-- @foreach($order->pictures as $picture) --}}
+                            <img src="{{ asset('images/product/images/' . $order->lot->image) }}"  class="w-24 h-24 object-cover rounded" />
+                        {{-- @endforeach --}}
+                    </div>
                 </div>
 
-                <!-- Modal content -->
-                <div
-                    class="bg-white rounded-xl w-3/4 md:w-1/2 lg:w-1/3 overflow-hidden shadow-2xl transform transition-all">
-                    <!-- Header -->
-                    <div class="bg-gray-100 p-5 border-b border-gray-200 rounded-t-xl">
-                        <h3 class="text-xl leading-6 font-semibold text-gray-900">
-                            Order Details
-                        </h3>
-                    </div>
+                <!-- Seller Documents -->
+                <div class="my-4">
+                    <h4 class="font-semibold mb-2">Seller Documents:</h4>
+                    <ul>
+                        @if($order->seller  && $order->seller->SellerVerification)
+                            <li><a href="{{ $order->seller->SellerVerification->document1 }}" class="text-blue-500 hover:underline" target="_blank">{{ $document->name }}</a></li>
+                        @else
+                        No Seller Document
+                            @endif
 
-                    <!-- Body -->
-                <div class="p-5">
-                    <p class="text-gray-700 leading-relaxed">
-                        <strong>Date:</strong> {{ $order->created_at }}
-                    </p>
-                    <p class="text-gray-700 leading-relaxed">
-                        <strong>Price:</strong> ${{ $order->sub_total }}
-                    </p>
-                    {{-- <p class="text-gray-700 leading-relaxed">
-                        <strong>Receipt:</strong>
-                        <a href="{{ $order->receipt_url }}" target="_blank" class="text-blue-500 hover:underline">
-                            View Receipt
-                        </a>
-                    </p> --}}
+                    </ul>
                 </div>
-                    <!-- Footer -->
-                    <div class="flex justify-end bg-gray-100 p-5 rounded-b-xl border-t border-gray-200">
-                        <button wire:click="$set('showModal', false)"
-                            class="px-5 py-2 text-gray-100 bg-red-600 hover:bg-red-700 transition duration-150 rounded">Close</button>
-                    </div>
+
+                <!-- Shipping Details -->
+                <div class="my-4">
+                    <h4 class="font-semibold mb-2">Shipping Details:</h4>
+                    <p class="text-gray-700 leading-relaxed"><strong>Address:</strong> {{ $order->address->address }}</p>
+                    <p class="text-gray-700 leading-relaxed"><strong>Status:</strong> {{ $order->status }}</p>
+                    <!-- Additional Shipping Details Here -->
                 </div>
             </div>
+
+            <!-- Footer -->
+            <div class="flex justify-end bg-gray-100 p-5 rounded-b-xl border-t border-gray-200">
+                <button wire:click="$set('showModal', false)" class="px-5 py-2 text-gray-100 bg-red-600 hover:bg-red-700 transition duration-150 rounded">Close</button>
+            </div>
         </div>
+    </div>
+</div>
 
         @endif
     </div>

@@ -146,6 +146,10 @@ class User extends Authenticatable implements JWTSubject
      {
         return $this->hasMany('App\Models\Rating');
      }
+     public function shipping()
+     {
+        return $this->hasMany(ShippingInfo::class, 'user_id', 'id');
+     }
 
      /**
     * @return HasOne

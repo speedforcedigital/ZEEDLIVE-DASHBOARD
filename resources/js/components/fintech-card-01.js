@@ -146,7 +146,6 @@
                 // Function to update the chart based on the selected scale
                 function updateChart(scaleType, data,result) {
                     chart.data.labels = generateLabels(scaleType,result);
-
                     chart.data.datasets[0].data = scaleType === 'year' ? data.yearlyData : [];
                     chart.data.datasets[1].data = scaleType === 'month' ? data.monthlyData : [];
                     chart.data.datasets[2].data = scaleType === 'day' ? data.dailyData : [];
@@ -171,6 +170,17 @@
                 scaleButtons.forEach((button) => {
                     button.addEventListener('click', (event) => {
                         const scaleType = event.target.dataset.scale;
+                        if(scaleType == "day")
+                        {
+                            document.getElementById("totalSales").innerHTML =   "$"+ result.daily.totalSales;
+                        }else if(scaleType == "month")
+                        {
+                            document.getElementById("totalSales").innerHTML =   "$"+result.monthly.totalSales;
+                        }else {
+
+                            document.getElementById("totalSales").innerHTML =   "$"+result.yearly.totalSales;
+                        }
+                        console.log(result);
                         updateChart(scaleType, data,result);
                     });
                 });

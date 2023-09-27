@@ -8,7 +8,7 @@ foreach ($permissionsArray as $item) {
     $add_capability_exists = true;
     break;
   }
-} 
+}
 //list
 $list_capability_exists = false;
 foreach ($permissionsArray as $item) {
@@ -80,7 +80,7 @@ foreach ($permissionsArray as $item) {
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                   </button>
-                    
+
                 <div x-data="{ editModalOpen: @entangle('editModalOpen') , newCategoryName: '' }">
 
                   <!-- Modal trigger button -->
@@ -213,7 +213,7 @@ foreach ($permissionsArray as $item) {
                   </option>
                   @endforeach
                 </select>
-                
+
               </div>
               <!-- End -->
             </div>
@@ -235,6 +235,53 @@ foreach ($permissionsArray as $item) {
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="4 4 16 16">
                       <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" fill="currentColor"></path>                    </svg>
                   </button>
+                    <div x-data="{ deleteModalOpen2: @entangle('deleteModalOpen2'), collectionsCount: @entangle('collectionsCount') }">
+                        <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="deleteModalOpen2 = true" style="height: 38px;">
+                            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                                <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
+                            </svg>
+                        </button>
+
+                        <!-- Modal overlay -->
+                        <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="deleteModalOpen2" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+
+                        <!-- Delete Category Modal Dialog -->
+                        <div class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true" x-show="deleteModalOpen2" x-transition:enter="transition ease-in-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true" x-cloak>
+                            <!-- Modal content -->
+                            <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="deleteModalOpen2 = false" @keydown.escape.window="deleteModalOpen2 = false" style="max-width: 640px;">
+                                <!-- Modal header -->
+                                <div class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                    <div class="flex justify-between items-center">
+                                        <div class="font-semibold text-slate-800 dark:text-slate-100">Delete Category</div>
+                                        <button class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400" @click="deleteModalOpen2 = false">
+                                            <div class="sr-only">Close</div>
+                                            <svg class="w-4 h-4 fill-current">
+                                                <path d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Modal content -->
+                                <div class="px-5 py-4">
+                                        <div class="text-sm">
+                                            <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">
+                                                    Are you sure you want to delete this Brand?
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
+                                    <div class="flex justify-end">
+                                            <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteModalOpen2 = false">Cancel</button>
+                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeBrand">Delete</button>
+                                        <template x-if="collectionsCount > 0">
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen2 = false">OK</button>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @error('selectedBrand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                 <select size="5"
@@ -251,7 +298,7 @@ foreach ($permissionsArray as $item) {
                   @endforeach
                   @endif
                 </select>
-                
+
               </div>
               <!-- End -->
             </div>
@@ -270,6 +317,53 @@ foreach ($permissionsArray as $item) {
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                   </button>
+                                     <div x-data="{ deleteModalOpen3: @entangle('deleteModalOpen3'), collectionsCount: @entangle('collectionsCount') }">
+                        <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="deleteModalOpen3 = true" style="height: 38px;">
+                            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                                <path d="M5 7h2v6H5V7zm4 0h2v6H9V7zm3-6v2h4v2h-1v10c0 .6-.4 1-1 1H2c-.6 0-1-.4-1-1V5H0V3h4V1c0-.6.4-1 1-1h6c.6 0 1 .4 1 1zM6 2v1h4V2H6zm7 3H3v9h10V5z"></path>
+                            </svg>
+                        </button>
+
+                        <!-- Modal overlay -->
+                        <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="deleteModalOpen3" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+
+                        <!-- Delete Category Modal Dialog -->
+                        <div class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog" aria-modal="true" x-show="deleteModalOpen3" x-transition:enter="transition ease-in-out duration-200" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true" x-cloak>
+                            <!-- Modal content -->
+                            <div class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="deleteModalOpen3 = false" @keydown.escape.window="deleteModalOpen3 = false" style="max-width: 640px;">
+                                <!-- Modal header -->
+                                <div class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                    <div class="flex justify-between items-center">
+                                        <div class="font-semibold text-slate-800 dark:text-slate-100">Delete Category</div>
+                                        <button class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400" @click="deleteModalOpen3 = false">
+                                            <div class="sr-only">Close</div>
+                                            <svg class="w-4 h-4 fill-current">
+                                                <path d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Modal content -->
+                                <div class="px-5 py-4">
+                                        <div class="text-sm">
+                                            <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">
+                                                    Are you sure you want to delete this Brand?
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
+                                    <div class="flex justify-end">
+                                            <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteModalOpen3 = false">Cancel</button>
+                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeModal">Delete</button>
+                                        <template x-if="collectionsCount > 0">
+                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen3 = false">OK</button>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @error('selectedModal')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                 <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

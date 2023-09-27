@@ -60,7 +60,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="font-medium text-slate-800">{{$collection->title}}</div>
+                                    <div class="font-medium text-slate-800"> <a href="{{ route("collection.show", $collection->id ) }}">  {{$collection->title}}</a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
