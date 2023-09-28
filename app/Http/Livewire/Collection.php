@@ -21,8 +21,19 @@ class Collection extends Component
         $collection =   MyCollection::find($id);
         $collection->is_delete = 1;
         $collection->save();
-        $message = 'Collection Removed Sucessfully.';
+        $message = 'Collection Disabled Sucessfully.';
         session()->flash('message', $message);
+        return redirect()->route('collections.index');
+    }
+    public function enable($id)
+    {
+        $collection =   MyCollection::find($id);
+        $collection->is_delete = 1;
+        $collection->save();
+        $message = 'Collection Enabled Sucessfully.';
+        session()->flash('message', $message);
+        return redirect()->route('collections.index');
+
     }
 
     public function view($collectionId)

@@ -21,7 +21,7 @@ class Sellers extends Component
             $total_sellers = $this->filterSeller->get()->count();
             $this->filterSeller = null;
         } else {
-            $sellers = SellerVerification::where('status', 'Pending')->with('User')->orderBy('seller_verifications.id', 'desc');
+            $sellers = SellerVerification::with('User')->orderBy('seller_verifications.id', 'desc');
             $total_sellers = $sellers->get()->count();
             $sellers = $sellers->paginate(10);
         }
@@ -37,8 +37,10 @@ class Sellers extends Component
             $list = SellerVerification::where('status', 'Approved')->with('User');
         } elseif ($filterSeller == 'rejected') {
             $list = SellerVerification::where('status', 'Rejected')->with('User');
-        } else {
+        } elseif ($filterSeller == 'pending') {
             $list = SellerVerification::where('status', 'Pending')->with('User');
+        }elseif ($filterSeller == 'all') {
+            $list = SellerVerification::with('User');
         }
         $this->filterSeller = $list;
     }

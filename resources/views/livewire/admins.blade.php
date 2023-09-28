@@ -60,9 +60,9 @@ foreach ($permissionsArray as $item) {
     @elseif($addUser)
     <x-users.edit-admin />
     @else
-    @if($list_capability_exists)
+    {{-- @if($list_capability_exists) --}}
     <x-users.admin-table :admins="$admins" :count="$admins_count" />
-    @endif
+    {{-- @endif --}}
     <!-- Pagination -->
     <div class="mt-8">
             {{$admins->links()}}

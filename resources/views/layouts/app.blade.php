@@ -65,6 +65,20 @@
         cursor: pointer;
 
     }
+    .icon-tabler-check {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
+    .icon-tabler-circle-plus {
+
+        transform: scale(1.2);
+
+        cursor: pointer;
+
+    }
     .icon-tabler-id {
 
         transform: scale(1.2);

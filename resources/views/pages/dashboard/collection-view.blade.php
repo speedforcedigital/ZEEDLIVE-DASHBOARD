@@ -41,7 +41,7 @@
                     <div class="flex items-center">
                         <img src="{{ asset($collection->user->image) }}" alt="Seller Avatar" class="w-12 h-12 rounded-full">
                         <div class="ml-4">
-                            <h2 class="text-xl font-semibold">{{ $collection->user->name }}</h2>
+                            <h2 class="text-xl font-semibold"><a href="{{ route('user.show',  $collection->user->id) }}"> {{ $collection->user->name }} </a></h2>
                             <!-- Seller details -->
                         </div>
                     </div>

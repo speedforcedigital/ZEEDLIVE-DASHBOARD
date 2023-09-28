@@ -41,7 +41,7 @@
                     <div class="flex items-center">
                         <img src="{{ asset($lot->auction->user->image) }}" alt="Seller Avatar" class="w-12 h-12 rounded-full">
                         <div class="ml-4">
-                            <h2 class="text-xl font-semibold">{{ $lot->auction->user->name }}</h2>
+                            <h2 class="text-xl font-semibold"> <a href="{{ route('user.show', $lot->auction->user->id) }}"> {{  $lot->auction->user->name }} </a></h2>
                             <!-- Seller details -->
                         </div>
                     </div>

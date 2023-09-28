@@ -89,6 +89,7 @@
                                             <path d="M5 12l5 5l10 -10" />
                                         </svg>
                                     </button> --}}
+                                    @if($collection->is_delete == "0")
                                     <button class="text-slate-400 hover:text-slate-500 rounded-full"
                                         wire:click="remove({{ $collection->id }})">
                                         <span class="sr-only">Remove</span>
@@ -100,6 +101,23 @@
                                             <path d="M5.7 5.7l12.6 12.6" />
                                         </svg>
                                     </button>
+                                    @else
+                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                        wire:click="enable({{ $collection->id }})">
+                                        <span class="sr-only">Enable</span>
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    class="icon icon-tabler icon-tabler-check"
+                                                                                    width="27" height="27"
+                                                                                    viewBox="0 0 24 24"
+                                                                                    stroke-width="1.5" stroke="#2c3e50"
+                                                                                    fill="none" stroke-linecap="round"
+                                                                                    stroke-linejoin="round">
+                                                                                    <path stroke="none"
+                                                                                        d="M0 0h24v24H0z" fill="none" />
+                                                                                    <path d="M5 12l5 5l10 -10" />
+                                                                                </svg>
+                                    </button>
+                                    @endif
                                     <button class="text-slate-400 hover:text-slate-500 rounded-full"
                                         wire:click="view({{ $collection->id }})">
                                         <span class="sr-only">View</span>
