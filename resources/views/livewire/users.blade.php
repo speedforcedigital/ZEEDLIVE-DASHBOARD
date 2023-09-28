@@ -45,7 +45,7 @@ foreach ($permissionsArray as $item) {
                     <button wire:click="filter('all')"
                         class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'all' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'all' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
                         All <span
-                            class="ml-1 {{ $selected === 'all' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalUsers }}</span>
+                            class="ml-1 {{ $selected === 'all' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalUsersCount }}</span>
                     </button>
                 </li>
                 <li class="m-1">

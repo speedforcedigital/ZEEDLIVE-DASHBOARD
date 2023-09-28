@@ -17,7 +17,7 @@
                     <button wire:click="filter('all')"
                         class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'all' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'all' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
                         All <span
-                            class="ml-1 {{ $selected === 'all' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $total_products }}</span>
+                            class="ml-1 {{ $selected === 'all' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $total_products_count }}</span>
                     </button>
                 </li>
                 <li class="m-1">
@@ -89,7 +89,7 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="font-medium text-slate-800">{{$product->title}}</div>
+                                    <div class="font-medium text-slate-800"><a href="{{ route('collection.show', $product->collection_id) }}"> {{$product->title}} </a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

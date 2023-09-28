@@ -21,6 +21,7 @@ use App\Http\Livewire\LoginController;
 use App\Http\Livewire\LiveStreamProduct;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Livewire\Wallets;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'protected'], function () {
 
     Route::get('/brands', Brands::class);
     Route::get('/orders', Orders::class);
+    Route::get('/wallets', Wallets::class)->name('wallet.index');
     Route::get('/collections', Collection::class)->name("collections.index");
     Route::get('/models', Models::class);
     Route::get('/sellers', Sellers::class);

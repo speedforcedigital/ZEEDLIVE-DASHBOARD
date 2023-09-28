@@ -24,17 +24,20 @@ class Orders extends Component
 
         if ($this->filter === 'pending') {
             $orders = $pendingOrders;
+            $totalOrders = $orders->total();
         } elseif ($this->filter === 'shipped') {
-            $orders = $delieverdOrders;
-        } elseif ($this->filter === 'delivered') {
             $orders = $shippedOrders;
+            $totalOrders = $shippedOrders->total();
+        } elseif ($this->filter === 'delivered') {
+            $orders = $delieverdOrders;
+            $totalOrders = $delieverdOrders->total();
         }
 
         $totalPendingOrders = $pendingOrders->total();
         $totalDeliveredOrders = $delieverdOrders->total();
         $totalShippedOrders = $shippedOrders->total();
-        $totalOrders = $allOrders->total();
-        return view('livewire.order', compact('orders','totalShippedOrders','totalDeliveredOrders','totalPendingOrders','totalOrders'));
+        $totalOrdersCount = $allOrders->total();
+        return view('livewire.order', compact('orders','totalOrdersCount','totalShippedOrders','totalDeliveredOrders','totalPendingOrders','totalOrders'));
     }
 
      public function orderDetail($id)

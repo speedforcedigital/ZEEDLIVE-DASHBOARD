@@ -14,7 +14,7 @@
     <div class="px-5 py-3" x-show="isOpen">
         <div class="flex flex-wrap justify-between items-end">
             <div class="flex items-center">
-                <div class="text-3xl font-bold text-slate-800 mr-2" id = "totalSales">${{ $totalSales }}</div>
+                <div class="text-3xl font-bold text-slate-800 mr-2" id = "totalSales">SAR {{ $totalSales }}</div>
             </div>
             <div id="fintech-card-01-legend" class="grow ml-2 mb-1">
                 <ul class="flex flex-wrap justify-end"></ul>

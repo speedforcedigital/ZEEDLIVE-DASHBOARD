@@ -89,7 +89,7 @@ if (is_array($permissionsArray)) {
                     @endif
                     <!-- Auctions -->
                     @if(in_array('Auction', $keys))
-                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                    {{-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/auctions">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
@@ -102,7 +102,7 @@ if (is_array($permissionsArray)) {
                                 </div>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                     @endif
                      @if(in_array('Auction', $keys))
                     {{-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
@@ -245,7 +245,7 @@ if (is_array($permissionsArray)) {
                     </li>
                     <!-- Messages -->
                     @if(in_array('Notifications', $keys))
-                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                    {{-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/notifications">
                             <div class="flex items-center justify-between">
                                 <div class="grow flex items-center">
@@ -257,7 +257,7 @@ if (is_array($permissionsArray)) {
                                 </div>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
                     @endif
                            @if(in_array('Admin User', $keys))
                         <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
@@ -336,6 +336,11 @@ if (is_array($permissionsArray)) {
                                         </a>
                                 </li>
                                 @endif
+                                <li class="mb-1 last:mb-0">
+                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/wallets">
+                                            <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Wallets</span>
+                                        </a>
+                                </li>
                             </ul>
                         </div>
                     </li>

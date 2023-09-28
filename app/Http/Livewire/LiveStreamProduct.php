@@ -39,18 +39,22 @@ class LiveStreamProduct extends Component
 
         if ($this->filter === 'all') {
             $products = $products_all;
+            $total_products = $products_all->total();
         } elseif ($this->filter === 'on_going') {
             $products = $onGoingProducts;
+            $total_products = $onGoingProducts->total();
         } elseif ($this->filter === 'ended') {
             $products = $endedProducts;
+            $total_products = $endedProducts->total();
         } elseif ($this->filter === 'scheduled') {
             $products = $scheduledProducts;
+            $total_products = $scheduledProducts->total();
         }
-        $total_products = $products_all->total();
+        $total_products_count = $products_all->total();
         $onGoingProducts = $onGoingProducts->total();
         $scheduledProducts = $scheduledProducts->total();
         $endedProducts = $endedProducts->total();
-        return view('livewire.live-stream-product', compact('total_products', 'products', 'onGoingProducts', 'scheduledProducts', 'endedProducts'));
+        return view('livewire.live-stream-product', compact('total_products','total_products_count', 'products', 'onGoingProducts', 'scheduledProducts', 'endedProducts'));
     }
 
     public function approve($id)

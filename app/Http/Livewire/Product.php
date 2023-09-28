@@ -31,15 +31,18 @@ class Product extends Component
             ->paginate($perPage);
         if ($this->filter === 'all') {
             $products = $products_all;
+            $total_products = $products_all->total();
         } elseif ($this->filter === 'auctions') {
             $products = $products_auc;
+            $total_products = $products_auc->total();
         } elseif ($this->filter === 'buy_now') {
             $products = $products_buy;
+            $total_products = $products_buy->total();
         }
-        $total_products = $products_all->total();
+        $total_products_count =  $products_all->total();
         $buyNowProducts = $products_buy->total();
         $auctionsProducts = $products_auc->total();
-        return view('livewire.product', compact('total_products', 'products', 'buyNowProducts', 'auctionsProducts'));
+        return view('livewire.product', compact('total_products', 'total_products_count','products', 'buyNowProducts', 'auctionsProducts'));
     }
 
     public function approve($id)

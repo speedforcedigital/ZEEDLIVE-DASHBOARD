@@ -30,6 +30,7 @@ class Users extends Component
     {
         $users = User::with('Role')->where("id", "<>", auth()->user()->id)->where("rank" ,'<>', "Admin")->orderBy('users.id','desc')->paginate(10);
         $totalUsers = $users->total();
+        $totalUsersCount = $users->total();
 
         $sellers = User::with('Role')->where("id", "<>", auth()->user()->id)->where("rank", "Seller")->where("rank" ,'<>', "Admin")->orderBy('users.id','desc')->paginate(10);
         $totalSellers = $sellers->total();
@@ -40,14 +41,17 @@ class Users extends Component
         if($this->filter=="all")
         {
             $users = $users;
+            $totalUsers = $users->total();
         }else if($this->filter=="sellers"){
-            $users = $buyers;
+            $users = $sellers;
+            $totalUsers = $sellers->total();
         }else if($this->filter=="buyers"){
             $users = $buyers;
+            $totalUsers = $buyers->total();
         }
         if($this->updateMode == false && $this->viewUser == false)
         {
-            return view('livewire.users', compact('users', 'totalUsers','totalSellers','totalBuyers'));
+            return view('livewire.users', compact('users','totalUsersCount', 'totalUsers','totalSellers','totalBuyers'));
         }
         if(request()->userId)
         {

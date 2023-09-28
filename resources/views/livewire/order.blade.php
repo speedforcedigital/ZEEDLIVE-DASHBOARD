@@ -102,7 +102,7 @@
                                     <div class="text-left">
                                         <div
                                             class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 bg-emerald-100 text-emerald-600">
-                                            {{ $order->status }}</div>
+                                            @if($order->is_shipped == "0" && $order->is_deliverd == "0") Pending @elseif($order->is_deliverd == "1") Delivered @elseif($order->is_shipped == "1" && $order->is_deliverd == "0") Shipped @endif</div>
 
                                     </div>
                                 </div>
@@ -136,76 +136,85 @@
             </div>
         </div>
           @if($showModal)
-        <div class="fixed z-10 inset-0 overflow-y-auto">
-    <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="fixed inset-0 transition-opacity">
-            <div class="absolute inset-0 bg-gray-800 opacity-50"></div>
-        </div>
+          <div class="fixed z-10 inset-0 overflow-y-auto">
+              <div class="flex items-center justify-center min-h-screen px-4">
+                  <div class="fixed inset-0 transition-opacity">
+                      <div class="absolute inset-0 bg-gray-800 opacity-50"></div>
+                  </div>
 
-        <!-- Modal content -->
-        <div class="bg-white rounded-xl w-3/4 md:w-1/2 lg:w-1/3 overflow-hidden shadow-2xl transform transition-all">
-            <!-- Header -->
-            <div class="bg-gray-100 p-5 border-b border-gray-200 rounded-t-xl">
-                <h3 class="text-xl leading-6 font-semibold text-gray-900">
-                    Order Details
-                </h3>
-            </div>
+                  <!-- Modal content -->
+                  <div class="bg-white rounded-xl max-w-xl w-full overflow-hidden shadow-2xl transform transition-all">
+                      <!-- Header -->
+                      <div class="bg-gray-100 p-5 border-b border-gray-200 rounded-t-xl">
+                          <h3 class="text-xl leading-6 font-semibold text-gray-900">
+                              Order Details
+                          </h3>
+                      </div>
 
-            <!-- Body -->
-            <div class="p-5">
-                <p class="text-gray-700 leading-relaxed"><strong>Seller:</strong> {{ $order->customer->name }}</p>
-                <p class="text-gray-700 leading-relaxed"><strong>Date:</strong> {{ $order->created_at }}</p>
-                <p class="text-gray-700 leading-relaxed"><strong>Price:</strong> ${{ $order->sub_total }}</p>
+                      <!-- Body -->
+                      <div class="p-5">
+                          <p class="text-gray-700 leading-relaxed"><strong>Seller:</strong> {{ $order->customer->name }}
+                          </p>
+                          <p class="text-gray-700 leading-relaxed"><strong>Date:</strong> {{ $order->created_at }}</p>
+                          <p class="text-gray-700 leading-relaxed"><strong>Price:</strong> SAR {{ $order->sub_total }}
+                          </p>
 
-                <!-- Pictures -->
-                <div class="my-4">
-                    <h4 class="font-semibold mb-2">Pictures:</h4>
-                    <div class="flex space-x-2">
-                        {{-- @foreach($order->pictures as $picture) --}}
-                            <img src="{{ asset('images/product/images/' . $order->lot->image) }}"  class="w-24 h-24 object-cover rounded" />
-                        {{-- @endforeach --}}
-                    </div>
-                </div>
-                <div class="my-4">
-                    <h4 class="font-semibold mb-2">Videos:</h4>
-                    <div class="flex space-x-2">
-                        {{-- @foreach($order->pictures as $picture) --}}
-                            <img src="{{ asset('images/product/images/' . $order->lot->image) }}"  class="w-24 h-24 object-cover rounded" />
-                        {{-- @endforeach --}}
-                    </div>
-                </div>
+                          <!-- Pictures -->
+                          <div class="my-4">
+                              <h4 class="font-semibold mb-2">Pictures:</h4>
+                              <div class="flex space-x-2">
+                                  {{-- @foreach($order->pictures as $picture) --}}
+                                  <img src="{{ asset('images/product/images/' . $order->lot->image) }}"
+                                      class="w-24 h-24 object-cover rounded" />
+                                  {{-- @endforeach --}}
+                              </div>
+                          </div>
+                          <div class="my-4">
+                              <h4 class="font-semibold mb-2">Videos:</h4>
+                              <div class="flex space-x-2">
+                                  {{-- @foreach($order->pictures as $picture) --}}
+                                  <img src="{{ asset('images/product/images/' . $order->lot->image) }}"
+                                      class="w-24 h-24 object-cover rounded" />
+                                  {{-- @endforeach --}}
+                              </div>
+                          </div>
 
-                <!-- Seller Documents -->
-                <div class="my-4">
-                    <h4 class="font-semibold mb-2">Seller Documents:</h4>
-                    <ul>
-                        @if($order->seller  && $order->seller->SellerVerification)
-                            <li><a href="{{ $order->seller->SellerVerification->document1 }}" class="text-blue-500 hover:underline" target="_blank">{{ $document->name }}</a></li>
-                        @else
-                        No Seller Document
-                            @endif
+                          <!-- Seller Documents -->
+                          <div class="my-4">
+                              <h4 class="font-semibold mb-2">Seller Documents:</h4>
+                              <ul>
+                                  @if($order->seller && $order->seller->SellerVerification)
+                                  <li><a href="{{ $order->seller->SellerVerification->document1 }}"
+                                          class="text-blue-500 hover:underline"
+                                          target="_blank">{{ $document->name }}</a></li>
+                                  @else
+                                  No Seller Document
+                                  @endif
 
-                    </ul>
-                </div>
+                              </ul>
+                          </div>
 
-                <!-- Shipping Details -->
-                <div class="my-4">
-                    <h4 class="font-semibold mb-2">Shipping Details:</h4>
-                    <p class="text-gray-700 leading-relaxed"><strong>Address:</strong> {{ $order->address->address }}</p>
-                    <p class="text-gray-700 leading-relaxed"><strong>Status:</strong> {{ $order->status }}</p>
-                    <!-- Additional Shipping Details Here -->
-                </div>
-            </div>
+                          <!-- Shipping Details -->
+                          <div class="my-4">
+                              <h4 class="font-semibold mb-2">Shipping Details:</h4>
+                              <p class="text-gray-700 leading-relaxed"><strong>Address:</strong>
+                                  {{ $order->address->address }}</p>
+                              <p class="text-gray-700 leading-relaxed"><strong>Status:</strong> {{ $order->status }}</p>
+                              <!-- Additional Shipping Details Here -->
+                          </div>
+                      </div>
 
-            <!-- Footer -->
-            <div class="flex justify-end bg-gray-100 p-5 rounded-b-xl border-t border-gray-200">
-                <button wire:click="$set('showModal', false)" class="px-5 py-2 text-gray-100 bg-red-600 hover:bg-red-700 transition duration-150 rounded">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+                      <!-- Footer -->
+                      <div class="flex justify-end bg-gray-100 p-5 rounded-b-xl border-t border-gray-200">
+                          <button wire:click="$set('showModal', false)"
+                              class="px-5 py-2 text-gray-100 bg-red-600 hover:bg-red-700 transition duration-150 rounded">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-        @endif
+
+          @endif
     </div>
 
     <!-- Pagination -->

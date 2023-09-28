@@ -40,6 +40,9 @@ foreach ($permissions as $item) {
                             <div class="font-semibold text-left">Collection</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Price</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Offer Receiver</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -84,7 +87,9 @@ foreach ($permissions as $item) {
                                     @endif
                                 </div>
                             </td>
-
+                               <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="text-left">SAR {{ $offer['amount'] }}</div>
+                            </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
