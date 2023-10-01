@@ -38,7 +38,7 @@
                         {{$user->AuctualRate}}<span class="ml-2">Rating</span>
                     </button>
                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
-                        0<span class="ml-2">Orders</span>
+                        {{ $orders->count() }}<span class="ml-2">Orders</span>
                     </button>
                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">
                         {{$user->collection}}<span class="ml-2">Collections</span>
@@ -86,86 +86,42 @@
                 </div>
 
                 <!-- Departments -->
-                <div>
-                    <h2 class="text-slate-800 font-semibold mb-2">Departments</h2>
-                    <!-- Cards -->
-                    <div class="grid xl:grid-cols-2 gap-4">
+         <div>
+    <h2 class="text-slate-800 font-semibold mb-2">User Information</h2>
 
-                        <!-- Card -->
-                        <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm">
-                            <!-- Card header -->
-                            <div class="grow flex items-center truncate mb-2">
-                                <div
-                                    class="w-8 h-8 shrink-0 flex items-center justify-center bg-slate-700 rounded-full mr-2">
-                                    <img class="ml-1" src="{{ asset('images/icon-03.svg') }}" width="14" height="14"
-                                        alt="Icon 03" />
-                                </div>
-                                <div class="truncate">
-                                    <span class="text-sm font-medium text-slate-800">Acme Marketing</span>
-                                </div>
-                            </div>
-                            <!-- Card content -->
-                            <div class="text-sm mb-3">Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore.</div>
-                            <!-- Card footer -->
-                            <div class="flex justify-between items-center">
-                                <!-- Avatars group -->
-                                <div class="flex -space-x-3 -ml-0.5">
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-02.jpg') }}" width="24" height="24" alt="Avatar" />
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-03.jpg') }}" width="24" height="24" alt="Avatar" />
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-04.jpg') }}" width="24" height="24" alt="Avatar" />
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-05.jpg') }}" width="24" height="24" alt="Avatar" />
-                                </div>
-                                <!-- Link -->
-                                <div>
-                                    <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600" href="#0">View
-                                        -&gt;</a>
-                                </div>
-                            </div>
-                        </div>
+    <!-- User Products -->
+    <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm mb-4">
+        <h3 class="text-sm font-medium text-slate-800 mb-2">Products</h3>
+        <ul class="text-sm">
+            @foreach($products as $product)
+            <li><a href="{{ route('product.show',$product->id ) }}">{{ $product->title }}</a></li>
+            @endforeach
+        </ul>
+    </div>
 
-                        <!-- Card -->
-                        <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm">
-                            <!-- Card header -->
-                            <div class="grow flex items-center truncate mb-2">
-                                <div
-                                    class="w-8 h-8 shrink-0 flex items-center justify-center bg-slate-700 rounded-full mr-2">
-                                    <img class="ml-1" src="{{ asset('images/icon-02.svg') }}" width="14" height="14"
-                                        alt="Icon 02" />
-                                </div>
-                                <div class="truncate">
-                                    <span class="text-sm font-medium text-slate-800">Acme Product</span>
-                                </div>
-                            </div>
-                            <!-- Card content -->
-                            <div class="text-sm mb-3">Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore.</div>
-                            <!-- Card footer -->
-                            <div class="flex justify-between items-center">
-                                <!-- Avatars group -->
-                                <div class="flex -space-x-3 -ml-0.5">
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-06.jpg') }}" width="24" height="24" alt="Avatar" />
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-03.jpg') }}" width="24" height="24" alt="Avatar" />
-                                    <img class="rounded-full border-2 border-white box-content"
-                                        src="{{ asset('images/avatar-01.jpg') }}" width="24" height="24" alt="Avatar" />
-                                </div>
-                                <!-- Link -->
-                                <div>
-                                    <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600" href="#0">View
-                                        -&gt;</a>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Offers Sent -->
+    <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm mb-4">
+        <h3 class="text-sm font-medium text-slate-800 mb-2">Offers Sent</h3>
+        <p class="text-sm">{{ $offers }} offers sent.</p>
+    </div>
 
-                    </div>
+    <!-- Order History -->
+    <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm mb-4">
+        <h3 class="text-sm font-medium text-slate-800 mb-2">Order History</h3>
+        <ul class="text-sm">
+            @foreach($orders as $order)
+            <li>Placed at {{ $order->created_at }} of Amount SAR {{ $order->total_amount }}</li>
+            @endforeach
+        </ul>
+    </div>
 
-                </div>
+    <!-- User Details -->
+    <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm">
+        <h3 class="text-sm font-medium text-slate-800 mb-2">User Details</h3>
+        <p class="text-sm">{{ $user->name }}</p>
+    </div>
+</div>
+
 
 
 

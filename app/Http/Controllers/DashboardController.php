@@ -14,6 +14,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Followers;
 use App\Models\MyCollection;
+use App\Models\Offers;
+use App\Models\Order;
 use App\Models\OrderTransactions;
 
 class DashboardController extends Controller
@@ -325,7 +327,12 @@ class DashboardController extends Controller
     public function userView($id)
     {
         $user = User::find($id);
-        return view('pages.dashboard.user-view', compact('user'));
+        $products = Lot::whereHas('collection', function ($query) use ($id) {
+                $query->where('user_id', $id);
+            })->get();
+            $offers = Offers::where("offer_sender_id", $user->id)->count();
+            $orders = Order::where("user_id", $user->id)->get();
+        return view('pages.dashboard.user-view', compact('user','products','offers','orders'));
 
     }
     public function collectionView($id)

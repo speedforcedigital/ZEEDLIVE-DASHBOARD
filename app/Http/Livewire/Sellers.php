@@ -24,6 +24,8 @@ class Sellers extends Component
             $sellers = SellerVerification::with('User')->orderBy('seller_verifications.id', 'desc');
             $total_sellers = $sellers->get()->count();
             $sellers = $sellers->paginate(10);
+            $this->filterSeller = null;
+
         }
 
 
@@ -47,16 +49,18 @@ class Sellers extends Component
 
     public function approved($id)
     {
+
         $role = Role::where('name', 'Seller')->first();
-        $seller =  SellerVerification::where('user_id', $id)->where('status', 'Pending')->first();
+        $seller =  SellerVerification::where('id', $id)->first();
         $seller->status = "Approved";
         $seller->save();
-        $user = User::where("id", $id)->first();
+        $user = User::where("id", $seller->user_id)->first();
         $user->seller_type = $seller->seller_type;
         $user->role_id = $role->id;
         $user->is_seller = 1;
         $user->rank = "Seller";
         $user->save();
+        return redirect()->route('sellers.index');
         $this->dispatchBrowserEvent(
             'alert',
             ['type' => 'success',  'message' => 'Seller Request Approved successfully.']
@@ -66,9 +70,11 @@ class Sellers extends Component
     public function rejected($id)
     {
         $role = Role::where('name', 'Seller')->first();
-        $seller =  SellerVerification::where('user_id', $id)->first();
+        $seller =  SellerVerification::where('id', $id)->first();
         $seller->status = "Rejected";
         $seller->save();
+        return redirect()->route('sellers.index');
+
         $this->dispatchBrowserEvent(
             'alert',
             ['type' => 'success', 'message' => 'Seller Request Rejected successfully.']
