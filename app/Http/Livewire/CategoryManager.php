@@ -22,6 +22,7 @@ class CategoryManager extends Component
     public $editModalOpen = false;
     public $deleteModalOpen = false;
     public $deleteModalOpen2 = false;
+    public $deleteModalOpen3 = false;
 
     public $newCategoryName = null;
     public $isEditing = false;

@@ -172,13 +172,13 @@
                         const scaleType = event.target.dataset.scale;
                         if(scaleType == "day")
                         {
-                            document.getElementById("totalSales").innerHTML =   "$"+ result.daily.totalSales;
+                            document.getElementById("totalSales").innerHTML =   "SAR "+ result.daily.totalSales;
                         }else if(scaleType == "month")
                         {
-                            document.getElementById("totalSales").innerHTML =   "$"+result.monthly.totalSales;
+                            document.getElementById("totalSales").innerHTML =   "SAR "+result.monthly.totalSales;
                         }else {
 
-                            document.getElementById("totalSales").innerHTML =   "$"+result.yearly.totalSales;
+                            document.getElementById("totalSales").innerHTML =   "SAR "+result.yearly.totalSales;
                         }
                         console.log(result);
                         updateChart(scaleType, data,result);

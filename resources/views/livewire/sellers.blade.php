@@ -39,7 +39,7 @@ foreach ($permissionsArray as $item) {
                 <x-actions.delete-button />
                 <!-- Add customer button -->
                 {{-- @if($filter_capability_exists) --}}
-                <button wire:click="filterSeller('all')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='pending' || $this->filterType=='') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All</button>
+                <button wire:click="filterSeller('all')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='all' || $this->filterType=='') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">All</button>
                 <button wire:click="filterSeller('pending')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='pending' || $this->filterType=='pending') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Pending</button>
                 <button wire:click="filterSeller('verified')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='verified') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Verified</button>
                 <button wire:click="filterSeller('rejected')" class="btn border-slate-200 hover:border-slate-300 <?=($this->filterType=='rejected') ? 'bg-indigo-500 text-white' : 'text-indigo-500' ?>">Rejected</button>

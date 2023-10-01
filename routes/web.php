@@ -56,7 +56,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/wallets', Wallets::class)->name('wallet.index');
     Route::get('/collections', Collection::class)->name("collections.index");
     Route::get('/models', Models::class);
-    Route::get('/sellers', Sellers::class);
+    Route::get('/sellers', Sellers::class)->name('sellers.index');
     Route::get('/auctions', Auctions::class);
     Route::get('/products/standard', Product::class)->name("standard.products");
     Route::get('/products/live-stream', LiveStreamProduct::class)->name("livestream.products");
