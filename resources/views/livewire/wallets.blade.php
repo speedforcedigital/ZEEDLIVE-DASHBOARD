@@ -14,6 +14,12 @@
     </div>
     @endif
     <!-- Table -->
+
+    <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2 mb-2 ">
+        <input type="text" wire:model.lazy="search"
+               class="mt-2 w-full  rounded-md px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+               placeholder="Search">
+    </div>
     <div class="bg-white shadow-lg rounded-sm border border-slate-200">
         <header class="px-5 py-4">
             <h2 class="font-semibold text-slate-800">All Wallets  <span
@@ -55,7 +61,7 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="font-medium text-slate-800">
-                                        <a href="{{ route("user.show", $wallet->user->id ) }}"> {{$wallet->user->name}} </a></div>
+                                        <a href="{{ route("user.show", $wallet->user->id ?? '' ) }}"> {{$wallet->user->name ?? 'No Name'}} </a></div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

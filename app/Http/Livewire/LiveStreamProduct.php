@@ -28,12 +28,17 @@ class LiveStreamProduct extends Component
             ->paginate($perPage);
         $endedProducts = Lot::orderByDesc('created_at')
             ->whereHas('auction', function ($query) {
-                $query->where('is_scadual_live', '1')->whereIn("auction_status",['Closed',"Sold"]);
+                $query->where('is_scadual_live', '1')->whereIn("auction_status",['Closed']);
             })
             ->paginate($perPage);
         $scheduledProducts = Lot::orderByDesc('created_at')
             ->whereHas('auction', function ($query) {
                 $query->where('is_scadual_live', '1')->where("auction_status","New");
+            })
+            ->paginate($perPage);
+        $sold_products = Lot::orderByDesc('created_at')
+            ->whereHas('auction', function ($query) {
+                $query->where('is_scadual_live', '1')->where("auction_status","Sold");
             })
             ->paginate($perPage);
 
@@ -50,11 +55,16 @@ class LiveStreamProduct extends Component
             $products = $scheduledProducts;
             $total_products = $scheduledProducts->total();
         }
+        elseif ($this->filter === 'sold') {
+            $products = $sold_products;
+            $total_products = $sold_products->total();
+        }
         $total_products_count = $products_all->total();
         $onGoingProducts = $onGoingProducts->total();
         $scheduledProducts = $scheduledProducts->total();
         $endedProducts = $endedProducts->total();
-        return view('livewire.live-stream-product', compact('total_products','total_products_count', 'products', 'onGoingProducts', 'scheduledProducts', 'endedProducts'));
+        $sold_products = $sold_products->total();
+        return view('livewire.live-stream-product', compact('total_products','total_products_count', 'products', 'onGoingProducts', 'scheduledProducts', 'endedProducts', 'sold_products'));
     }
 
     public function approve($id)

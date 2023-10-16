@@ -34,6 +34,14 @@
                             class="ml-1 {{ $selected === 'buy_now' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $buyNowProducts }}</span>
                     </button>
                 </li>
+
+                <li class="m-1">
+                    <button wire:click="filter('sold')"
+                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'sold' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'sold' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                        Sold <span
+                            class="ml-1 {{ $selected === 'sold' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $sold_products }}</span>
+                    </button>
+                </li>
             </ul>
 
         </div>

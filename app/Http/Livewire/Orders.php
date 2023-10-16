@@ -13,14 +13,26 @@ class Orders extends Component
     public $selected = 'pending';
     public $order;
     public $showModal=false;
+    public $search = '';
 
     public function render()
     {
+        $ordersQuery = Order::orderByDesc('created_at');
 
-        $allOrders = Order::orderByDesc('created_at')->paginate(10);
-        $pendingOrders = Order::orderByDesc('created_at')->where("is_deliverd", '0')->where("is_shipped", '0')->paginate(10);
-        $delieverdOrders = Order::orderByDesc('created_at')->where("is_deliverd", '1')->paginate(10);
-        $shippedOrders = Order::orderByDesc('created_at')->where("is_shipped", '1')->where("is_deliverd", '0')->paginate(10);
+        if ($this->search) {
+            $ordersQuery->where(function ($query) {
+                $query->whereHas('seller', function ($subQuery) {
+                    $subQuery->where('name', 'like', '%' . $this->search . '%');
+                })->orWhereHas('customer', function ($subQuery) {
+                    $subQuery->where('name', 'like', '%' . $this->search . '%');
+                });
+            });
+        }
+
+        $allOrders = $ordersQuery->paginate(10);
+        $pendingOrders = $ordersQuery->where("is_deliverd", '0')->where("is_shipped", '0')->paginate(10);
+        $deliveredOrders = $ordersQuery->where("is_deliverd", '1')->paginate(10);
+        $shippedOrders = $ordersQuery->where("is_shipped", '1')->where("is_deliverd", '0')->paginate(10);
 
         if ($this->filter === 'pending') {
             $orders = $pendingOrders;
@@ -29,18 +41,23 @@ class Orders extends Component
             $orders = $shippedOrders;
             $totalOrders = $shippedOrders->total();
         } elseif ($this->filter === 'delivered') {
-            $orders = $delieverdOrders;
-            $totalOrders = $delieverdOrders->total();
+            $orders = $deliveredOrders;
+            $totalOrders = $deliveredOrders->total();
+        } else {
+            $orders = $allOrders;
+            $totalOrders = $allOrders->total();
         }
 
         $totalPendingOrders = $pendingOrders->total();
-        $totalDeliveredOrders = $delieverdOrders->total();
+        $totalDeliveredOrders = $deliveredOrders->total();
         $totalShippedOrders = $shippedOrders->total();
         $totalOrdersCount = $allOrders->total();
-        return view('livewire.order', compact('orders','totalOrdersCount','totalShippedOrders','totalDeliveredOrders','totalPendingOrders','totalOrders'));
+
+        return view('livewire.order', compact('orders', 'totalOrdersCount', 'totalShippedOrders', 'totalDeliveredOrders', 'totalPendingOrders', 'totalOrders'));
     }
 
-     public function orderDetail($id)
+
+    public function orderDetail($id)
     {
         $this->order = Order::find($id);  // Assuming you have a Report model
         $this->showModal = true;

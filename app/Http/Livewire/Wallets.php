@@ -10,13 +10,24 @@ class Wallets extends Component
     public $wallet;
     public $showModal = false;
     public $wallet_balance;
+    public $search = '';
 
     public function render()
     {
-        $wallets = Wallet::with('user')->paginate(10);
+        $query = Wallet::with('user');
+
+        if ($this->search != null) {
+            $query->whereHas('user', function ($userQuery) {
+                $userQuery->where('name', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        $wallets = $query->paginate(20);
         $totalWallets = $wallets->total();
+
         return view('livewire.wallets', compact('totalWallets', 'wallets'));
     }
+
 
     public function balanceModal($id)
     {
@@ -30,7 +41,7 @@ class Wallets extends Component
         $this->validate([
             'wallet_balance' => 'required|numeric|min:1',
         ]);
-        $this->wallet->balance =  $this->wallet->balance  + $this->wallet_balance;
+        $this->wallet->balance = $this->wallet->balance + $this->wallet_balance;
         $this->wallet->save();
         $message = 'Wallet Balance Added Sucessfully.';
         session()->flash('message', $message);

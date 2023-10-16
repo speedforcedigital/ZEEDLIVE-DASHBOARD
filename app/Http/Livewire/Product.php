@@ -16,34 +16,51 @@ class Product extends Component
     public function render()
     {
         $perPage = 10;
-        $products_all =  Lot::orderByDesc('created_at') // Use 'created_at' or appropriate column name
+
+        $products_all = Lot::orderByDesc('created_at')
             ->has('auction')
             ->paginate($perPage);
-        $products_auc = Lot::orderByDesc('created_at') // Use 'created_at' or appropriate column name
+
+        $products_auc = Lot::orderByDesc('created_at')
             ->whereHas('auction', function ($query) {
                 $query->where('type', 'Auction');
             })
             ->paginate($perPage);
-        $products_buy = Lot::orderByDesc('created_at') // Use 'created_at' or appropriate column name
+
+        $products_buy = Lot::orderByDesc('created_at')
             ->whereHas('auction', function ($query) {
                 $query->where('type', 'Buy Now');
             })
             ->paginate($perPage);
+
+        $products_sold = Lot::orderByDesc('created_at')
+            ->whereHas('auction', function ($query) {
+                $query->where('auction_status', 'Sold');
+            })
+            ->paginate($perPage);
+
+        $total_products_count = $products_buy->total() + $products_auc->total() + $products_sold->total();
+        $total_products = $total_products_count;
+
         if ($this->filter === 'all') {
             $products = $products_all;
-            $total_products = $products_all->total();
         } elseif ($this->filter === 'auctions') {
             $products = $products_auc;
-            $total_products = $products_auc->total();
         } elseif ($this->filter === 'buy_now') {
             $products = $products_buy;
-            $total_products = $products_buy->total();
+        } elseif ($this->filter === 'sold') {
+            $products = $products_sold;
         }
-        $total_products_count =  $products_all->total();
+
         $buyNowProducts = $products_buy->total();
         $auctionsProducts = $products_auc->total();
-        return view('livewire.product', compact('total_products', 'total_products_count','products', 'buyNowProducts', 'auctionsProducts'));
+        $sold_products = $products_sold->total();
+
+        return view('livewire.product', compact('total_products', 'total_products_count', 'products', 'buyNowProducts', 'auctionsProducts', 'sold_products'));
     }
+
+
+
 
     public function approve($id)
     {
