@@ -137,12 +137,11 @@ class DashboardController extends Controller
 
     public function getChartData()
     {
-        $data = null;
-        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query)  {
+        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) {
             $query->where('type', "Buy Now")->where('auction_status', 'Sold');
         })->sum('sub_total');
 
-        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query)   {
+        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) {
             $query->where('type', "Auction")->where('auction_status', 'Sold');
         })->sum('sub_total');
 
@@ -150,9 +149,15 @@ class DashboardController extends Controller
             $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
         })->sum('sub_total');
 
+//        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
+
         $data = [$buyNowSalesAmount, $auctionSalesAmount, $totalLiveStreamsAmount];
 
-        return $data;
+        $response = [
+            'data' => $data,
+//            'totalSalesAmount' => $totalSalesAmount,
+        ];
+        return response()->json($response);
     }
 
     public function getFollowers($id)

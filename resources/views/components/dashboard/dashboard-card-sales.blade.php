@@ -6,6 +6,7 @@
     <div class="px-5 py-3">
         <div class="text-sm italic mb-2">Total Sales</div>
         <div class="text-3xl font-bold text-slate-800">{{$data['totalSalesAmount']}} SAR</div>
+{{--        <div class="text-3xl font-bold text-slate-800" id="totalSalesAmount">Loading...</div>--}}
     </div>
     <!-- Chart built with Chart.js 3 -->
     <!-- Check out src/js/components/fintech-card-09.js for config -->
@@ -21,90 +22,93 @@
 </div>
 
 <!-- Include Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+{{--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>--}}
 
 
-<script>
+{{--<script>--}}
 
-    const fintechCard09 = () => {
-        const ctx = document.getElementById('fintech-card-09');
-        if (!ctx) return;
+{{--    const fintechCard09 = () => {--}}
+{{--        const ctx = document.getElementById('fintech-card-09');--}}
+{{--        if (!ctx) return;--}}
 
-        const updateChart = (dynamicData) => {
-            const chart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ['Buy Now', 'Auctions', 'Live Streams'],
-                    datasets: [
-                        {
-                            label: 'Sale Amount',
-                            data: dynamicData,
-                            backgroundColor: [
-                                '#34d399',
-                                '#fbbf24',
-                                '#6366f1',
-                            ],
-                            hoverBackgroundColor: [
-                                '#10b981',
-                                '#f59e0b',
-                                '#4f46e5',
-                            ],
-                            borderWidth: 0,
-                        },
-                    ],
-                },
-                options: {
-                    layout: {
-                        padding: {
-                            top: 4,
-                            bottom: 4,
-                            left: 24,
-                            right: 24,
-                        },
-                    },
-                    plugins: {
-                        legend: {
-                            display: true,
-                        },
-                        htmlLegend: {
-                            // ID of the container to put the legend in
-                            containerID: 'fintech-card-09-legend',
-                        },
-                    },
-                    interaction: {
-                        intersect: false,
-                        mode: 'nearest',
-                    },
-                    animation: {
-                        duration: 200,
-                    },
-                    maintainAspectRatio: false,
-                },
-                plugins: [{
-                    id: 'htmlLegend',
-                    // ... (unchanged)
-                }],
-            });
-        };
+{{--        const updateChart = (dynamicData) => {--}}
+{{--            const chart = new Chart(ctx, {--}}
+{{--                type: 'pie',--}}
+{{--                data: {--}}
+{{--                    labels: ['Buy Now', 'Auctions', 'Live Streams'],--}}
+{{--                    datasets: [--}}
+{{--                        {--}}
+{{--                            label: 'Sale Amount',--}}
+{{--                            data: dynamicData,--}}
+{{--                            backgroundColor: [--}}
+{{--                                '#34d399',--}}
+{{--                                '#fbbf24',--}}
+{{--                                '#6366f1',--}}
+{{--                            ],--}}
+{{--                            hoverBackgroundColor: [--}}
+{{--                                '#10b981',--}}
+{{--                                '#f59e0b',--}}
+{{--                                '#4f46e5',--}}
+{{--                            ],--}}
+{{--                            borderWidth: 0,--}}
+{{--                        },--}}
+{{--                    ],--}}
+{{--                },--}}
+{{--                options: {--}}
+{{--                    layout: {--}}
+{{--                        padding: {--}}
+{{--                            top: 4,--}}
+{{--                            bottom: 4,--}}
+{{--                            left: 24,--}}
+{{--                            right: 24,--}}
+{{--                        },--}}
+{{--                    },--}}
+{{--                    plugins: {--}}
+{{--                        legend: {--}}
+{{--                            display: true,--}}
+{{--                        },--}}
+{{--                        htmlLegend: {--}}
+{{--                            // ID of the container to put the legend in--}}
+{{--                            containerID: 'fintech-card-09-legend',--}}
+{{--                        },--}}
+{{--                    },--}}
+{{--                    interaction: {--}}
+{{--                        intersect: false,--}}
+{{--                        mode: 'nearest',--}}
+{{--                    },--}}
+{{--                    animation: {--}}
+{{--                        duration: 200,--}}
+{{--                    },--}}
+{{--                    maintainAspectRatio: false,--}}
+{{--                },--}}
+{{--                plugins: [{--}}
+{{--                    id: 'htmlLegend',--}}
+{{--                    // ... (unchanged)--}}
+{{--                }],--}}
+{{--            });--}}
+{{--        };--}}
 
-        // Fetch dynamic data using AJAX
-        $.ajax({
-            url: '/get-chart-data',
-            method: 'GET',
-            success: function (response) {
-                console.log('dynamic data', response);
+{{--        // Fetch dynamic data using AJAX--}}
+{{--        $.ajax({--}}
+{{--            url: '/get-chart-data',--}}
+{{--            method: 'GET',--}}
+{{--            success: function (response) {--}}
+{{--                // console.log('dynamic data', response);--}}
+{{--                const totalSalesAmountElement = document.getElementById('totalSalesAmount');--}}
+{{--                if (totalSalesAmountElement) {--}}
+{{--                    totalSalesAmountElement.textContent = response.totalSalesAmount + ' SAR';--}}
+{{--                }--}}
+{{--                updateChart(response.data);--}}
+{{--            },--}}
+{{--            error: function (error) {--}}
+{{--                console.error('Error fetching dynamic data:', error);--}}
+{{--            }--}}
+{{--        });--}}
+{{--    };--}}
 
-                updateChart(response);
-            },
-            error: function (error) {
-                console.error('Error fetching dynamic data:', error);
-            }
-        });
-    };
-
-    fintechCard09();
-</script>
+{{--    fintechCard09();--}}
+{{--</script>--}}
 
 
 
