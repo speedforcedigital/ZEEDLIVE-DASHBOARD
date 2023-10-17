@@ -52,6 +52,7 @@ class Orders extends Component
         $totalDeliveredOrders = $deliveredOrders->total();
         $totalShippedOrders = $shippedOrders->total();
         $totalOrdersCount = $allOrders->total();
+//        dd($orders);
 
         return view('livewire.order', compact('orders', 'totalOrdersCount', 'totalShippedOrders', 'totalDeliveredOrders', 'totalPendingOrders', 'totalOrders'));
     }

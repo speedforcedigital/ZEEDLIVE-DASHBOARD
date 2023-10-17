@@ -80,6 +80,9 @@
                             <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Order ID</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
                         </th>
                     </tr>
@@ -123,6 +126,10 @@
 
                                     </div>
                                 </div>
+                            </td>
+
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="text-left">{{$order->order_id ?? 'Null'}}</div>
                             </td>
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
