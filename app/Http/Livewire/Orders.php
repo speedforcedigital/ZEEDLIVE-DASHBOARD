@@ -12,7 +12,7 @@ class Orders extends Component
     public $filter = 'pending';
     public $selected = 'pending';
     public $order;
-    public $showModal=false;
+    public $showModal = false;
     public $search = '';
 
     public function render()
@@ -25,7 +25,8 @@ class Orders extends Component
                     $subQuery->where('name', 'like', '%' . $this->search . '%');
                 })->orWhereHas('customer', function ($subQuery) {
                     $subQuery->where('name', 'like', '%' . $this->search . '%');
-                });
+                })
+                    ->orWhere('order_id', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -63,7 +64,8 @@ class Orders extends Component
         $this->order = Order::find($id);  // Assuming you have a Report model
         $this->showModal = true;
     }
-     public function filter($type)
+
+    public function filter($type)
     {
         $this->filter = $type;
         $this->selected = $type;
