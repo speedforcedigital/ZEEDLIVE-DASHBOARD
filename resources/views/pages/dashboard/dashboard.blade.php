@@ -4,9 +4,16 @@
         <!-- Welcome banner -->
         <x-dashboard.welcome-banner />
 
-        {{-- Auction Metrics --}}
-        <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Auction Metrics</h1>
+        {{-- Sales Report --}}
+
+        <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Sales Report</h1>
         <div class="grid grid-cols-8 gap-6 mt-2">
+            <x-dashboard.dashboard-card-sales :data="$data" />
+        </div>
+
+        {{-- Auction Metrics --}}
+        <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8 mt-3">Auction Metrics</h1>
+        <div class="grid grid-cols-8 gap-6 mt-4">
             <x-dashboard.dashboard-card-01 :data="$data" />
         </div>
     {{-- Sales Statistics --}}

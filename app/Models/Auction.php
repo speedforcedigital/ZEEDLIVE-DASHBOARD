@@ -32,6 +32,7 @@ class Auction extends Model
     {
         return $this->belongsTo(User::class, "user_id");
     }
+
     public function collection()
     {
         return $this->belongsTo(MyCollection::class, "collection_id");
@@ -74,4 +75,17 @@ class Auction extends Model
             return $this->created_at->diffForHumans();
         }
     }
+
+
+    public function scopeSold($query)
+    {
+        return $query->where('auction_status', 'Sold');
+    }
+
+    public function scopeIsScheduledLive($query)
+    {
+        return $query->where('is_scadual_live', 1);
+    }
+
+
 }

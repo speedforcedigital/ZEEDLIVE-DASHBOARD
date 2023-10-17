@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auction;
 use App\Models\DataFeed;
 use App\Helpers\makeCurlPostRequest;
 use App\Helpers\baseUrl;
@@ -31,11 +32,11 @@ class DashboardController extends Controller
         $type = 'Pending';
         $totalLiveAuctions = Lot::where("is_live", 1)->count();
 
-        $totalLiveStreams =  Lot::where('is_delete', 0)->whereHas('auction', function ($query) use ($type) {
+        $totalLiveStreams = Lot::where('is_delete', 0)->whereHas('auction', function ($query) use ($type) {
             $query->where('is_scadual_live', 1);
         })->count();
 
-        $totalBuyNowProducts =  Lot::where('is_delete', 0)->whereHas('auction', function ($query) use ($type) {
+        $totalBuyNowProducts = Lot::where('is_delete', 0)->whereHas('auction', function ($query) use ($type) {
             $query->where('type', "Buy Now");
         })->count();
 
@@ -52,7 +53,46 @@ class DashboardController extends Controller
         $totalBuyNowBids = BidDetails::whereHas('lot.auction', function ($query) use ($type) {
             $query->where('type', "Buy Now");
         })->count();
-            $data = [
+
+
+//        $totalBuyNowSales = Lot::where('is_delete', 0)->whereHas('auction', function ($query) use ($type) {
+//            $query->where('type', "Buy Now" && 'auction_status', 'Sold');
+//        })->count();
+//        dd($totalBuyNowSales);
+
+        // Buy Now sales
+        $totalBuyNowSales = Order::whereHas('lot.auction', function ($query) use ($type) {
+            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+        })->count();
+
+        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
+            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+        })->sum('sub_total');
+
+        // Auction sales
+
+        $totalAuctionSales = Order::whereHas('lot.auction', function ($query) use ($type) {
+            $query->where('type', "Auction")->where('auction_status', 'Sold');
+        })->count();
+        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
+            $query->where('type', "Auction")->where('auction_status', 'Sold');
+        })->sum('sub_total');
+
+        // Live Streams sales
+
+        $totalLiveStreamsSales = Order::whereHas('lot.auction', function ($query) use ($type) {
+            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+        })->count();
+        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
+            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+        })->sum('sub_total');
+
+        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
+
+
+//        dd($toalBuyNowSales, $totalAuctionSales,$totalLiveStreamsSales);
+
+        $data = [
             'totalLiveAuctions' => $totalLiveAuctions,
             'totalLiveStreams' => $totalLiveStreams,
             'totalBuyNowProducts' => $totalBuyNowProducts,
@@ -60,6 +100,13 @@ class DashboardController extends Controller
             'totalLiveBids' => $totalLiveBids,
             'totalBuyNowBids' => $totalBuyNowBids,
             'closedBids' => $closedBids,
+            'totalBuyNowSales' => $totalBuyNowSales,
+            'buyNowSalesAmount' => $buyNowSalesAmount,
+            'totalAuctionSales' => $totalAuctionSales,
+            'auctionSalesAmount' => $auctionSalesAmount,
+            'totalLiveStreamsSales' => $totalLiveStreamsSales,
+            'totalLiveStreamsAmount' => $totalLiveStreamsAmount,
+            'totalSalesAmount' => $totalSalesAmount,
         ];
 
         // get ranking data from database
@@ -70,7 +117,7 @@ class DashboardController extends Controller
         if ($getRanking) {
             foreach ($getRanking as $val) {
                 $i++;
-                $AuctualRate =  sprintf("%.2f", $val->totalRate / $val->totalCount);
+                $AuctualRate = sprintf("%.2f", $val->totalRate / $val->totalCount);
                 $ranking_data[] = array(
                     "seller_id" => $val->seller_id,
                     "position" => $i,
@@ -84,7 +131,28 @@ class DashboardController extends Controller
             }
         }
 
+
         return view('pages/dashboard/dashboard', compact('data', 'ranking_data', 'totalSales'));
+    }
+
+    public function getChartData()
+    {
+        $data = null;
+        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query)  {
+            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+        })->sum('sub_total');
+
+        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query)   {
+            $query->where('type', "Auction")->where('auction_status', 'Sold');
+        })->sum('sub_total');
+
+        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) {
+            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+        })->sum('sub_total');
+
+        $data = [$buyNowSalesAmount, $auctionSalesAmount, $totalLiveStreamsAmount];
+
+        return $data;
     }
 
     public function getFollowers($id)
@@ -307,6 +375,7 @@ class DashboardController extends Controller
 
         return response()->json($data);
     }
+
     public function getUsersByGender()
     {
         $genders = ["Male", "Female"];
@@ -328,13 +397,14 @@ class DashboardController extends Controller
     {
         $user = User::find($id);
         $products = Lot::whereHas('collection', function ($query) use ($id) {
-                $query->where('user_id', $id);
-            })->get();
-            $offers = Offers::where("offer_sender_id", $user->id)->count();
-            $orders = Order::where("user_id", $user->id)->get();
-        return view('pages.dashboard.user-view', compact('user','products','offers','orders'));
+            $query->where('user_id', $id);
+        })->get();
+        $offers = Offers::where("offer_sender_id", $user->id)->count();
+        $orders = Order::where("user_id", $user->id)->get();
+        return view('pages.dashboard.user-view', compact('user', 'products', 'offers', 'orders'));
 
     }
+
     public function collectionView($id)
     {
         $collection = MyCollection::find($id);

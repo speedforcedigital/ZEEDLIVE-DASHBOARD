@@ -67,4 +67,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/global/fields', globalFields::class);
     Route::get('/admins', Admins::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    //sales data
+    Route::get('/get-chart-data', [DashboardController::class, 'getChartData']);
 });
