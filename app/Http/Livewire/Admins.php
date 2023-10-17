@@ -19,19 +19,26 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class Admins extends Component
 {
     use WithFileUploads;
-    public $user_id, $name, $email, $mobile, $gender, $role, $password, $type, $image,$imageURL;
+
+    public $user_id, $name, $email, $mobile, $gender, $role, $password, $type, $image, $imageURL;
     public $permission = [];
     public $selectedPermssions = [];
     public $updateMode = false;
     public $addUser = false;
     public $rolePermission = false;
+    public $search = '';
+
     public function render()
     {
         //tes
-        $admins = User::where('is_deleted', 0)->where('rank', 'Admin');
+        $query = User::where('is_deleted', 0)->where('rank', 'Admin');
 
+        if (!empty($this->search)) {
+            $query->where('name', 'like', '%' . $this->search . '%');
+        }
+        $admins = $query->orderBy('id', 'desc');
         $admins_count = $admins->get()->count();
-        $admins =   $admins->paginate(10);
+        $admins = $admins->paginate(10);
         return view('livewire.admins', compact('admins', 'admins_count'));
     }
 
@@ -43,7 +50,7 @@ class Admins extends Component
         if ($data['success'] == 1) {
             $this->dispatchBrowserEvent(
                 'alert',
-                ['type' => 'success',  'message' => '' . $data['Message'] . '']
+                ['type' => 'success', 'message' => '' . $data['Message'] . '']
             );
         }
     }
@@ -52,7 +59,7 @@ class Admins extends Component
     {
         $this->rolePermission = RolePermission::all();
         $user = User::where("id", $id)->first();
-        $this->user_id =   $user->id;
+        $this->user_id = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
         $this->mobile = $user->mobile;
@@ -61,14 +68,13 @@ class Admins extends Component
         $this->role = $user->rank;
         $this->type = $user->type;
         $this->permission = [];
-        if($user->account_detail->permissions != null &&  $user->account_detail->permissions != '"[]"' )
-        {
+        if ($user->account_detail->permissions != null && $user->account_detail->permissions != '"[]"') {
             $permissions = json_decode($user->account_detail->permissions, true);
             $decodedPermissions = json_decode($permissions, true);
             foreach ($decodedPermissions as $permissionItem) {
                 $permissionKey = key($permissionItem);
                 $permissionValue = current($permissionItem);
-                $preCheckedValues[] = "{".$permissionKey . ':' . $permissionValue[0]."}";
+                $preCheckedValues[] = "{" . $permissionKey . ':' . $permissionValue[0] . "}";
             }
             $this->permission = $preCheckedValues;
 

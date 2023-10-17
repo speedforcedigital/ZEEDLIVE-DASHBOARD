@@ -19,6 +19,11 @@ foreach ($permissionsArray as $item) {
 }
 ?>
 <x-loading-indicater />
+<div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2 mb-2 ">
+    <input type="text" wire:model.lazy="search"
+           class="mt-2 w-full  rounded-md px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+           placeholder="Search Users">
+</div>
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">All Admin Users <span class="text-slate-400 font-medium">{{ $count }}</span></h2>
@@ -65,7 +70,7 @@ foreach ($permissionsArray as $item) {
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="{{$user['accountDetail']['profile_image']}}" width="40" height="40" alt="Patricia Semklo">
+                                        <img class="rounded-full" src="{{$user['accountDetail']['profile_image'] ?? ''}}" width="40" height="40" alt="Patricia Semklo">
                                     </div>
                                     <div class="font-medium text-slate-800"><a href="{{ route('user.show', $user['id']) }}">{{ $user['name'] }}</a></div>
                                 </div>

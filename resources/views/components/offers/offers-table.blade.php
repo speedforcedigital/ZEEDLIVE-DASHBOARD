@@ -17,6 +17,13 @@ foreach ($permissions as $item) {
         {{ session('message') }}
     </div>
     @endif
+
+<div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2 mb-2 ">
+    <input type="text" wire:model.lazy="search"
+           class="mt-2 w-full  rounded-md px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+           placeholder="Search Offers">
+</div>
+
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">All Offers <span class="text-slate-400 font-medium">{{$count}}</span></h2>

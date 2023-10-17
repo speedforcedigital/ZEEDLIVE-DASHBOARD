@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Livewire;
+
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
@@ -13,10 +15,13 @@ class Sellers extends Component
 {
     public $filterSeller = null;
     public $filterType = '';
-      protected $listeners = ['openUserView' => 'openUserView'];
+    public $search = '';
+    protected $listeners = ['openUserView' => 'openUserView'];
+
     public function render()
     {
         if ($this->filterSeller != null) {
+//            dd($this->filterSeller);
             $sellers = $this->filterSeller->paginate(10);
             $total_sellers = $this->filterSeller->get()->count();
             $this->filterSeller = null;
@@ -25,12 +30,19 @@ class Sellers extends Component
             $total_sellers = $sellers->get()->count();
             $sellers = $sellers->paginate(10);
             $this->filterSeller = null;
+        }
 
+        if (!empty($this->search)) {
+            $sellers = SellerVerification::whereHas('User', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })->paginate(10);
+            $total_sellers = $sellers->total();
         }
 
 
         return view('livewire.sellers', compact('sellers', 'total_sellers'));
     }
+
 
     public function filterSeller($filterSeller)
     {
@@ -41,7 +53,7 @@ class Sellers extends Component
             $list = SellerVerification::where('status', 'Rejected')->with('User');
         } elseif ($filterSeller == 'pending') {
             $list = SellerVerification::where('status', 'Pending')->with('User');
-        }elseif ($filterSeller == 'all') {
+        } elseif ($filterSeller == 'all') {
             $list = SellerVerification::with('User');
         }
         $this->filterSeller = $list;
@@ -51,7 +63,7 @@ class Sellers extends Component
     {
 
         $role = Role::where('name', 'Seller')->first();
-        $seller =  SellerVerification::where('id', $id)->first();
+        $seller = SellerVerification::where('id', $id)->first();
         $seller->status = "Approved";
         $seller->save();
         $user = User::where("id", $seller->user_id)->first();
@@ -63,14 +75,14 @@ class Sellers extends Component
         return redirect()->route('sellers.index');
         $this->dispatchBrowserEvent(
             'alert',
-            ['type' => 'success',  'message' => 'Seller Request Approved successfully.']
+            ['type' => 'success', 'message' => 'Seller Request Approved successfully.']
         );
     }
 
     public function rejected($id)
     {
         $role = Role::where('name', 'Seller')->first();
-        $seller =  SellerVerification::where('id', $id)->first();
+        $seller = SellerVerification::where('id', $id)->first();
         $seller->status = "Rejected";
         $seller->save();
         return redirect()->route('sellers.index');
@@ -83,6 +95,6 @@ class Sellers extends Component
 
     public function openUserView($id)
     {
-       return redirect()->route('users', ['userId' => $id]);
+        return redirect()->route('users', ['userId' => $id]);
     }
 }

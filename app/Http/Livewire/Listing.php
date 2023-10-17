@@ -10,10 +10,21 @@ class Listing extends Component
 {
     public $showModal = false;
     public $report;
+    public $search = '';
+
     public function render()
     {
         $perPage = 10;
-        $listings = UserReport::orderByDesc('created_at')->whereHas("lot")->paginate($perPage);;
+        $query = UserReport::orderByDesc('created_at')->whereHas("lot");
+        if (!empty($this->search)) {
+            $query->whereHas('lot', function ($lotQuery) {
+                $lotQuery->where('title', 'like', '%' . $this->search . '%');
+            })
+                ->orWhereHas('user', function ($userQuery) {
+                    $userQuery->where('name', 'like', '%' . $this->search . '%');
+                });
+        }
+        $listings = $query->paginate($perPage);
         $total_listings = $listings->total();
 
         return view('livewire.listing', compact('listings', 'total_listings'));
@@ -30,14 +41,14 @@ class Listing extends Component
     }
 
 
-      public function delete($id)
+    public function delete($id)
     {
         UserReport::destroy($id);
         $message = 'Listing Blocked Sucessfully.';
         session()->flash('message', $message);
     }
 
-     public function reportDetail($id)
+    public function reportDetail($id)
     {
         $this->report = UserReport::find($id);  // Assuming you have a Report model
         $this->showModal = true;

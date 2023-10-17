@@ -10,15 +10,42 @@ class OffersList extends Component
 {
     public $offer_id;
 
+    public $search = '';
+
+//    public function render()
+//    {
+//        $perPage= 10 ;
+//        $offers = Offers::with(['user', 'receiver', 'collection'])->get();
+//        $total_offers = count($offers);
+//        $offers = Offers::with(['user', 'receiver', 'collection'])->paginate($perPage);
+//
+//        return view('livewire.offers', compact('offers', 'total_offers'));
+//    }
+
     public function render()
     {
-        $perPage= 10 ;
-        $offers = Offers::with(['user', 'receiver', 'collection'])->get();
-        $total_offers = count($offers);
-        $offers = Offers::with(['user', 'receiver', 'collection'])->paginate($perPage);
+        $perPage = 10;
+        $query = Offers::with(['user', 'receiver', 'collection']);
+
+        if (!empty($this->search)) {
+            $query->whereHas('user', function ($userQuery) {
+                $userQuery->where('name', 'like', '%' . $this->search . '%');
+            })
+                ->orWhereHas('receiver', function ($receiverQuery) {
+                    $receiverQuery->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('collection', function ($collectionQuery) {
+                    $collectionQuery->where('title', 'like', '%' . $this->search . '%');
+                });
+
+        }
+
+        $offers = $query->paginate($perPage);
+        $total_offers = $query->count(); // Count without pagination
 
         return view('livewire.offers', compact('offers', 'total_offers'));
     }
+
 
     public function accept($id)
     {
@@ -29,6 +56,7 @@ class OffersList extends Component
         $message = 'Offer Accepted Sucessfully.';
         session()->flash('message', $message);
     }
+
     public function reject($id)
     {
         $offer = Offers::find($id);

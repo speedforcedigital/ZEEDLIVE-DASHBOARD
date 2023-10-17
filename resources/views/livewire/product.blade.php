@@ -8,28 +8,26 @@
             <h1 class="text-2xl md:text-3xl text-slate-800 font-bold"> Standard Products</h1>
         </div>
     </div>
-    <div class="sm:flex sm:justify-between sm:items-center mb-5">
-
-        <!-- Left side -->
-        <div class="mb-4 sm:mb-0">
-            <ul class="flex flex-wrap -m-1">
+    <div class="flex justify-between mb-2">
+        <div class="flex">
+            <ul class="flex">
                 <li class="m-1">
                     <button wire:click="filter('all')"
-                        class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'all' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'all' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'all' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'all' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
                         All <span
                             class="ml-1 {{ $selected === 'all' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $total_products_count }}</span>
                     </button>
                 </li>
                 <li class="m-1">
                     <button wire:click="filter('auctions')"
-                        class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'auctions' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'auctions' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'auctions' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'auctions' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
                         Auctions <span
                             class="ml-1 {{ $selected === 'auctions' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $auctionsProducts }}</span>
                     </button>
                 </li>
                 <li class="m-1">
                     <button wire:click="filter('buy_now')"
-                        class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'buy_now' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'buy_now' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
+                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'buy_now' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'buy_now' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
                         Buy Now <span
                             class="ml-1 {{ $selected === 'buy_now' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $buyNowProducts }}</span>
                     </button>
@@ -43,11 +41,13 @@
                     </button>
                 </li>
             </ul>
-
         </div>
 
-
-
+        <div class="flex">
+            <input type="text" wire:model.lazy="search"
+                   class="rounded-md px-4 py-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none "
+                   placeholder="Search">
+        </div>
     </div>
     <!-- Message Container -->
     @if (session()->has('message'))

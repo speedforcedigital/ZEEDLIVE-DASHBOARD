@@ -13,13 +13,20 @@ class Product extends Component
 {
     public $filter = 'all';
     public $selected = 'all';
+    public $search = '';
     public function render()
     {
         $perPage = 10;
 
         $products_all = Lot::orderByDesc('created_at')
-            ->has('auction')
-            ->paginate($perPage);
+            ->has('auction');
+//            ->paginate($perPage);
+
+        if (!empty($this->search)) {
+            $products_all = $products_all->where('title', 'like', '%' . $this->search . '%');
+        }
+
+        $products_all = $products_all->paginate($perPage);
 
         $products_auc = Lot::orderByDesc('created_at')
             ->whereHas('auction', function ($query) {
