@@ -151,11 +151,13 @@ class DashboardController extends Controller
 
         $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
 
+        $formattedSalesAmount = number_format($totalSalesAmount, 0, '.', ',');
+
         $data = [$buyNowSalesAmount, $auctionSalesAmount, $totalLiveStreamsAmount];
 
         $response = [
             'data' => $data,
-            'totalSalesAmount' => $totalSalesAmount,
+            'totalSalesAmount' => $formattedSalesAmount,
         ];
         return response()->json($response);
     }
@@ -176,6 +178,7 @@ class DashboardController extends Controller
                     'seller_name' => $order->seller->name,
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
+                    'id' => $order->lot->id,
                 ];
             });
         }
@@ -192,6 +195,7 @@ class DashboardController extends Controller
                     'seller_name' => $order->seller->name,
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
+                    'id' => $order->lot->id,
                 ];
             });
         }
@@ -208,6 +212,7 @@ class DashboardController extends Controller
                     'seller_name' => $order->seller->name,
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
+                    'id' => $order->lot->id,
                 ];
             });
         }

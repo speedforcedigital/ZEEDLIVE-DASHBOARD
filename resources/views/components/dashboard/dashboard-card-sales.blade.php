@@ -68,6 +68,7 @@
 
 
 <script>
+
     function displayModal(data) {
         var modal = document.getElementById('myModal');
         modal.classList.remove('hidden');
@@ -81,18 +82,19 @@
 
         var headerRow = table.insertRow(0);
 
-        // Customize column names
         var columnNames = {
             'lot_title': 'Title',
-           'buyer_name': 'Buyer Name',
+            'buyer_name': 'Buyer Name',
             'seller_name': 'Seller Name',
-            'order_id' : 'Order ID',
-            'total_amount' : 'Total Amount',
+            'order_id': 'Order ID',
+            'total_amount': 'Total Amount',
         };
 
-        Object.keys(data[0]).forEach(function (key) {
+        var visibleColumns = Object.keys(columnNames);
+
+        visibleColumns.forEach(function (key) {
             var th = document.createElement('th');
-            th.textContent = columnNames[key] || key; // Use custom name if available, otherwise use the original key
+            th.textContent = columnNames[key] || key;
             th.classList.add('border', 'px-4', 'py-2');
             headerRow.appendChild(th);
         });
@@ -100,16 +102,22 @@
         data.forEach(function (item) {
             var row = table.insertRow(-1);
 
-            Object.values(item).forEach(function (value) {
+            visibleColumns.forEach(function (key) {
                 var cell = row.insertCell(-1);
-                cell.textContent = value;
+                cell.textContent = item[key];
                 cell.classList.add('border', 'px-4', 'py-2');
+
+                if (key === 'lot_title') {
+                    cell.addEventListener('click', function () {
+                        var productId = item.id;
+                        window.location.href = 'product/' + productId;
+                    });
+                }
             });
         });
 
         modalContent.appendChild(table);
     }
-
 
 
     function closeModal() {
@@ -123,7 +131,6 @@
         if (!ctx) return;
 
         const openModal = (sectionName) => {
-            // Send AJAX request to Laravel backend
             // alert(sectionName);
             $.ajax({
                 url: '/get-sales-chart-details/' + sectionName,
