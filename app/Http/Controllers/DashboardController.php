@@ -61,33 +61,33 @@ class DashboardController extends Controller
 //        dd($totalBuyNowSales);
 
         // Buy Now sales
-        $totalBuyNowSales = Order::whereHas('lot.auction', function ($query) use ($type) {
-            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
-        })->count();
-
-        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
-            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
-        })->sum('sub_total');
-
-        // Auction sales
-
-        $totalAuctionSales = Order::whereHas('lot.auction', function ($query) use ($type) {
-            $query->where('type', "Auction")->where('auction_status', 'Sold');
-        })->count();
-        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
-            $query->where('type', "Auction")->where('auction_status', 'Sold');
-        })->sum('sub_total');
-
-        // Live Streams sales
-
-        $totalLiveStreamsSales = Order::whereHas('lot.auction', function ($query) use ($type) {
-            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
-        })->count();
-        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
-            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
-        })->sum('sub_total');
-
-        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
+//        $totalBuyNowSales = Order::whereHas('lot.auction', function ($query) use ($type) {
+//            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+//        })->count();
+//
+//        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
+//            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+//        })->sum('sub_total');
+//
+//        // Auction sales
+//
+//        $totalAuctionSales = Order::whereHas('lot.auction', function ($query) use ($type) {
+//            $query->where('type', "Auction")->where('auction_status', 'Sold');
+//        })->count();
+//        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
+//            $query->where('type', "Auction")->where('auction_status', 'Sold');
+//        })->sum('sub_total');
+//
+//        // Live Streams sales
+//
+//        $totalLiveStreamsSales = Order::whereHas('lot.auction', function ($query) use ($type) {
+//            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+//        })->count();
+//        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
+//            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+//        })->sum('sub_total');
+//
+//        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
 
 
 //        dd($toalBuyNowSales, $totalAuctionSales,$totalLiveStreamsSales);
@@ -100,13 +100,13 @@ class DashboardController extends Controller
             'totalLiveBids' => $totalLiveBids,
             'totalBuyNowBids' => $totalBuyNowBids,
             'closedBids' => $closedBids,
-            'totalBuyNowSales' => $totalBuyNowSales,
-            'buyNowSalesAmount' => $buyNowSalesAmount,
-            'totalAuctionSales' => $totalAuctionSales,
-            'auctionSalesAmount' => $auctionSalesAmount,
-            'totalLiveStreamsSales' => $totalLiveStreamsSales,
-            'totalLiveStreamsAmount' => $totalLiveStreamsAmount,
-            'totalSalesAmount' => $totalSalesAmount,
+//            'totalBuyNowSales' => $totalBuyNowSales,
+//            'buyNowSalesAmount' => $buyNowSalesAmount,
+//            'totalAuctionSales' => $totalAuctionSales,
+//            'auctionSalesAmount' => $auctionSalesAmount,
+//            'totalLiveStreamsSales' => $totalLiveStreamsSales,
+//            'totalLiveStreamsAmount' => $totalLiveStreamsAmount,
+//            'totalSalesAmount' => $totalSalesAmount,
         ];
 
         // get ranking data from database
