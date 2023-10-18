@@ -27,9 +27,9 @@
 
 <div id="myModal" class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 hidden transition-opacity">
     <!-- Modal Dialog -->
-    <div class="fixed inset-0 z-50 overflow-hidden flex items-center justify-center px-4 sm:px-6">
+    <div class="fixed inset-0 z-50 overflow-hidden flex items-center justify-center px-4 sm:px-6 m-3">
         <!-- Modal Content -->
-        <div class="bg-white rounded shadow-lg overflow-auto max-w-2xl w-full max-h-[600px]">
+        <div class="bg-white rounded shadow-lg overflow-auto max-w-2xl w-full max-h-full">
             <!-- Modal Header -->
             <div class="px-5 py-3 bg-white border-b border-slate-200">
                 <div class="flex justify-between items-center">
