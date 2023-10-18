@@ -149,13 +149,13 @@ class DashboardController extends Controller
             $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
         })->sum('sub_total');
 
-//        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
+        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
 
         $data = [$buyNowSalesAmount, $auctionSalesAmount, $totalLiveStreamsAmount];
 
         $response = [
             'data' => $data,
-//            'totalSalesAmount' => $totalSalesAmount,
+            'totalSalesAmount' => $totalSalesAmount,
         ];
         return response()->json($response);
     }
