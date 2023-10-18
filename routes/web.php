@@ -15,6 +15,7 @@ use App\Http\Livewire\OffersList;
 use App\Http\Livewire\customFields;
 use App\Http\Livewire\globalFields;
 use App\Http\Livewire\Notifications;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\CategoryManager;
 use App\Http\Livewire\LoginController;
@@ -71,4 +72,9 @@ Route::group(['middleware' => 'protected'], function () {
     //sales data
     Route::get('/get-chart-data', [DashboardController::class, 'getChartData']);
     Route::get('/get-sales-chart-details/{name}', [DashboardController::class, 'getChartDataAjax']);
+
+    Route::get('/optimize-clear', function () {
+        Artisan::call('optimize:clear');
+        return 'success';
+    });
 });
