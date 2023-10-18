@@ -70,4 +70,5 @@ Route::group(['middleware' => 'protected'], function () {
 
     //sales data
     Route::get('/get-chart-data', [DashboardController::class, 'getChartData']);
+    Route::get('/get-sales-chart-details/{name}', [DashboardController::class, 'getChartDataAjax']);
 });

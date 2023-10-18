@@ -160,6 +160,66 @@ class DashboardController extends Controller
         return response()->json($response);
     }
 
+    public function getChartDataAjax($name)
+    {
+        $data = [];
+
+        if ($name === 'Buy Now') {
+            $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) {
+                $query->where('type', 'Buy Now')->where('auction_status', 'Sold');
+            })->with(['lot', 'customer', 'seller'])->get();
+
+            $data = $buyNowSalesAmount->map(function ($order) {
+                return [
+                    'lot_title' => $order->lot->title,
+                    'buyer_name' => $order->customer->name,
+                    'seller_name' => $order->seller->name,
+                    'total_amount' => $order->total_amount,
+                    'order_id' => $order->order_id ?? 'Null',
+                ];
+            });
+        }
+
+        if ($name === 'Auctions') {
+            $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) {
+                $query->where('type', 'Auction')->where('auction_status', 'Sold');
+            })->with(['lot', 'customer', 'seller'])->get();
+
+            $data = $auctionSalesAmount->map(function ($order) {
+                return [
+                    'lot_title' => $order->lot->title,
+                    'buyer_name' => $order->customer->name,
+                    'seller_name' => $order->seller->name,
+                    'total_amount' => $order->total_amount,
+                    'order_id' => $order->order_id ?? 'Null',
+                ];
+            });
+        }
+
+        if ($name === 'Live Streams') {
+            $liveStreamsSalesAmount = Order::whereHas('lot.auction', function ($query) {
+                $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+            })->with(['lot', 'customer', 'seller'])->get();
+
+            $data = $liveStreamsSalesAmount->map(function ($order) {
+                return [
+                    'lot_title' => $order->lot->title,
+                    'buyer_name' => $order->customer->name,
+                    'seller_name' => $order->seller->name,
+                    'total_amount' => $order->total_amount,
+                    'order_id' => $order->order_id ?? 'Null',
+                ];
+            });
+        }
+
+        $response = [
+            'data' => $data,
+        ];
+
+        return response()->json($response);
+    }
+
+
     public function getFollowers($id)
     {
         $followers = Followers::where('leader_id', $id)->count();

@@ -15,7 +15,7 @@ const fintechCard09 = () => {
   const ctx = document.getElementById('fintech-card-09');
   if (!ctx) return;
 
-  fetch('')
+  fetch('/')
     .then(a => {
       return a.json();
     })
