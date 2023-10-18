@@ -179,6 +179,8 @@ class DashboardController extends Controller
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
                     'id' => $order->lot->id,
+                    'buyer_id' => $order->user_id,
+                    'seller_id' => $order->seller_id,
                 ];
             });
         }
@@ -196,6 +198,9 @@ class DashboardController extends Controller
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
                     'id' => $order->lot->id,
+                    'buyer_id' => $order->user_id,
+                    'seller_id' => $order->seller_id,
+
                 ];
             });
         }
@@ -213,6 +218,8 @@ class DashboardController extends Controller
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
                     'id' => $order->lot->id,
+                    'buyer_id' => $order->user_id,
+                    'seller_id' => $order->seller_id,
                 ];
             });
         }

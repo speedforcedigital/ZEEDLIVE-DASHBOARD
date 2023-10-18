@@ -108,9 +108,25 @@
                 cell.classList.add('border', 'px-4', 'py-2');
 
                 if (key === 'lot_title') {
+                    cell.classList.add('hoverable');
                     cell.addEventListener('click', function () {
                         var productId = item.id;
                         window.location.href = 'product/' + productId;
+                    });
+                }
+
+                if (key === 'buyer_name') {
+                    cell.classList.add('hoverable');
+                    cell.addEventListener('click', function () {
+                        var buyerId = item.buyer_id;
+                        window.location.href = 'user/' + buyerId;
+                    });
+                }
+                if (key === 'seller_name') {
+                    cell.classList.add('hoverable');
+                    cell.addEventListener('click', function () {
+                        var sellerId = item.seller_id;
+                        window.location.href = 'user/' + sellerId;
                     });
                 }
             });
@@ -232,6 +248,13 @@
 
     fintechCard09();
 </script>
+
+<style>
+    .hoverable:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+</style>
 
 
 {{--<div id="myModal" class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 hidden transition-opacity">--}}
