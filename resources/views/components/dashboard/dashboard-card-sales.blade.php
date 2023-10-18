@@ -1,4 +1,5 @@
-<!-- Pie chart (Portfolio Value) -->
+
+<!-- THIS FILE IS NOT USING CURRENTLY -->
 <div
     class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4 border-b border-slate-100 flex items-center">

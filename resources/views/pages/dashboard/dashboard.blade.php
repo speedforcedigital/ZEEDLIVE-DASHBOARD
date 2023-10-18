@@ -6,10 +6,10 @@
 
         {{-- Sales Report --}}
 
-        <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Sales Report</h1>
-        <div class="grid grid-cols-8 gap-6 mt-2">
-            <x-dashboard.dashboard-card-sales :data="$data" />
-        </div>
+{{--        <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Sales Report</h1>--}}
+{{--        <div class="grid grid-cols-8 gap-6 mt-2">--}}
+{{--            <x-dashboard.dashboard-card-sales :data="$data" />--}}
+{{--        </div>--}}
 
         {{-- Auction Metrics --}}
         <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8 mt-3">Auction Metrics</h1>
@@ -19,7 +19,7 @@
     {{-- Sales Statistics --}}
     <div class="grid grid-cols-8 gap-6 mt-4 col-span-4 ">
         <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Sales Analytics</h1>
-        <x-dashboard.sales-graph :totalSales="$totalSales"  />
+        <x-dashboard.sales-graph :totalSales="$totalSales" :data="$data"  />
     </div>
     {{-- User Analytics --}}
     <div class="grid grid-cols-8 gap-6 mt-2">

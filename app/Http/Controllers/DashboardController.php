@@ -40,7 +40,20 @@ class DashboardController extends Controller
             $query->where('type', "Buy Now");
         })->count();
 
-        $totalSales = OrderTransactions::sum('amount');
+        $Sales = OrderTransactions::whereHas('order.lot.auction', function ($query) {
+            $query->where('auction_status', 'Sold');
+        })->sum('amount');
+
+        $totalLiveStreamsAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
+            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+        })->sum('amount');
+
+        $totalSales = $Sales + $totalLiveStreamsAmount;
+
+
+        $formattedSalesAmount = number_format($totalSales, 0, '.', ',');
+
+        $totalSales = $formattedSalesAmount;
 
 
         $totalBids = BidDetails::where("is_active", 1)->count();
@@ -55,43 +68,6 @@ class DashboardController extends Controller
         })->count();
 
 
-//        $totalBuyNowSales = Lot::where('is_delete', 0)->whereHas('auction', function ($query) use ($type) {
-//            $query->where('type', "Buy Now" && 'auction_status', 'Sold');
-//        })->count();
-//        dd($totalBuyNowSales);
-
-        // Buy Now sales
-//        $totalBuyNowSales = Order::whereHas('lot.auction', function ($query) use ($type) {
-//            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
-//        })->count();
-//
-//        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
-//            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
-//        })->sum('sub_total');
-//
-//        // Auction sales
-//
-//        $totalAuctionSales = Order::whereHas('lot.auction', function ($query) use ($type) {
-//            $query->where('type', "Auction")->where('auction_status', 'Sold');
-//        })->count();
-//        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
-//            $query->where('type', "Auction")->where('auction_status', 'Sold');
-//        })->sum('sub_total');
-//
-//        // Live Streams sales
-//
-//        $totalLiveStreamsSales = Order::whereHas('lot.auction', function ($query) use ($type) {
-//            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
-//        })->count();
-//        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) use ($type) {
-//            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
-//        })->sum('sub_total');
-//
-//        $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
-
-
-//        dd($toalBuyNowSales, $totalAuctionSales,$totalLiveStreamsSales);
-
         $data = [
             'totalLiveAuctions' => $totalLiveAuctions,
             'totalLiveStreams' => $totalLiveStreams,
@@ -100,13 +76,6 @@ class DashboardController extends Controller
             'totalLiveBids' => $totalLiveBids,
             'totalBuyNowBids' => $totalBuyNowBids,
             'closedBids' => $closedBids,
-//            'totalBuyNowSales' => $totalBuyNowSales,
-//            'buyNowSalesAmount' => $buyNowSalesAmount,
-//            'totalAuctionSales' => $totalAuctionSales,
-//            'auctionSalesAmount' => $auctionSalesAmount,
-//            'totalLiveStreamsSales' => $totalLiveStreamsSales,
-//            'totalLiveStreamsAmount' => $totalLiveStreamsAmount,
-//            'totalSalesAmount' => $totalSalesAmount,
         ];
 
         // get ranking data from database
@@ -137,17 +106,29 @@ class DashboardController extends Controller
 
     public function getChartData()
     {
-        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) {
+//        $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) {
+//            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+//        })->sum('sub_total');
+
+        $buyNowSalesAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
             $query->where('type', "Buy Now")->where('auction_status', 'Sold');
-        })->sum('sub_total');
+        })->sum('amount');
 
-        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) {
+//        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) {
+//            $query->where('type', "Auction")->where('auction_status', 'Sold');
+//        })->sum('sub_total');
+
+        $auctionSalesAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
             $query->where('type', "Auction")->where('auction_status', 'Sold');
-        })->sum('sub_total');
+        })->sum('amount');
 
-        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) {
+//        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) {
+//            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+//        })->sum('sub_total');
+
+        $totalLiveStreamsAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
             $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
-        })->sum('sub_total');
+        })->sum('amount');
 
         $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
 
@@ -393,6 +374,10 @@ class DashboardController extends Controller
                 'totalSales' => $yearlyTransactions->sum('total')
             ],
         ];
+
+        $chartData['daily']['totalSales'] = number_format($dailyTransactions->sum('total'), 0, '.', ',');
+        $chartData['monthly']['totalSales'] = number_format($monthlyTransactions->sum('total'), 0, '.', ',');
+        $chartData['yearly']['totalSales'] = number_format($yearlyTransactions->sum('total'), 0, '.', ',');
 
         return response()->json($chartData);
     }
