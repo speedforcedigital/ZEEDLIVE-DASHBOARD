@@ -71,8 +71,11 @@ Route::group(['middleware' => 'protected'], function () {
 
     //sales data
     Route::get('/get-chart-data', [DashboardController::class, 'getChartData']);
+    Route::get('/get-commission-chart-data', [DashboardController::class, 'getCommissionChartData']);
     Route::get('/get-sales-chart-details/{name}', [DashboardController::class, 'getChartDataAjax']);
+    Route::get('/get-commission-chart-details/{name}', [DashboardController::class, 'getCommissionChartDataAjax']);
 
+    //for Cpanel
     Route::get('/optimize-clear', function () {
         Artisan::call('optimize:clear');
         return 'success';

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
+use App\Models\CompanyWalletRecord;
 use App\Models\DataFeed;
 use App\Helpers\makeCurlPostRequest;
 use App\Helpers\baseUrl;
@@ -143,6 +144,34 @@ class DashboardController extends Controller
         return response()->json($response);
     }
 
+    public function getCommissionChartData()
+    {
+        $buyNowCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
+            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+        })->sum('comission_amount');
+
+        $auctionCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
+            $query->where('type', "Auction")->where('auction_status', 'Sold');
+        })->sum('comission_amount');
+
+        $liveStreamCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
+            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+        })->sum('comission_amount');
+
+        $totalCommision = $buyNowCommision + $auctionCommision + $liveStreamCommision;
+
+        $formattedCommisionAmount = number_format($totalCommision, 0, '.', ',');
+
+        $data = [$buyNowCommision, $auctionCommision, $liveStreamCommision];
+
+        $response = [
+            'data' => $data,
+            'totalCommisionAmount' => $formattedCommisionAmount,
+        ];
+
+        return response()->json($response);
+    }
+
     public function getChartDataAjax($name)
     {
         $data = [];
@@ -201,6 +230,77 @@ class DashboardController extends Controller
                     'id' => $order->lot->id,
                     'buyer_id' => $order->user_id,
                     'seller_id' => $order->seller_id,
+                ];
+            });
+        }
+
+        $response = [
+            'data' => $data,
+        ];
+
+        return response()->json($response);
+    }
+
+    public function getCommissionChartDataAjax($name)
+    {
+        $data = [];
+
+        if ($name === 'Buy Now') {
+            $buyNowCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
+                $query->where('type', 'Buy Now')->where('auction_status', 'Sold');
+            })->with(['lot', 'buyer', 'seller'])->get();
+
+            $data = $buyNowCommision->map(function ($order) {
+                return [
+                    'lot_title' => $order->lot->title,
+                    'buyer_name' => $order->buyer->name,
+                    'seller_name' => $order->seller->name,
+//                    'total_amount' => $order->total_amount,
+                    'order_id' => $order->order_id ?? 'Null',
+                    'id' => $order->lot->id,
+                    'buyer_id' => $order->user_id,
+                    'seller_id' => $order->seller_id,
+                    'company_commission' => $order->comission_amount,
+                ];
+            });
+        }
+
+        if ($name === 'Auctions') {
+            $auctionCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
+                $query->where('type', 'Auction')->where('auction_status', 'Sold');
+            })->with(['lot', 'buyer', 'seller'])->get();
+
+            $data = $auctionCommision->map(function ($order) {
+                return [
+                    'lot_title' => $order->lot->title,
+                    'buyer_name' => $order->buyer->name,
+                    'seller_name' => $order->seller->name,
+//                    'total_amount' => $order->total_amount,
+                    'order_id' => $order->order_id ?? 'Null',
+                    'id' => $order->lot->id,
+                    'buyer_id' => $order->user_id,
+                    'seller_id' => $order->seller_id,
+                    'company_commission' => $order->comission_amount,
+                ];
+            });
+        }
+
+        if ($name === 'Live Streams') {
+            $liveStreamsCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
+                $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+            })->with(['lot', 'buyer', 'seller'])->get();
+
+            $data = $liveStreamsCommision->map(function ($order) {
+                return [
+                    'lot_title' => $order->lot->title,
+                    'buyer_name' => $order->buyer->name,
+                    'seller_name' => $order->seller->name,
+//                    'total_amount' => $order->total_amount,
+                    'order_id' => $order->order_id ?? 'Null',
+                    'id' => $order->lot->id,
+                    'buyer_id' => $order->user_id,
+                    'seller_id' => $order->seller_id,
+                    'company_commission' => $order->comission_amount,
                 ];
             });
         }
