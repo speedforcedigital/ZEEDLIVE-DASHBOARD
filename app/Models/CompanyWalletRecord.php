@@ -23,6 +23,16 @@ class CompanyWalletRecord extends Model
     {
         return $this->belongsTo('App\Models\User','seller_id','id');
     }
+    public function scopeSold($query)
+    {
+        return $query->where('auction_status', 'Sold');
+    }
+
+    public function scopeIsScheduledLive($query)
+    {
+        return $query->where('is_scadual_live', 1);
+    }
+
 }
 
 

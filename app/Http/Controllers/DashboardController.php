@@ -112,7 +112,7 @@ class DashboardController extends Controller
 //        })->sum('sub_total');
 
         $buyNowSalesAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
-            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+            $query->where('type', "Buy Now")->sold();
         })->sum('amount');
 
 //        $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) {
@@ -120,7 +120,7 @@ class DashboardController extends Controller
 //        })->sum('sub_total');
 
         $auctionSalesAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
-            $query->where('type', "Auction")->where('auction_status', 'Sold');
+            $query->where('type', "Auction")->sold();
         })->sum('amount');
 
 //        $totalLiveStreamsAmount = Order::whereHas('lot.auction', function ($query) {
@@ -128,7 +128,7 @@ class DashboardController extends Controller
 //        })->sum('sub_total');
 
         $totalLiveStreamsAmount = OrderTransactions::whereHas('order.lot.auction', function ($query) {
-            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+            $query->IsScheduledLive()->sold();
         })->sum('amount');
 
         $totalSalesAmount = $buyNowSalesAmount + $auctionSalesAmount + $totalLiveStreamsAmount;
@@ -147,15 +147,15 @@ class DashboardController extends Controller
     public function getCommissionChartData()
     {
         $buyNowCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
-            $query->where('type', "Buy Now")->where('auction_status', 'Sold');
+            $query->where('type', "Buy Now")->sold();
         })->sum('comission_amount');
 
         $auctionCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
-            $query->where('type', "Auction")->where('auction_status', 'Sold');
+            $query->where('type', "Auction")->sold();
         })->sum('comission_amount');
 
         $liveStreamCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
-            $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+            $query->IsScheduledLive()->sold();
         })->sum('comission_amount');
 
         $totalCommision = $buyNowCommision + $auctionCommision + $liveStreamCommision;
@@ -178,7 +178,7 @@ class DashboardController extends Controller
 
         if ($name === 'Buy Now') {
             $buyNowSalesAmount = Order::whereHas('lot.auction', function ($query) {
-                $query->where('type', 'Buy Now')->where('auction_status', 'Sold');
+                $query->where('type', 'Buy Now')->sold();
             })->with(['lot', 'customer', 'seller'])->get();
 
             $data = $buyNowSalesAmount->map(function ($order) {
@@ -197,7 +197,7 @@ class DashboardController extends Controller
 
         if ($name === 'Auctions') {
             $auctionSalesAmount = Order::whereHas('lot.auction', function ($query) {
-                $query->where('type', 'Auction')->where('auction_status', 'Sold');
+                $query->where('type', 'Auction')->sold();
             })->with(['lot', 'customer', 'seller'])->get();
 
             $data = $auctionSalesAmount->map(function ($order) {
@@ -217,7 +217,7 @@ class DashboardController extends Controller
 
         if ($name === 'Live Streams') {
             $liveStreamsSalesAmount = Order::whereHas('lot.auction', function ($query) {
-                $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+                $query->IsScheduledLive()->sold();
             })->with(['lot', 'customer', 'seller'])->get();
 
             $data = $liveStreamsSalesAmount->map(function ($order) {
@@ -247,7 +247,7 @@ class DashboardController extends Controller
 
         if ($name === 'Buy Now') {
             $buyNowCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
-                $query->where('type', 'Buy Now')->where('auction_status', 'Sold');
+                $query->where('type', 'Buy Now')->sold();
             })->with(['lot', 'buyer', 'seller'])->get();
 
             $data = $buyNowCommision->map(function ($order) {
@@ -267,7 +267,7 @@ class DashboardController extends Controller
 
         if ($name === 'Auctions') {
             $auctionCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
-                $query->where('type', 'Auction')->where('auction_status', 'Sold');
+                $query->where('type', 'Auction')->sold();
             })->with(['lot', 'buyer', 'seller'])->get();
 
             $data = $auctionCommision->map(function ($order) {
@@ -287,7 +287,7 @@ class DashboardController extends Controller
 
         if ($name === 'Live Streams') {
             $liveStreamsCommision = CompanyWalletRecord::whereHas('lot.auction', function ($query) {
-                $query->where('is_scadual_live', 1)->where('auction_status', 'Sold');
+                $query->IsScheduledLive()->sold();
             })->with(['lot', 'buyer', 'seller'])->get();
 
             $data = $liveStreamsCommision->map(function ($order) {

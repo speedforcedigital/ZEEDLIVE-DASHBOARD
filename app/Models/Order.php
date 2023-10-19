@@ -41,4 +41,14 @@ class Order extends Model
     public function address(){
         return $this->belongsTo('App\Models\Address','address_id');
     }
+
+    public function scopeSold($query)
+    {
+        return $query->where('auction_status', 'Sold');
+    }
+
+    public function scopeIsScheduledLive($query)
+    {
+        return $query->where('is_scadual_live', 1);
+    }
 }
