@@ -160,6 +160,11 @@ class User extends Authenticatable implements JWTSubject
          return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
      }
 
+     public function accountDetails()
+     {
+         return $this->hasOne('App\Models\AccountDetail', 'user_id', 'id');
+     }
+
     //   public function getImageAttribute($value)
     // {
     //     if ($value) {

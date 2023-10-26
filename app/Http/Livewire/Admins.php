@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\RolesPermissions;
 use CURLFile;
 use App\Models\Role;
 use App\Models\User;
@@ -27,11 +28,12 @@ class Admins extends Component
     public $addUser = false;
     public $rolePermission = false;
     public $search = '';
+    public $role_id;
 
     public function render()
     {
         //tes
-        $query = User::where('is_deleted', 0)->where('rank', 'Admin');
+        $query = User::where('is_deleted', 0)->where('is_admin', 1);
 
         if (!empty($this->search)) {
             $query->where('name', 'like', '%' . $this->search . '%');
@@ -39,20 +41,27 @@ class Admins extends Component
         $admins = $query->orderBy('id', 'desc');
         $admins_count = $admins->get()->count();
         $admins = $admins->paginate(10);
-        return view('livewire.admins', compact('admins', 'admins_count'));
+        $roles = Role::all();
+        return view('livewire.admins', compact('admins', 'admins_count', 'roles'));
     }
 
 
     public function delete($id)
     {
-        $url = baseUrl() . "delete/user/" . $id;
-        $data = makeCurlRequest($url, 'DELETE');
-        if ($data['success'] == 1) {
-            $this->dispatchBrowserEvent(
-                'alert',
-                ['type' => 'success', 'message' => '' . $data['Message'] . '']
-            );
-        }
+        $user = User::where("id", $id)->first();
+        $user->is_deleted = 1;
+        $user->save();
+        $message = 'User Deleted Sucessfully.';
+        session()->flash('message', $message);
+//        $url = baseUrl() . "delete/user/" . $id;
+//        $data = makeCurlRequest($url, 'DELETE');
+////        dd($data);
+//        if ($data['success'] == 1) {
+//            $this->dispatchBrowserEvent(
+//                'alert',
+//                ['type' => 'success', 'message' => '' . $data['Message'] . '']
+//            );
+//        }
     }
 
     public function edit($id)
@@ -68,17 +77,17 @@ class Admins extends Component
         $this->role = $user->rank;
         $this->type = $user->type;
         $this->permission = [];
-        if ($user->account_detail->permissions != null && $user->account_detail->permissions != '"[]"') {
-            $permissions = json_decode($user->account_detail->permissions, true);
-            $decodedPermissions = json_decode($permissions, true);
-            foreach ($decodedPermissions as $permissionItem) {
-                $permissionKey = key($permissionItem);
-                $permissionValue = current($permissionItem);
-                $preCheckedValues[] = "{" . $permissionKey . ':' . $permissionValue[0] . "}";
-            }
-            $this->permission = $preCheckedValues;
-
-        }
+//        if ($user->account_detail->permissions != null && $user->account_detail->permissions != '"[]"') {
+//            $permissions = json_decode($user->account_detail->permissions, true);
+//            $decodedPermissions = json_decode($permissions, true);
+//            foreach ($decodedPermissions as $permissionItem) {
+//                $permissionKey = key($permissionItem);
+//                $permissionValue = current($permissionItem);
+//                $preCheckedValues[] = "{" . $permissionKey . ':' . $permissionValue[0] . "}";
+//            }
+//            $this->permission = $preCheckedValues;
+//
+//        }
         $this->image = null;
         $this->password = '';
         $this->updateMode = true;
@@ -102,34 +111,65 @@ class Admins extends Component
             'name' => 'required',
             'email' => 'required|email',
             'mobile' => 'required',
-            'gender' => 'required'
+            'gender' => 'required',
+            'role_id' => 'required'
         ]);
+
         if ($this->user_id == '') {
             $validatedDate = $this->validate([
                 'password' => 'required'
             ]);
         }
 
-        $array = $this->permission;
-        $groupedArray = array();
-        foreach ($array as $element) {
-            preg_match('/^{(.+?):(.+?)}$/', $element, $matches);
-            $category = $matches[1];
-            $action = $matches[2];
-            if (!array_key_exists($category, $groupedArray)) {
-                $groupedArray[$category] = array();
-            }
-            array_push($groupedArray[$category], $action);
-        }
-        $json = json_encode(array_map(function ($k, $v) {
-            return array($k => $v);
-        }, array_keys($groupedArray), array_values($groupedArray)));
-        $permissions = json_encode($json);
-        $image = $this->image;
+        $role = Role::find($this->role_id);
 
-        $role = Role::where('name', "Admin")->first();
+        if (!$role) {
+            dd("Role not found");
+            return;
+        }
+        $permissions = RolesPermissions::where('role_id', $role->id)->value('permissions');
+//        dd($permissions);
+//
+//        $array = json_decode($permissions, true);
+////        dd($array);
+//
+//        $groupedArray = array();
+//        foreach ($array as $element) {
+//            // Ensure $element is a string before using preg_match
+//            $element = is_string($element) ? $element : '';
+//
+//            preg_match('/^{(.+?):(.+?)}$/', $element, $matches);
+//            $category = $matches[1] ?? '';
+//            $action = $matches[2] ?? '';
+//            if (!empty($category)) {
+//                if (!array_key_exists($category, $groupedArray)) {
+//                    $groupedArray[$category] = array();
+//                }
+//                array_push($groupedArray[$category], $action);
+//            }
+//        }
+//
+//        $json = json_encode(array_map(function ($k, $v) {
+//            return array($k => $v);
+//        }, array_keys($groupedArray), array_values($groupedArray)));
+//
+//        $permissions = json_encode($json);
+
+
+//        $groupedArray = array();
+//
+//        foreach ($array as $category => $actions) {
+//            foreach ($actions as $action) {
+//                $element = '{' . $category . ':' . $action . '}';
+//                array_push($groupedArray, $element);
+//            }
+//        }
+//
+//        $permissions = json_encode($groupedArray);
+
         try {
             DB::beginTransaction();
+
             if ($this->user_id != '') {
                 $user = User::where("id", $this->user_id)->first();
                 $accountDetail = AccountDetail::where("user_id", $this->user_id)->first();
@@ -137,17 +177,22 @@ class Admins extends Component
                 $user = new User();
                 $accountDetail = new AccountDetail();
             }
+
             $user->email = $this->email;
             $user->name = $this->name;
+
             if ($this->password) {
                 $user->password = bcrypt($this->password);
             }
+
             $user->mobile = $this->mobile;
             $user->role_id = $role->id;
             $user->gender = $this->gender;
-            $user->rank = "Admin";
+            $user->rank = Role::where('id', $role->id)->value('name');
             $user->save();
+
             $accountDetail->user_id = $user->id;
+
             if (isset($this->image)) {
                 $uploadedFile = $this->image;
                 $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
@@ -155,18 +200,24 @@ class Admins extends Component
                 $user->image = $imageName;
                 $accountDetail->profile_image = $imageName;
             }
+
             $user->is_admin = 1;
             $user->save();
+
             $accountDetail->permissions = $permissions;
             $accountDetail->save();
-
 
             $this->updateMode = false;
             $this->addUser = false;
             $this->resetInputFields();
 
             DB::commit();
-        } catch (\Exception $th) {
+
+            $message = 'User Updated Sucessfully.';
+            session()->flash('message', $message);
+        }
+
+        catch (\Exception $th) {
             DB::rollBack();
             $this->dispatchBrowserEvent(
                 'alert',
@@ -174,6 +225,86 @@ class Admins extends Component
             );
         }
     }
+
+
+//    public function update()
+//    {
+//        $validatedDate = $this->validate([
+//            'name' => 'required',
+//            'email' => 'required|email',
+//            'mobile' => 'required',
+//            'gender' => 'required'
+//        ]);
+//        if ($this->user_id == '') {
+//            $validatedDate = $this->validate([
+//                'password' => 'required'
+//            ]);
+//        }
+//
+//        $array = $this->permission;
+//        $groupedArray = array();
+//        foreach ($array as $element) {
+//            preg_match('/^{(.+?):(.+?)}$/', $element, $matches);
+//            $category = $matches[1];
+//            $action = $matches[2];
+//            if (!array_key_exists($category, $groupedArray)) {
+//                $groupedArray[$category] = array();
+//            }
+//            array_push($groupedArray[$category], $action);
+//        }
+//        $json = json_encode(array_map(function ($k, $v) {
+//            return array($k => $v);
+//        }, array_keys($groupedArray), array_values($groupedArray)));
+//        $permissions = json_encode($json);
+//        $image = $this->image;
+//
+//        $role = Role::where('name', "Admin")->first();
+//        try {
+//            DB::beginTransaction();
+//            if ($this->user_id != '') {
+//                $user = User::where("id", $this->user_id)->first();
+//                $accountDetail = AccountDetail::where("user_id", $this->user_id)->first();
+//            } else {
+//                $user = new User();
+//                $accountDetail = new AccountDetail();
+//            }
+//            $user->email = $this->email;
+//            $user->name = $this->name;
+//            if ($this->password) {
+//                $user->password = bcrypt($this->password);
+//            }
+//            $user->mobile = $this->mobile;
+//            $user->role_id = $role->id;
+//            $user->gender = $this->gender;
+//            $user->rank = "Admin";
+//            $user->save();
+//            $accountDetail->user_id = $user->id;
+//            if (isset($this->image)) {
+//                $uploadedFile = $this->image;
+//                $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
+//                $imageName = Storage::disk('s3')->put('zeed/apis/users/profile', $uploadedFile, $imageName, "public");
+//                $user->image = $imageName;
+//                $accountDetail->profile_image = $imageName;
+//            }
+//            $user->is_admin = 1;
+//            $user->save();
+//            $accountDetail->permissions = $permissions;
+//            $accountDetail->save();
+//
+//
+//            $this->updateMode = false;
+//            $this->addUser = false;
+//            $this->resetInputFields();
+//
+//            DB::commit();
+//        } catch (\Exception $th) {
+//            DB::rollBack();
+//            $this->dispatchBrowserEvent(
+//                'alert',
+//                ['type' => 'success', 'message' => $th->getMessage()]
+//            );
+//        }
+//    }
 
     private function resetInputFields()
     {

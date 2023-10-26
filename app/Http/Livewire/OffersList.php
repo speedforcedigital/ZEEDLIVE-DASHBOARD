@@ -55,6 +55,7 @@ class OffersList extends Component
         $offer->save();
         $message = 'Offer Accepted Sucessfully.';
         session()->flash('message', $message);
+
     }
 
     public function reject($id)

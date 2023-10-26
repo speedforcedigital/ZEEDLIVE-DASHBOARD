@@ -93,6 +93,11 @@ class LiveStreamProduct extends Component
         return redirect()->route('product.show', $id);
     }
 
+    public function liveStream($roomId)
+    {
+//        return redirect()->route('liveStream', $roomId);
+    }
+
     public function filter($type)
     {
         $this->filter = $type;

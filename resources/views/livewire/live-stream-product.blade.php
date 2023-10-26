@@ -220,6 +220,21 @@
                                                     d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
                                             </svg>
                                         </button>
+
+{{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+{{--                                                    wire:click="liveStream({{ $product->id }})">--}}
+{{--                                                <span class="sr-only">View</span>--}}
+{{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
+{{--                                                     class="icon icon-tabler icon-tabler-device-tv"--}}
+{{--                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
+{{--                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
+{{--                                                     stroke-linejoin="round">--}}
+{{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+{{--                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>--}}
+{{--                                                    <path--}}
+{{--                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>--}}
+{{--                                                </svg>--}}
+{{--                                            </button>--}}
                                     </div>
                                 @endif
                             </td>
@@ -236,3 +251,112 @@
         {{ $products->links() }}
     </div>
 </div>
+
+{{--<div id="app"></div>--}}
+
+
+{{--<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>--}}
+{{--<script>--}}
+
+{{--    const appDiv = document.getElementById('app');--}}
+{{--    appDiv.innerHTML = `<h1>JS Starter</h1>`;--}}
+
+{{--    // get token--}}
+{{--    function generateToken(tokenServerUrl, userID) {--}}
+{{--        // Obtain the token interface provided by the App Server--}}
+{{--        return fetch(--}}
+{{--            `${tokenServerUrl}/access_token?userID=${userID}&expired_ts=7200`,--}}
+{{--            {--}}
+{{--                method: 'GET',--}}
+{{--            }--}}
+{{--        ).then((res) => res.json());--}}
+{{--    }--}}
+
+{{--    function randomID(len) {--}}
+{{--        let result = '';--}}
+{{--        if (result) return result;--}}
+{{--        var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',--}}
+{{--            maxPos = chars.length,--}}
+{{--            i;--}}
+{{--        len = len || 5;--}}
+{{--        for (i = 0; i < len; i++) {--}}
+{{--            result += chars.charAt(Math.floor(Math.random() * maxPos));--}}
+{{--        }--}}
+{{--        return result;--}}
+{{--    }--}}
+
+{{--    function getUrlParams(url) {--}}
+{{--        let urlStr = url.split('?')[1];--}}
+{{--        const urlSearchParams = new URLSearchParams(urlStr);--}}
+{{--        const result = Object.fromEntries(urlSearchParams.entries());--}}
+{{--        return result;--}}
+{{--    }--}}
+
+{{--    async function init() {--}}
+{{--        const roomID = getUrlParams(window.location.href)['roomID'] || randomID(5);--}}
+{{--        let role = getUrlParams(window.location.href)['role'] || 'Host';--}}
+{{--        role =--}}
+{{--            role === 'Host'--}}
+{{--                ? ZegoUIKitPrebuilt.Host--}}
+{{--                : role === 'Cohost'--}}
+{{--                    ? ZegoUIKitPrebuilt.Cohost--}}
+{{--                    : ZegoUIKitPrebuilt.Audience;--}}
+
+{{--        let sharedLinks = [];--}}
+{{--        if (role === ZegoUIKitPrebuilt.Host || role === ZegoUIKitPrebuilt.Cohost) {--}}
+{{--            sharedLinks.push({--}}
+{{--                name: 'Join as co-host',--}}
+{{--                url:--}}
+{{--                    window.location.origin +--}}
+{{--                    window.location.pathname +--}}
+{{--                    '?roomID=' +--}}
+{{--                    roomID +--}}
+{{--                    '&role=Cohost',--}}
+{{--            });--}}
+{{--        }--}}
+{{--        sharedLinks.push({--}}
+{{--            name: 'Join as audience',--}}
+{{--            url:--}}
+{{--                window.location.origin +--}}
+{{--                window.location.pathname +--}}
+{{--                '?roomID=' +--}}
+{{--                roomID +--}}
+{{--                '&role=Audience',--}}
+{{--        });--}}
+
+{{--        const userID = randomID(5);--}}
+{{--        const userName = randomID(5);--}}
+{{--        const { token } = await generateToken(--}}
+{{--            'https://nextjs-token.vercel.app/api',--}}
+{{--            userID--}}
+{{--        );--}}
+{{--        const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(--}}
+{{--            1484647939,--}}
+{{--            token,--}}
+{{--            roomID,--}}
+{{--            userID,--}}
+{{--            userName--}}
+{{--        );--}}
+{{--        const zp = ZegoUIKitPrebuilt.create(KitToken);--}}
+{{--        zp.joinRoom({--}}
+{{--            container: appDiv,--}}
+{{--            branding: {--}}
+{{--                logoURL:--}}
+{{--                    'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',--}}
+{{--            },--}}
+{{--            scenario: {--}}
+{{--                mode: ZegoUIKitPrebuilt.LiveStreaming,--}}
+{{--                config: {--}}
+{{--                    role,--}}
+{{--                },--}}
+{{--            },--}}
+{{--            sharedLinks,--}}
+{{--            onLeaveRoom: () => {--}}
+{{--                // do do something--}}
+{{--            },--}}
+{{--            showUserList: true,--}}
+{{--        });--}}
+{{--    }--}}
+
+{{--    init();--}}
+{{--</script>--}}

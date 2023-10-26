@@ -2,12 +2,12 @@
 $array = Session::get('permissions');
 $keys = array();
 $permissionsArray = json_decode($array, true);
-
 if (is_array($permissionsArray)) {
     foreach ($permissionsArray as $element) {
         $keys = array_merge($keys, array_keys($element));
     }
     $keys = array_unique($keys);
+//    dd($keys);
 } else {
     $permissionsArray = array(); // Assign an empty array if $permissionsArray is null or not an array
 }
@@ -206,6 +206,7 @@ if (is_array($permissionsArray)) {
                     </li>
                     @endif
                     <!-- Dynamic Fields -->
+                    @if(in_array('Custom Field', $keys) || in_array('Global Field', $keys))
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['custom','global'])){{  'bg-slate-900'  }}@endif" x-data="{ open: {{ in_array(Request::segment(1), ['custom','global']) ? 1 : 0 }} }">
                           <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(1), ['custom'])){{ 'hover:text-slate-200' }}@endif" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
@@ -244,6 +245,7 @@ if (is_array($permissionsArray)) {
                         </div>
                     </li>
                     <!-- Messages -->
+                    @endif
                     @if(in_array('Notifications', $keys))
                     {{-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/notifications">
@@ -302,6 +304,7 @@ if (is_array($permissionsArray)) {
                 </h3>
                 <ul class="mt-3">
                     <!-- App Users -->
+                    @if(in_array('App  User', $keys) || in_array('Seller Verification', $keys) || in_array('Wallets', $keys))
                      <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['sellers','users'])){{  'bg-slate-900'  }}@endif" x-data="{ open: {{ in_array(Request::segment(1), ['users','sellers']) ? 1 : 0 }} }">
                         <a class="block text-slate-200 hover:text-white transition duration-150" :class="open && 'hover:text-slate-200'" href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
                             <div class="flex items-center justify-between">
@@ -336,11 +339,13 @@ if (is_array($permissionsArray)) {
                                         </a>
                                 </li>
                                 @endif
+                                @if(in_array('Wallets', $keys))
                                 <li class="mb-1 last:mb-0">
                                         <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate" href="/wallets">
                                             <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Wallets</span>
                                         </a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
@@ -363,6 +368,27 @@ if (is_array($permissionsArray)) {
                             </div>
                         </a>
                     </li>
+                    @endif
+
+                    @if(in_array('Admin User', $keys))
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                            <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/roles">
+                                <div class="flex items-center justify-between">
+                                    <div class="grow flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 h-6 w-6" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path  stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                            <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                        </svg>
+                                        <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Roles</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+
                     @endif
 
                 </ul>

@@ -1,5 +1,8 @@
 <?php
+
+use App\Http\Controllers\RolesController;
 use App\Http\Livewire\Orders;
+use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Admins;
 use App\Http\Livewire\Brands;
@@ -67,6 +70,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/custom/fields', customFields::class);
     Route::get('/global/fields', globalFields::class);
     Route::get('/admins', Admins::class);
+    Route::get('/roles', Roles::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     //sales data

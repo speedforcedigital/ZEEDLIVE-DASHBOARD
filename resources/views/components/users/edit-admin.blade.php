@@ -58,7 +58,7 @@
 
                          <div>
                             <!-- Start -->
-                        <label class="block text-sm font-medium mb-1" for="country">Gender</label>
+                        <label class="block text-sm font-medium mb-1" for="country">Gender <span class="text-rose-500">*</span></label>
                         <select id="country" class="form-input w-full" wire:model="gender">
                             <option value="">Select</option>
                             <option value="Male">Male</option>
@@ -68,21 +68,36 @@
                             <!-- End -->
                         </div>
 
+{{--                        <div>--}}
+{{--                    <!-- Start -->--}}
+{{--                        <label class="block text-sm font-medium mb-1" for="country">Type</label>--}}
+{{--                        <select id="country" class="form-input w-full" wire:model="type">--}}
+{{--                            <option value="">Select</option>--}}
+{{--                            <option value="Public">Public</option>--}}
+{{--                            <option value="Private">Private</option>--}}
+{{--                        </select>--}}
+{{--                    <!-- End -->--}}
+{{--                        </div>--}}
+
                         <div>
-                    <!-- Start -->
-                        <label class="block text-sm font-medium mb-1" for="country">Type</label>
-                        <select id="country" class="form-input w-full" wire:model="type">
-                            <option value="">Select</option>
-                            <option value="Public">Public</option>
-                            <option value="Private">Private</option>
-                        </select>
-                    <!-- End -->
+                            <!-- Start -->
+                            <div>
+                                <label class="block text-sm font-medium mb-1" for="mandatory">Role <span class="text-rose-500">*</span></label>
+                                <select id="roles" name="role_id" class="form-input w-full" wire:model="role_id">
+                                    <option value="">Select Role</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role['id']}}">{{$role['name']}}</option>
+                                    @endforeach
+                                </select>
+                                @error('role_id')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
+                            </div>
+                            <!-- End -->
                         </div>
 
                         <div>
                             <!-- Start -->
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="mandatory">Profile <span class="text-rose-500">*</span></label>
+                                <label class="block text-sm font-medium mb-1" for="mandatory">Profile </label>
                                 <input id="mandatory" class="form-input w-full" type="file" wire:model="image" required />
                             </div>
                             <!-- End -->
@@ -90,9 +105,11 @@
 
                        <div>
                         <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 mt-6">
-                            <img class="rounded-full" id="imgInp" src="{{$this->imageURL}}" alt="{{ $this->name }}">
+                            <img class="rounded-full" id="imgInp" src="{{$this->imageURL}}" alt="">
                        </div>
                        </div>
+
+
 
                        <!-- <div class="m-3">
                             <label class="flex items-center">
@@ -103,22 +120,22 @@
 
                    </div>
 
-                @foreach($this->rolePermission as $val)
-            <div class="mt-6">
-                    <h2 class="text-slate-800 font-semibold mb-2">{{$val['permission_bar']}}</h2>
-                <div class="grid gap-5 md:grid-cols-4 mt-6">
-                @foreach(json_decode($val['actions'], true) as $row)
-                    <div>
+{{--                @foreach($this->rolePermission as $val)--}}
+{{--            <div class="mt-6">--}}
+{{--                    <h2 class="text-slate-800 font-semibold mb-2">{{$val['permission_bar']}}</h2>--}}
+{{--                <div class="grid gap-5 md:grid-cols-4 mt-6">--}}
+{{--                @foreach(json_decode($val['actions'], true) as $row)--}}
+{{--                    <div>--}}
 {{-- @if(in_array($val['permission_bar'].':'.$row, $this->selectedPermssions)) checked @endif  --}}
-                            <label class="flex items-center">
-                                <input type="checkbox" wire:model="permission" value="<?php echo'{'.$val['permission_bar'].':'.$row.'}'?>" class="form-checkbox" />
-                                <span class="text-sm ml-2">{{ucfirst($row)}}</span>
-                            </label>
-                    </div>
-                    @endforeach
-               </div>
-            </div>
-                    @endforeach
+{{--                            <label class="flex items-center">--}}
+{{--                                <input type="checkbox" wire:model="permission" value="<?php echo'{'.$val['permission_bar'].':'.$row.'}'?>" class="form-checkbox" />--}}
+{{--                                <span class="text-sm ml-2">{{ucfirst($row)}}</span>--}}
+{{--                            </label>--}}
+{{--                    </div>--}}
+{{--                    @endforeach--}}
+{{--               </div>--}}
+{{--            </div>--}}
+{{--                    @endforeach--}}
 
                 <div class="grid gap-5 pt-0 float-right md:grid-cols-2">
                 <div></div>

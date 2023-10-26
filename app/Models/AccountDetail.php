@@ -14,7 +14,7 @@ class AccountDetail extends Model
       'created_at', 'updated_at','id','user_id',
   ];
   protected $fillable = [
-      'user_id', 'profile_image', 'cover_image','description','tagline','type'
+      'user_id', 'profile_image', 'cover_image','description','tagline','type','permissions'
   ];
 //   public function getProfileImageAttribute($value)
 //     {
@@ -30,4 +30,9 @@ class AccountDetail extends Model
 //         }
 //         return null;
 //     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

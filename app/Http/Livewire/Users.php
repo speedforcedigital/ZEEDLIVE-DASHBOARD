@@ -37,6 +37,7 @@ class Users extends Component
         $usersQuery = User::with('Role')
             ->where("id", "<>", auth()->user()->id)
             ->where("rank", '<>', "Admin")
+            ->where('is_admin', 0)
             ->orderBy('users.id', 'desc');
 
         if ($this->search) {
