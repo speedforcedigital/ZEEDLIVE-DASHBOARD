@@ -54,7 +54,9 @@ class OffersList extends Component
         $offer->is_accepted = true;
         $offer->save();
         $message = 'Offer Accepted Sucessfully.';
-        session()->flash('message', $message);
+        return redirect()->route('offers')->with('message', $message);
+//        session()->flash('message', $message);
+
 
     }
 
@@ -65,6 +67,11 @@ class OffersList extends Component
         $offer->is_accepted = false;
         $offer->save();
         $message = 'Offer Rejected Sucessfully.';
-        session()->flash('message', $message);
+        return redirect()->route('offers')->with('message', $message);
+
+//        session()->flash('message', $message);
     }
+
+
+
 }

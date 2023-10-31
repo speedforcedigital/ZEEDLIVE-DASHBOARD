@@ -66,7 +66,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/products/live-stream', LiveStreamProduct::class)->name("livestream.products");
     Route::get('/products/listings', Listing::class)->name("listings.products");
     Route::get('/notifications', Notifications::class);
-    Route::get('/offers', OffersList::class);
+    Route::get('/offers', OffersList::class)->name("offers");
     Route::get('/custom/fields', customFields::class);
     Route::get('/global/fields', globalFields::class);
     Route::get('/admins', Admins::class);
@@ -84,4 +84,6 @@ Route::group(['middleware' => 'protected'], function () {
         Artisan::call('optimize:clear');
         return 'success';
     });
+
+    Route::get('/zego/{productID}',[\App\Http\Controllers\Zego::class,'getToken']);
 });

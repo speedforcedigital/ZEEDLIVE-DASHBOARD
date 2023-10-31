@@ -178,63 +178,161 @@
 
                                     <div class="space-x-1">
                                         @if($product->auction->auction_status == "Open")
-                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                    wire:click="view({{ $product->id }})">
-                                                <span class="sr-only">View</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-device-tv" width="27"
-                                                     height="27" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path
-                                                        d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>
-                                                    <path d="M16 3l-4 4l-4 -4"/>
-                                                </svg>
-                                            </button>
+                                            {{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+                                            {{--                                                    wire:click="view({{ $product->id }})">--}}
+                                            {{--                                                <span class="sr-only">View</span>--}}
+                                            {{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
+                                            {{--                                                     class="icon icon-tabler icon-tabler-device-tv" width="27"--}}
+                                            {{--                                                     height="27" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"--}}
+                                            {{--                                                     fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
+                                            {{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+                                            {{--                                                    <path--}}
+                                            {{--                                                        d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>--}}
+                                            {{--                                                    <path d="M16 3l-4 4l-4 -4"/>--}}
+                                            {{--                                                </svg>--}}
+                                            {{--                                            </button>--}}
+                                            <div x-data="{ rejectModalOpen: @entangle('rejectModalOpen') }">
+
+                                                <!-- Your button code -->
+                                                <div class="flex items-center">
+                                                    <!-- Enable Button -->
+                                                    <button class="btn border-slate-200 hover:border-slate-300"
+                                                            @click="rejectModalOpen = true">
+                                                        <span class="sr-only">View</span>
+                                                        <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"
+                                                             viewBox="0 0 16 16">
+                                                            <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor"
+                                                                  stroke-width="2"/>
+                                                            <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor"
+                                                                  stroke-width="2"/>
+                                                        </svg>
+                                                    </button>
+
+                                                    <!-- Eye Button -->
+                                                    <button
+                                                        class="text-slate-400 hover:text-slate-500 rounded-full ml-2"
+                                                        @click="getVideo('{{ $product->id }}')">
+                                                        <span class="sr-only">View</span>
+                                                        <!-- Your eye icon here -->
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                             class="icon icon-tabler icon-tabler-device-tv" width="27"
+                                                             height="27" viewBox="0 0 24 24" stroke-width="1.5"
+                                                             stroke="#2c3e50"
+                                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                            <path
+                                                                d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>
+                                                            <path d="M16 3l-4 4l-4 -4"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Your existing modal overlay and dialog -->
+                                                <div
+                                                    class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                                    x-show="rejectModalOpen"
+                                                    x-transition:enter="transition ease-out duration-200"
+                                                    x-transition:enter-start="opacity-0"
+                                                    x-transition:enter-end="opacity-100"
+                                                    x-transition:leave="transition ease-out duration-100"
+                                                    x-transition:leave-start="opacity-100"
+                                                    x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+
+                                                <div
+                                                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                                    role="dialog"
+                                                    aria-modal="true"
+                                                    x-show="rejectModalOpen"
+                                                    x-transition:enter="transition ease-in-out duration-200"
+                                                    x-transition:enter-start="opacity-0 translate-y-4"
+                                                    x-transition:enter-end="opacity-100 translate-y-0"
+                                                    x-transition:leave="transition ease-in-out duration-200"
+                                                    x-transition:leave-start="opacity-100 translate-y-0"
+                                                    x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true"
+                                                    x-cloak>
+
+                                                    <!-- Rest of your modal content -->
+
+                                                    <div
+                                                        class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
+                                                        @click.outside="rejectModalOpen = false"
+                                                        @keydown.escape.window="rejectModalOpen = false"
+                                                        style="max-width: 900px;">
+                                                        <!-- Modal header -->
+
+                                                        <div
+                                                            class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                                            <div class="flex justify-between items-center">
+                                                                <div
+                                                                    class="font-semibold text-slate-800 dark:text-slate-100">
+                                                                    Live Stream
+                                                                </div>
+                                                                <button
+                                                                    class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
+                                                                    @click="rejectModalOpen = false">
+                                                                    <div class="sr-only">Close</div>
+                                                                    <svg class="w-4 h-4 fill-current">
+                                                                        <path
+                                                                            d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Modal content -->
+                                                        <!-- Your existing modal content -->
+
+                                                        <!-- Video Player -->
+                                                        <div class="px-5 py-4">
+                                                            {{--                                                            <h4 class="text-xl mb-4">Live Stream</h4>--}}
+
+{{--                                                                <video style="width: 550px; height: 500px;"--}}
+{{--                                                                       id="remote-video-container" autoplay playsinline--}}
+{{--                                                                       controls></video>--}}
+                                                                {{--                                                                <div id="remote-video-container"--}}
+                                                                {{--                                                                     style="width: 100%; height: 100vh;"></div>--}}
+                                                                <div id="app"></div>
+
+                                                        </div>
+
+                                                        <!-- Modal footer -->
+                                                        <!-- Your existing modal footer -->
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @elseif ($product->auction->auction_status == "Closed")
                                             <button class="text-slate-400 hover:text-slate-500 rounded-full"
                                                     wire:click="view({{ $product->id }})">
                                                 <span class="sr-only">View</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-player-stop" width="27"
-                                                     height="27" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                     class="icon icon-tabler icon-tabler-device-tv"
+                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
+                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                     stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
                                                     <path
-                                                        d="M5 5m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"/>
+                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
                                                 </svg>
                                             </button>
 
                                         @endif
-                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                wire:click="view({{ $product->id }})">
-                                            <span class="sr-only">View</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                 class="icon icon-tabler icon-tabler-eye"
-                                                 width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                 stroke="#2c3e50" fill="none" stroke-linecap="round"
-                                                 stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-                                                <path
-                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-                                            </svg>
-                                        </button>
 
-{{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
-{{--                                                    wire:click="liveStream({{ $product->id }})">--}}
-{{--                                                <span class="sr-only">View</span>--}}
-{{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                                     class="icon icon-tabler icon-tabler-device-tv"--}}
-{{--                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
-{{--                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
-{{--                                                     stroke-linejoin="round">--}}
-{{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-{{--                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>--}}
-{{--                                                    <path--}}
-{{--                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>--}}
-{{--                                                </svg>--}}
-{{--                                            </button>--}}
+
+                                        {{--                                                <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+                                        {{--                                                        wire:click="liveStream({{ $product->id }})">--}}
+                                        {{--                                                    <span class="sr-only">View</span>--}}
+                                        {{--                                                    <svg xmlns="http://www.w3.org/2000/svg"--}}
+                                        {{--                                                         class="icon icon-tabler icon-tabler-device-tv"--}}
+                                        {{--                                                         width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
+                                        {{--                                                         stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
+                                        {{--                                                         stroke-linejoin="round">--}}
+                                        {{--                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+                                        {{--                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>--}}
+                                        {{--                                                        <path--}}
+                                        {{--                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>--}}
+                                        {{--                                                    </svg>--}}
+                                        {{--                                                </button>--}}
                                     </div>
                                 @endif
                             </td>
@@ -250,113 +348,238 @@
     <div class="px-5 py-3">
         {{ $products->links() }}
     </div>
+
+
+
+
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{{asset('/js/ZegoExpressWebRTC-3.0.0.js')}}"></script>
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+
+{{--<script>--}}
+{{--    function getVideo(productId) {--}}
+{{--        $.ajax({--}}
+{{--            url: '/zego/' + productId,--}}
+{{--            type: 'GET',--}}
+{{--            contentType: 'application/json',--}}
+{{--            success: function (data) {--}}
+{{--                const appID = data.appID;--}}
+{{--                const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";--}}
+{{--                const zg = new ZegoExpressEngine(appID, server);--}}
+
+{{--                async function loginRoom() {--}}
+{{--                    const roomID = data.roomID;--}}
+{{--                    const token = data.token;--}}
+{{--                    const userID = data.userID;--}}
+{{--                    const userName = 'co-host';--}}
+{{--                    const result = await zg.loginRoom(roomID, token, { userID, userName }, { userUpdate: true });--}}
+
+{{--                    // Set up the container for Zego UI Toolkit--}}
+{{--                    const container = document.getElementById('zego-container');--}}
+{{--                    const streamID = roomID + '_' + '200' + '_main';--}}
+
+{{--                    // Render remote video using ZegoExpressEngine directly--}}
+{{--                    zg.startPlayingStream(streamID, container);--}}
+
+{{--                    // Show participants, comments, etc. using Zego UI Toolkit components--}}
+{{--                    const zp = new ZegoUIKitPrebuilt();--}}
+{{--                    zp.showUserList();--}}
+{{--                    zp.showChatView();--}}
+{{--                }--}}
+
+{{--                loginRoom();--}}
+{{--            },--}}
+{{--            error: function (error) {--}}
+{{--                console.error('Ajax error:', error);--}}
+{{--            }--}}
+{{--        });--}}
+{{--    }--}}
+{{--</script>--}}
+
+<script>
+    function getVideo(productId) {
+        $.ajax({
+            url: '/zego/' + productId,
+            type: 'GET',
+            contentType: 'application/json',
+            success: function (data) {
+                // console.log('Ajax response:', data);
+
+                const appID = data.appID;
+                const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";
+                const zg = new ZegoExpressEngine(appID, server);
+
+                async function loginRoom() {
+                    const roomID = data.roomID;
+                    // const roomID ='1362';
+                    const token = data.token;
+                    const userID = data.userID;
+                    const userName = 'co-host';
+                    // const result = await zg.loginRoom(roomID, token, {userID, userName}, {userUpdate: true});
+                    const streamID = roomID + '_' + '200' + '_main';
+
+                    // const streamID = '1357_200_main';
+
+                    const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
+                        1553886775,
+                        token,
+                        roomID,
+                        userID,
+                        userName
+                    );
+
+                    const zp = ZegoUIKitPrebuilt.create(KitToken);
+                    const appDiv = document.getElementById('app');
+
+                    let role = 'Host';
+
+                    zp.joinRoom({
+                        container: appDiv,
+                        branding: {
+                            logoURL:
+                                'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',
+                        },
+                        scenario: {
+                            mode: ZegoUIKitPrebuilt.LiveStreaming,
+                            config: {
+                                role,
+                                roomID,
+                                video:false,
+                                audio:false,
+                            },
+                        },
+                        // sharedLinks,
+                        onLeaveRoom: () => {
+                            // do  something
+                        },
+                        showUserList: true,
+                    });
+
+                    // const remoteVideo = document.getElementById('remote-video-container');
+                    // remoteVideo.srcObject = await zg.startPlayingStream(streamID);
+
+
+                }
+
+
+                loginRoom();
+            },
+            error: function (error) {
+                console.error('Ajax error:', error);
+            }
+        });
+    }
+
+
+</script>
 
 {{--<div id="app"></div>--}}
 
 
 {{--<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>--}}
-{{--<script>--}}
+{{--    <script>--}}
 
-{{--    const appDiv = document.getElementById('app');--}}
-{{--    appDiv.innerHTML = `<h1>JS Starter</h1>`;--}}
+{{--        const appDiv = document.getElementById('app');--}}
+{{--        appDiv.innerHTML = `<h1>JS Starter</h1>`;--}}
 
-{{--    // get token--}}
-{{--    function generateToken(tokenServerUrl, userID) {--}}
-{{--        // Obtain the token interface provided by the App Server--}}
-{{--        return fetch(--}}
-{{--            `${tokenServerUrl}/access_token?userID=${userID}&expired_ts=7200`,--}}
-{{--            {--}}
-{{--                method: 'GET',--}}
-{{--            }--}}
-{{--        ).then((res) => res.json());--}}
-{{--    }--}}
-
-{{--    function randomID(len) {--}}
-{{--        let result = '';--}}
-{{--        if (result) return result;--}}
-{{--        var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',--}}
-{{--            maxPos = chars.length,--}}
-{{--            i;--}}
-{{--        len = len || 5;--}}
-{{--        for (i = 0; i < len; i++) {--}}
-{{--            result += chars.charAt(Math.floor(Math.random() * maxPos));--}}
+{{--        // get token--}}
+{{--        function generateToken(tokenServerUrl, userID) {--}}
+{{--            // Obtain the token interface provided by the App Server--}}
+{{--            return fetch(--}}
+{{--                `${tokenServerUrl}/access_token?userID=${userID}&expired_ts=7200`,--}}
+{{--                {--}}
+{{--                    method: 'GET',--}}
+{{--                }--}}
+{{--            ).then((res) => res.json());--}}
 {{--        }--}}
-{{--        return result;--}}
-{{--    }--}}
 
-{{--    function getUrlParams(url) {--}}
-{{--        let urlStr = url.split('?')[1];--}}
-{{--        const urlSearchParams = new URLSearchParams(urlStr);--}}
-{{--        const result = Object.fromEntries(urlSearchParams.entries());--}}
-{{--        return result;--}}
-{{--    }--}}
+{{--        function randomID(len) {--}}
+{{--            let result = '';--}}
+{{--            if (result) return result;--}}
+{{--            var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',--}}
+{{--                maxPos = chars.length,--}}
+{{--                i;--}}
+{{--            len = len || 5;--}}
+{{--            for (i = 0; i < len; i++) {--}}
+{{--                result += chars.charAt(Math.floor(Math.random() * maxPos));--}}
+{{--            }--}}
+{{--            return result;--}}
+{{--        }--}}
 
-{{--    async function init() {--}}
-{{--        const roomID = getUrlParams(window.location.href)['roomID'] || randomID(5);--}}
-{{--        let role = getUrlParams(window.location.href)['role'] || 'Host';--}}
-{{--        role =--}}
-{{--            role === 'Host'--}}
-{{--                ? ZegoUIKitPrebuilt.Host--}}
-{{--                : role === 'Cohost'--}}
-{{--                    ? ZegoUIKitPrebuilt.Cohost--}}
-{{--                    : ZegoUIKitPrebuilt.Audience;--}}
+{{--        function getUrlParams(url) {--}}
+{{--            let urlStr = url.split('?')[1];--}}
+{{--            const urlSearchParams = new URLSearchParams(urlStr);--}}
+{{--            const result = Object.fromEntries(urlSearchParams.entries());--}}
+{{--            return result;--}}
+{{--        }--}}
 
-{{--        let sharedLinks = [];--}}
-{{--        if (role === ZegoUIKitPrebuilt.Host || role === ZegoUIKitPrebuilt.Cohost) {--}}
+{{--        async function init() {--}}
+{{--            const roomID = getUrlParams(window.location.href)['roomID'] || randomID(5);--}}
+{{--            let role = getUrlParams(window.location.href)['role'] || 'Host';--}}
+{{--            role =--}}
+{{--                role === 'Host'--}}
+{{--                    ? ZegoUIKitPrebuilt.Host--}}
+{{--                    : role === 'Cohost'--}}
+{{--                        ? ZegoUIKitPrebuilt.Cohost--}}
+{{--                        : ZegoUIKitPrebuilt.Audience;--}}
+
+{{--            let sharedLinks = [];--}}
+{{--            if (role === ZegoUIKitPrebuilt.Host || role === ZegoUIKitPrebuilt.Cohost) {--}}
+{{--                sharedLinks.push({--}}
+{{--                    name: 'Join as co-host',--}}
+{{--                    url:--}}
+{{--                        window.location.origin +--}}
+{{--                        window.location.pathname +--}}
+{{--                        '?roomID=' +--}}
+{{--                        roomID +--}}
+{{--                        '&role=Cohost',--}}
+{{--                });--}}
+{{--            }--}}
 {{--            sharedLinks.push({--}}
-{{--                name: 'Join as co-host',--}}
+{{--                name: 'Join as audience',--}}
 {{--                url:--}}
 {{--                    window.location.origin +--}}
 {{--                    window.location.pathname +--}}
 {{--                    '?roomID=' +--}}
 {{--                    roomID +--}}
-{{--                    '&role=Cohost',--}}
+{{--                    '&role=Audience',--}}
+{{--            });--}}
+
+{{--            const userID = randomID(5);--}}
+{{--            const userName = randomID(5);--}}
+{{--            const { token } = await generateToken(--}}
+{{--                'https://nextjs-token.vercel.app/api',--}}
+{{--                userID--}}
+{{--            );--}}
+{{--            const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(--}}
+{{--                1484647939,--}}
+{{--                token,--}}
+{{--                roomID,--}}
+{{--                userID,--}}
+{{--                userName--}}
+{{--            );--}}
+{{--            const zp = ZegoUIKitPrebuilt.create(KitToken);--}}
+{{--            zp.joinRoom({--}}
+{{--                container: appDiv,--}}
+{{--                branding: {--}}
+{{--                    logoURL:--}}
+{{--                        'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',--}}
+{{--                },--}}
+{{--                scenario: {--}}
+{{--                    mode: ZegoUIKitPrebuilt.LiveStreaming,--}}
+{{--                    config: {--}}
+{{--                        role,--}}
+{{--                    },--}}
+{{--                },--}}
+{{--                sharedLinks,--}}
+{{--                onLeaveRoom: () => {--}}
+{{--                    // do do something--}}
+{{--                },--}}
+{{--                showUserList: true,--}}
 {{--            });--}}
 {{--        }--}}
-{{--        sharedLinks.push({--}}
-{{--            name: 'Join as audience',--}}
-{{--            url:--}}
-{{--                window.location.origin +--}}
-{{--                window.location.pathname +--}}
-{{--                '?roomID=' +--}}
-{{--                roomID +--}}
-{{--                '&role=Audience',--}}
-{{--        });--}}
 
-{{--        const userID = randomID(5);--}}
-{{--        const userName = randomID(5);--}}
-{{--        const { token } = await generateToken(--}}
-{{--            'https://nextjs-token.vercel.app/api',--}}
-{{--            userID--}}
-{{--        );--}}
-{{--        const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(--}}
-{{--            1484647939,--}}
-{{--            token,--}}
-{{--            roomID,--}}
-{{--            userID,--}}
-{{--            userName--}}
-{{--        );--}}
-{{--        const zp = ZegoUIKitPrebuilt.create(KitToken);--}}
-{{--        zp.joinRoom({--}}
-{{--            container: appDiv,--}}
-{{--            branding: {--}}
-{{--                logoURL:--}}
-{{--                    'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',--}}
-{{--            },--}}
-{{--            scenario: {--}}
-{{--                mode: ZegoUIKitPrebuilt.LiveStreaming,--}}
-{{--                config: {--}}
-{{--                    role,--}}
-{{--                },--}}
-{{--            },--}}
-{{--            sharedLinks,--}}
-{{--            onLeaveRoom: () => {--}}
-{{--                // do do something--}}
-{{--            },--}}
-{{--            showUserList: true,--}}
-{{--        });--}}
-{{--    }--}}
-
-{{--    init();--}}
-{{--</script>--}}
+{{--        init();--}}
+{{--    </script>--}}
