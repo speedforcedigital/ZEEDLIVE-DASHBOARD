@@ -191,20 +191,23 @@
                                             {{--                                                    <path d="M16 3l-4 4l-4 -4"/>--}}
                                             {{--                                                </svg>--}}
                                             {{--                                            </button>--}}
-                                            <div x-data="{ rejectModalOpen: @entangle('rejectModalOpen') }">
-
+                                            <div x-data="window.modalController()">
                                                 <!-- Your button code -->
                                                 <div class="flex items-center">
                                                     <!-- Enable Button -->
-                                                    <button class="btn border-slate-200 hover:border-slate-300"
-                                                            @click="rejectModalOpen = true">
+                                                    <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                                            wire:click="view({{ $product->id }})">
                                                         <span class="sr-only">View</span>
-                                                        <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"
-                                                             viewBox="0 0 16 16">
-                                                            <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor"
-                                                                  stroke-width="2"/>
-                                                            <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor"
-                                                                  stroke-width="2"/>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                             class="icon icon-tabler icon-tabler-device-tv"
+                                                             width="27" height="27" viewBox="0 0 24 24"
+                                                             stroke-width="1.5"
+                                                             stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                             stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                                                            <path
+                                                                d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
                                                         </svg>
                                                     </button>
 
@@ -241,8 +244,7 @@
                                                 <div
                                                     class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
                                                     role="dialog"
-                                                    aria-modal="true"
-                                                    x-show="rejectModalOpen"
+                                                    aria-modal="true" x-show="rejectModalOpen"
                                                     x-transition:enter="transition ease-in-out duration-200"
                                                     x-transition:enter-start="opacity-0 translate-y-4"
                                                     x-transition:enter-end="opacity-100 translate-y-0"
@@ -250,16 +252,13 @@
                                                     x-transition:leave-start="opacity-100 translate-y-0"
                                                     x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true"
                                                     x-cloak>
-
                                                     <!-- Rest of your modal content -->
-
                                                     <div
                                                         class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
                                                         @click.outside="rejectModalOpen = false"
                                                         @keydown.escape.window="rejectModalOpen = false"
                                                         style="max-width: 900px;">
                                                         <!-- Modal header -->
-
                                                         <div
                                                             class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
                                                             <div class="flex justify-between items-center">
@@ -269,7 +268,7 @@
                                                                 </div>
                                                                 <button
                                                                     class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
-                                                                    @click="rejectModalOpen = false">
+                                                                    @click="handleCloseClick">
                                                                     <div class="sr-only">Close</div>
                                                                     <svg class="w-4 h-4 fill-current">
                                                                         <path
@@ -278,28 +277,14 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-
                                                         <!-- Modal content -->
-                                                        <!-- Your existing modal content -->
-
-                                                        <!-- Video Player -->
                                                         <div class="px-5 py-4">
-                                                            {{--                                                            <h4 class="text-xl mb-4">Live Stream</h4>--}}
-
-{{--                                                                <video style="width: 550px; height: 500px;"--}}
-{{--                                                                       id="remote-video-container" autoplay playsinline--}}
-{{--                                                                       controls></video>--}}
-                                                                {{--                                                                <div id="remote-video-container"--}}
-                                                                {{--                                                                     style="width: 100%; height: 100vh;"></div>--}}
-                                                                <div id="app"></div>
-
+                                                            <div id="app"></div>
                                                         </div>
-
-                                                        <!-- Modal footer -->
-                                                        <!-- Your existing modal footer -->
                                                     </div>
                                                 </div>
                                             </div>
+
                                         @elseif ($product->auction->auction_status == "Closed")
                                             <button class="text-slate-400 hover:text-slate-500 rounded-full"
                                                     wire:click="view({{ $product->id }})">
@@ -350,9 +335,8 @@
     </div>
 
 
-
-
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{{asset('/js/ZegoExpressWebRTC-3.0.0.js')}}"></script>
@@ -398,82 +382,166 @@
 {{--    }--}}
 {{--</script>--}}
 
+
 <script>
-    function getVideo(productId) {
-        $.ajax({
-            url: '/zego/' + productId,
-            type: 'GET',
-            contentType: 'application/json',
-            success: function (data) {
-                // console.log('Ajax response:', data);
+    window.modalController = function () {
+        return {
+            zegoInstance: null, // Initialize Zego instance variable
+            rejectModalOpen: false, // Initialize modal state
 
-                const appID = data.appID;
-                const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";
-                const zg = new ZegoExpressEngine(appID, server);
+            handleCloseClick() {
+                if (this.zegoInstance) {
+                    // Leave Zego room and destroy the instance
 
-                async function loginRoom() {
-                    const roomID = data.roomID;
-                    // const roomID ='1362';
-                    const token = data.token;
-                    const userID = data.userID;
-                    const userName = 'co-host';
-                    // const result = await zg.loginRoom(roomID, token, {userID, userName}, {userUpdate: true});
-                    const streamID = roomID + '_' + '200' + '_main';
+                    this.zegoInstance.destroy();
+                    this.zegoInstance = null;
+                    // Close the modal
+                    this.rejectModalOpen = false;
 
-                    // const streamID = '1357_200_main';
-
-                    const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
-                        1553886775,
-                        token,
-                        roomID,
-                        userID,
-                        userName
-                    );
-
-                    const zp = ZegoUIKitPrebuilt.create(KitToken);
-                    const appDiv = document.getElementById('app');
-
-                    let role = 'Host';
-
-                    zp.joinRoom({
-                        container: appDiv,
-                        branding: {
-                            logoURL:
-                                'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',
-                        },
-                        scenario: {
-                            mode: ZegoUIKitPrebuilt.LiveStreaming,
-                            config: {
-                                role,
-                                roomID,
-                                video:false,
-                                audio:false,
-                            },
-                        },
-                        // sharedLinks,
-                        onLeaveRoom: () => {
-                            // do  something
-                        },
-                        showUserList: true,
-                    });
-
-                    // const remoteVideo = document.getElementById('remote-video-container');
-                    // remoteVideo.srcObject = await zg.startPlayingStream(streamID);
-
-
+                } else {
+                    // Close the modal if Zego instance doesn't exist
+                    this.rejectModalOpen = false;
                 }
-
-
-                loginRoom();
             },
-            error: function (error) {
-                console.error('Ajax error:', error);
+
+            getVideo(productId) {
+                $.ajax({
+                    url: '/zego/' + productId,
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: (data) => {
+                        const appID = data.appID;
+                        const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";
+                        const zg = new ZegoExpressEngine(appID, server);
+
+                        const roomID = data.roomID;
+                        const token = data.token;
+                        const userID = data.userID;
+                        const userName = data.userName;
+                        const streamID = roomID + '_' + '200' + '_main';
+
+                        const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(
+                            1553886775,
+                            token,
+                            roomID,
+                            userID,
+                            userName
+                        );
+
+                        const zp = ZegoUIKitPrebuilt.create(KitToken);
+                        const appDiv = document.getElementById('app');
+
+                        let role = 'Cohost';
+
+                        zp.joinRoom({
+                            container: appDiv,
+                            branding: {
+                                logoURL: 'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',
+                            },
+                            scenario: {
+                                mode: ZegoUIKitPrebuilt.LiveStreaming,
+                                config: {
+                                    role,
+                                    roomID,
+                                    camera: false,
+                                    audio: false,
+                                },
+                            },
+                            onLeaveRoom: () => {
+                                // do something if needed
+                            },
+                            showUserList: true,
+                        });
+
+                        this.zegoInstance = zp; // Store the Zego instance
+                        // Open the modal
+                        this.rejectModalOpen = true;
+                    },
+                    error: (error) => {
+                        console.error('Ajax error:', error);
+                    }
+                });
             }
-        });
-    }
-
-
+        };
+    };
 </script>
+
+{{--<script>--}}
+{{--    let zegoInstance = null;--}}
+
+{{--    function handleCloseClick() {--}}
+{{--        if (zegoInstance) {--}}
+{{--            zegoInstance.destroy();--}}
+{{--            zegoInstance = null;--}}
+{{--        }--}}
+{{--       window.livewire.emitTo('rejectModalOpen', false);--}}
+{{--    }--}}
+
+{{--    function getVideo(productId) {--}}
+{{--        $.ajax({--}}
+{{--            url: '/zego/' + productId,--}}
+{{--            type: 'GET',--}}
+{{--            contentType: 'application/json',--}}
+{{--            success: function (data) {--}}
+{{--                const appID = data.appID;--}}
+{{--                const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";--}}
+{{--                const zg = new ZegoExpressEngine(appID, server);--}}
+
+{{--                async function loginRoom() {--}}
+{{--                    const roomID = data.roomID;--}}
+{{--                    const token = data.token;--}}
+{{--                    const userID = data.userID;--}}
+{{--                    const userName = 'co-host';--}}
+{{--                    const streamID = roomID + '_' + '200' + '_main';--}}
+
+{{--                    const KitToken = ZegoUIKitPrebuilt.generateKitTokenForProduction(--}}
+{{--                        1553886775,--}}
+{{--                        token,--}}
+{{--                        roomID,--}}
+{{--                        userID,--}}
+{{--                        userName--}}
+{{--                    );--}}
+
+{{--                    const zp = ZegoUIKitPrebuilt.create(KitToken);--}}
+{{--                    const appDiv = document.getElementById('app');--}}
+
+{{--                    let role = 'Host';--}}
+
+{{--                    zp.joinRoom({--}}
+{{--                        container: appDiv,--}}
+{{--                        branding: {--}}
+{{--                            logoURL:--}}
+{{--                                'https://www.zegocloud.com/_nuxt/img/zegocloud_logo_white.ddbab9f.png',--}}
+{{--                        },--}}
+{{--                        scenario: {--}}
+{{--                            mode: ZegoUIKitPrebuilt.LiveStreaming,--}}
+{{--                            config: {--}}
+{{--                                role,--}}
+{{--                                roomID,--}}
+{{--                                video: false,--}}
+{{--                                audio: false,--}}
+{{--                            },--}}
+{{--                        },--}}
+{{--                        onLeaveRoom: () => {--}}
+{{--                            rejectModalOpen = false; // Close the modal when leaving the room--}}
+{{--                        },--}}
+{{--                        showUserList: true,--}}
+{{--                    });--}}
+
+{{--                    zegoInstance = zp; // Store the Zego instance--}}
+{{--                }--}}
+
+{{--                window.Alpine.store('rejectModalOpen', true); // Open the modal--}}
+
+
+{{--                loginRoom();--}}
+{{--            },--}}
+{{--            error: function (error) {--}}
+{{--                console.error('Ajax error:', error);--}}
+{{--            }--}}
+{{--        });--}}
+{{--    }--}}
+{{--</script>--}}
 
 {{--<div id="app"></div>--}}
 

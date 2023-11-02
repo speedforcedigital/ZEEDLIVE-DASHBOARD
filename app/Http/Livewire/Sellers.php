@@ -14,7 +14,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class Sellers extends Component
 {
     public $filterSeller = null;
-    public $filterType = '';
+    public $filterType = 'all';
     public $search = '';
     protected $listeners = ['openUserView' => 'openUserView'];
 

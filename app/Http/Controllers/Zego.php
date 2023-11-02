@@ -21,11 +21,13 @@ class Zego extends Controller
             $generatedToken = $token->code;
         }
         $roomID = $productID;
+        $userName = auth()->user()->name;
         $data = [
             'token' => $generatedToken,
             'roomID' => $roomID,
             'userID' => $userId,
             'appID' => $appId,
+            'userName' => $userName,
         ];
         return response()->json($data);
     }
