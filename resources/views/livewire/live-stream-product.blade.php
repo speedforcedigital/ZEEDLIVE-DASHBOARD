@@ -408,7 +408,7 @@
         // Data to be sent in the request
         let requestData = {
             start_stream: 'NO',
-            lot_id: 1368
+            lot_id: product_id
         };
 
         $.ajax({
