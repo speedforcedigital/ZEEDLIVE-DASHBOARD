@@ -216,12 +216,12 @@ foreach ($permissions as $item) {
                                                     class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                                     <div class="flex justify-end">
                                                         <button
-                                                            class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2"
+                                                            class="btn-sm bg-gray-600 hover:bg-gray-700 text-white mr-2"
                                                             @click="acceptModalOpen = false">
                                                             Cancel
                                                         </button>
                                                         <button
-                                                            class="btn-sm bg-red-500 hover:bg-red-600 text-white"
+                                                            class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
                                                             wire:click="accept({{ $offer['offer_id'] }})">
                                                             Accept
                                                         </button>
@@ -243,13 +243,15 @@ foreach ($permissions as $item) {
                                     {{--                            </button>--}}
                                 @endif
                                 @if($offer["is_accepted"] == true)
-                                        <div x-data="{ rejectModalOpen: @entangle('rejectModalOpen'), collectionsCount: @entangle('collectionsCount') }">
+                                    <div
+                                        x-data="{ rejectModalOpen: @entangle('rejectModalOpen'), collectionsCount: @entangle('collectionsCount') }">
 
                                         <div class="flex items-center">
                                             <!-- Enable Button -->
-                                            <button class="btn border-slate-200 hover:border-slate-300" @click="rejectModalOpen = true">
+                                            <button class="btn border-slate-200 hover:border-slate-300"
+                                                    @click="rejectModalOpen = true">
 
-                                            <span class="sr-only">Reject</span>
+                                                <span class="sr-only">Reject</span>
                                                 <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"
                                                      viewBox="0 0 16 16">
                                                     <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor"
@@ -268,20 +270,21 @@ foreach ($permissions as $item) {
                                         </div>
 
                                         <!-- Modal overlay -->
-                                            <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                                 x-show="rejectModalOpen"
-                                                 x-transition:enter="transition ease-out duration-200"
-                                                 x-transition:enter-start="opacity-0"
-                                                 x-transition:enter-end="opacity-100"
-                                                 x-transition:leave="transition ease-out duration-100"
-                                                 x-transition:leave-start="opacity-100"
-                                                 x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+                                        <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                             x-show="rejectModalOpen"
+                                             x-transition:enter="transition ease-out duration-200"
+                                             x-transition:enter-start="opacity-0"
+                                             x-transition:enter-end="opacity-100"
+                                             x-transition:leave="transition ease-out duration-100"
+                                             x-transition:leave-start="opacity-100"
+                                             x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
                                         <!-- Delete Category Modal Dialog -->
-                                            <div class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                                                 role="dialog"
-                                                 aria-modal="true"
-                                                 x-show="rejectModalOpen"
+                                        <div
+                                            class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                            role="dialog"
+                                            aria-modal="true"
+                                            x-show="rejectModalOpen"
                                             x-transition:enter="transition ease-in-out duration-200"
                                             x-transition:enter-start="opacity-0 translate-y-4"
                                             x-transition:enter-end="opacity-100 translate-y-0"
@@ -328,12 +331,12 @@ foreach ($permissions as $item) {
                                                     class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                                     <div class="flex justify-end">
                                                         <button
-                                                            class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2"
+                                                            class="btn-sm bg-gray-600 hover:bg-gray-700 text-white mr-2"
                                                             @click="rejectModalOpen = false">
                                                             Cancel
                                                         </button>
                                                         <button
-                                                            class="btn-sm bg-red-500 hover:bg-red-600 text-white"
+                                                            class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
                                                             wire:click="reject({{ $offer['offer_id'] }})">
                                                             Reject
                                                         </button>

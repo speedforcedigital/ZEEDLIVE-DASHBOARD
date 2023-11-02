@@ -93,9 +93,8 @@ class Users extends Component
     public function delete($id)
     {
         User::destroy($id);
-        $message = 'User Deleted Sucessfully.';
-        session()->flash('message', $message);
-        return redirect()->route("users");
+        $message = 'User Deleted Successfully.';
+        return redirect()->route('users')->with('message', $message);
 
     }
 

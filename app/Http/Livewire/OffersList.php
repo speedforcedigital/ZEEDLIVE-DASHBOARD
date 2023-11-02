@@ -66,7 +66,7 @@ class OffersList extends Component
         // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
         $offer->is_accepted = false;
         $offer->save();
-        $message = 'Offer Rejected Sucessfully.';
+        $message = 'Offer Rejected Successfully.';
         return redirect()->route('offers')->with('message', $message);
 
 //        session()->flash('message', $message);

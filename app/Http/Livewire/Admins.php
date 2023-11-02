@@ -51,8 +51,8 @@ class Admins extends Component
         $user = User::where("id", $id)->first();
         $user->is_deleted = 1;
         $user->save();
-        $message = 'User Deleted Sucessfully.';
-        session()->flash('message', $message);
+        $message = 'Admin Deleted Successfully.';
+        return redirect()->route('admins')->with('message', $message);
 //        $url = baseUrl() . "delete/user/" . $id;
 //        $data = makeCurlRequest($url, 'DELETE');
 ////        dd($data);

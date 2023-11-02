@@ -212,12 +212,12 @@
                                                         class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                                         <div class="flex justify-end">
                                                             <button
-                                                                class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2"
+                                                                class="btn-sm bg-gray-600 hover:bg-gray-700 text-white mr-2"
                                                                 @click="deleteModalOpen2 = false">
                                                                 Cancel
                                                             </button>
                                                             <button
-                                                                class="btn-sm bg-red-500 hover:bg-red-600 text-white"
+                                                                class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
                                                                 wire:click="remove({{ $collection->id }})">
                                                                 Disable
                                                             </button>
@@ -322,12 +322,12 @@
                                                         class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                                         <div class="flex justify-end">
                                                             <button
-                                                                class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2"
+                                                                class="btn-sm bg-gray-600 hover:bg-gray-700 text-white mr-2"
                                                                 @click="deleteModalOpen2 = false">
                                                                 Cancel
                                                             </button>
                                                             <button
-                                                                class="btn-sm bg-red-500 hover:bg-red-600 text-white"
+                                                                class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
                                                                 wire:click="enable({{ $collection->id }})">
                                                                 Enable
                                                             </button>

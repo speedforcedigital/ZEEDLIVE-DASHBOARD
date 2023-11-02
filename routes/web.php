@@ -71,7 +71,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/offers', OffersList::class)->name("offers");
     Route::get('/custom/fields', customFields::class);
     Route::get('/global/fields', globalFields::class);
-    Route::get('/admins', Admins::class);
+    Route::get('/admins', Admins::class)->name("admins");
     Route::get('/roles', Roles::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
