@@ -205,7 +205,7 @@ foreach ($permissionsArray as $item) {
                                                     class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                                     <div class="flex justify-end">
                                                         <button
-                                                            class="btn-sm bg-gray-600 hover:bg-gray-700 text-white mr-2"
+                                                            class="btn-sm bg-gray-500 hover:bg-gray-700 text-white mr-2"
                                                             @click="deleteModalOpen2 = false">
                                                             Cancel
                                                         </button>
