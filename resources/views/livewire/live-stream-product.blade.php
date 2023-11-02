@@ -473,7 +473,7 @@
                         const zp = ZegoUIKitPrebuilt.create(KitToken);
                         const appDiv = document.getElementById('app');
 
-                        let role = 'Cohost';
+                        let role = 'Host';
 
                         zp.joinRoom({
                             container: appDiv,
