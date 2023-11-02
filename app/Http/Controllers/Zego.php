@@ -11,7 +11,7 @@ class Zego extends Controller
     {
 //        dd(auth()->user()->id);
         $appId = 1553886775;
-        $userId = '195';
+        $userId = (string) auth()->user()->id;
         $secret = 'bf3920cbebff1db853578528c76f16aa';
         $payload = '';
         $token = ZegoServerAssistant::generateToken04($appId, $userId, $secret, 3600, $payload);
