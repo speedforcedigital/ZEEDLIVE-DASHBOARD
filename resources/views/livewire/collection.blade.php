@@ -215,6 +215,8 @@
                                                                 class="btn-sm bg-gray-600 hover:bg-gray-700 text-white mr-2"
                                                                 @click="deleteModalOpen2 = false">
                                                                 Cancel
+
+
                                                             </button>
                                                             <button
                                                                 class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
