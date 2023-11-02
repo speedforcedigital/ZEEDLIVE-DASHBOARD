@@ -103,4 +103,18 @@ class LiveStreamProduct extends Component
         $this->filter = $type;
         $this->selected = $type;
     }
+
+    public function endLiveStream($streamId)
+    {
+        $lot = Lot::where('id', $streamId)->first();
+//        dd($lot);
+        if ($lot) {
+            $lot->is_live = 0;
+            $message = $lot->title . ' live stream ended.';
+            $lot->auction->auction_status = "Closed";
+            $lot->auction->save();
+            $lot->save();
+            return redirect()->route('livestream.products')->with('message', $message);
+        }
+    }
 }

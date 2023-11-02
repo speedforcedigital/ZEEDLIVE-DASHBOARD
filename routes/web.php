@@ -42,6 +42,8 @@ Route::get('/json-data-feed', [DashboardController::class, 'getDataFeed'])->name
 Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
+
+    Route::get('/end/livestream/{streamId}', [LiveStreamProduct::class, 'endLiveStream']);
     Route::get('/users', Users::class)->name("users");
 
     Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);

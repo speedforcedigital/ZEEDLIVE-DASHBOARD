@@ -266,6 +266,20 @@
                                                                     class="font-semibold text-slate-800 dark:text-slate-100">
                                                                     Live Stream
                                                                 </div>
+
+                                                                <!-- end livestream button -->
+                                                                {{--                                                                <button--}}
+                                                                {{--                                                                    class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md"--}}
+                                                                {{--                                                                   onclick="window.location.href = '/end/livestream/{{ $product->id }}'">--}}
+                                                                {{--                                                                    End Stream--}}
+                                                                {{--                                                                </button>--}}
+
+                                                                <button
+                                                                    class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md"
+                                                                    onclick="endLivestream({{ $product->id }})">
+                                                                    End Stream
+                                                                </button>
+
                                                                 <button
                                                                     class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
                                                                     @click="handleCloseClick">
@@ -279,7 +293,10 @@
                                                         </div>
                                                         <!-- Modal content -->
                                                         <div class="px-5 py-4">
-                                                            <div id="app"></div>
+                                                            <div id="app">
+
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -384,6 +401,30 @@
 
 
 <script>
+
+    function endLivestream(product_id) {
+        let apiUrl = 'https://api.zeedlive.com/api/v1/isStreamStart';
+
+        // Data to be sent in the request
+        let requestData = {
+            start_stream: 'NO',
+            lot_id: product_id
+        };
+
+        $.ajax({
+            url: apiUrl,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
     window.modalController = function () {
         return {
             zegoInstance: null, // Initialize Zego instance variable
@@ -415,6 +456,7 @@
                         const zg = new ZegoExpressEngine(appID, server);
 
                         const roomID = data.roomID;
+                        // const roomID = '1367';
                         const token = data.token;
                         const userID = data.userID;
                         const userName = data.userName;
@@ -443,14 +485,14 @@
                                 config: {
                                     role,
                                     roomID,
-                                    camera: false,
-                                    audio: false,
                                 },
                             },
                             onLeaveRoom: () => {
                                 // do something if needed
                             },
                             showUserList: true,
+                            turnOnCameraWhenJoining: false,
+                            turnOnMicrophoneWhenJoining: false,
                         });
 
                         this.zegoInstance = zp; // Store the Zego instance
