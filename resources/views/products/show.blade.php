@@ -8,7 +8,7 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            @if($lot->image != null)
+                            @if($lot->image !== null)
                             <img src="{{ asset('images/product/images/' . $lot->image)  }}" alt="Product Image" class="w-full h-auto rounded-lg shadow-lg">
                             @endif
                         </div>
