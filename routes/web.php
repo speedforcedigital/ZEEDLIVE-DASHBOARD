@@ -43,7 +43,6 @@ Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
 
-    Route::get('/end/livestream/{streamId}', [LiveStreamProduct::class, 'endLiveStream']);
     Route::get('/users', Users::class)->name("users");
 
     Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);
@@ -88,4 +87,6 @@ Route::group(['middleware' => 'protected'], function () {
     });
 
     Route::get('/zego/{productID}',[\App\Http\Controllers\Zego::class,'getToken']);
+    Route::get('/get/signature/{productID}', [\App\Http\Controllers\Zego::class, 'getSignature']);
+
 });

@@ -402,28 +402,6 @@
 
 <script>
 
-    function endLivestream(product_id) {
-        let apiUrl = 'https://api.zeedlive.com/api/v1/isStreamStart';
-
-        // Data to be sent in the request
-        let requestData = {
-            start_stream: 'NO',
-            lot_id: product_id
-        };
-
-        $.ajax({
-            url: apiUrl,
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(requestData),
-            success: function(data) {
-                console.log(data);
-            },
-            error: function(error) {
-                console.error('Error:', error);
-            }
-        });
-    }
 
     window.modalController = function () {
         return {
@@ -455,8 +433,8 @@
                         const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";
                         const zg = new ZegoExpressEngine(appID, server);
 
-                        const roomID = data.roomID;
-                        // const roomID = '1367';
+                        // const roomID = data.roomID;
+                        const roomID = '1367';
                         const token = data.token;
                         const userID = data.userID;
                         const userName = data.userName;
@@ -506,6 +484,57 @@
             }
         };
     };
+
+    function getSignature(callback, product_id) {
+        $.ajax({
+            url: '/get/signature/' + product_id,
+            type: 'GET',
+            contentType: 'application/json',
+            success: function (data) {
+                // console.log('data',data);
+                callback(data.signatureNonce, data.signature);
+            },
+            error: function (error) {
+                console.error('Ajax error:', error);
+                callback(null, null, null);
+            }
+        });
+    }
+
+
+    function endLivestream(product_id) {
+        let apiUrl = 'https://rtc-api.zego.im/';
+        let timestamp = Math.floor(Date.now() / 1000);
+        let time = timestamp.toString();
+
+        getSignature(function (signatureNonce, signature) {
+            if (signatureNonce !== null) {
+                let requestData = {
+                    Action: 'CloseRoom',
+                    RoomId: '1367',
+                    AppId: '1553886775',
+                    SignatureVersion: '2.0',
+                    Timestamp: time,
+                    SignatureNonce: signatureNonce,
+                    Signature: signature
+                };
+
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    data: requestData,
+                    success: function (data) {
+                        // console.log(data);
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                    }
+                });
+            } else {
+                console.error('Unable to get signature nonce.');
+            }
+        }, product_id);
+    }
 </script>
 
 {{--<script>--}}
