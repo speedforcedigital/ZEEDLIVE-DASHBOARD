@@ -433,8 +433,8 @@
                         const server = "wss://webliveroom1553886775-api.coolzcloud.com/ws";
                         const zg = new ZegoExpressEngine(appID, server);
 
-                        // const roomID = data.roomID;
-                        const roomID = '1367';
+                        const roomID = data.roomID;
+                        // const roomID = '1367';
                         const token = data.token;
                         const userID = data.userID;
                         const userName = data.userName;
@@ -511,7 +511,7 @@
             if (signatureNonce !== null) {
                 let requestData = {
                     Action: 'CloseRoom',
-                    RoomId: '1367',
+                    RoomId: product_id.toString(),
                     AppId: '1553886775',
                     SignatureVersion: '2.0',
                     Timestamp: time,
