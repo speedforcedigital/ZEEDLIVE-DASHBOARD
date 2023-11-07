@@ -43,9 +43,9 @@ class Zego extends Controller
         $signatureNonce = Str::random(16); // Generate a random string of 16 characters
 
         $str = $appId . $signatureNonce . $serverSecret . $timestamp;
+        dd($str);
         $signature = md5($str);
         dd($signature);
-
         return [
             'signatureNonce' => $signatureNonce,
             'signature' => $signature,
