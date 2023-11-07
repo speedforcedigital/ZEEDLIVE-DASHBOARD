@@ -44,6 +44,7 @@ class Zego extends Controller
 
         $str = $appId . $signatureNonce . $serverSecret . $timestamp;
         $signature = md5($str);
+        dd($signature);
 
         return [
             'signatureNonce' => $signatureNonce,
