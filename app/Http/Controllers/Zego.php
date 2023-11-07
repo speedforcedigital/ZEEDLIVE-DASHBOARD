@@ -56,7 +56,8 @@ class Zego extends Controller
 
         $appId = 1553886775;
         $serverSecret = "bf3920cbebff1db853578528c76f16aa";
-        $timestamp = time();
+        $timestamp = now()->setTimezone('Asia/Kuwait')->timestamp;
+//        dd($timestamp);
 
         $signatureData = $this->generateSignature($appId, $serverSecret, $timestamp);
         $signatureNonce = $signatureData['signatureNonce'];
@@ -74,6 +75,7 @@ class Zego extends Controller
         return response()->json([
             'signature' => $signature,
             'signatureNonce' => $signatureNonce,
+            'timestamp' => $timestamp,
         ], 200);
 
     }

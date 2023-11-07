@@ -492,7 +492,7 @@
             contentType: 'application/json',
             success: function (data) {
                 // console.log('data',data);
-                callback(data.signatureNonce, data.signature);
+                callback(data.signatureNonce, data.signature,data.timestamp);
             },
             error: function (error) {
                 console.error('Ajax error:', error);
@@ -504,17 +504,17 @@
 
     function endLivestream(product_id) {
         let apiUrl = 'https://rtc-api.zego.im/';
-        let timestamp = Math.floor(Date.now() / 1000);
-        let time = timestamp.toString();
+        // let timestamp = Math.floor(Date.now() / 1000);
+        // let time = timestamp.toString();
 
-        getSignature(function (signatureNonce, signature) {
+        getSignature(function (signatureNonce, signature,timestamp) {
             if (signatureNonce !== null) {
                 let requestData = {
                     Action: 'CloseRoom',
                     RoomId: product_id.toString(),
                     AppId: '1553886775',
                     SignatureVersion: '2.0',
-                    Timestamp: time,
+                    Timestamp: timestamp,
                     SignatureNonce: signatureNonce,
                     Signature: signature
                 };
