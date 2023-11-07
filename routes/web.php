@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RolesController;
 use App\Http\Livewire\Orders;
+use App\Http\Livewire\ReportedOrders;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Admins;
@@ -58,6 +59,9 @@ Route::group(['middleware' => 'protected'], function () {
 
     Route::get('/brands', Brands::class);
     Route::get('/orders', Orders::class);
+    //reported orders
+    Route::get('/reported/orders', ReportedOrders::class);
+
     Route::get('/wallets', Wallets::class)->name('wallet.index');
     Route::get('/collections', Collection::class)->name("collections.index");
     Route::get('/models', Models::class);

@@ -274,11 +274,6 @@
                                                                 {{--                                                                    End Stream--}}
                                                                 {{--                                                                </button>--}}
 
-                                                                <button
-                                                                    class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md"
-                                                                    onclick="endLivestream({{ $product->id }})">
-                                                                    End Stream
-                                                                </button>
 
                                                                 <button
                                                                     class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
@@ -292,11 +287,18 @@
                                                             </div>
                                                         </div>
                                                         <!-- Modal content -->
-                                                        <div class="px-5 py-4">
+                                                        <div class="px-5 py-4" style="background: #1C1F2E">
+                                                            <button
+                                                                x-show="endButton"
+                                                                class="bg-red-500 text-white hover:bg-red-600 px-2 py-1 rounded-md"
+                                                                id="endBtn"
+                                                                onclick="endLivestream({{ $product->id }})">
+                                                                End Stream
+                                                            </button>
                                                             <div id="app">
 
-
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -407,6 +409,7 @@
         return {
             zegoInstance: null, // Initialize Zego instance variable
             rejectModalOpen: false, // Initialize modal state
+            endButton: false,
 
             handleCloseClick() {
                 if (this.zegoInstance) {
@@ -451,7 +454,7 @@
                         const zp = ZegoUIKitPrebuilt.create(KitToken);
                         const appDiv = document.getElementById('app');
 
-                        let role = 'Host';
+                        let role = 'Cohost';
 
                         zp.joinRoom({
                             container: appDiv,
@@ -466,11 +469,22 @@
                                 },
                             },
                             onLeaveRoom: () => {
-                                // do something if needed
+                                this.endButton = false;
+
                             },
                             showUserList: true,
                             turnOnCameraWhenJoining: false,
                             turnOnMicrophoneWhenJoining: false,
+                            onJoinRoom: () => {
+                                // const endButton = document.getElementById('endBtn')
+                                // endButton.style.display = 'block';
+                                // endButton.style.top = '20%';  // Adjust the top position as needed
+                                // endButton.style.right = '20%';
+                                this.endButton = true;
+
+                            },
+                            // showPreJoinView: false
+
                         });
 
                         this.zegoInstance = zp; // Store the Zego instance
@@ -481,8 +495,11 @@
                         console.error('Ajax error:', error);
                     }
                 });
-            }
+            },
+
         };
+
+
     };
 
     function getSignature(callback, product_id) {
@@ -492,7 +509,7 @@
             contentType: 'application/json',
             success: function (data) {
                 // console.log('data',data);
-                callback(data.signatureNonce, data.signature,data.timestamp);
+                callback(data.signatureNonce, data.signature, data.timestamp);
             },
             error: function (error) {
                 console.error('Ajax error:', error);
@@ -507,7 +524,7 @@
         // let timestamp = Math.floor(Date.now() / 1000);
         // let time = timestamp.toString();
 
-        getSignature(function (signatureNonce, signature,timestamp) {
+        getSignature(function (signatureNonce, signature, timestamp) {
             if (signatureNonce !== null) {
                 let requestData = {
                     Action: 'CloseRoom',

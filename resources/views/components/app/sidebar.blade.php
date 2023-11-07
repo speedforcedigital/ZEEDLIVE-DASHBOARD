@@ -204,6 +204,20 @@ if (is_array($permissionsArray)) {
                             </div>
                         </a>
                     </li>
+
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0">
+                            <a class="block text-slate-200 hover:text-white truncate transition duration-150" href="/reported/orders">
+                                <div class="flex items-center justify-between">
+                                    <div class="grow flex items-center">
+                                        <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                            <circle class="fill-current @if(in_array(Request::segment(1), ['reported/orders'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif" cx="16" cy="8" r="8" />
+                                            <circle class="fill-current @if(in_array(Request::segment(1), ['reported/orders'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif" cx="8" cy="16" r="8" />
+                                        </svg>
+                                        <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Reported Orders</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     @endif
                     <!-- Dynamic Fields -->
                     @if(in_array('Custom Field', $keys) || in_array('Global Field', $keys))

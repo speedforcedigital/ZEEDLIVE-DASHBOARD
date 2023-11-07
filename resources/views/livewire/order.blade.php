@@ -92,6 +92,7 @@
                     <!-- Row -->
                     <?php $perPage = 10; $startingPoint = (($orders->currentPage() - 1) * $perPage) + 1; ?>
                     @foreach($orders as $order)
+{{--                        {{dd($orders)}}--}}
 
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -99,15 +100,17 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="font-medium text-slate-800"><a
+                                    <div class="font-medium text-slate-800">
+                                        <a
                                             href="{{route('user.show',$order->seller->id)}}"> {{$order->seller->name}}</a>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="font-medium text-slate-800"><a
-                                            href="{{route('user.show',$order->customer->id)}}">{{$order->customer->name}} </a>
+                                    <div class="font-medium text-slate-800">
+                                        <a
+                                            href="{{route('user.show',$order->customer->id )}}">{{$order->customer->name }} </a>
                                     </div>
                                 </div>
                             </td>
