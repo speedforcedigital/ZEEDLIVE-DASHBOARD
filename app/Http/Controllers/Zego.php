@@ -43,9 +43,7 @@ class Zego extends Controller
         $signatureNonce = Str::random(16); // Generate a random string of 16 characters
 
         $str = $appId . $signatureNonce . $serverSecret . $timestamp;
-        dd($str);
         $signature = md5($str);
-        dd($signature);
         return [
             'signatureNonce' => $signatureNonce,
             'signature' => $signature,
@@ -66,12 +64,12 @@ class Zego extends Controller
 
         $streamId = $productID;
         $lot = Lot::where('id', $streamId)->first();
-        if ($lot) {
-            $lot->is_live = 0;
-            $lot->auction->auction_status = "Closed";
-            $lot->auction->save();
-            $lot->save();
-        }
+//        if ($lot) {
+//            $lot->is_live = 0;
+//            $lot->auction->auction_status = "Closed";
+//            $lot->auction->save();
+//            $lot->save();
+//        }
 
         return response()->json([
             'signature' => $signature,

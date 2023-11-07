@@ -519,6 +519,8 @@
                     Signature: signature
                 };
 
+                console.log('requestData', requestData);
+
                 $.ajax({
                     url: apiUrl,
                     type: 'GET',
