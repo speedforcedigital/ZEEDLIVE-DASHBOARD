@@ -7,7 +7,7 @@
             Live Auctions
         </h2>
         <div class="text-xs font-semibold text-gray-400 uppercase mb-1 text-center">Total Live Auctions</div>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center mb-2">
             <div class="text-3xl font-bold text-white">{{$data["totalLiveAuctions"]}}</div>
         </div>
     </div>
@@ -22,7 +22,7 @@
             Live Streams
         </h2>
         <div class="text-xs font-semibold text-gray-400 uppercase mb-1 text-center">Total Live Streams</div>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center mb-2">
             <div class="text-3xl font-bold text-white">{{$data["totalLiveStreams"]}}</div>
         </div>
     </div>
@@ -36,7 +36,7 @@
             Buy Now Products
         </h2>
         <div class="text-xs font-semibold text-gray-400 uppercase mb-1 text-center">Total Buy Now Products</div>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center mb-2">
             <div class="text-3xl font-bold text-white">{{$data["totalBuyNowProducts"]}}</div>
         </div>
     </div>
