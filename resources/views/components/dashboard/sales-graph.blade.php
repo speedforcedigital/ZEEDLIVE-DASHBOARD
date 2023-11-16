@@ -1,18 +1,57 @@
-<div x-data="{ isOpen: false }"
+
+<!-- Company Commission card -->
+<div
+    class="flex flex-col col-span-full sm:col-span-4 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+    <header class="px-5 py-4 border-b border-slate-100 flex items-center">
+        <h2 class="font-semibold text-slate-800">Company Commission</h2>
+    </header>
+    <div class="px-5 py-3">
+        <div class="text-sm italic mb-2">Total Commission</div>
+        <div class="text-3xl font-bold text-slate-800" id="totalCommissionAmount">Loading...</div>
+    </div>
+    <div class="grow flex flex-col justify-center" >
+        <div>
+            <canvas id="fintech-card-commission" width="389" height="220"></canvas>
+        </div>
+        <div id="fintech-card-commission-legend" class="px-5 py-4">
+            <ul class="flex flex-wrap justify-center -m-1"></ul>
+        </div>
+    </div>
+</div>
+
+<!-- Total Amount card -->
+
+<div
+    class="flex flex-col col-span-full sm:col-span-4 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+    <header class="px-5 py-4 border-b border-slate-100 flex items-center">
+        <h2 class="font-semibold text-slate-800">Total Amount</h2>
+    </header>
+    <div class="px-5 py-3" >
+        <div class="text-sm italic mb-2">Total Sales</div>
+        <div class="text-3xl font-bold text-slate-800" id="totalSalesAmount">Loading...</div>
+    </div>
+    <div class="grow flex flex-col justify-center" >
+        <div>
+            <canvas id="fintech-card-09" width="389" height="220"></canvas>
+        </div>
+        <div id="fintech-card-09-legend" class="px-5 py-4">
+            <ul class="flex flex-wrap justify-center -m-1"></ul>
+        </div>
+    </div>
+</div>
+
+<div
      class="flex flex-col col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4 border-b border-slate-100 flex items-center">
         <h2 class="font-semibold text-slate-800">Sales Report</h2>
-        <button @click="isOpen = !isOpen" class="ml-4 focus:outline-none">
-            <i class="fas fa-eye" x-show="!isOpen"></i>
-            <i class="fas fa-eye-slash" x-show="isOpen"></i>
-        </button>
+
         <div id="scale-buttons" class="ml-4 flex space-x-2">
             <button data-scale="year" class="scale-button">Yearly</button>
             <button data-scale="month" class="scale-button">Monthly</button>
             <button data-scale="day" class="scale-button">Daily</button>
         </div>
     </header>
-    <div class="px-5 py-3" x-show="isOpen">
+    <div class="px-5 py-3" >
         <div class="flex flex-wrap justify-between items-end">
             <div class="flex items-center">
                 <div class="text-3xl font-bold text-slate-800 mr-2" id="totalSales">SAR {{ $totalSales }}</div>
@@ -22,59 +61,95 @@
             </div>
         </div>
     </div>
-    <div class="max-h-[300px] overflow-auto grow" x-show="isOpen">
+    <div class="max-h-[300px] overflow-auto grow" >
         <canvas id="fintech-card-01" width="800" height="300"></canvas>
     </div>
 </div>
 
+{{--<div x-data="{ isOpen: false }"--}}
+{{--     class="flex flex-col col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200">--}}
+{{--    <header class="px-5 py-4 border-b border-slate-100 flex items-center">--}}
+{{--        <h2 class="font-semibold text-slate-800">Sales Report</h2>--}}
+{{--        <button @click="isOpen = !isOpen" class="ml-4 focus:outline-none">--}}
+{{--            <i class="fas fa-eye" x-show="!isOpen"></i>--}}
+{{--            <i class="fas fa-eye-slash" x-show="isOpen"></i>--}}
+{{--        </button>--}}
+{{--        <div id="scale-buttons" class="ml-4 flex space-x-2">--}}
+{{--            <button data-scale="year" class="scale-button">Yearly</button>--}}
+{{--            <button data-scale="month" class="scale-button">Monthly</button>--}}
+{{--            <button data-scale="day" class="scale-button">Daily</button>--}}
+{{--        </div>--}}
+{{--    </header>--}}
+{{--    <div class="px-5 py-3" x-show="isOpen">--}}
+{{--        <div class="flex flex-wrap justify-between items-end">--}}
+{{--            <div class="flex items-center">--}}
+{{--                <div class="text-3xl font-bold text-slate-800 mr-2" id="totalSales">SAR {{ $totalSales }}</div>--}}
+{{--            </div>--}}
+{{--            <div id="fintech-card-01-legend" class="grow ml-2 mb-1">--}}
+{{--                <ul class="flex flex-wrap justify-end"></ul>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <div class="max-h-[300px] overflow-auto grow" x-show="isOpen">--}}
+{{--        <canvas id="fintech-card-01" width="800" height="300"></canvas>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
-<!-- Total Amount card -->
-<div x-data="{ isOpenTotalAmount: false }"
-     class="flex flex-col col-span-full sm:col-span-6 xl:col-span-5 bg-white shadow-lg rounded-sm border border-slate-200">
-    <header class="px-5 py-4 border-b border-slate-100 flex items-center">
-        <h2 class="font-semibold text-slate-800">Total Amount</h2>
-        <button @click="isOpenTotalAmount = !isOpenTotalAmount" class="ml-4 focus:outline-none">
-            <i class="fas fa-eye" x-show="!isOpenTotalAmount"></i>
-            <i class="fas fa-eye-slash" x-show="isOpenTotalAmount"></i>
-        </button>
-    </header>
-    <div class="px-5 py-3" x-show="isOpenTotalAmount">
-        <div class="text-sm italic mb-2">Total Sales</div>
-        <div class="text-3xl font-bold text-slate-800" id="totalSalesAmount">Loading...</div>
-    </div>
-    <div class="grow flex flex-col justify-center">
-        <div x-show="isOpenTotalAmount">
-            <canvas id="fintech-card-09" width="389" height="220"></canvas>
-        </div>
-        <div id="fintech-card-09-legend" class="px-5 py-4" x-show="isOpenTotalAmount">
-            <ul class="flex flex-wrap justify-center -m-1"></ul>
-        </div>
-    </div>
-</div>
 
-<!-- Company Commission card -->
-<div x-data="{ isOpenCommission: false }"
-     class="flex flex-col col-span-full sm:col-span-6 xl:col-span-5 bg-white shadow-lg rounded-sm border border-slate-200">
-    <header class="px-5 py-4 border-b border-slate-100 flex items-center">
-        <h2 class="font-semibold text-slate-800">Company Commission</h2>
-        <button @click="isOpenCommission = !isOpenCommission" class="ml-4 focus:outline-none">
-            <i class="fas fa-eye" x-show="!isOpenCommission"></i>
-            <i class="fas fa-eye-slash" x-show="isOpenCommission"></i>
-        </button>
-    </header>
-    <div class="px-5 py-3" x-show="isOpenCommission">
-        <div class="text-sm italic mb-2">Total Commission</div>
-        <div class="text-3xl font-bold text-slate-800" id="totalCommissionAmount">Loading...</div>
-    </div>
-    <div class="grow flex flex-col justify-center">
-        <div x-show="isOpenCommission">
-            <canvas id="fintech-card-commission" width="389" height="220"></canvas>
-        </div>
-        <div id="fintech-card-commission-legend" class="px-5 py-4" x-show="isOpenCommission">
-            <ul class="flex flex-wrap justify-center -m-1"></ul>
-        </div>
-    </div>
-</div>
+
+
+
+
+{{--<div x-data="{ isOpenCommission: false }"--}}
+{{--     class="flex flex-col col-span-full sm:col-span-4 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">--}}
+{{--    <header class="px-5 py-4 border-b border-slate-100 flex items-center">--}}
+{{--        <h2 class="font-semibold text-slate-800">Company Commission</h2>--}}
+{{--        <button @click="isOpenCommission = !isOpenCommission" class="ml-4 focus:outline-none">--}}
+{{--            <i class="fas fa-eye" x-show="!isOpenCommission"></i>--}}
+{{--            <i class="fas fa-eye-slash" x-show="isOpenCommission"></i>--}}
+{{--        </button>--}}
+{{--    </header>--}}
+{{--    <div class="px-5 py-3" x-show="isOpenCommission">--}}
+{{--        <div class="text-sm italic mb-2">Total Commission</div>--}}
+{{--        <div class="text-3xl font-bold text-slate-800" id="totalCommissionAmount">Loading...</div>--}}
+{{--    </div>--}}
+{{--    <div class="grow flex flex-col justify-center" x-show="isOpenCommission">--}}
+{{--        <div>--}}
+{{--            <canvas id="fintech-card-commission" width="389" height="220"></canvas>--}}
+{{--        </div>--}}
+{{--        <div id="fintech-card-commission-legend" class="px-5 py-4">--}}
+{{--            <ul class="flex flex-wrap justify-center -m-1"></ul>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+
+
+{{--<div x-data="{ isOpenTotalAmount: false }"--}}
+{{--     class="flex flex-col col-span-full sm:col-span-4 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">--}}
+{{--    <header class="px-5 py-4 border-b border-slate-100 flex items-center">--}}
+{{--        <h2 class="font-semibold text-slate-800">Total Amount</h2>--}}
+{{--        <button @click="isOpenTotalAmount = !isOpenTotalAmount" class="ml-4 focus:outline-none">--}}
+{{--            <i class="fas fa-eye" x-show="!isOpenTotalAmount"></i>--}}
+{{--            <i class="fas fa-eye-slash" x-show="isOpenTotalAmount"></i>--}}
+{{--        </button>--}}
+{{--    </header>--}}
+{{--    <div class="px-5 py-3" x-show="isOpenTotalAmount">--}}
+{{--        <div class="text-sm italic mb-2">Total Sales</div>--}}
+{{--        <div class="text-3xl font-bold text-slate-800" id="totalSalesAmount">Loading...</div>--}}
+{{--    </div>--}}
+{{--    <div class="grow flex flex-col justify-center" x-show="isOpenTotalAmount">--}}
+{{--        <div>--}}
+{{--            <canvas id="fintech-card-09" width="389" height="220"></canvas>--}}
+{{--        </div>--}}
+{{--        <div id="fintech-card-09-legend" class="px-5 py-4">--}}
+{{--            <ul class="flex flex-wrap justify-center -m-1"></ul>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
+
+
+
 
 
 <!-- sales modal -->
@@ -159,6 +234,7 @@
 
 
 <script>
+
 
     function displayModal(data) {
         var modal = document.getElementById('myModal');
@@ -255,7 +331,7 @@
 
         const updateChart = (dynamicData) => {
             const chart = new Chart(ctx, {
-                type: 'pie',
+                type: 'bar',
                 data: {
                     labels: ['Buy Now', 'Auctions', 'Live Streams'],
                     datasets: [
@@ -263,31 +339,46 @@
                             label: 'Sale Amount',
                             data: dynamicData,
                             backgroundColor: [
-                                '#34d399',
-                                '#fbbf24',
-                                '#6366f1',
+                                '#4F46E5',
+                                '#4BC9FF',
+                                '#C7D2FE',
                             ],
                             hoverBackgroundColor: [
-                                '#10b981',
-                                '#f59e0b',
-                                '#4f46e5',
+                                '#4F46E5',
+                                '#4BC9FF',
+                                '#C7D2FE',
                             ],
                             borderWidth: 0,
+                            barThickness: 40, // Adjust the value as needed
                         },
                     ],
                 },
                 options: {
                     layout: {
                         padding: {
-                            top: 4,
-                            bottom: 4,
-                            left: 24,
-                            right: 24,
+                            top: 12,
+                            bottom: 16,
+                            left: 20,
+                            right: 20,
+                        },
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false, // Hide x-axis grid lines
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false, // Hide y-axis grid lines
+                            },
                         },
                     },
                     plugins: {
                         legend: {
-                            display: true,
+                            display: false,
                         },
                         htmlLegend: {
                             // ID of the container to put the legend in
@@ -370,28 +461,30 @@
                             label: 'Sale Amount',
                             data: dynamicData,
                             backgroundColor: [
-                                '#34d399',
-                                '#fbbf24',
-                                '#6366f1',
+                                '#4F46E5',
+                                '#4BC9FF',
+                                '#C7D2FE',
                             ],
                             hoverBackgroundColor: [
-                                '#10b981',
-                                '#f59e0b',
-                                '#4f46e5',
+                                '#4F46E5',
+                                '#4BC9FF',
+                                '#C7D2FE',
                             ],
                             borderWidth: 0,
+                            // barThickness: 40, // Adjust the value as needed
                         },
                     ],
                 },
                 options: {
                     layout: {
                         padding: {
-                            top: 4,
-                            bottom: 4,
-                            left: 24,
-                            right: 24,
+                            top: 12,
+                            bottom: 16,
+                            left: 20,
+                            right: 20,
                         },
                     },
+
                     plugins: {
                         legend: {
                             display: true,
@@ -445,6 +538,8 @@
     };
 
     fintechCardCommission();
+
+
 
     function displayModalCommission(data) {
         var modal = document.getElementById('commModal');

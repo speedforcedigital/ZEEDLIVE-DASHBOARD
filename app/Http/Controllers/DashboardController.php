@@ -184,8 +184,8 @@ class DashboardController extends Controller
             $data = $buyNowSalesAmount->map(function ($order) {
                 return [
                     'lot_title' => $order->lot->title,
-                    'buyer_name' => $order->customer->name,
-                    'seller_name' => $order->seller->name,
+                    'buyer_name' => $order->customer->name ?? '',
+                    'seller_name' => $order->seller->name ?? '',
                     'total_amount' => $order->total_amount,
                     'order_id' => $order->order_id ?? 'Null',
                     'id' => $order->lot->id,

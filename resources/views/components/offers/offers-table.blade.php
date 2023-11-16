@@ -70,6 +70,7 @@ foreach ($permissions as $item) {
                 <!-- Row -->
                 <?php $i = 0; ?>
                 @foreach($offers as $offer)
+
                         <?php $i++; ?>
                     <tr>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

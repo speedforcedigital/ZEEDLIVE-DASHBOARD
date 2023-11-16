@@ -11,6 +11,8 @@ Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip);
 
 // A chart built with Chart.js 3
 // https://www.chartjs.org/
+
+//doughnut
 const analyticsCard09 = () => {
   const ctx = document.getElementById('analytics-card-09');
   if (!ctx) return;
@@ -21,12 +23,12 @@ const analyticsCard09 = () => {
     })
     .then(result => {
       const chart = new Chart(ctx, {
-        type: 'doughnut',
+        type: 'line',
         data: {
           labels: result.labels,
           datasets: [
             {
-              label: 'Visit By Age Category',
+              label: 'Users',
               data: result.data,
               backgroundColor: [
                 tailwindConfig().theme.colors.indigo[500],

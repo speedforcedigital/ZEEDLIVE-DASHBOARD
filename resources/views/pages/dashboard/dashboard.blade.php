@@ -30,15 +30,18 @@ if (is_array($permissionsArray)) {
             {{--        </div>--}}
 
             {{-- Auction Metrics --}}
-            <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8 mt-3">Auction Metrics</h1>
-            <div class="grid grid-cols-8 gap-6 mt-4">
+            <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Auction Metrics</h1>
+
+            <div class="grid grid-cols-6 gap-6 mt-4">
                 <x-dashboard.dashboard-card-01 :data="$data"/>
             </div>
-            {{-- Sales Statistics --}}
-            <div class="grid grid-cols-8 gap-6 mt-4 col-span-4 ">
-                <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Sales Analytics</h1>
-                <x-dashboard.sales-graph :totalSales="$totalSales" :data="$data"/>
+
+            <br>
+            <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Bids Metrics</h1>
+            <div class="grid grid-cols-6 gap-6 mt-2">
+                <x-dashboard.bids-stats :data="$data"/>
             </div>
+
             {{-- User Analytics --}}
             <div class="grid grid-cols-8 gap-6 mt-2">
                 <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">User Analytics</h1>
@@ -46,12 +49,12 @@ if (is_array($permissionsArray)) {
                 <x-dashboard.user-gender-graph/>
             </div>
 
-            {{-- Auction Metrics --}}
-            <br>
-            <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Bids Metrics</h1>
-            <div class="grid grid-cols-8 gap-6 mt-2">
-                <x-dashboard.bids-stats :data="$data"/>
+            {{-- Sales Statistics --}}
+            <div class="grid grid-cols-8 gap-6 mt-4">
+                <h1 class="text-xl md:text-2xl text-slate-800 font-bold col-span-8">Sales Analytics</h1>
+                <x-dashboard.sales-graph :totalSales="$totalSales" :data="$data"/>
             </div>
+
         @endif
 
     </div>
