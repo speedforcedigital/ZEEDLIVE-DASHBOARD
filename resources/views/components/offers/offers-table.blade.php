@@ -81,7 +81,9 @@ foreach ($permissions as $item) {
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
                                          src="https://api.zeedlive.com/image/user_profile/{{$offer['user']['accountDetail']['profile_image']}}"
-                                         width="40" height="40" alt="Patricia Semklo">
+                                         alt="Patricia Semklo"
+                                    style="width: 40px; height: 40px;"
+                                    >
                                 </div>
                                 <div class="font-medium text-slate-800"><a
                                         href="{{ route("user.show",$offer['user']['id'] ) }}">{{ $offer['user']['name'] }}</a>
@@ -95,7 +97,9 @@ foreach ($permissions as $item) {
                                     @if(isset($offer['collection']))
                                         <img class="rounded-full"
                                              src="https://api.zeedlive.com/image/collection/{{$offer['collection']['image']}}"
-                                             width="40" height="40" alt="Patricia Semklo">
+                                            alt="Patricia Semklo"
+                                             style="width: 40px; height: 40px;"
+                                        >
                                     @endif
                                 </div>
                                 @if(isset($offer['collection']))
@@ -113,7 +117,9 @@ foreach ($permissions as $item) {
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
                                          src="https://api.zeedlive.com/image/user_profile/{{$offer['receiver']['profile_image']}}"
-                                         width="40" height="40" alt="Patricia Semklo">
+                                         alt="Patricia Semklo"
+                                         style="width: 40px; height: 40px;"
+                                    >
                                 </div>
                                 <div class="font-medium text-slate-800"><a
                                         href="{{ route("user.show",$offer['receiver']['id'] ) }}">{{ $offer['receiver']['name'] }}</a>
