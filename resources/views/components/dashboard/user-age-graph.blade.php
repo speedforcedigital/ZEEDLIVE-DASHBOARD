@@ -9,7 +9,7 @@
             <!-- Change the height attribute to adjust the chart height -->
             <canvas id="analytics-card-9" width="389" height="260"></canvas>
         </div>
-        <div id="analytics-card-09-legend" class="px-5 pt-2 pb-6">
+        <div id="analytics-card-9-legend" class="px-5 pt-2 pb-6">
             <ul class="flex flex-wrap justify-center -m-1"></ul>
         </div>
     </div>
@@ -73,7 +73,7 @@
                         },
                         htmlLegend: {
                             // ID of the container to put the legend in
-                            containerID: 'analytics-card-09-legend',
+                            containerID: 'analytics-card-9-legend',
                         },
                     },
                     interaction: {
