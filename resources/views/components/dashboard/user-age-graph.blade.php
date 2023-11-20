@@ -49,6 +49,20 @@
                     ],
                 },
                 options: {
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: true,
+                            },
+                        },
+                    },
                     cutout: '80%',
                     layout: {
                         padding: 24,
