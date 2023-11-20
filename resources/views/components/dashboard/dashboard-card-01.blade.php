@@ -1,7 +1,11 @@
-<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-gray-600 to-gray-800 shadow-lg rounded-md border border-gray-300">
+{{--<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-gray-600 to-gray-800 shadow-lg rounded-md border border-gray-300">--}}
+<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2  shadow-lg rounded-md border border-gray-300"
+     style="
+    background: linear-gradient(to bottom right,#1f2937, #4b5563);"
+>
     <div class="px-5 pt-5">
         <header class="flex justify-center mb-2">
-            <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01" /></a>
+            <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01"/></a>
         </header>
         <h2 class="text-lg font-semibold text-white text-center mb-2">
             Live Auctions
@@ -13,10 +17,15 @@
     </div>
 </div>
 
-<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-blue-600 to-blue-900 shadow-lg rounded-md border border-gray-300">
+{{--<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-blue-600 to-blue-900 shadow-lg rounded-md border border-gray-300">--}}
+<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 shadow-lg rounded-md border border-gray-300"
+
+     style="
+    background: linear-gradient(to bottom right,#1e3a8a, #2563eb);"
+>
     <div class="px-5 pt-5">
         <header class="flex justify-center mb-2">
-            <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01" /></a>
+            <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01"/></a>
         </header>
         <h2 class="text-lg font-semibold text-white text-center mb-2">
             Live Streams
@@ -27,10 +36,14 @@
         </div>
     </div>
 </div>
-<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-stone-600 to-indigo-900 shadow-lg rounded-md border border-gray-300">
+{{--<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-stone-600 to-indigo-900 shadow-lg rounded-md border border-gray-300">--}}
+<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2  shadow-lg rounded-md border border-gray-300"
+     style="
+    background: linear-gradient(to bottom right,#312e81, #57534e);"
+>
     <div class="px-5 pt-5">
         <header class="flex justify-center mb-2">
-            <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01" /></a>
+            <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01"/></a>
         </header>
         <h2 class="text-lg font-semibold text-white text-center mb-2">
             Buy Now Products

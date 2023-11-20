@@ -1,6 +1,6 @@
 <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2  shadow-lg rounded-md border border-gray-300"
      style="
-    background: linear-gradient(to bottom right, #FFC107, #4F46E5);
+    background: linear-gradient(to bottom right, #78350f, #4F46E5);
 "
 >
     <div class="px-5 pt-5">
@@ -16,8 +16,12 @@
         </div>
     </div>
 </div>
-<div
-    class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-indigo-700 to-gray-900 shadow-lg rounded-md border border-gray-300">
+{{--<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-indigo-700 to-gray-900 shadow-lg rounded-md border border-gray-300">--}}
+<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2  shadow-lg rounded-md border border-gray-300"
+     style="
+    background: linear-gradient(to bottom right, #111827, #4338ca);
+"
+>
     <div class="px-5 pt-5">
         <header class="flex justify-center mb-2">
             <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01"/></a>
@@ -32,8 +36,13 @@
     </div>
 </div>
 
-<div
-    class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-gray-700 to-fuchsia-900 shadow-lg rounded-md border border-gray-300">
+{{--<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2 bg-gradient-to-br from-gray-700 to-fuchsia-900 shadow-lg rounded-md border border-gray-300">--}}
+<div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-2  shadow-lg rounded-md border border-gray-300"
+     style="
+    background: linear-gradient(to bottom right,#701a75, #374151);
+"
+>
+
     <div class="px-5 pt-5">
         <header class="flex justify-center mb-2">
             <a href="/auctions"><img src="{{ asset('images/icon-01.svg') }}" width="32" height="32" alt="Icon 01"/></a>
