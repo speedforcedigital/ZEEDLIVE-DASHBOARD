@@ -7,14 +7,3 @@
     @apply ring-0;
 }
 
-.background-gradient-to-br {
-    background: linear-gradient(to bottom right, #FFC107, #4F46E5);
-}
-
-.from-amber-900 {
-    background-color: #FFC107;
-}
-
-.to-indigo-900 {
-    background-color: #4F46E5;
-}

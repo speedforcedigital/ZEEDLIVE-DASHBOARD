@@ -29,7 +29,7 @@
 
         const updateChart = (result) => {
             const chart = new Chart(ctx, {
-                type: 'line',
+                type: 'polarArea',
                 data: {
                     labels: result.labels,
                     datasets: [
@@ -37,33 +37,22 @@
                             label: 'Users',
                             data: result.data,
                             backgroundColor: [
-                                '#4F46E5',
-                                '#4BC9FF',
+                                'rgba(75, 192, 255, 0.7)',
+                                'rgba(30, 41, 59, 0.7)',
+                                'rgba(255, 200, 61, 0.7)',
+                                'rgba(79, 70, 229, 0.7)',
                             ],
                             hoverBackgroundColor: [
-                                '#4F46E5',
-                                '#4BC9FF',
+
+                                'rgba(75, 192, 255, 1)',
+                                'rgba(30, 41, 59, 1)',
+                                'rgba(255, 200, 61, 1)',
+                                'rgba(79, 70, 229, 1)',
                             ],
-                            // hoverBorderColor: tailwindConfig().theme.colors.white,
                         },
                     ],
                 },
                 options: {
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            grid: {
-                                display: true,
-                            },
-                        },
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                display: true,
-                            },
-                        },
-                    },
-                    cutout: '80%',
                     layout: {
                         padding: 24,
                     },
@@ -71,19 +60,16 @@
                         legend: {
                             display: true,
                         },
-                        htmlLegend: {
-                            // ID of the container to put the legend in
-                            containerID: 'analytics-card-9-legend',
-                        },
                     },
                     interaction: {
                         intersect: false,
                         mode: 'nearest',
                     },
                     animation: {
-                        duration: 200,
+                        duration: 500,
                     },
                     maintainAspectRatio: false,
+                    resizeDelay: 200,
                 },
                 plugins: [{
                     id: 'htmlLegend',
