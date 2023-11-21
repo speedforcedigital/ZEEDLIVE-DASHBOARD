@@ -21,8 +21,8 @@ return new class extends Migration
 
 
     });
-    $faker = Faker::create();
-    DB::table('users')->update(['date_of_birth' => $faker->dateTimeBetween('1960-01-01', '2000-12-31')->format('Y-m-d')]);
+//    $faker = Faker::create();
+//    DB::table('users')->update(['date_of_birth' => $faker->dateTimeBetween('1960-01-01', '2000-12-31')->format('Y-m-d')]);
     }
 
     /**
