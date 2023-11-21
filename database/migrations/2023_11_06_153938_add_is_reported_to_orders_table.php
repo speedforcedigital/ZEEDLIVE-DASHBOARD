@@ -17,7 +17,7 @@ return new class extends Migration
             $table
                 ->boolean('is_reported')
                 ->default(false)
-                ->after('cancel_comment');
+                ->after('description');
         });
     }
 
