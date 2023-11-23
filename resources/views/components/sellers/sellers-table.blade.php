@@ -19,6 +19,11 @@ foreach ($permissions as $item) {
 }
 ?>
 <x-loading-indicater/>
+@if (session()->has('message'))
+    <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md">
+        {{ session('message') }}
+    </div>
+@endif
 <div class="bg-white shadow-lg rounded-sm border border-slate-200">
     <header class="px-5 py-4">
         <h2 class="font-semibold text-slate-800">Sellers <span class="text-slate-400 font-medium">{{ $count }}</span>
@@ -74,7 +79,7 @@ foreach ($permissions as $item) {
                             <div class="flex items-center">
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
-                                         src="https://api.staging.zeedlive.com/image/user_profile/{{$seller['user']['accountDetail']['profile_image']}}"
+                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['user']['accountDetail']['profile_image']}}"
                                          width="40" height="40" alt="Patricia Semklo">
                                 </div>
                                 <div class="font-medium text-slate-800"><a
@@ -88,7 +93,7 @@ foreach ($permissions as $item) {
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                 <img class="rounded-full"
-                                     src="https://api.staging.zeedlive.com/image/seller_verification//{{$seller['document1']}}"
+                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document1']}}"
                                      width="40" height="40" alt="Patricia Semklo">
                             </div>
                         </td>
@@ -96,7 +101,7 @@ foreach ($permissions as $item) {
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                 <img class="rounded-full"
-                                     src="https://api.staging.zeedlive.com/image/seller_verification//{{$seller['document2']}}"
+                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}"
                                      width="40" height="40" alt="Patricia Semklo">
                             </div>
                         </td>
@@ -107,30 +112,257 @@ foreach ($permissions as $item) {
                         </td>
                             @if($this->filterType=='pending' || $this->filterType=='all' && $seller['status']=='Pending')
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="flex space-x-1 items-center">
                                     {{-- @if($verification_capability_exists) --}}
-                                    <button wire:click="approved({{ $seller['id'] }})"
-                                            class="btn border-slate-200 hover:border-slate-300">
-                                        <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
-                                            <path
-                                                d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
-                                        </svg>
-                                    </button>
+{{--                                    <button wire:click="approved({{ $seller['id'] }})"--}}
+{{--                                            class="btn border-slate-200 hover:border-slate-300">--}}
+{{--                                        <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">--}}
+{{--                                            <path--}}
+{{--                                                d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>--}}
+{{--                                        </svg>--}}
+{{--                                    </button>--}}
                                     {{-- @endif --}}
+                                    <div
+                                        x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
+
+                                        <div class="flex items-center">
+                                            <!-- Enable Button -->
+                                            <button class="btn border-slate-200 hover:border-slate-300"
+                                                    @click="acceptModalOpen = true">
+
+                                                <span class="sr-only">disable</span>
+                                                <svg class="w-4 h-4 fill-current text-indigo-500 shrink-0" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>
+                                                </svg>
+                                            </button>
+
+                                            <!-- Eye Button -->
+                                            <button class="text-slate-400 hover:text-slate-500 rounded-full ml-2"
+                                                    @click="/* Add your logic here */">
+                                                <span class="sr-only">View</span>
+                                                <!-- Your eye icon here -->
+                                            </button>
+                                        </div>
+
+                                        <!-- Modal overlay -->
+                                        <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                             x-show="acceptModalOpen"
+                                             x-transition:enter="transition ease-out duration-200"
+                                             x-transition:enter-start="opacity-0"
+                                             x-transition:enter-end="opacity-100"
+                                             x-transition:leave="transition ease-out duration-100"
+                                             x-transition:leave-start="opacity-100"
+                                             x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+
+                                        <!-- Delete Category Modal Dialog -->
+                                        <div
+                                            class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                            role="dialog"
+                                            aria-modal="true"
+                                            x-show="acceptModalOpen"
+                                            x-transition:enter="transition ease-in-out duration-200"
+                                            x-transition:enter-start="opacity-0 translate-y-4"
+                                            x-transition:enter-end="opacity-100 translate-y-0"
+                                            x-transition:leave="transition ease-in-out duration-200"
+                                            x-transition:leave-start="opacity-100 translate-y-0"
+                                            x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true"
+                                            x-cloak>
+                                            <!-- Modal content -->
+                                            <div
+                                                class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
+                                                @click.outside="acceptModalOpen = false"
+                                                @keydown.escape.window="acceptModalOpen = false"
+                                                style="max-width: 640px;">
+                                                <!-- Modal header -->
+                                                <div
+                                                    class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                                    <div class="flex justify-between items-center">
+                                                        <div
+                                                            class="font-semibold text-slate-800 dark:text-slate-100">
+                                                            Accept Seller
+                                                        </div>
+                                                        <button
+                                                            class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
+                                                            @click="acceptModalOpen = false">
+                                                            <div class="sr-only">Close</div>
+                                                            <svg class="w-4 h-4 fill-current">
+                                                                <path
+                                                                    d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z"/>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <!-- Modal content -->
+                                                <div class="px-5 py-4">
+                                                    <div class="text-sm">
+                                                        <div
+                                                            class="font-medium text-slate-800 dark:text-slate-100 mb-3">
+                                                            Are you sure you want to Accept this Seller?
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div
+                                                    class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
+                                                    <div class="flex justify-end">
+                                                        <button
+                                                            class="btn-sm bg-gray-500 hover:bg-gray-700 text-white mr-2"
+                                                            @click="acceptModalOpen = false">
+                                                            Cancel
+                                                        </button>
+                                                        <button
+                                                            class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
+                                                            wire:click="approved({{ $seller['id'] }})">
+                                                            Accept
+                                                        </button>
+                                                        <template x-if="collectionsCount > 0">
+                                                            <button
+                                                                class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
+                                                                @click="acceptModalOpen = false">OK
+                                                            </button>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     @if($delete_capability_exists)
-                                        <button wire:click="rejected({{ $seller['id'] }})"
-                                                class="btn border-slate-200 hover:border-slate-300">
-                                            <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"
-                                                 viewBox="0 0 16 16">
-                                                <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor"
-                                                      stroke-width="2"/>
-                                                <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor"
-                                                      stroke-width="2"/>
-                                            </svg>
-                                        </button>
+{{--                                        <button wire:click="rejected({{ $seller['id'] }})"--}}
+{{--                                                class="btn border-slate-200 hover:border-slate-300">--}}
+{{--                                            <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"--}}
+{{--                                                 viewBox="0 0 16 16">--}}
+{{--                                                <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor"--}}
+{{--                                                      stroke-width="2"/>--}}
+{{--                                                <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor"--}}
+{{--                                                      stroke-width="2"/>--}}
+{{--                                            </svg>--}}
+{{--                                        </button>--}}
+
+                                            <div
+                                                x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
+
+                                                <div class="flex items-center">
+                                                    <!-- Enable Button -->
+                                                    <button class="btn border-slate-200 hover:border-slate-300"
+                                                            @click="acceptModalOpen = true">
+
+                                                        <span class="sr-only">disable</span>
+                                                        <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"
+                                                             viewBox="0 0 16 16">
+                                                            <line x1="4" y1="4" x2="12" y2="12" stroke="currentColor"
+                                                                  stroke-width="2"/>
+                                                            <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor"
+                                                                  stroke-width="2"/>
+                                                        </svg>
+                                                    </button>
+
+                                                    <!-- Eye Button -->
+                                                    <button class="text-slate-400 hover:text-slate-500 rounded-full ml-2"
+                                                            @click="/* Add your logic here */">
+                                                        <span class="sr-only">View</span>
+                                                        <!-- Your eye icon here -->
+                                                    </button>
+                                                </div>
+
+                                                <!-- Modal overlay -->
+                                                <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                                     x-show="acceptModalOpen"
+                                                     x-transition:enter="transition ease-out duration-200"
+                                                     x-transition:enter-start="opacity-0"
+                                                     x-transition:enter-end="opacity-100"
+                                                     x-transition:leave="transition ease-out duration-100"
+                                                     x-transition:leave-start="opacity-100"
+                                                     x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+
+                                                <!-- Delete Category Modal Dialog -->
+                                                <div
+                                                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                                    role="dialog"
+                                                    aria-modal="true"
+                                                    x-show="acceptModalOpen"
+                                                    x-transition:enter="transition ease-in-out duration-200"
+                                                    x-transition:enter-start="opacity-0 translate-y-4"
+                                                    x-transition:enter-end="opacity-100 translate-y-0"
+                                                    x-transition:leave="transition ease-in-out duration-200"
+                                                    x-transition:leave-start="opacity-100 translate-y-0"
+                                                    x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true"
+                                                    x-cloak>
+                                                    <!-- Modal content -->
+                                                    <div
+                                                        class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
+                                                        @click.outside="acceptModalOpen = false"
+                                                        @keydown.escape.window="acceptModalOpen = false"
+                                                        style="max-width: 640px;">
+                                                        <!-- Modal header -->
+                                                        <div
+                                                            class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                                            <div class="flex justify-between items-center">
+                                                                <div
+                                                                    class="font-semibold text-slate-800 dark:text-slate-100">
+                                                                    Reject Seller
+                                                                </div>
+                                                                <button
+                                                                    class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
+                                                                    @click="acceptModalOpen = false">
+                                                                    <div class="sr-only">Close</div>
+                                                                    <svg class="w-4 h-4 fill-current">
+                                                                        <path
+                                                                            d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Modal content -->
+                                                        <div class="px-5 py-4">
+                                                            <div class="text-sm">
+                                                                <div
+                                                                    class="font-medium text-slate-800 dark:text-slate-100 mb-3">
+                                                                    Are you sure you want to Reject this Seller?
+                                                                </div>
+                                                            </div>
+                                                            <label class="block">
+                                                                <span class="text-gray-700">Reason <b class="text-red-500">*</b></span>
+                                                                <textarea
+                                                                    class="form-textarea mt-1 block w-full"
+                                                                    rows="3" wire:model="reason" required></textarea>
+                                                            </label>
+                                                            <div class="text-red-500 text-xs italic">
+                                                            @error('reason') <span class="reason">{{ $message }}</span> @enderror
+                                                            </div>
+                                                        </div>
+                                                        <!-- Modal footer -->
+                                                        <div
+                                                            class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
+                                                            <div class="flex justify-end">
+                                                                <button
+                                                                    class="btn-sm bg-gray-500 hover:bg-gray-700 text-white mr-2"
+                                                                    @click="acceptModalOpen = false">
+                                                                    Cancel
+                                                                </button>
+                                                                <button
+                                                                    class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
+                                                                    wire:click="rejected({{ $seller['id'] }})">
+                                                                    Reject
+                                                                </button>
+
+
+                                                                <template x-if="collectionsCount > 0">
+                                                                    <button
+                                                                        class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
+                                                                        @click="acceptModalOpen = false">OK
+                                                                    </button>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     @endif
                                 </td>
                             @endif
+                        </div>
                     </tr>
 
                 @endforeach

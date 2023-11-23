@@ -52,6 +52,7 @@ return [
             'bucket' => env('AWS_BUCKET'),
          'use_path_style_endpoint' => true,
         ],
+
         'do' => [
             'driver' => 's3',
             'key' => env('DO_ACCESS_KEY_ID'),

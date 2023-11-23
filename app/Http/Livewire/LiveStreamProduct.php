@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Auction;
 use App\Models\Lot;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -13,6 +14,10 @@ class LiveStreamProduct extends Component
     public $filter = 'all';
     public $selected = 'all';
     public $search = '';
+    public $reason = '';
+    protected $rules = [
+        'reason' => 'required',
+    ];
 
     public function render()
     {
@@ -82,9 +87,25 @@ class LiveStreamProduct extends Component
         session()->flash('message', $message);
     }
 
+//    public function reject($id)
+//    {
+//        DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
+//        $message = 'Product rejected.';
+//        session()->flash('message', $message);
+//    }
     public function reject($id)
     {
+
         DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
+        $sellerDetails = Auction::with('user')->where('id', $id)->first();
+        $params = array(
+            'to' => $sellerDetails->user->email,
+            'from' => env("MAIL_FROM_ADDRESS"),
+            'fromname' => "Zeedlive",
+            'subject' => "Seller Request Rejected",
+            'text' => "Dear Mr/Ms. " . $sellerDetails->user->name . " Your collection convert request is rejected due to the following reason: " . $this->reason,
+        );
+        $this->sendMail($params);
         $message = 'Product rejected.';
         session()->flash('message', $message);
     }
@@ -105,5 +126,29 @@ class LiveStreamProduct extends Component
         $this->selected = $type;
     }
 
+    public function sendMail($params)
+    {
+        $url = 'https://api.sendgrid.com/';
+        $sendgrid_apikey = env("MAIL_PASSWORD");
 
+        $request = $url . 'api/mail.send.json';
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell PHP not to use SSLv3 (instead opting for TLS)
+        curl_setopt($session, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
+        curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
+        // Tell curl to use HTTP POST
+        curl_setopt($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt($session, CURLOPT_POSTFIELDS, $params);
+        // Tell curl not to return headers, but do return the response
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        // obtain response
+        $response = curl_exec($session);
+        curl_close($session);
+        json_decode($response);
     }
+
+
+}

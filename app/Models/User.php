@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use DB;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'device_token', 'password','role_id','gender','mobile','role','status','rank','test','is_temp_password','is_deleted','is_admin','seller_type'
+        'name', 'email', 'device_token', 'password', 'role_id', 'gender', 'mobile', 'role', 'status', 'rank', 'test', 'is_temp_password', 'is_deleted', 'is_admin', 'seller_type'
     ];
 
     /**
@@ -33,7 +34,7 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'device_token'
     ];
     protected $appends = [
-        'accountDetail','role', 'follower', 'following', 'collection',
+        'accountDetail', 'role', 'follower', 'following', 'collection',
     ];
     // public function getAuctualRateAttribute()
     // {
@@ -56,46 +57,47 @@ class User extends Authenticatable implements JWTSubject
 
     public function getAccountDetailAttribute()
     {
-       $AccountDetail = AccountDetail::where('user_id',$this->id)->first();
-       return $AccountDetail;
+        $AccountDetail = AccountDetail::where('user_id', $this->id)->first();
+        return $AccountDetail;
     }
 
     public function getFollowerAttribute()
     {
-       $followers = Followers::where('leader_id',$this->id)->count();
-       return $followers;
+        $followers = Followers::where('leader_id', $this->id)->count();
+        return $followers;
     }
 
     public function getFollowingAttribute()
     {
-       $following = Followers::where('follower_id',$this->id)->count();
-       return $following;
+        $following = Followers::where('follower_id', $this->id)->count();
+        return $following;
     }
 
     public function getCollectionAttribute()
     {
-       $Collections = Collections::where('user_id',$this->id)->count();
-       return $Collections;
+        $Collections = Collections::where('user_id', $this->id)->count();
+        return $Collections;
     }
 
     public function getRoleAttribute()
     {
-       $roles=Role::where('id',$this->role_id)->first();
-       return $roles;
+        $roles = Role::where('id', $this->role_id)->first();
+        return $roles;
     }
 
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
         return [];
     }
 
-    public function AdminAccountCreateNotification($password ,$email)
+    public function AdminAccountCreateNotification($password, $email)
     {
-        $this->notify(new ZeedliveAccountCreated($password,$email));
+        $this->notify(new ZeedliveAccountCreated($password, $email));
     }
 
     public function SellerVerification()
@@ -105,12 +107,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function Role()
     {
-      return $this->belongsTo('App\Models\Role', 'role_id');
+        return $this->belongsTo('App\Models\Role', 'role_id');
     }
 
     /**
-   * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-   */
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follower', 'leader_id', 'follower_id')->withTimestamps();
@@ -125,50 +127,51 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function products()
-     {
-         return $this->hasMany('App\Models\Lot');
-     }
+    {
+        return $this->hasMany('App\Models\Lot');
+    }
 
-     public function cards()
-      {
-          return $this->hasMany('App\Models\CardDetail','user_id','id');
-      }
+    public function cards()
+    {
+        return $this->hasMany('App\Models\CardDetail', 'user_id', 'id');
+    }
 
-      public function transactions()
-       {
-           return $this->hasMany('App\Models\Transaction','user_id','id');
-       }
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Transaction', 'user_id', 'id');
+    }
 
-     /**
+    /**
      * Get the reviews the user has made.
      */
-     public function rating()
-     {
+    public function rating()
+    {
         return $this->hasMany('App\Models\Rating');
-     }
-     public function shipping()
-     {
+    }
+
+    public function shipping()
+    {
         return $this->hasMany(ShippingInfo::class, 'user_id', 'id');
-     }
+    }
 
-     /**
-    * @return HasOne
-    * @description get the detail associated with the post
-    */
-     public function wallet()
-     {
-         return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
-     }
+    /**
+     * @return HasOne
+     * @description get the detail associated with the post
+     */
+    public function wallet()
+    {
+        return $this->hasOne('App\Models\Wallet', 'user_id', 'id');
+    }
 
-     public function accountDetails()
-     {
-         return $this->hasOne('App\Models\AccountDetail', 'user_id', 'id');
-     }
+    public function accountDetails()
+    {
+        return $this->hasOne('App\Models\AccountDetail', 'user_id', 'id');
+    }
 
-    //   public function getImageAttribute($value)
-    // {
-    //     if ($value) {
-    //         return Storage::disk('s3')->url($value);
-    //     }
-    // }
+    public function getImageAttribute($value)
+    {
+        if ($value) {
+            return Storage::disk('do')->url($value);
+        }
+    }
 }

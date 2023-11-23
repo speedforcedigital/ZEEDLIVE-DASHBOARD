@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use App\Helpers\baseUrl;
 use App\Helpers\MakeCurlRequest;
@@ -16,7 +17,11 @@ class Sellers extends Component
     public $filterSeller = null;
     public $filterType = 'all';
     public $search = '';
+    public $reason = '';
     protected $listeners = ['openUserView' => 'openUserView'];
+    protected $rules = [
+        'reason' => 'required',
+    ];
 
     public function render()
     {
@@ -29,6 +34,8 @@ class Sellers extends Component
             $sellers = SellerVerification::with('User')->orderBy('seller_verifications.id', 'desc');
             $total_sellers = $sellers->get()->count();
             $sellers = $sellers->paginate(10);
+//            dd($sellers);
+
             $this->filterSeller = null;
         }
 
@@ -72,29 +79,62 @@ class Sellers extends Component
         $user->is_seller = 1;
         $user->rank = "Seller";
         $user->save();
-        return redirect()->route('sellers.index');
-        $this->dispatchBrowserEvent(
-            'alert',
-            ['type' => 'success', 'message' => 'Seller Request Approved successfully.']
-        );
+        $message = 'Seller Accepted Successfully.';
+        return redirect()->route('sellers.index')->with('message', $message);
     }
 
     public function rejected($id)
     {
+        $this->validate();
+
         $role = Role::where('name', 'Seller')->first();
         $seller = SellerVerification::where('id', $id)->first();
+        $sellerDetails = User::where("id", $seller->user_id)->first();
+        $params = array(
+            'to' => $sellerDetails->email,
+            'from' => env("MAIL_FROM_ADDRESS"),
+            'fromname' => "Zeedlive",
+            'subject' => "Seller Request Rejected",
+            'text' => "Dear Mr/Ms. " . $sellerDetails->name . " Your seller request has been rejected due to the following reason: " . $this->reason,
+        );
+        $this->sendMail($params);
         $seller->status = "Rejected";
         $seller->save();
-        return redirect()->route('sellers.index');
+        $message = 'Seller Rejected Successfully.';
+        return redirect()->route('sellers.index')->with('message', $message);
 
-        $this->dispatchBrowserEvent(
-            'alert',
-            ['type' => 'success', 'message' => 'Seller Request Rejected successfully.']
-        );
+//        $this->dispatchBrowserEvent(
+//            'alert',
+//            ['type' => 'success', 'message' => 'Seller Request Rejected successfully.']
+//        );
     }
 
     public function openUserView($id)
     {
         return redirect()->route('users', ['userId' => $id]);
+    }
+
+    public function sendMail($params)
+    {
+        $url = 'https://api.sendgrid.com/';
+        $sendgrid_apikey = env("MAIL_PASSWORD");
+
+        $request = $url . 'api/mail.send.json';
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell PHP not to use SSLv3 (instead opting for TLS)
+        curl_setopt($session, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
+        curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
+        // Tell curl to use HTTP POST
+        curl_setopt($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt($session, CURLOPT_POSTFIELDS, $params);
+        // Tell curl not to return headers, but do return the response
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        // obtain response
+        $response = curl_exec($session);
+        curl_close($session);
+        json_decode($response);
     }
 }
