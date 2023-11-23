@@ -52,6 +52,16 @@ return [
             'bucket' => env('AWS_BUCKET'),
          'use_path_style_endpoint' => true,
         ],
+        'do' => [
+            'driver' => 's3',
+            'key' => env('DO_ACCESS_KEY_ID'),
+            'secret' => env('DO_SECRET_ACCESS_KEY'),
+            'region' => env('DO_DEFAULT_REGION'),
+            'bucket' => env('DO_BUCKET'),
+            'endpoint' => env('DO_ENDPOINT'),
+            'url' => env('DO_URL'),
+            'bucket_endpoint' => true,
+        ],
 
     ],
 

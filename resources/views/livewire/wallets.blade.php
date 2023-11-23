@@ -108,7 +108,7 @@
                         <!-- Header -->
                         <div class="bg-gray-100 p-5 border-b border-gray-200 rounded-t-xl">
                             <h3 class="text-xl leading-6 font-semibold text-gray-900">
-                                Order Details
+                                Add Balance
                             </h3>
                         </div>
 
