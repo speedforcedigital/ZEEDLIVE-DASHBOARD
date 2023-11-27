@@ -91,18 +91,24 @@ foreach ($permissions as $item) {
                             <div class="text-left">{{ $seller['user']['email'] }}</div>
                         </td>
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                <img class="rounded-full"
-                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document1']}}"
-                                     width="40" height="40" alt="Patricia Semklo">
+                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 text-blue-600">
+                                <a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document1']}}" target="_blank">
+                                    view
+                                </a>
+{{--                                <img class="rounded-full"--}}
+{{--                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document1']}}"--}}
+{{--                                     width="40" height="40" alt="Patricia Semklo">--}}
                             </div>
                         </td>
 
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                <img class="rounded-full"
-                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}"
-                                     width="40" height="40" alt="Patricia Semklo">
+                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 text-blue-600">
+                                <a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}" target="_blank">
+                                    view
+                                </a>
+{{--                                <img class="rounded-full"--}}
+{{--                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}"--}}
+{{--                                     width="40" height="40" alt="Patricia Semklo">--}}
                             </div>
                         </td>
 
