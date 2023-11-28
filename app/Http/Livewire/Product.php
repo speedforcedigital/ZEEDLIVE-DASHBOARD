@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Auction;
+use App\Models\Collections;
 use App\Models\Lot;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
@@ -83,8 +84,13 @@ class Product extends Component
 
     public function reject($id)
     {
-
         DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
+        Auction::where('id', $id)->update(['is_delete' => 1]);
+        Lot::where('auction_id', $id)->update(['is_delete' => 1]);
+        $getCollection = Auction::with('collection')->where('id', $id)->first();
+        if ($getCollection->collection) {
+            Collections::where('id', $getCollection->collection->id)->update(['is_auction' => 0]);
+        }
         $sellerDetails = Auction::with('user')->where('id', $id)->first();
         $params = array(
             'to' => $sellerDetails->user->email,
