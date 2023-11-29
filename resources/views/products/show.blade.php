@@ -20,6 +20,7 @@
                 </div>
 
                 <!-- Video Embed (you can use an iframe) -->
+                @if($lot->video)
                 <div class="mt-4">
                     <h4 class="text-xl font-semibold mb-2">Product Video</h4>
                     <div class="relative">
@@ -34,22 +35,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
                 <!-- Gallery Images Slider -->
-                <div class="swiper-container gallery-slider mt-4">
-                    <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>
-                    <div class="swiper-wrapper" style="height: 400px;">
-                        @foreach($lot->gallery_images as $image)
-                            <div class="swiper-slide">
-                                <img src="{{ $image->image }}" alt="Gallery Image" class="w-full h-full object-cover rounded-lg shadow-lg">
-                            </div>
-                        @endforeach
-                    </div>
-                    <!-- Add pagination and navigation controls if needed -->
-                    <div class="slider-pagination"></div>
-                    <div class="slider-button-next"></div>
-                    <div class="slider-button-prev"></div>
-                </div>
+
             </div>
 
             <!-- Product Details -->
@@ -57,7 +46,7 @@
                 <!-- Seller Information -->
                 <div class="mb-4">
                     <div class="flex items-center">
-                        <img src="{{ asset($lot->auction->user->image) }}" alt="Seller Avatar" class="w-12 h-12 rounded-full">
+                        <img src="{{ $lot->auction->user->image }}" alt="Seller Avatar" class="w-12 h-12 rounded-full">
                         <div class="ml-4">
                             <h2 class="text-xl font-semibold">
                                 <a href="{{ route('user.show', $lot->auction->user->id) }}">{{  $lot->auction->user->name }}</a>
@@ -96,12 +85,29 @@
                         <li>Gender: {{ $lot->gender }}</li>
                         <li>Year: {{ $lot->year }}</li>
                         <li>Color: {{ $lot->color }}</li>
-                        <li>Condition: {{ $lot->condition }}</li>
+                        <li>Condition: {{ $lot->conditions }}</li>
+                        <li>Appendices: {{ $lot->appendices }}</li>
                     </ul>
                 </div>
 
                 <!-- Add to Cart Button (or Bid Button) -->
             </div>
+            <div class="w-full md:w-1/2 px-4 mb-4">
+            <div class="swiper-container gallery-slider mt-4">
+                <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>
+                <div class="swiper-wrapper" style="height: 400px;">
+                    @foreach($lot->gallery_images as $image)
+                        <div class="swiper-slide">
+                            <img src="{{ $image->image }}" alt="Gallery Image" class="w-full h-full object-cover rounded-lg shadow-lg">
+                        </div>
+                    @endforeach
+                </div>
+                <!-- Add pagination and navigation controls if needed -->
+                <div class="slider-pagination"></div>
+                <div class="slider-button-next"></div>
+                <div class="slider-button-prev"></div>
+            </div>
+        </div>
         </div>
     </div>
 </x-app-layout>
