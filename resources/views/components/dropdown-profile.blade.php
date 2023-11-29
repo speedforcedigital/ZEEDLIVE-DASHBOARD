@@ -7,9 +7,9 @@
         class="inline-flex justify-center items-center group"
         aria-haspopup="true"
         @click.prevent="open = !open"
-        :aria-expanded="open"                        
+        :aria-expanded="open"
     >
-        <img class="w-8 h-8 rounded-full" src="https://api.zeedlive.com/image/user_profile/{{Session::get('profile_image')}}" width="32" height="32" alt="{{Session::get('name')}}" />
+        <img class="w-8 h-8 rounded-full" src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{Session::get('profile_image')}}" width="32" height="32" alt="{{Session::get('name')}}" />
         <div class="flex items-center truncate">
             <span class="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{{Session::get('name')}}</span>
             <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
@@ -18,7 +18,7 @@
         </div>
     </button>
     <div
-        class="origin-top-right z-10 absolute top-full min-w-44 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 {{$align === 'right' ? 'right-0' : 'left-0'}}"                
+        class="origin-top-right z-10 absolute top-full min-w-44 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 {{$align === 'right' ? 'right-0' : 'left-0'}}"
         @click.outside="open = false"
         @keydown.escape.window="open = false"
         x-show="open"
@@ -28,7 +28,7 @@
         x-transition:leave="transition ease-out duration-200"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        x-cloak                    
+        x-cloak
     >
         <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
             <div class="font-medium text-slate-800">{{Session::get('name')}}</div>
@@ -50,8 +50,8 @@
                     >
                         {{ __('Sign Out') }}
                     </a>
-                </form>                                
+                </form>
             </li>
-        </ul>                
+        </ul>
     </div>
 </div>
