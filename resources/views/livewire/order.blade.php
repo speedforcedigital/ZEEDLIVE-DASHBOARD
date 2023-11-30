@@ -82,6 +82,12 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Order ID</div>
                         </th>
+                        @if($selected === 'shipped' || $selected === 'delivered' )
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Tracking Number</div>
+                        </th>
+                        @endif
+
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
                         </th>
@@ -134,6 +140,11 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">{{$order->order_id ?? 'Null'}}</div>
                             </td>
+                            @if($selected === 'shipped' || $selected === 'delivered' )
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="text-left">{{$order->tracking_number ?? 'Null'}}</div>
+                            </td>
+                            @endif
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="space-x-1">
