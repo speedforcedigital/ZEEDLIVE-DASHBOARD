@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\BidEvent;
+use App\Events\SellerStatusChanged;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -68,7 +70,6 @@ class Sellers extends Component
 
     public function approved($id)
     {
-
         $role = Role::where('name', 'Seller')->first();
         $seller = SellerVerification::where('id', $id)->first();
         $seller->status = "Approved";
@@ -80,6 +81,7 @@ class Sellers extends Component
         $user->rank = "Seller";
         $user->save();
         $message = 'Seller Accepted Successfully.';
+        event(new SellerStatusChanged($seller->id, 'Approved'));
         return redirect()->route('sellers.index')->with('message', $message);
     }
 
@@ -101,6 +103,7 @@ class Sellers extends Component
         $seller->status = "Rejected";
         $seller->save();
         $message = 'Seller Rejected Successfully.';
+        event(new SellerStatusChanged($seller->id, 'Rejected'));
         return redirect()->route('sellers.index')->with('message', $message);
 
 //        $this->dispatchBrowserEvent(
