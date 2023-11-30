@@ -80,7 +80,7 @@ foreach ($permissions as $item) {
                             <div class="flex items-center">
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
-                                         src="https://api.zeedlive.com/image/user_profile/{{$offer['user']['accountDetail']['profile_image']}}"
+                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$offer['user']['accountDetail']['profile_image']}}"
                                          alt="Patricia Semklo"
                                     style="width: 40px; height: 40px;"
                                     >
@@ -96,7 +96,7 @@ foreach ($permissions as $item) {
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     @if(isset($offer['collection']))
                                         <img class="rounded-full"
-                                             src="https://api.zeedlive.com/image/collection/{{$offer['collection']['image']}}"
+                                             src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$offer['collection']['image']}}"
                                             alt="Patricia Semklo"
                                              style="width: 40px; height: 40px;"
                                         >
@@ -116,7 +116,7 @@ foreach ($permissions as $item) {
                             <div class="flex items-center">
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
-                                         src="https://api.zeedlive.com/image/user_profile/{{$offer['receiver']['profile_image']}}"
+                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$offer['receiver']['profile_image']}}"
                                          alt="Patricia Semklo"
                                          style="width: 40px; height: 40px;"
                                     >
@@ -136,6 +136,8 @@ foreach ($permissions as $item) {
 
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($verification_capability_exists)
+
+                                @if($offer['modrator_status'] == 'pending')
 
                                     <div
                                         x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
@@ -364,6 +366,8 @@ foreach ($permissions as $item) {
                                     {{--                                    <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor" stroke-width="2" />--}}
                                     {{--                                </svg>--}}
                                     {{--                            </button>--}}
+
+                                @endif
 
                             @endif
 
