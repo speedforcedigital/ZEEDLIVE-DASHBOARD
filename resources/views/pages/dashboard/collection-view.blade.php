@@ -8,7 +8,7 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="{{ asset('images/collections/images/' . $collection->image) }}" alt="Product Image" class="w-full h-auto rounded-lg shadow-lg">
+                            <img src="{{  $collection->image }}" alt="Product Image" class="w-full h-auto rounded-lg shadow-lg">
                         </div>
                         <!-- Add more slides for additional images -->
                     </div>
@@ -19,10 +19,11 @@
                 </div>
 
                 <!-- Video Embed (you can use an iframe) -->
+                @if($collection->video)
                 <div class="mt-4">
                     <div class="relative">
                         <video controls width="100%" height="auto" class="rounded-lg shadow-lg">
-                            <source src="{{ asset('images/collections/videos/' . $collection->video) }}" type="video/mp4">
+                            <source src="{{ $collection->video }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -33,6 +34,7 @@
                     </div>
                 </div>
             </div>
+            @endif
 
             <!-- Product Details -->
             <div class="w-full md:w-1/2 px-4 mb-4">
@@ -105,6 +107,54 @@
 
                 <!-- Add to Cart Button (or Bid Button) -->
             </div>
+
+            <div class="w-full md:w-1/2 px-4 mb-4">
+                <div class="swiper-container gallery-slider mt-4">
+                    <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>
+                    <div class="swiper-wrapper" style="height: 400px;">
+                        @foreach($collection->gallery_images  as $image)
+                            <div class="swiper-slide">
+                                <img src="{{ $image->image }}" alt="Gallery Image" class="w-full h-full object-cover rounded-lg shadow-lg">
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- Add pagination and navigation controls if needed -->
+                    <div class="slider-pagination"></div>
+                    <div class="slider-button-next"></div>
+                    <div class="slider-button-prev"></div>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // Product Images Slider
+    var productSwiper = new Swiper('.product-slider', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    // Gallery Images Slider
+    var gallerySwiper = new Swiper('.gallery-slider', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.slider-button-next',
+            prevEl: '.slider-button-prev',
+        },
+        pagination: {
+            el: '.slider-pagination',
+            clickable: true,
+        },
+    });
+</script>

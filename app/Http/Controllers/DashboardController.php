@@ -19,6 +19,7 @@ use App\Models\MyCollection;
 use App\Models\Offers;
 use App\Models\Order;
 use App\Models\OrderTransactions;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -570,6 +571,14 @@ class DashboardController extends Controller
     public function collectionView($id)
     {
         $collection = MyCollection::find($id);
+       $collection->image = Storage::disk('do')->url($collection->image);
+        $collection->video = Storage::disk('do')->url($collection->video);
+
+        $collection->gallery_images = DB::table('product_galleries')->where('collection_id', $id)->get();
+        foreach ($collection->gallery_images as $key => $value) {
+            $collection->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
+        }
+
         return view('pages.dashboard.collection-view', compact('collection'));
 
     }
