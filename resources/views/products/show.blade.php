@@ -24,12 +24,12 @@
                 <div class="mt-4">
                     <h4 class="text-xl font-semibold mb-2">Product Video</h4>
                     <div class="relative">
-                        <video controls width="100%" height="auto" class="rounded-lg shadow-lg">
-                            <source src="{{  $lot->video     }}" type="video/mp4">
+                        <video id="productVideo" controls width="100%" height="auto" class="rounded-lg shadow-lg">
+                            <source src="{{ $lot->video }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                        <div id="playButtonContainer" class="absolute inset-0 flex items-center justify-center">
+                            <button id="playButton" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
                                 Play Video
                             </button>
                         </div>
@@ -113,6 +113,25 @@
 </x-app-layout>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+
+    var video = document.getElementById("productVideo");
+    var playButton = document.getElementById("playButton");
+    var playButtonContainer = document.getElementById("playButtonContainer");
+
+    // Add click event listener to play button
+    playButton.addEventListener("click", function() {
+        // Play the video
+        video.play();
+        // Hide play button
+        playButtonContainer.style.display = "none";
+    });
+
+    // Add event listener to pause event on the video
+    video.addEventListener("pause", function() {
+        // Show play button when video is paused
+        playButtonContainer.style.display = "flex";
+    });
+
     // Product Images Slider
     var productSwiper = new Swiper('.product-slider', {
         slidesPerView: 1,
