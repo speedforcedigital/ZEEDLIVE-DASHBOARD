@@ -116,7 +116,7 @@ foreach ($permissions as $item) {
                             <div class="flex items-center">
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
-                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$offer['receiver']['profile_image']}}"
+                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$offer['receiver']['accountDetail']['profile_image']}}"
                                          alt="Patricia Semklo"
                                          style="width: 40px; height: 40px;"
                                     >
