@@ -65,9 +65,10 @@ class OffersList extends Component
     {
         $offer = Offers::find($id);
         // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
-        $offer->is_accepted = false;
-        $offer->modrator_status = 'Rejected';
-        $offer->save();
+        $offer->delete();
+//        $offer->is_accepted = false;
+//        $offer->modrator_status = 'Rejected';
+//        $offer->save();
         $message = 'Offer Rejected Successfully.';
         return redirect()->route('offers')->with('message', $message);
 
