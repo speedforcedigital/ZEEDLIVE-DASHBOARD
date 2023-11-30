@@ -22,6 +22,7 @@
                 <!-- Video Embed (you can use an iframe) -->
                 @if($collection->video)
                 <div class="mt-4">
+                    <h4 class="text-xl font-semibold mb-2">Product Video</h4>
                     <div class="relative">
                         <video controls width="100%" height="auto" class="rounded-lg shadow-lg">
                             <source src="{{ $collection->video }}" type="video/mp4">
