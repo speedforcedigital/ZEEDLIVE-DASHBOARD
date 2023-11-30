@@ -135,6 +135,7 @@ foreach ($permissions as $item) {
                         </td>
 
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="flex space-x-1 items-center">
                             @if($verification_capability_exists)
 
                                 @if($offer['modrator_status'] == 'pending')
@@ -334,6 +335,15 @@ foreach ($permissions as $item) {
                                                             Are you sure you want to Reject this offer?
                                                         </div>
                                                     </div>
+                                                    <label class="block">
+                                                        <span class="text-gray-700">Reason <b class="text-red-500">*</b></span>
+                                                        <textarea
+                                                            class="form-textarea mt-1 block w-full"
+                                                            rows="3" wire:model="reason" required></textarea>
+                                                    </label>
+                                                    <div class="text-red-500 text-xs italic">
+                                                        @error('reason') <span class="reason">{{ $message }}</span> @enderror
+                                                    </div>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div
@@ -370,6 +380,8 @@ foreach ($permissions as $item) {
                                 @endif
 
                             @endif
+
+                            </div>
 
                         </td>
                     </tr>

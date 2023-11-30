@@ -4,10 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Auction;
 use App\Models\Cart;
+use App\Models\FreezeModel;
 use App\Models\Lot;
 use App\Models\MyCollection;
 use App\Models\Offers;
 use App\Models\User;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -18,6 +20,12 @@ class OffersList extends Component
     public $offer_id;
 
     public $search = '';
+
+    public $reason = '';
+
+    protected $rules = [
+        'reason' => 'required',
+    ];
 
 //    public function render()
 //    {
@@ -56,12 +64,6 @@ class OffersList extends Component
 
     public function accept($id)
     {
-//        $offer = Offers::find($id);
-//        // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
-//        $offer->is_accepted = true;
-//        $offer->modrator_status = 'Accepted';
-//        $offer->save();
-
         $offer_id = $id;
         $offer = Offers::where("offer_id", $offer_id)->first();
         $sellerData = User::where("id", $offer->offer_receiver_id)->first();
@@ -124,66 +126,27 @@ class OffersList extends Component
                     'offer_id' => $offer_id,
                 ]);
 //                //send email to buyer
-//                $url = 'https://api.sendgrid.com/';
-//                $sendgrid_apikey = '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';
-//
-//                $params = array(
-//                    'to'        => $buyerData->email,
-//                    'from'      => "zulqarnain.ghazlani@gmail.com",
-//                    'fromname'  => "Zeed Offer",
-//                    'subject'   => "Zeed Offer Acception",
-//                    'text'      => "Your offer has been accepted by “" . $sellerData->name . "” on the collection “" . $collectionData->title . "”, Kindly proceed with the payment within 24 hours.",
-//                    //'html'      => $html,
-//                    // 'files['.$file_name.']'      => $file,
-//                );
-//                $request =  $url . 'api/mail.send.json';
-//                // Generate curl request
-//                $session = curl_init($request);
-//                // Tell PHP not to use SSLv3 (instead opting for TLS)
-//                curl_setopt($session, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
-//                curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
-//                // Tell curl to use HTTP POST
-//                curl_setopt($session, CURLOPT_POST, true);
-//                // Tell curl that this is the body of the POST
-//                curl_setopt($session, CURLOPT_POSTFIELDS, $params);
-//                // Tell curl not to return headers, but do return the response
-//                curl_setopt($session, CURLOPT_HEADER, false);
-//                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-//                // obtain response
-//                $response = curl_exec($session);
-//                curl_close($session);
-//                json_decode($response);
-//
+                $buyerParams = array(
+                    'to' => $buyerData->email,
+                    'from' => env('MAIL_FROM_ADDRESS'),
+                    'fromname' => "Zeed Offer",
+                    'subject' => "Zeed Offer Acception",
+                    'text' => "Your offer has been accepted by “" . $sellerData->name . "” on the collection “" . $collectionData->title . "”, Kindly proceed with the payment within 24 hours.",
+                );
+
+                $this->sendMail($buyerParams);
+
 //                //send email to seller
-//                $url = 'https://api.sendgrid.com/';
-//                $sendgrid_apikey = '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';
 //
-//                $params = array(
-//                    'to'        => $sellerData->email,
-//                    'from'      => "zulqarnain.ghazlani@gmail.com",
-//                    'fromname'  => "Zeed Offer",
-//                    'subject'   => "Zeed Offer Acception",
-//                    'text'      => "We have accepted your request to sell your collection “" . $collectionData->title . "” to the person " . $buyerData->name . ", Once the buyer complete the purchase, We will inform you to complete the shipping process.",
-//                    //'html'      => $html,
-//                    // 'files['.$file_name.']'      => $file,
-//                );
-//                $request =  $url . 'api/mail.send.json';
-//                // Generate curl request
-//                $session = curl_init($request);
-//                // Tell PHP not to use SSLv3 (instead opting for TLS)
-//                curl_setopt($session, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
-//                curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
-//                // Tell curl to use HTTP POST
-//                curl_setopt($session, CURLOPT_POST, true);
-//                // Tell curl that this is the body of the POST
-//                curl_setopt($session, CURLOPT_POSTFIELDS, $params);
-//                // Tell curl not to return headers, but do return the response
-//                curl_setopt($session, CURLOPT_HEADER, false);
-//                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-//                // obtain response
-//                $response = curl_exec($session);
-//                curl_close($session);
-//                json_decode($response);
+                $sellerParams = array(
+                    'to' => $sellerData->email,
+                    'from' => env('MAIL_FROM_ADDRESS'),
+                    'fromname' => "Zeed Offer",
+                    'subject' => "Zeed Offer Acception",
+                    'text' => "We have accepted your request to sell your collection “" . $collectionData->title . "” to the person " . $buyerData->name . ", Once the buyer complete the purchase, We will inform you to complete the shipping process.",
+                );
+
+                $this->sendMail($sellerParams);
                 $message = 'Offer Accepted Sucessfully.';
                 DB::commit();
                 return redirect()->route('offers')->with('message', $message);
@@ -198,33 +161,96 @@ class OffersList extends Component
                 // Rollback the transaction on exception
                 return response()->json($data, $status);
             }
-            //move to cart
-            //auction
+
 
         }
 
 
-//        $message = 'Offer Accepted Sucessfully.';
-//        return redirect()->route('offers')->with('message', $message);
-//        session()->flash('message', $message);
-
-
     }
+
 
     public function reject($id)
     {
+        $this->validate();
         $offer = Offers::find($id);
-        // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
-        $offer->delete();
-//        $offer->is_accepted = false;
-//        $offer->modrator_status = 'Rejected';
-//        $offer->save();
+        $offer->is_accepted = false;
+        $offer->modrator_status = 'Rejected';
+        $offer->save();
+        $sellerData = User::where("id", $offer->offer_receiver_id)->first();
+        $buyerData = User::where("id", $offer->offer_sender_id)->first();
+        // send freeze amount back to offer_sender
+        $freezeAmount = FreezeModel::where("offer_id", $id)->first();
+        if ($freezeAmount) {
+            $wallet = Wallet::where('user_id', $freezeAmount->user_id)->first();
+            $wallet->balance = $wallet->balance + 1000;
+            $wallet->save();
+            $data =
+                [
+                    "name" => "Freezed Amount Refund",
+                    "user_id" => $freezeAmount->user_id,
+                    "amount" => 1000,
+                    "type" => "addition",
+                    "wallet_id" => $wallet->id,
+                ];
+            $this->storeTransaction($data);
+
+            $freezeAmount->delete();
+        }
+
+        //send email to buyer
+        $buyerParams = array(
+            'to' => $buyerData->email,
+            'from' => env('MAIL_FROM_ADDRESS'),
+            'fromname' => "Zeed Offer",
+            'subject' => "Zeed Offer Rejection",
+            'text' => "Moderator has rejected your offer due to following reason:- “" . $this->reason . "”.",
+        );
+
+        $this->sendMail($buyerParams);
+
+     //send email to seller
+        $sellerParams = array(
+            'to' => $sellerData->email,
+            'from' => env('MAIL_FROM_ADDRESS'),
+            'fromname' => "Zeed Offer",
+            'subject' => "Zeed Offer Rejection",
+            'text' =>  "Moderator has rejected your offer due to following reason:-“" . $this->reason . "”.",
+        );
+        $this->sendMail($sellerParams);
+
+
         $message = 'Offer Rejected Successfully.';
         return redirect()->route('offers')->with('message', $message);
-
-//        session()->flash('message', $message);
     }
 
+    public function storeTransaction($data)
+    {
+        $transaction = DB::table('wallet_transactions')->insert($data);
+    }
+
+    public function sendMail($params)
+    {
+        $url = 'https://api.sendgrid.com/';
+        $sendgrid_apikey = env("MAIL_PASSWORD");
+
+        $request = $url . 'api/mail.send.json';
+        // Generate curl request
+        $session = curl_init($request);
+        // Tell PHP not to use SSLv3 (instead opting for TLS)
+        curl_setopt($session, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
+        curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
+        // Tell curl to use HTTP POST
+        curl_setopt($session, CURLOPT_POST, true);
+        // Tell curl that this is the body of the POST
+        curl_setopt($session, CURLOPT_POSTFIELDS, $params);
+        // Tell curl not to return headers, but do return the response
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        // obtain response
+        $response = curl_exec($session);
+        curl_close($session);
+        json_decode($response);
+    }
 
 
 }

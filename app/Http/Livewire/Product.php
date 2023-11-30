@@ -84,6 +84,7 @@ class Product extends Component
 
     public function reject($id)
     {
+        $this->validate();
         DB::table('auction')->where('id', $id)->update(['admin_status' => 'Rejected']);
         Auction::where('id', $id)->update(['is_delete' => 1]);
         Lot::where('auction_id', $id)->update(['is_delete' => 1]);
