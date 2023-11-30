@@ -56,11 +56,11 @@ class OffersList extends Component
 
     public function accept($id)
     {
-        $offer = Offers::find($id);
-        // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
-        $offer->is_accepted = true;
-        $offer->modrator_status = 'Accepted';
-        $offer->save();
+//        $offer = Offers::find($id);
+//        // Update the offer as accepted, assuming you have an 'accepted' column in the offers table
+//        $offer->is_accepted = true;
+//        $offer->modrator_status = 'Accepted';
+//        $offer->save();
 
         $offer_id = $id;
         $offer = Offers::where("offer_id", $offer_id)->first();
