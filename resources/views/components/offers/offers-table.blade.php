@@ -136,7 +136,7 @@ foreach ($permissions as $item) {
 
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             @if($verification_capability_exists)
-                                @if($offer["is_accepted"] == false)
+
                                     <div
                                         x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
 
@@ -248,8 +248,8 @@ foreach ($permissions as $item) {
                                     {{--                                    <path d="M14.3 2.3L5 11.6 1.7 8.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4l4 4c.2.2.4.3.7.3.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0z"></path>--}}
                                     {{--                                </svg>--}}
                                     {{--                            </button>--}}
-                                @endif
-                                @if($offer["is_accepted"] == true)
+
+
                                     <div
                                         x-data="{ rejectModalOpen: @entangle('rejectModalOpen'), collectionsCount: @entangle('collectionsCount') }">
 
@@ -364,7 +364,7 @@ foreach ($permissions as $item) {
                                     {{--                                    <line x1="4" y1="12" x2="12" y2="4" stroke="currentColor" stroke-width="2" />--}}
                                     {{--                                </svg>--}}
                                     {{--                            </button>--}}
-                                @endif
+
                             @endif
 
                         </td>
