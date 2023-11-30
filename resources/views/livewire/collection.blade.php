@@ -96,7 +96,7 @@
                                 <div class="flex items-center">
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                         <img class="rounded-full"
-                                             src="https://api.staging.zeedlive.com/image/user_profile/{{$collection->user->accountDetail->profile_image}}"
+                                             src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$collection->user->accountDetail->profile_image}}"
                                              width="40" height="40" alt="Patricia Semklo">
                                     </div>
                                     <div class="font-medium text-slate-800"><a
