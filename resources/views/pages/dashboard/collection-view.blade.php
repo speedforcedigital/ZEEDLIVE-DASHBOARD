@@ -5,10 +5,11 @@
             <!-- Product Media Gallery -->
             <div class="w-full md:w-1/2 px-4 mb-4">
                 <!-- Image Slider (you can use a library like Swiper.js) -->
-                <div class="swiper-container">
+                <div class="swiper-container product-slider">
+                    <h4 class="text-xl font-semibold mb-2">Collection Image</h4>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="{{  $collection->image }}" alt="Product Image" class="w-full h-auto rounded-lg shadow-lg">
+                            <img src="{{  $collection->image }}" alt="Product Image" class="w-3/4 h-auto rounded-lg shadow-lg">
                         </div>
                         <!-- Add more slides for additional images -->
                     </div>
