@@ -14,9 +14,9 @@
                         <!-- Add more slides for additional images -->
                     </div>
                     <!-- Add pagination and navigation controls if needed -->
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+{{--                    <div class="swiper-pagination"></div>--}}
+{{--                    <div class="swiper-button-next"></div>--}}
+{{--                    <div class="swiper-button-prev"></div>--}}
                 </div>
 
                 <!-- Video Embed (you can use an iframe) -->
@@ -103,9 +103,9 @@
                     @endforeach
                 </div>
                 <!-- Add pagination and navigation controls if needed -->
-                <div class="slider-pagination"></div>
-                <div class="slider-button-next"></div>
-                <div class="slider-button-prev"></div>
+{{--                <div class="slider-pagination"></div>--}}
+{{--                <div class="slider-button-next"></div>--}}
+{{--                <div class="slider-button-prev"></div>--}}
             </div>
         </div>
         </div>
