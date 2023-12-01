@@ -571,12 +571,17 @@ class DashboardController extends Controller
     public function collectionView($id)
     {
         $collection = MyCollection::find($id);
-       $collection->image = Storage::disk('do')->url($collection->image);
-        $collection->video = Storage::disk('do')->url($collection->video);
-
+        if ($collection->image != null) {
+            $collection->image = Storage::disk('do')->url($collection->image);
+        }
+        if ($collection->video != null) {
+            $collection->video = Storage::disk('do')->url($collection->video);
+        }
         $collection->gallery_images = DB::table('product_galleries')->where('collection_id', $id)->get();
-        foreach ($collection->gallery_images as $key => $value) {
-            $collection->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
+        if ($collection->gallery_images != null) {
+            foreach ($collection->gallery_images as $key => $value) {
+                $collection->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
+            }
         }
 
         return view('pages.dashboard.collection-view', compact('collection'));
