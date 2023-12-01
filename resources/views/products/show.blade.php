@@ -118,17 +118,12 @@
     var playButton = document.getElementById("playButton");
     var playButtonContainer = document.getElementById("playButtonContainer");
 
-    // Add click event listener to play button
     playButton.addEventListener("click", function() {
-        // Play the video
         video.play();
-        // Hide play button
         playButtonContainer.style.display = "none";
     });
 
-    // Add event listener to pause event on the video
     video.addEventListener("pause", function() {
-        // Show play button when video is paused
         playButtonContainer.style.display = "flex";
     });
 

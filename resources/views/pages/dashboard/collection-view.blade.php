@@ -35,8 +35,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
             @endif
+            </div>
 
             <!-- Product Details -->
             <div class="w-full md:w-1/2 px-4 mb-4">
