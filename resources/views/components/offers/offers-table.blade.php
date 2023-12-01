@@ -138,7 +138,7 @@ foreach ($permissions as $item) {
                             <div class="flex space-x-1 items-center">
                             @if($verification_capability_exists)
 
-                                @if($offer['modrator_status'] == 'pending')
+                                @if($offer['modrator_status'] == 'Pending')
 
                                     <div
                                         x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
