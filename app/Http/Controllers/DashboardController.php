@@ -587,4 +587,6 @@ class DashboardController extends Controller
         return view('pages.dashboard.collection-view', compact('collection'));
 
     }
+
+
 }

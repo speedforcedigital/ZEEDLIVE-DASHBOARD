@@ -798,6 +798,19 @@
                         console.error('Error:', error);
                     }
                 });
+
+                $.ajax({
+                    url: '/convert/product/' + product_id,
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log('checkData',response);
+                    },
+                    error: function (error) {
+                        console.error('Ajax error:', error);
+                    }
+                });
+
             } else {
                 console.error('Unable to get signature nonce.');
             }
