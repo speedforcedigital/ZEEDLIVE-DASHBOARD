@@ -49,6 +49,7 @@ class Sellers extends Component
         }
 
 
+
         return view('livewire.sellers', compact('sellers', 'total_sellers'));
     }
 
