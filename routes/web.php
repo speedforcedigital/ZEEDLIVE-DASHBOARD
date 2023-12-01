@@ -51,7 +51,6 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/get/users-by-gender', [DashboardController::class, 'getUsersByGender']);
     Route::get('/user/{id}', [DashboardController::class, 'userView'])->name("user.show");
     Route::get('/collection/{id}', [DashboardController::class, 'collectionView'])->name("collection.show");
-    Route::get('/convert/product/{id}', [ProductController::class, 'convertProduct'])->name("product.convert");
 
     Route::get('/product/{id}',[ProductController::class, 'view'])->name("product.show");
     Route::get('/categories', Categories::class);
@@ -93,5 +92,7 @@ Route::group(['middleware' => 'protected'], function () {
 
     Route::get('/zego/{productID}',[\App\Http\Controllers\Zego::class,'getToken']);
     Route::get('/get/signature/{productID}', [\App\Http\Controllers\Zego::class, 'getSignature']);
+    Route::get('/convert/product/{id}', [ProductController::class, 'convertProduct'])->name("product.convert");
+
 
 });

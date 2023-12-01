@@ -25,7 +25,7 @@ class ProductController extends Controller
         $lot->auction->user->image = AccountDetail::where('user_id', $lot->auction->user->id)->first()->profile_image;
 //        dd($lot->auction->user->image);
         $lot->gallery_images = DB::table('product_galleries')->where('product_id', $id)->get();
-        if ($lot->gallery_images !=null) {
+        if ($lot->gallery_images != null) {
             foreach ($lot->gallery_images as $key => $value) {
                 $lot->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
             }
@@ -40,16 +40,17 @@ class ProductController extends Controller
         $CollectionId = $lot->collection_id;
         $collection = MyCollection::find($CollectionId);
         if ($collection) {
-            $collection->update(['is_auction' => 0]);
+            $collection->is_auction = 0;
+            $collection->save();
         }
-        $offerData = DB::table('offers')->where('collection_id', $CollectionId)->get();
-        if (!$offerData->isEmpty()) {
-            DB::table('offers')->where('collection_id', $CollectionId)->delete();
-        }
-        $cart = DB::table('carts')->where('lot_id', $productID)->get();
-        if (!$cart->isEmpty()) {
-            DB::table('carts')->where('lot_id', $productID)->delete();
-        }
+//        $offerData = DB::table('offers')->where('collection_id', $CollectionId)->get();
+//        if (!$offerData->isEmpty()) {
+//            DB::table('offers')->where('collection_id', $CollectionId)->delete();
+//        }
+//        $cart = DB::table('carts')->where('lot_id', $productID)->get();
+//        if (!$cart->isEmpty()) {
+//            DB::table('carts')->where('lot_id', $productID)->delete();
+//        }
 
         $sellerId = $lot->collection->user_id;
         $user = User::find($sellerId);
@@ -68,6 +69,7 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Product Converted Successfully.'], 200);
     }
+
     public function sendMail($params)
     {
         $url = 'https://api.sendgrid.com/';

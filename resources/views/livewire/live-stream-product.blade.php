@@ -686,7 +686,7 @@
                         const zg = new ZegoExpressEngine(appID, server);
 
                         const roomID = data.roomID;
-                        // const roomID = '1367';
+                        // const roomID = '1412';
                         const token = data.token;
                         const userID = data.userID;
                         const userName = data.userName;
@@ -778,6 +778,7 @@
                 let requestData = {
                     Action: 'CloseRoom',
                     RoomId: product_id.toString(),
+                    // RoomId: '1412',
                     AppId: '1553886775',
                     SignatureVersion: '2.0',
                     Timestamp: timestamp,

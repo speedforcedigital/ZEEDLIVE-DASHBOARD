@@ -11,6 +11,7 @@ class MyCollection extends Model
     use HasFactory;
 
     protected $table = 'my_collections';
+    protected $guarded = [];
 
     public function seller(){
         return $this->belongsTo(User::class,'offer_receiver_id');
