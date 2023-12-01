@@ -208,13 +208,13 @@ class OffersList extends Component
 
         $this->sendMail($buyerParams);
 
-     //send email to seller
+        //send email to seller
         $sellerParams = array(
             'to' => $sellerData->email,
             'from' => env('MAIL_FROM_ADDRESS'),
             'fromname' => "Zeed Offer",
             'subject' => "Zeed Offer Rejection",
-            'text' =>  "Moderator has rejected your offer due to following reason:-“" . $this->reason . "”.",
+            'text' => "Moderator has rejected your offer due to following reason:-“" . $this->reason . "”.",
         );
         $this->sendMail($sellerParams);
 
@@ -225,8 +225,30 @@ class OffersList extends Component
 
     public function storeTransaction($data)
     {
-        $transaction = DB::table('wallet_transactions')->insert($data);
+        $transaction = DB::table('wallet_transactions')
+            ->where('user_id', $data['user_id'])
+            ->where('name', $data['name'])
+            ->where('type', $data['type'])
+            ->first();
+
+        $now = Carbon::now()->setTimezone('Asia/Kuwait');
+
+        if ($transaction) {
+            DB::table('wallet_transactions')
+                ->where('user_id', $data['user_id'])
+                ->where('name', $data['name'])
+                ->where('type', $data['type'])
+                ->update(['amount' => $data['amount'], 'updated_at' => $now]);
+
+            return;
+        }
+
+        $data['created_at'] = $now;
+        $data['updated_at'] = $now;
+
+        DB::table('wallet_transactions')->insert($data);
     }
+
 
     public function sendMail($params)
     {
