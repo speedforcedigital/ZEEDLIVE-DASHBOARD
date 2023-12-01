@@ -59,6 +59,7 @@ class ProductController extends Controller
         $sellerParams = array(
             'to' => $user->email,
             'from' => env('MAIL_FROM_ADDRESS'),
+
             'fromname' => "ZeedLive",
             'subject' => "Livestream Cancellation",
             'text' => "The moderator has cancelled your livestream.Convert your collection again to sell your product. For any further queries, contact support team.
