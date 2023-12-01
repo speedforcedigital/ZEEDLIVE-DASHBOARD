@@ -33,8 +33,8 @@ class Orders extends Component
 
         $allOrders = $ordersQuery->paginate(10);
         $pendingOrders = $ordersQuery->where("is_deliverd", '0')->where("is_shipped", '0')->paginate(10);
-        $deliveredOrders = $ordersQuery->where("is_deliverd", '1')->paginate(10);
-        $shippedOrders = $ordersQuery->where("is_deliverd", '0')->where("is_shipped", '1')->paginate(10);
+        $deliveredOrders = Order::where("is_deliverd", '1')->paginate(10);
+        $shippedOrders = Order::where("is_shipped", '1')->where("is_deliverd", '0')->paginate(10);
 //        dd($shippedOrders);
 
 
