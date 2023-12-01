@@ -52,7 +52,7 @@ class LiveStreamProduct extends Component
             ->paginate($perPage);
         $sold_products = Lot::orderByDesc('created_at')
             ->whereHas('auction', function ($query) {
-                $query->where('is_scadual_live', '1')->where("auction_status", "Sold");
+                $query->where('is_scadual_live', '1')->whereIn("auction_status", ['Closed']);
             })
             ->paginate($perPage);
 

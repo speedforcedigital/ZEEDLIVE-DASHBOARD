@@ -34,13 +34,13 @@
                             class="ml-1 {{ $selected === 'on_going' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $onGoingProducts }}</span>
                     </button>
                 </li>
-                <li class="m-1">
-                    <button wire:click="filter('ended')"
-                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'ended' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'ended' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
-                        Closed <span
-                            class="ml-1 {{ $selected === 'ended' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $endedProducts }}</span>
-                    </button>
-                </li>
+{{--                <li class="m-1">--}}
+{{--                    <button wire:click="filter('ended')"--}}
+{{--                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'ended' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'ended' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">--}}
+{{--                        Closed <span--}}
+{{--                            class="ml-1 {{ $selected === 'ended' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $endedProducts }}</span>--}}
+{{--                    </button>--}}
+{{--                </li>--}}
                 <li class="m-1">
                     <button wire:click="filter('sold')"
                             class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'sold' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'sold' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
