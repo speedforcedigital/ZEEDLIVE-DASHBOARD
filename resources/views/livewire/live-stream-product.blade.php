@@ -785,7 +785,7 @@
                     Signature: signature
                 };
 
-                console.log('requestData', requestData);
+                // console.log('requestData', requestData);
 
                 $.ajax({
                     url: apiUrl,
