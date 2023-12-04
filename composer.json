@@ -12,6 +12,7 @@
         "aws/aws-sdk-php": "^3.279",
         "brian2694/laravel-toastr": "^5.57",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/laravel-firebase": "^5.5",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.9",
         "laravel/sanctum": "^3.0",

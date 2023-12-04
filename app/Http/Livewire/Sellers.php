@@ -7,6 +7,8 @@ use App\Events\SellerStatusChanged;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
 use Livewire\Component;
 use App\Helpers\baseUrl;
 use App\Helpers\MakeCurlRequest;
@@ -49,7 +51,6 @@ class Sellers extends Component
         }
 
 
-
         return view('livewire.sellers', compact('sellers', 'total_sellers'));
     }
 
@@ -82,7 +83,17 @@ class Sellers extends Component
         $user->rank = "Seller";
         $user->save();
         $message = 'Seller Accepted Successfully.';
-        event(new SellerStatusChanged($seller->id, 'Approved'));
+//        event(new SellerStatusChanged($seller->id, 'Approved'));
+
+        if ($user->device_token) {
+            $title = 'Seller Verification';
+            $body = array(
+                'notification_body' => 'Your seller request has been approved.',
+                'type' => 'seller',
+                'id' => $user->id,
+            );
+            $input = $this->sendNotification($user->device_token, $title, $body);
+        }
         return redirect()->route('sellers.index')->with('message', $message);
     }
 
@@ -116,6 +127,19 @@ class Sellers extends Component
     public function openUserView($id)
     {
         return redirect()->route('users', ['userId' => $id]);
+    }
+
+    public function sendNotification($token, $title, $body)
+    {
+        $messaging = app('firebase.messaging');
+        $message = CloudMessage::withTarget('token', $token)
+            ->withNotification(Notification::fromArray([
+                'title' => $title,
+                'body' => $body['notification_body'],
+            ])) // Optional
+            ->withData($body); // Optional
+
+        $messaging->send($message);
     }
 
     public function sendMail($params)
