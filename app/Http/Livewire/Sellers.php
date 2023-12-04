@@ -88,9 +88,8 @@ class Sellers extends Component
         if ($user->device_token) {
             $title = 'Seller Verification';
             $body = array(
-                'notification_body' => 'Your seller request has been approved.',
-                'type' => 'seller',
-                'id' => $user->id,
+                "notification_body" => "Your seller request has been approved.",
+                "type" => "seller",
             );
             $input = $this->sendNotification($user->device_token, $title, $body);
         }
