@@ -49,11 +49,11 @@ foreach ($permissions as $item) {
                         <div class="font-semibold text-left">Email</div>
                     </th>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                        <div class="font-semibold text-left">Document 1</div>
+                        <div class="font-semibold text-left">Document</div>
                     </th>
-                    <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                        <div class="font-semibold text-left">Document 2</div>
-                    </th>
+{{--                    <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                        <div class="font-semibold text-left">Document 2</div>--}}
+{{--                    </th>--}}
 
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                         <div class="font-semibold text-left">Status</div>
@@ -93,24 +93,30 @@ foreach ($permissions as $item) {
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 text-blue-600">
                                 <a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document1']}}" target="_blank">
-                                    view
+                                    Document 1
                                 </a>
+                                <br>
+                                @if($seller['document2'])
+                                <a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}" target="_blank">
+                                    Document 2
+                                </a>
+                                @endif
 {{--                                <img class="rounded-full"--}}
 {{--                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document1']}}"--}}
 {{--                                     width="40" height="40" alt="Patricia Semklo">--}}
                             </div>
                         </td>
 
-                        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 text-blue-600">
-                                <a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}" target="_blank">
-                                    view
-                                </a>
+{{--                        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 text-blue-600">--}}
+{{--                                <a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}" target="_blank">--}}
+{{--                                    --}}
+{{--                                </a>--}}
 {{--                                <img class="rounded-full"--}}
 {{--                                     src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['document2']}}"--}}
 {{--                                     width="40" height="40" alt="Patricia Semklo">--}}
-                            </div>
-                        </td>
+{{--                            </div>--}}
+{{--                        </td>--}}
 
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <button
