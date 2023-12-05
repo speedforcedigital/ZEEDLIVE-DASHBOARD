@@ -44,7 +44,10 @@ class ReportedOrders extends Component
         }
 
 
+
+
         $orders = $allOrders->paginate($perPage);
+//       dd($orders);
 
         foreach ($orders as $order) {
             $imagePaths = json_decode($order->report_images);

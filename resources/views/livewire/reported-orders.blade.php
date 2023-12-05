@@ -47,6 +47,9 @@
                             <div class="font-semibold text-left">Sr No</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Product</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Seller</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -77,6 +80,13 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">{{$startingPoint++}}</div>
                             </td>
+
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="text-left">
+                                    <a href="{{route('product.show',$order->lot->id)}}"> {{$order->lot->name}}</a>
+                                </div>
+                            </td>
+
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="font-medium text-slate-800">
@@ -242,8 +252,10 @@
                                                         </button>
                                                         <button
                                                             class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"
-                                                            wire:click="accept({{ $order->id }})">
-                                                            Accept
+                                                            wire:click="accept({{ $order->id }})"
+                                                            wire:loading.attr="disabled">
+                                                            <span wire:loading.remove>Accept</span>
+                                                            <span wire:loading>Please wait...</span>
                                                         </button>
                                                         <template x-if="collectionsCount > 0">
                                                             <button
@@ -472,8 +484,15 @@
 
                                                         @foreach($order->report_videos as $video)
 
-                                                            <img src="{{ $video }}" alt="image"
-                                                                 class="w-64 h-auto">
+                                                            <video id="productVideo" controls width="100%" height="auto" class="rounded-lg shadow-lg">
+                                                                <source src="{{ $video }}" type="video/mp4">
+                                                                Your browser does not support the video tag.
+                                                            </video>
+                                                            <div id="playButtonContainer" class="absolute inset-0 flex items-center justify-center">
+                                                                <button id="playButton" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                                                                    Play Video
+                                                                </button>
+                                                            </div>
 
                                                         @endforeach
 
@@ -541,7 +560,18 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
 
+    var video = document.getElementById("productVideo");
+    var playButton = document.getElementById("playButton");
+    var playButtonContainer = document.getElementById("playButtonContainer");
 
+    playButton.addEventListener("click", function() {
+        video.play();
+        playButtonContainer.style.display = "none";
+    });
+
+    video.addEventListener("pause", function() {
+        playButtonContainer.style.display = "flex";
+    });
     // Product Images Slider
     var productSwiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
