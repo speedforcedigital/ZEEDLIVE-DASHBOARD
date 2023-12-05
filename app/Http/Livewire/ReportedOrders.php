@@ -186,10 +186,12 @@ class ReportedOrders extends Component
             $order->tracking_number = $shipmentId;
             $order->is_admin_approved = 1;
             // is_shipped?  bcz we have tracking number
-//            $order->user_id = $buyer->id;
-//            $order->seller_id = $seller->id;
-//            $order->is_shipped = 0;
-//            $order->is_reported = 0;
+            $order->user_id = $buyer->id;
+            $order->seller_id = $seller->id;
+            $order->is_shipped = 1;
+            $order->shipped_at = Carbon::now();
+            $order->shipped_comment = 'Your Order Is Shipped.';
+            $order->is_reported = 0;
             $order->save();
         }
 
