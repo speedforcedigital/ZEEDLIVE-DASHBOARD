@@ -97,7 +97,7 @@
                 <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>
                 <div class="swiper-wrapper" style="height: 400px;">
                     @foreach($lot->gallery_images as $image)
-                        <div class="swiper-slide">
+                        <div class="swiper-slide mr-2">
                             <img src="{{ $image->image }}" alt="Gallery Image" class="w-full h-full object-cover rounded-lg shadow-lg">
                         </div>
                     @endforeach

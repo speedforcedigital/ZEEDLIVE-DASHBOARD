@@ -463,14 +463,30 @@
                                                             Report Images
                                                         </div>
                                                     </div>
-                                                    <div class="flex items-center mt-2">
+                                                    <div class="container mx-auto px-4 py-8">
+                                                        <div class="flex flex-wrap -mx-4">
 
-                                                        @foreach($order->report_images as $image)
+                                                            <div class="w-full md:w-1/2 px-4 mb-4">
+                                                                <div class="swiper-container gallery-slider mt-4">
+                                                                    <h4 class="text-xl font-semibold mb-2">Gallery
+                                                                        Images</h4>
+                                                                    <div class="swiper-wrapper" style="height: 400px;">
+                                                                        @foreach($order->report_images as $image)
+                                                                            <div class="swiper-slide mr-2">
+                                                                                <img src="{{ $image }}"
+                                                                                     alt="Gallery Image"
+                                                                                     class="w-3/4 h-auto object-cover rounded-lg shadow-lg">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <!-- Add pagination and navigation controls if needed -->
+                                                                    {{--                <div class="slider-pagination"></div>--}}
+                                                                    {{--                <div class="slider-button-next"></div>--}}
+                                                                    {{--                <div class="slider-button-prev"></div>--}}
+                                                                </div>
+                                                            </div>
 
-                                                            <img src="{{ $image }}" alt="image"
-                                                                 class="w-64 h-auto rounded mr-4">
-                                                        @endforeach
-
+                                                        </div>
                                                     </div>
 
                                                     <div class="text-sm mt-2">
@@ -480,22 +496,31 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="flex items-center ">
+                                                    <div class="container mx-auto px-4 py-8">
+                                                        <div class="flex flex-wrap -mx-4">
+                                                            <div class="w-full md:w-1/2 px-4 mb-4">
+                                                                <div class="relative">
+                                                                    @foreach($order->report_videos as $video)
 
-                                                        @foreach($order->report_videos as $video)
+                                                                        <video id="productVideo" controls width="100%"
+                                                                               height="auto"
+                                                                               class="rounded-lg shadow-lg">
+                                                                            <source src="{{ $video }}" type="video/mp4">
+                                                                            Your browser does not support the video tag.
+                                                                        </video>
+                                                                        <div id="playButtonContainer"
+                                                                             class="absolute inset-0 flex items-center justify-center">
+                                                                            <button id="playButton"
+                                                                                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                                                                                Play Video
+                                                                            </button>
+                                                                        </div>
+                                                                </div>
 
-                                                            <video id="productVideo" controls width="100%" height="auto" class="rounded-lg shadow-lg">
-                                                                <source src="{{ $video }}" type="video/mp4">
-                                                                Your browser does not support the video tag.
-                                                            </video>
-                                                            <div id="playButtonContainer" class="absolute inset-0 flex items-center justify-center">
-                                                                <button id="playButton" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-                                                                    Play Video
-                                                                </button>
+                                                                @endforeach
+
                                                             </div>
-
-                                                        @endforeach
-
+                                                        </div>
                                                     </div>
 
                                                     <div class="text-sm mt-2">
@@ -513,48 +538,47 @@
                                                 </div>
                                             </div>
                                             <!-- Modal footer -->
-{{--                                            <div--}}
-{{--                                                class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">--}}
-{{--                                                <div class="flex justify-end">--}}
-{{--                                                    <button--}}
-{{--                                                        class="btn-sm bg-gray-500 hover:bg-gray-700 text-white mr-2"--}}
-{{--                                                        @click="deleteModalOpen2 = false">--}}
-{{--                                                        OK--}}
-{{--                                                    </button>--}}
-{{--                                                    <button--}}
-{{--                                                        class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"--}}
-{{--                                                        wire:click="accept({{ $order->id }})">--}}
-{{--                                                        Accept--}}
-{{--                                                    </button>--}}
-{{--                                                    <template x-if="collectionsCount > 0">--}}
-{{--                                                        <button--}}
-{{--                                                            class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"--}}
-{{--                                                            @click="deleteModalOpen2 = false">OK--}}
-{{--                                                        </button>--}}
-{{--                                                    </template>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            {{--                                            <div--}}
+                                            {{--                                                class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">--}}
+                                            {{--                                                <div class="flex justify-end">--}}
+                                            {{--                                                    <button--}}
+                                            {{--                                                        class="btn-sm bg-gray-500 hover:bg-gray-700 text-white mr-2"--}}
+                                            {{--                                                        @click="deleteModalOpen2 = false">--}}
+                                            {{--                                                        OK--}}
+                                            {{--                                                    </button>--}}
+                                            {{--                                                    <button--}}
+                                            {{--                                                        class="btn-sm bg-indigo-600 hover:bg-indigo-700 text-white"--}}
+                                            {{--                                                        wire:click="accept({{ $order->id }})">--}}
+                                            {{--                                                        Accept--}}
+                                            {{--                                                    </button>--}}
+                                            {{--                                                    <template x-if="collectionsCount > 0">--}}
+                                            {{--                                                        <button--}}
+                                            {{--                                                            class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"--}}
+                                            {{--                                                            @click="deleteModalOpen2 = false">OK--}}
+                                            {{--                                                        </button>--}}
+                                            {{--                                                    </template>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </div>--}}
                                         </div>
                                     </div>
                                 </div>
-{{--            </div>--}}
+                                {{--            </div>--}}
 
 
-
-            </td>
-            </tr>
-            @endforeach
-            </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 
-</div>
-
-<!-- Pagination -->
-<div class="px-5 py-3">
-    {{--        {{ $orders->links() }}--}}
-</div>
+    <!-- Pagination -->
+    <div class="px-5 py-3">
+        {{--        {{ $orders->links() }}--}}
+    </div>
 </div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -564,12 +588,12 @@
     var playButton = document.getElementById("playButton");
     var playButtonContainer = document.getElementById("playButtonContainer");
 
-    playButton.addEventListener("click", function() {
+    playButton.addEventListener("click", function () {
         video.play();
         playButtonContainer.style.display = "none";
     });
 
-    video.addEventListener("pause", function() {
+    video.addEventListener("pause", function () {
         playButtonContainer.style.display = "flex";
     });
     // Product Images Slider
