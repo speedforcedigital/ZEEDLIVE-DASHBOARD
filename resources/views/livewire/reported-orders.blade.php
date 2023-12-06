@@ -83,7 +83,7 @@
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">
-                                    <a href="{{route('product.show',$order->lot->id)}}"> {{$order->lot->name}}</a>
+                                    <a href="{{route('product.show',$order->lot->id)}}"> {{$order->lot->title ?? 'No Name'}}</a>
                                 </div>
                             </td>
 

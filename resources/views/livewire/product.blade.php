@@ -342,7 +342,7 @@
                                                             <span class="text-gray-700">Reason <b class="text-red-500">*</b></span>
                                                             <textarea
                                                                 class="form-textarea mt-1 block w-full"
-                                                                rows="3" wire:model="reason" required></textarea>
+                                                                rows="3" wire:model.defer="reason" required></textarea>
                                                         </label>
                                                         <div class="text-red-500 text-xs italic">
                                                             @error('reason') <span class="reason">{{ $message }}</span> @enderror

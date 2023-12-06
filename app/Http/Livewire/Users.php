@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\MailTrait;
 use CURLFile;
 use App\Models\User;
 use Livewire\Component;
@@ -14,7 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 // protected $listeners = [];
 class Users extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads; use MailTrait;
 
     public $user_id, $name, $email, $mobile, $gender, $role, $password, $type, $image;
     public $viewUser = false;
@@ -27,6 +28,14 @@ class Users extends Component
 
     public $search = '';
 
+    public $is_banned;
+    public $is_active;
+
+    public $reason = '';
+
+    protected $rules = [
+        'reason' => 'required',
+    ];
     protected $listeners = [
         'views',
         'viewUsers' => 'view'
@@ -176,6 +185,43 @@ class Users extends Component
     {
         $this->filter = $type;
         $this->selected = $type;
+    }
+
+    public function banUser($id)
+    {
+        $this->validate();
+        $user = User::find($id);
+        $user->is_banned = 1;
+        $user->save();
+        $params = array(
+            'to' => $user->email,
+            'from' => env("MAIL_FROM_ADDRESS"),
+            'fromname' => "Zeedlive",
+            'subject' => "Account Banned",
+            'text' => "Dear Mr/Ms. " . $user->name . " Your account is banned due to the following reason: " . $this->reason,
+        );
+        $this->sendMail($params);
+        $message = 'User Banned Successfully.';
+        session()->flash('message', $message);
+        return redirect()->route("users");
+    }
+
+    public function unBan($id)
+    {
+        $user = User::find($id);
+        $user->is_banned = 0;
+        $user->save();
+        $params = array(
+            'to' => $user->email,
+            'from' => env("MAIL_FROM_ADDRESS"),
+            'fromname' => "Zeedlive",
+            'subject' => "Account Unbanned",
+            'text' => "Dear Mr/Ms. " . $user->name . " Your account is unbanned due to the following reason: " . $this->reason,
+        );
+        $this->sendMail($params);
+        $message = 'User Unbanned Successfully.';
+        session()->flash('message', $message);
+        return redirect()->route("users");
     }
 
 }
