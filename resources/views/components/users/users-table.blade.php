@@ -85,7 +85,7 @@ foreach ($permissionsArray as $item) {
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full"
                                          src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/user/profile/{{$user['accountDetail']['profile_image']}}"
-                                         width="40" height="40" alt="Patricia Semklo">
+                                          alt="Patricia Semklo" style="width: 40px; height: 40px";>
                                 </div>
                                 <div class="font-medium text-slate-800"><a
                                         href="{{ route('user.show',$user['id'] ) }}">{{ $user['name'] }}</a></div>
