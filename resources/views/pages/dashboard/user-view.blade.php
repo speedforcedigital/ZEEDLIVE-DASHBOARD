@@ -4,7 +4,7 @@
 
     <!-- Profile background -->
     <div class="relative h-56 bg-slate-200">
-        <img class="object-cover h-full w-full" src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/zeed/users/profile/{{$user->accountDetail->cover_image}}" width="979" height="220"
+        <img class="object-cover h-full w-full" src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/zeed/users/profile/cover/{{$user->accountDetail->cover_image}}" width="979" height="220"
             alt="Profile background" />
         <!-- Close button -->
         <button class="md:hidden absolute top-4 left-4 sm:left-6 text-white opacity-80 hover:opacity-100"
