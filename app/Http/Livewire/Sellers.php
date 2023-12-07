@@ -6,6 +6,7 @@ use App\Events\BidEvent;
 use App\Events\SellerStatusChanged;
 use App\Models\Role;
 use App\Models\User;
+use App\Traits\pushNotificationTrait;
 use Illuminate\Support\Facades\Storage;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
@@ -18,6 +19,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class Sellers extends Component
 {
+    use pushNotificationTrait;
     public $filterSeller = null;
     public $filterType = 'all';
     public $search = '';
@@ -128,18 +130,6 @@ class Sellers extends Component
         return redirect()->route('users', ['userId' => $id]);
     }
 
-    public function sendNotification($token, $title, $body)
-    {
-        $messaging = app('firebase.messaging');
-        $message = CloudMessage::withTarget('token', $token)
-            ->withNotification(Notification::fromArray([
-                'title' => $title,
-                'body' => $body['notification_body'],
-            ])) // Optional
-            ->withData($body); // Optional
-
-        $messaging->send($message);
-    }
 
     public function sendMail($params)
     {

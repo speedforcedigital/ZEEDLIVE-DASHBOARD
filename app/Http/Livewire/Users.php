@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Traits\MailTrait;
+use App\Traits\pushNotificationTrait;
 use CURLFile;
 use App\Models\User;
 use Livewire\Component;
@@ -15,7 +16,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 // protected $listeners = [];
 class Users extends Component
 {
-    use WithFileUploads; use MailTrait;
+    use WithFileUploads; use MailTrait; use pushNotificationTrait;
 
     public $user_id, $name, $email, $mobile, $gender, $role, $password, $type, $image;
     public $viewUser = false;
@@ -202,6 +203,14 @@ class Users extends Component
         );
         $this->sendMail($params);
         $message = 'User Banned Successfully.';
+        if ($user->device_token) {
+            $title = 'User Banned';
+            $body = array(
+                "notification_body" => "User is Banned",
+                "type" => "ban",
+            );
+            $input = $this->sendNotification($user->device_token, $title, $body);
+        }
         session()->flash('message', $message);
         return redirect()->route("users");
     }
@@ -220,6 +229,14 @@ class Users extends Component
         );
         $this->sendMail($params);
         $message = 'User Unbanned Successfully.';
+        if ($user->device_token) {
+            $title = 'User Activated';
+            $body = array(
+                "notification_body" => "User is Activated",
+                "type" => "activated",
+            );
+            $input = $this->sendNotification($user->device_token, $title, $body);
+        }
         session()->flash('message', $message);
         return redirect()->route("users");
     }

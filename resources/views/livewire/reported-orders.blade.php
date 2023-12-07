@@ -55,6 +55,9 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Buyer</div>
                         </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Order ID</div>
+                        </th>
                         {{--                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
                         {{--                            <div class="font-semibold text-left">Images</div>--}}
                         {{--                        </th>--}}
@@ -103,6 +106,16 @@
                                     </div>
                                 </div>
                             </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="font-medium text-slate-800">
+                                        {{$order->order_id ?? 'Null'}}
+                                    </div>
+                                </div>
+                            </td>
+
+
+
                             {{--                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
                             {{--                                <div class="flex items-center">--}}
                             {{--                                    <div class="swiper-container">--}}
