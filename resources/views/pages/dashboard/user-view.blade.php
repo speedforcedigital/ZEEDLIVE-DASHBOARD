@@ -4,7 +4,7 @@
 
     <!-- Profile background -->
     <div class="relative h-56 bg-slate-200">
-        <img class="object-cover h-full w-full" src="{{ asset('images/profile-bg.jpg') }}" width="979" height="220"
+        <img class="object-cover h-full w-full" src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/zeed/users/profile/{{$user->accountDetail->cover_image}}" width="979" height="220"
             alt="Profile background" />
         <!-- Close button -->
         <button class="md:hidden absolute top-4 left-4 sm:left-6 text-white opacity-80 hover:opacity-100"
@@ -28,7 +28,7 @@
                 <!-- Avatar -->
                 <div class="inline-flex -ml-1 -mt-1 mb-4 sm:mb-0">
                     <img class="rounded-full border-4 border-white"
-                        src="https://api.staging.zeedlive.com/image/user_profile/{{$user->accountDetail->profile_image}}"
+                        src="{{$user->image}}"
                         width="128" height="128" alt="Avatar" />
                 </div>
 

@@ -559,6 +559,9 @@ class DashboardController extends Controller
     public function userView($id)
     {
         $user = User::find($id);
+//        dd($user);
+       $user->image = Storage::disk('do')->url($user->image);
+//       dd($user->image);
         $products = Lot::whereHas('collection', function ($query) use ($id) {
             $query->where('user_id', $id);
         })->get();
