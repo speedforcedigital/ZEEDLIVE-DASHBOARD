@@ -45,8 +45,7 @@ Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
 
-    Route::get('/users', Users::class)->name("users");
-
+    Route::middleware('check.permissions:App  User')->get('/users', Users::class)->name("users");
     Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);
     Route::get('/get/users-by-age', [DashboardController::class, 'getUsersByAge']);
     Route::get('/get/users-by-gender', [DashboardController::class, 'getUsersByGender']);
@@ -64,19 +63,19 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/reported/orders', ReportedOrders::class);
     Route::get('/seller/reported/orders', SellerReportedOrders::class);
 
-    Route::get('/wallets', Wallets::class)->name('wallet.index');
+    Route::middleware('check.permissions:Wallets')->get('/wallets', Wallets::class)->name('wallet.index');
     Route::get('/collections', Collection::class)->name("collections.index");
     Route::get('/models', Models::class);
-    Route::get('/sellers', Sellers::class)->name('sellers.index');
+    Route::middleware('check.permissions:Seller Verification')->get('/sellers', Sellers::class)->name('sellers.index');
     Route::get('/auctions', Auctions::class);
     Route::get('/products/standard', Product::class)->name("standard.products");
     Route::get('/products/live-stream', LiveStreamProduct::class)->name("livestream.products");
     Route::get('/products/listings', Listing::class)->name("listings.products");
     Route::get('/notifications', Notifications::class);
-    Route::get('/offers', OffersList::class)->name("offers");
-    Route::get('/custom/fields', customFields::class);
-    Route::get('/global/fields', globalFields::class);
-    Route::get('/admins', Admins::class)->name("admins");
+    Route::middleware('check.permissions:Offers')->get('/offers', OffersList::class)->name("offers");
+    Route::middleware('check.permissions:Custom Field')->get('/custom/fields', customFields::class);
+    Route::middleware('check.permissions:Global Field')->get('/global/fields', globalFields::class);
+    Route::middleware('check.permissions:Admin User')->get('/admins', Admins::class)->name("admins");
     Route::get('/roles', Roles::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
