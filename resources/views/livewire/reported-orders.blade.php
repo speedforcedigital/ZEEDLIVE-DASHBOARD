@@ -158,6 +158,7 @@
                                     {{--                                        </svg>--}}
                                     {{--                                    </button>--}}
                                     {{--                                </div>--}}
+                                    @if($order->is_reported == 1 && $order->is_admin_approved == 0)
                                     <div
                                         x-data="{ deleteModalOpen2: @entangle('deleteModalOpen2'), collectionsCount: @entangle('collectionsCount') }">
                                         <div class="flex items-center">
@@ -379,6 +380,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
 
                                     <div
                                         x-data="{ deleteModalOpen2: @entangle('deleteModalOpen2'), collectionsCount: @entangle('collectionsCount') }">
