@@ -31,7 +31,7 @@ class ReportedOrders extends Component
 //            });
 //        }
 
-        $allOrders = Order::where('is_reported', 1)->orderByDesc('created_at');
+        $allOrders = Order::where('is_reported', 1)->where('is_seller_reported', 0)->orderByDesc('created_at');
         if (!empty($this->search)) {
             $allOrders = $allOrders->where(function ($query) {
                 $query->whereHas('seller', function ($subQuery) {
