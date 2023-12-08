@@ -206,13 +206,12 @@ class Users extends Component
         if ($user->device_token) {
             $title = 'User Banned';
             $body = array(
-                "notification_body" => "User is Banned",
+                "notification_body" => "Your Account has been Banned",
                 "type" => "ban",
             );
             $input = $this->sendNotification($user->device_token, $title, $body);
         }
-        session()->flash('message', $message);
-        return redirect()->route("users");
+        return redirect()->route('users')->with('message', $message);
     }
 
     public function unBan($id)
@@ -232,13 +231,12 @@ class Users extends Component
         if ($user->device_token) {
             $title = 'User Activated';
             $body = array(
-                "notification_body" => "User is Activated",
+                "notification_body" => "Your Account is Activated",
                 "type" => "activated",
             );
             $input = $this->sendNotification($user->device_token, $title, $body);
         }
-        session()->flash('message', $message);
-        return redirect()->route("users");
+        return redirect()->route('users')->with('message', $message);
     }
 
 }
