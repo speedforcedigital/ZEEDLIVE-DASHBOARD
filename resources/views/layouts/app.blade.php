@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
 
+
     <!-- Styles -->
     @livewireStyles
 
@@ -27,6 +28,8 @@
             document.querySelector('html').style.colorScheme = 'dark';
         }
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 <style>
     <
@@ -131,7 +134,6 @@
     </div>
 
 </div>
-
 @livewireScripts
 </body>
 </html>

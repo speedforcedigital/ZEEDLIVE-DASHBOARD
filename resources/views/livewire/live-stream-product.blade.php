@@ -59,7 +59,7 @@
     </div>
     <!-- Message Container -->
     @if (session()->has('message'))
-        <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md">
+        <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md alert-success">
             {{ session('message') }}
         </div>
     @endif
@@ -666,6 +666,16 @@
 {{--    }--}}
 {{--</script>--}}
 
+<script>
+    $(document).ready(function(){
+        window.livewire.on('alert_remove',()=>{
+            setTimeout(function(){ $(".alert-success").fadeOut('fast');
+            }, 2000);
+            //reload page
+            location.reload();
+        });
+    });
+</script>
 
 <script>
 

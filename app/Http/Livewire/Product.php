@@ -80,6 +80,7 @@ class Product extends Component
         DB::table('auction')->where('id', $id)->update(['admin_status' => 'Approved']);
         $message = 'Product Approved.';
         session()->flash('message', $message);
+        $this->emit('alert_remove');
     }
 
     public function reject($id)
@@ -103,6 +104,7 @@ class Product extends Component
         $this->sendMail($params);
         $message = 'Product rejected.';
         session()->flash('message', $message);
+        $this->emit('alert_remove');
     }
 
     public function view($id)
