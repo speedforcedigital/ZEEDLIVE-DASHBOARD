@@ -51,7 +51,9 @@ class Users extends Component
             ->orderBy('users.id', 'desc');
 
         if ($this->search) {
-            $usersQuery->where('name', 'like', '%' . $this->search . '%');
+            $usersQuery->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('email', 'like', '%' . $this->search . '%')
+                ->orWhere('mobile', 'like', '%' . $this->search . '%');
         }
 
         $users = $usersQuery->paginate(10);
@@ -211,7 +213,9 @@ class Users extends Component
             );
             $input = $this->sendNotification($user->device_token, $title, $body);
         }
-        return redirect()->route('users')->with('message', $message);
+        session()->flash('message','User Banned Successfully');
+        $this->emit('alert_remove');
+//        return redirect()->route('users');
     }
 
     public function unBan($id)
@@ -223,7 +227,7 @@ class Users extends Component
             'to' => $user->email,
             'from' => env("MAIL_FROM_ADDRESS"),
             'fromname' => "Zeedlive",
-            'subject' => "Account Unbanned",
+            'subject' => "Account Activated",
             'text' => "Dear Mr/Ms. " . $user->name . " Your account is unbanned due to the following reason: " . $this->reason,
         );
         $this->sendMail($params);
@@ -236,7 +240,9 @@ class Users extends Component
             );
             $input = $this->sendNotification($user->device_token, $title, $body);
         }
-        return redirect()->route('users')->with('message', $message);
+        session()->flash('message','User Activated Successfully');
+        $this->emit('alert_remove');
+//        return redirect()->route('users')->with('message', $message);
     }
 
 }
