@@ -571,7 +571,7 @@ class DashboardController extends Controller
     public function collectionView($id)
     {
         $collection = MyCollection::find($id);
-        if ($collection->image !== null) {
+        if ($collection->image) {
             $collection->image = Storage::disk('do')->url($collection->image);
         }
         if ($collection->video !== null) {
