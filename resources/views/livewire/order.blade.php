@@ -220,7 +220,7 @@
                                     @if($order->seller && $order->seller->SellerVerification)
                                         <li><a href="{{ $order->seller->SellerVerification->document1 }}"
                                                class="text-blue-500 hover:underline"
-                                               target="_blank">{{ $document->name }}</a></li>
+                                               target="_blank">view</a></li>
                                     @else
                                         No Seller Document
                                     @endif
