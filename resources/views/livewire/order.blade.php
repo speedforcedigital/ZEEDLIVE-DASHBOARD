@@ -206,7 +206,7 @@
                                 <h4 class="font-semibold mb-2">Pictures:</h4>
                                 <div class="flex space-x-2 h-24 overflow-x-auto">
                                     {{-- @foreach($order->pictures as $picture) --}}
-                                    <img src="{{ asset('images/product/images/' . $order->lot->image) }}"
+                                    <img src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{ $order->lot->image }}"
                                          class="object-cover rounded"/>
                                     {{-- @endforeach --}}
                                 </div>
