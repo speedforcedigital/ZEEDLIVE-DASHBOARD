@@ -240,7 +240,7 @@ foreach ($permissions as $item) {
                                         </div>
                                     </div>
 
-                                    @if($delete_capability_exists)
+{{--                                    @if($delete_capability_exists)--}}
 {{--                                        <button wire:click="rejected({{ $seller['id'] }})"--}}
 {{--                                                class="btn border-slate-200 hover:border-slate-300">--}}
 {{--                                            <svg class="w-4 h-4 fill-current text-rose-500 shrink-0"--}}
@@ -371,7 +371,7 @@ foreach ($permissions as $item) {
                                                     </div>
                                                 </div>
                                             </div>
-                                    @endif
+{{--                                    @endif--}}
                                 </td>
                             @endif
                         </div>
