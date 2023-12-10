@@ -78,9 +78,9 @@ foreach ($permissions as $item) {
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                    <img class="rounded-full"
-                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['user']['accountDetail']['profile_image']}}"
-                                        alt="Patricia Semklo" style="width: 40px; height: 40px";>
+{{--                                    <img class="rounded-full"--}}
+{{--                                         src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$seller['user']['accountDetail']['profile_image']}}"--}}
+{{--                                        alt="Patricia Semklo" style="width: 40px; height: 40px";>--}}
                                 </div>
                                 <div class="font-medium text-slate-800"><a
                                         href="{{ route('user.show',$seller['user']['id']) }}">{{ $seller['user']['name'] }}</a>
