@@ -218,7 +218,7 @@
                                 <h4 class="font-semibold mb-2">Seller Documents:</h4>
                                 <ul>
                                     @if($order->seller && $order->seller->SellerVerification)
-                                        <li><a href="{{ $order->seller->SellerVerification->document1 }}"
+                                        <li><a href="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{ $order->seller->SellerVerification->document1 }}"
                                                class="text-blue-500 hover:underline"
                                                target="_blank">view</a></li>
                                     @else
