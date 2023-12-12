@@ -46,9 +46,6 @@ Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
 
-    Route::get('/get/notifications/count',[DashboardNotificationsController::class, 'getNotificationsCount']);
-    Route::get('/update/seller/notifications',[DashboardNotificationsController::class, 'updateNotifications']);
-
     Route::middleware('check.permissions:App  User')->get('/users', Users::class)->name("users");
     Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);
     Route::get('/get/users-by-age', [DashboardController::class, 'getUsersByAge']);

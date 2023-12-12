@@ -60,19 +60,5 @@ if (is_array($permissionsArray)) {
     </div>
 </x-app-layout>
 
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.11.2/dist/echo.iife.js"></script>
-<script>
-    window.Echo = new Echo({
-        broadcaster: 'pusher',
-        key: 'f2402f0338f9d665fcb3',
-        cluster: 'us2',
-        forceTLS: true
-    });
-    window.Echo.channel('seller')
-        .listen('NewSellerApplication', (event) => {
-            console.log('New Seller Application:', event);
-        });
-</script>
 
 

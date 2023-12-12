@@ -50,11 +50,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //
 // window.Echo = new Echo({
 //     broadcaster: 'pusher',
-//     key: 'f2402f0338f9d665fcb3',
-//     cluster: 'us2',
+//     key: '4787255b7953e759c202',
+//     cluster: 'ap2',
 //     forceTLS: true
 // });
-
-console.log('Bootstrap.js file is being executed.');
+//
+// console.log('Bootstrap.js file is being executed.');
 
 

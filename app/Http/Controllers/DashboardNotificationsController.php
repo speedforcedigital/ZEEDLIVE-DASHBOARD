@@ -13,13 +13,15 @@ class DashboardNotificationsController extends Controller
         $liveStreamNotification = DashboardNotifications::where('type', 'Live Stream')->where('is_read', 0)->first();
         $standardNotification = DashboardNotifications::where('type', 'Standard')->where('is_read', 0)->first();
 
+        return view('components.app.header', compact('SellerNotification', 'liveStreamNotification', 'standardNotification'));
 
-        return response()->json([
-            'success' => true,
-            'sellerNotification' => $SellerNotification,
-            'liveStreamNotification' => $liveStreamNotification,
-            'standardNotification' => $standardNotification,
-        ]);
+
+//        return response()->json([
+//            'success' => true,
+//            'sellerNotification' => $SellerNotification,
+//            'liveStreamNotification' => $liveStreamNotification,
+//            'standardNotification' => $standardNotification,
+//        ]);
     }
     public function updateNotifications()
     {
