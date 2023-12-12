@@ -26,7 +26,7 @@
             <div class="flex items-center space-x-3">
 
 
-{{--                @livewire('dashboard-notifications')--}}
+                @livewire('dashboard-notifications')
 
                 <!-- Divider -->
                 <hr class="w-px h-6 bg-slate-200"/>
