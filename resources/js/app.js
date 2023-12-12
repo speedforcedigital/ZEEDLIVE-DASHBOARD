@@ -44,6 +44,8 @@ window.Alpine = Alpine;
 Alpine.start();
 
 
+
+
 // Define Chart.js default settings
 /* eslint-disable prefer-destructuring */
 Chart.defaults.font.family = '"Inter", sans-serif';
@@ -126,5 +128,5 @@ document.addEventListener('DOMContentLoaded', () => {
   fintechCard11();
   fintechCard12();
   fintechCard13();
-  fintechCard14();  
+  fintechCard14();
 });

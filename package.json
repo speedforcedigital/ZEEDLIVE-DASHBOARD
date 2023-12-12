@@ -20,7 +20,9 @@
         "chart.js": "^3.8.0",
         "chartjs-adapter-moment": "^1.0.0",
         "flatpickr": "^4.6.13",
+        "laravel-echo": "^1.15.3",
         "moment": "^2.29.4",
+        "pusher-js": "^8.4.0-rc2",
         "toastr": "^2.1.4",
         "zego-express-engine-webrtc": "^3.0.0"
     }

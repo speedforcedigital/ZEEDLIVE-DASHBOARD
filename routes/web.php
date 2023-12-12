@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardNotificationsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Livewire\Orders;
 use App\Http\Livewire\ReportedOrders;
@@ -44,6 +45,9 @@ Route::get('/json-data-feed', [DashboardController::class, 'getDataFeed'])->name
 Route::redirect('/', 'login');
 Route::post('/admin/login', [Login::class, 'index']);
 Route::group(['middleware' => 'protected'], function () {
+
+    Route::get('/get/notifications/count',[DashboardNotificationsController::class, 'getNotificationsCount']);
+    Route::get('/update/seller/notifications',[DashboardNotificationsController::class, 'updateNotifications']);
 
     Route::middleware('check.permissions:App  User')->get('/users', Users::class)->name("users");
     Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);
