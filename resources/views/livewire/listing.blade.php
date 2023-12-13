@@ -102,6 +102,7 @@
 
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="flex space-x-1 items-center">
                                 <div class="space-x-1">
 
                                     <button class="text-slate-400 hover:text-slate-500 rounded-full"
@@ -147,7 +148,8 @@
 
                                         <div class="flex items-center">
                                             <!-- Enable Button -->
-                                            <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                                    @click="acceptModalOpen = true">
                                                 <span class="sr-only">Block</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ban"
                                                      width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
@@ -244,7 +246,7 @@
                                     </div>
                                 </div>
 
-
+                                </div>
                             </td>
                         </tr>
                         @endforeach
