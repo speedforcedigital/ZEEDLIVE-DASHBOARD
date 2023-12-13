@@ -24,7 +24,7 @@ class RefundRequests extends Component
     {
         $perPage = 10;
 
-        $allRequests = RefundRequest::where('status', 'Pending')->where('admin_status', 'Pending')->orderBy('id', 'desc');
+        $allRequests = RefundRequest::where('status', 'pending')->orderBy('id', 'desc');
         if (!empty($this->search)) {
             $allReports = $allRequests->where(function ($q) {
                 $q->where('account_holder_name', 'like', '%' . $this->search . '%')
@@ -43,7 +43,6 @@ class RefundRequests extends Component
     {
         $refundRequest = RefundRequest::find($id);
         $refundRequest->admin_status = 'Accepted';
-        $refundRequest->status = 'Accepted';
         $refundRequest->save();
 
         $wallet = Wallet::where('user_id', $refundRequest->user_id)->first();
@@ -85,7 +84,6 @@ class RefundRequests extends Component
         $this->validate();
         $refundRequest = RefundRequest::find($id);
         $refundRequest->admin_status = 'Rejected';
-        $refundRequest->status = 'Rejected';
 
         $buyerParams = array(
             'to' => $refundRequest->user->email,

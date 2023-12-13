@@ -62,6 +62,9 @@
                             <div class="font-semibold text-left">Contact</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Status</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
                         </th>
                         {{--                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
@@ -122,6 +125,22 @@
                                 </div>
                             </td>
 
+                            <td>
+                                @if($request->admin_status === 'pending')
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        Pending
+                                    </span>
+                                @elseif($request->admin_status === 'Accepted')
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Accepted
+                                    </span>
+                                @elseif($request->admin_status === 'Rejected')
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        Rejected
+                                    </span>
+                                @endif
+                            </td>
+
 
 
                             {{--                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
@@ -179,7 +198,7 @@
                                     {{--                                        </svg>--}}
                                     {{--                                    </button>--}}
                                     {{--                                </div>--}}
-
+                                @if($request->admin_status === 'pending')
                                         <div
                                             x-data="{ deleteModalOpen2: @entangle('deleteModalOpen2'), collectionsCount: @entangle('collectionsCount') }">
                                             <div class="flex items-center">
@@ -413,6 +432,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    @endif
 
 
                                 </div>
