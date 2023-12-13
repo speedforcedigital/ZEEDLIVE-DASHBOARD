@@ -21,7 +21,7 @@
 
     <!-- Message Container -->
     @if (session()->has('message'))
-        <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md">
+        <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md alert-success">
             {{ session('message') }}
         </div>
     @endif
@@ -597,6 +597,17 @@
 </div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        window.livewire.on('alert_remove',()=>{
+            setTimeout(function(){ $(".alert-success").fadeOut('fast');
+            }, 3000);
+            //reload page
+            location.reload();
+        });
+    });
+</script>
 <script>
 
     var video = document.getElementById("productVideo");

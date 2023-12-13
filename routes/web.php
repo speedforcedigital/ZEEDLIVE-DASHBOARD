@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardNotificationsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Livewire\Orders;
+use App\Http\Livewire\RefundRequests;
 use App\Http\Livewire\ReportedOrders;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\SellerReportedOrders;
@@ -42,8 +43,8 @@ use App\Http\Livewire\Wallets;
 */
 Route::get('/json-data-feed', [DashboardController::class, 'getDataFeed'])->name('json_data_feed');
 
-Route::redirect('/', 'login');
-Route::post('/admin/login', [Login::class, 'index']);
+Route::redirect('/', 'login')->name('login');
+Route::post('/admin/login', [Login::class, 'index'])->name('admin.login');
 Route::group(['middleware' => 'protected'], function () {
 
     Route::middleware('check.permissions:App  User')->get('/users', Users::class)->name("users");
@@ -61,10 +62,11 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/brands', Brands::class);
     Route::get('/orders', Orders::class);
     //reported orders
-    Route::get('/reported/orders', ReportedOrders::class);
-    Route::get('/seller/reported/orders', SellerReportedOrders::class);
+    Route::get('/reported/orders', ReportedOrders::class)->name('reported.orders');
+    Route::get('/seller/reported/orders', SellerReportedOrders::class)->name('seller.reported.orders');
 
     Route::middleware('check.permissions:Wallets')->get('/wallets', Wallets::class)->name('wallet.index');
+    Route::middleware('check.permissions:Wallets')->get('/refund/requests', RefundRequests::class)->name('refund.index');
     Route::get('/collections', Collection::class)->name("collections.index");
     Route::get('/models', Models::class);
     Route::middleware('check.permissions:Seller Verification')->get('/sellers', Sellers::class)->name('sellers.index');

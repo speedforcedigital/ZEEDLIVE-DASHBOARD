@@ -18,7 +18,8 @@ class Collection extends Component
 
         $query = MyCollection::query()
             ->when($this->category_id, fn($q) => $q->where('category_id', $this->category_id))
-            ->when($this->brand_id, fn($q) => $q->where('brand_id', $this->brand_id));
+            ->when($this->brand_id, fn($q) => $q->where('brand_id', $this->brand_id))
+            ->orderBy('id', 'desc');
 
         if ($this->search != null) {
             $query->where(function ($q) {

@@ -670,7 +670,7 @@
     $(document).ready(function(){
         window.livewire.on('alert_remove',()=>{
             setTimeout(function(){ $(".alert-success").fadeOut('fast');
-            }, 2000);
+            }, 3000);
             //reload page
             location.reload();
         });

@@ -49,7 +49,26 @@
             <div wire:click="handleStandardNotification">
             @if ($standardNotification)
                 {{ $standardNotification->body }}
+                    <hr>
             @endif
+            </div>
+            <div wire:click="handleBuyerReportNotification">
+                @if ($buyerReportNotification)
+                    {{ $buyerReportNotification->body }} <br>
+                    <hr>
+                @endif
+            </div>
+            <div wire:click="handleSellerReportNotification">
+                @if ($sellerReportNotification)
+                    {{ $sellerReportNotification->body }} <br>
+                    <hr>
+                @endif
+            </div>
+            <div wire:click="handleRefundNotification">
+                @if ($refundNotification)
+                    {{ $refundNotification->body }} <br>
+                    <hr>
+                @endif
             </div>
         </div>
 

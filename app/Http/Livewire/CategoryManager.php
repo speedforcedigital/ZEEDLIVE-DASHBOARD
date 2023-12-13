@@ -42,12 +42,18 @@ class CategoryManager extends Component
 
     public function mount()
     {
+
         $this->categories = Category::with('brands.modals')->get();
         $this->collectionsCount = 0;
     }
 
     public function render()
     {
+//        dd($this->collectionsCount);
+        $this->collectionsCount = 0;
+        if ($this->selectedCategory && isset($this->selectedCategory['id'])) {
+            $this->collectionsCount = Category::find($this->selectedCategory['id'])->collections()->count();
+        }
         return view('livewire.category-manager', [
             'categories' => $this->categories,
             'selectedCategory' => $this->selectedCategory,
@@ -75,7 +81,13 @@ class CategoryManager extends Component
                 $this->resetCategory();
                 $this->collectionsCount = 0;
                 $this->categories = Category::with('brands.modals')->get();
+
+//                $message = 'Category deleted successfully.';
+//                session()->flash('message', $message);
+//                $this->emit('alert_remove');
+                return redirect('manage/category');
             }
+
         }
     }
     public function removeBrand()
@@ -163,6 +175,7 @@ class CategoryManager extends Component
         $this->resetCategory();
         $this->resetBrand();
         $this->resetModal();
+        $this->editModalOpen = false;
 
         $this->reset(['newCategoryName', 'editModalOpen']);
     }

@@ -1,6 +1,9 @@
 <?php
 $array = Session::get('permissions');
 //add
+if ($array === null) {
+    return redirect()->route('login');
+}
 $add_capability_exists = false;
 $permissionsArray = json_decode($array, true);
 foreach ($permissionsArray as $item) {
@@ -65,6 +68,12 @@ foreach ($permissionsArray as $item) {
     <div class="border-t border-slate-200">
       <!-- Components -->
       <div class="space-y-8 mt-8">
+
+          @if (session()->has('message'))
+              <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md alert-success">
+                  {{ session('message') }}
+              </div>
+          @endif
         <!-- Input Types -->
         <div>
           <div class="grid gap-5 md:grid-cols-2">
@@ -74,7 +83,7 @@ foreach ($permissionsArray as $item) {
               <div>
                 <label class="block text-sm font-medium mb-1" for="category">Category <span class="text-rose-500">*</span></label>
                 <div class="flex">
-                  <input id="category" class="form-input w-full" type="text" wire:model="categoryName" required/>
+                  <input id="category" class="form-input w-full" placeholder="Enter Category Name" type="text" wire:model="categoryName" required/>
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addCategory">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -118,14 +127,14 @@ foreach ($permissionsArray as $item) {
                                     <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">Editing {{ $selectedCategory ? $selectedCategory->name : '' }}</div>
                                 </div>
                                 <div>
-                                    <input id="category-name" class="form-input w-full px-2 py-1" type="text" wire:model="newCategoryName">
+                                    <input id="category-name" class="form-input w-full px-2 py-1"  type="text" wire:model="newCategoryName">
                                     @error('newCategoryName')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                                 </div>
                             </div>
                             <!-- Modal footer -->
                             <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                 <div class="flex flex-wrap justify-end space-x-2">
-                                    <button class="btn-sm border-slate-200 dark:border-slate-700" @click="modalOpen = false">Cancel</button>
+                                    <button class="btn-sm border-slate-200 dark:border-slate-700" @click="editModalOpen = false">Cancel</button>
                                     <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" wire:click="updateCategory">Update</button>
                                 </div>
                             </div>
@@ -167,34 +176,46 @@ foreach ($permissionsArray as $item) {
                                 </div>
                                 <!-- Modal content -->
                                 <div class="px-5 py-4">
-                                    <template x-if="collectionsCount !== ''">
+                                    <div x-if="collectionsCount !== ''">
                                         <div class="text-sm">
                                             <div class="font-medium text-slate-800 dark:text-slate-100 mb-3">
-                                                <template x-if="collectionsCount > 0">
+                                                @if ($collectionsCount > 0)
+                                                <div>
                                                     This category has <span x-text="collectionsCount"></span> collection<span x-show="collectionsCount > 1">s</span> connected to it and cannot be deleted.
-                                                </template>
-                                                <template x-if="collectionsCount === 0">
+                                                </div>
+
+                                                    @else
+                                                <div>
                                                     Are you sure you want to delete this category?
-                                                </template>
+                                                </div>
+                                                @endif
                                             </div>
                                             <div class="text-slate-800 dark:text-slate-100">
-                                                <template x-if="collectionsCount > 0">
+                                                @if ($collectionsCount > 0)
+                                                <div>
                                                     Please remove the collections connected to this category before deleting it.
-                                                </template>
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
-                                    </template>
+                                    </div>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                     <div class="flex justify-end">
-                                        <template x-if="collectionsCount === 0">
+                                        @if ($collectionsCount === 0)
+                                        <div>
                                             <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteModalOpen = false">Cancel</button>
-                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeCategory">Delete</button>
-                                        </template>
-                                        <template x-if="collectionsCount > 0">
+                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeCategory"
+                                                    wire:loading.attr="disabled">
+                                                <span wire:loading.remove>Delete</span>
+                                                <span wire:loading>Please wait...</span></button>
+                                        </div>
+                                        @else
+                                        <div>
                                             <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen = false">OK</button>
-                                        </template>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +246,7 @@ foreach ($permissionsArray as $item) {
                   Brand <span class="text-rose-500">*</span>
                 </label>
                 <div class="flex">
-                  <input id="brand" class="form-input w-full" type="text"  wire:model="brandName" required x-bind:disabled="!selectedCategory"/>
+                  <input id="brand" class="form-input w-full" type="text" placeholder="Enter Brand Name"  wire:model="brandName" required x-bind:disabled="!selectedCategory"/>
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addBrand" x-bind:disabled="!selectedCategory">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -273,10 +294,13 @@ foreach ($permissionsArray as $item) {
                                 <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                     <div class="flex justify-end">
                                             <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteModalOpen2 = false">Cancel</button>
-                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeBrand">Delete</button>
-                                        <template x-if="collectionsCount > 0">
-                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen2 = false">OK</button>
-                                        </template>
+                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeBrand"
+                                                    wire:loading.attr="disabled">
+                                                <span wire:loading.remove>Delete</span>
+                                                <span wire:loading>Please wait...</span></button>
+{{--                                        <template x-if="collectionsCount > 0">--}}
+{{--                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen2 = false">OK</button>--}}
+{{--                                        </template>--}}
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +335,7 @@ foreach ($permissionsArray as $item) {
               <div>
                 <label class="block text-sm font-medium mb-1" for="model">Model <span class="text-rose-500">*</span></label>
                 <div class="flex">
-                  <input id="model" class="form-input w-full" type="text"wire:model="modalName" required x-bind:disabled="!selectedBrand"/>
+                  <input id="model" class="form-input w-full" placeholder="Enter Model Name" type="text"wire:model="modalName" required x-bind:disabled="!selectedBrand"/>
                   <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" wire:click="addModal" x-bind:disabled="!selectedBrand">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -355,10 +379,13 @@ foreach ($permissionsArray as $item) {
                                 <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-700">
                                     <div class="flex justify-end">
                                             <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white mr-2" @click="deleteModalOpen3 = false">Cancel</button>
-                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeModal">Delete</button>
-                                        <template x-if="collectionsCount > 0">
-                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen3 = false">OK</button>
-                                        </template>
+                                            <button class="btn-sm bg-red-500 hover:bg-red-600 text-white" wire:click="removeModal"
+                                                    wire:loading.attr="disabled">
+                                                <span wire:loading.remove>Delete</span>
+                                                <span wire:loading>Please wait...</span></button>
+{{--                                        <template x-if="collectionsCount > 0">--}}
+{{--                                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white" @click="deleteModalOpen3 = false">OK</button>--}}
+{{--                                        </template>--}}
                                     </div>
                                 </div>
                             </div>
@@ -390,6 +417,7 @@ foreach ($permissionsArray as $item) {
 </div>
 
 @push('scripts')
+
     <script>
         document.addEventListener('livewire:load', function () {
             Livewire.on('categoryUpdated', function () {
@@ -404,3 +432,14 @@ foreach ($permissionsArray as $item) {
         });
     </script>
 @endpush
+
+<script>
+    $(document).ready(function(){
+        window.livewire.on('alert_remove',()=>{
+            setTimeout(function(){ $(".alert-success").fadeOut('fast');
+            }, 3000);
+            //reload page
+            location.reload();
+        });
+    });
+</script>

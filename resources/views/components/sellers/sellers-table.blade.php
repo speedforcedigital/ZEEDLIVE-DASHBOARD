@@ -20,7 +20,7 @@ foreach ($permissions as $item) {
 ?>
 <x-loading-indicater/>
 @if (session()->has('message'))
-    <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md">
+    <div class="mb-4 px-4 py-2 bg-green-100 text-green-900 rounded-md alert-success">
         {{ session('message') }}
     </div>
 @endif
@@ -385,6 +385,17 @@ foreach ($permissions as $item) {
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        window.livewire.on('alert_remove',()=>{
+            setTimeout(function(){ $(".alert-success").fadeOut('fast');
+            }, 3000);
+            //reload page
+            location.reload();
+        });
+    });
+</script>
 <script>
     // A basic demo function to handle "select all" functionality
     document.addEventListener('alpine:init', () => {

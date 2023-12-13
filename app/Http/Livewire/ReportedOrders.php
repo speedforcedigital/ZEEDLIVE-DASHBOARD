@@ -200,6 +200,7 @@ class ReportedOrders extends Component
 
         $message = 'Report Approved Successfully';
         session()->flash('message', $message);
+        $this->emit('alert_remove');
     }
 
     public function handleError($code, $message)
@@ -249,6 +250,10 @@ class ReportedOrders extends Component
                 "wallet_id" => $sellerWallet->id,
             ];
         $this->storeTransaction($payLoad);
+
+        $message = 'Report Rejected Successfully';
+        session()->flash('message', $message);
+        $this->emit('alert_remove');
     }
 
 
