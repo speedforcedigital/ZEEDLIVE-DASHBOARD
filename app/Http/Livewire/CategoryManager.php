@@ -43,7 +43,7 @@ class CategoryManager extends Component
     public function mount()
     {
 
-        $this->categories = Category::with('brands.modals')->get();
+        $this->categories = Category::with('brands.modals')->orderBy('id', 'desc')->get();
         $this->collectionsCount = 0;
     }
 
@@ -120,7 +120,7 @@ class CategoryManager extends Component
         $this->resetCategory();
         $this->resetBrand();
         $this->resetModal();
-        $this->categories = Category::with('brands.modals')->get();
+        $this->categories = Category::with('brands.modals')->orderBy('id', 'desc')->get();
     }
 
     public function addBrand()
