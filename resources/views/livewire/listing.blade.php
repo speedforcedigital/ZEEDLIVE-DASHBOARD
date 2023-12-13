@@ -103,7 +103,7 @@
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex space-x-1 items-center">
-                                <div class="space-x-1">
+
 
                                     <button class="text-slate-400 hover:text-slate-500 rounded-full"
                                         wire:click="reportDetail({{ $listing->id }})">
@@ -244,7 +244,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
 
                                 </div>
                             </td>
