@@ -8,7 +8,7 @@ use Livewire\Component;
 class DashboardNotificationsLivewire extends Component
 {
     public $sellerNotification, $liveStreamNotification, $standardNotification, $buyerReportNotification, $sellerReportNotification, $count;
-    public $refundNotification;
+    public $refundNotification, $userReportNotification;
 
     private $typeToProperty = [
         'Seller Request' => 'seller',
@@ -17,6 +17,7 @@ class DashboardNotificationsLivewire extends Component
         'Buyer Report' => 'buyerReport',
         'Seller Report' => 'sellerReport',
         'Refund Request' => 'refund',
+        'User Report' => 'userReport',
     ];
 
     public function mount()
@@ -31,7 +32,7 @@ class DashboardNotificationsLivewire extends Component
 
     public function refreshNotifications()
     {
-        $notificationTypes = ['Seller Request', 'Live Stream', 'Standard', 'Buyer Report', 'Seller Report', 'Refund Request'];
+        $notificationTypes = ['Seller Request', 'Live Stream', 'Standard', 'Buyer Report', 'Seller Report', 'Refund Request','User Report'];
 
         foreach ($notificationTypes as $type) {
             $notification = DashboardNotifications::where('type', $type)->where('is_read', 0)->first();
@@ -45,6 +46,7 @@ class DashboardNotificationsLivewire extends Component
             $this->buyerReportNotification,
             $this->sellerReportNotification,
             $this->refundNotification,
+            $this->userReportNotification,
         ]));
     }
 
@@ -58,6 +60,11 @@ class DashboardNotificationsLivewire extends Component
     public function handleSellerNotification()
     {
         return $this->handleNotification('Seller Request', 'sellers.index');
+    }
+
+    public function handleUserReportNotification()
+    {
+        return $this->handleNotification('User Report', 'listings.products');
     }
     public function handleRefundNotification()
     {

@@ -70,6 +70,12 @@
                     <hr>
                 @endif
             </div>
+            <div wire:click="handleUserReportNotification">
+                @if ($userReportNotification)
+                    {{ $userReportNotification->body }} <br>
+                    <hr>
+                @endif
+            </div>
         </div>
 
 
