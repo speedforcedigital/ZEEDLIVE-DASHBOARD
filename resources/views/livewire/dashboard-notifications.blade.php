@@ -83,19 +83,26 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
 <script>
-    //document ready function
-    Push.create("Hello world!", {
-        body: "How's it hanging'?",
-        timeout: 4000,
-        icon: '/images/applications-image-01.jpg',
-        // onClick: function () {
-        //     window.focus();
-        //     this.close();
-        // }
-    });
-
-
+    // Check if the browser supports notifications
+    if ('Notification' in window) {
+        // Request permission
+        Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+                // Show the notification
+                Push.create("Hello world!", {
+                    body: "How's it hanging'?",
+                    timeout: 4000,
+                    icon: '/images/applications-image-01.jpg',
+                    // onClick: function () {
+                    //     window.focus();
+                    //     this.close();
+                    // }
+                });
+            }
+        });
+    }
 </script>
+
 <script>
     window.setInterval(() => {
     @this.call('refreshNotifications');
