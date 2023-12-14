@@ -35,22 +35,22 @@
     >
         <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 cursor-pointer">
             <div wire:click="handleSellerNotification">
-            @if ($sellerNotification)
-                {{ $sellerNotification->body }} <br>
-                <hr>
-            @endif
+                @if ($sellerNotification)
+                    {{ $sellerNotification->body }} <br>
+                    <hr>
+                @endif
             </div>
             <div wire:click="handleLiveStreamNotification">
-            @if ($liveStreamNotification)
-                {{ $liveStreamNotification->body }} <br>
-                <hr>
-            @endif
+                @if ($liveStreamNotification)
+                    {{ $liveStreamNotification->body }} <br>
+                    <hr>
+                @endif
             </div>
             <div wire:click="handleStandardNotification">
-            @if ($standardNotification)
-                {{ $standardNotification->body }}
+                @if ($standardNotification)
+                    {{ $standardNotification->body }}
                     <hr>
-            @endif
+                @endif
             </div>
             <div wire:click="handleBuyerReportNotification">
                 @if ($buyerReportNotification)
@@ -84,17 +84,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
 <script>
     //document ready function
-    $(document).ready(function () {
-        Push.create("Hello world!", {
-            body: "How's it hanging'?",
-            timeout: 4000,
-            icon: '/images/applications-image-01.jpg',
-            // onClick: function () {
-            //     window.focus();
-            //     this.close();
-            // }
-        });
+
+    Push.create("Hello world!", {
+        body: "How's it hanging'?",
+        timeout: 4000,
+        icon: '/images/applications-image-01.jpg',
+        // onClick: function () {
+        //     window.focus();
+        //     this.close();
+        // }
     });
+
 
 </script>
 <script>
