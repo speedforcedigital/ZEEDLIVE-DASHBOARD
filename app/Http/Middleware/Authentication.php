@@ -18,10 +18,10 @@ class Authentication
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session::get('rank') == 'Admin') {
+//        if (Session::get('rank') == 'Admin') {
             return $next($request);
-        } else {
-            return redirect('/');
-        }
+//        } else {
+//            return redirect('/');
+//        }
     }
 }
