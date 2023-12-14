@@ -84,7 +84,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.5/push.js"></script>
 <script>
     //document ready function
-
     Push.create("Hello world!", {
         body: "How's it hanging'?",
         timeout: 4000,
