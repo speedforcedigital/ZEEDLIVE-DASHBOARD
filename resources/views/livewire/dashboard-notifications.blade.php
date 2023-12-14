@@ -109,6 +109,12 @@
     window.setInterval(() => {
     @this.call('refreshNotifications');
     }, 5000); // Poll every 5 seconds
+
+    //remove .blink class when count is 0
+    const blink = document.querySelector('.blink');
+    if ({{ $count }} == 0) {
+        blink.classList.remove('blink');
+    }
 </script>
 <style>
 
