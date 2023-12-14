@@ -89,15 +89,17 @@
         Notification.requestPermission().then(function (permission) {
             if (permission === 'granted') {
                 // Show the notification
-                Push.create("Hello world!", {
-                    body: "How's it hanging'?",
-                    timeout: 4000,
-                    icon: '/images/applications-image-01.jpg',
-                    // onClick: function () {
-                    //     window.focus();
-                    //     this.close();
-                    // }
-                });
+                if ({{ $count }} > 0) {
+                    Push.create("Hello ZeedLive Admin!", {
+                        body: "You've Some New Notifications!",
+                        timeout: 7000,
+                        icon: '/images/applications-image-01.jpg',
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    });
+                }
             }
         });
     }
