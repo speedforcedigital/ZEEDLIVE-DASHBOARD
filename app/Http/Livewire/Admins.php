@@ -21,7 +21,7 @@ class Admins extends Component
 {
     use WithFileUploads;
 
-    public $user_id, $name, $email, $mobile, $gender, $role, $password, $type, $image, $imageURL;
+    public $user_id, $name, $email, $mobile, $gender, $role, $password, $type,  $imageURL;
     public $permission = [];
     public $selectedPermssions = [];
     public $updateMode = false;
@@ -30,8 +30,11 @@ class Admins extends Component
     public $search = '';
     public $role_id;
 
+    public $image;
+
     public function render()
     {
+//        dd('render',$this->image);
         //tes
         $query = User::where('is_deleted', 0)->where('is_admin', 1);
 
@@ -107,6 +110,7 @@ class Admins extends Component
 
     public function update()
     {
+//        dd('here',$this->image);
         $validatedDate = $this->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -115,11 +119,12 @@ class Admins extends Component
             'role_id' => 'required'
         ]);
 
-        if ($this->user_id == '') {
+        if (is_null($this->user_id)) {
             $validatedDate = $this->validate([
                 'password' => 'required'
             ]);
         }
+//        dd($this->image);
 
         $role = Role::find($this->role_id);
 
@@ -196,7 +201,7 @@ class Admins extends Component
             if (isset($this->image)) {
                 $uploadedFile = $this->image;
                 $imageName = time() . '_' . $uploadedFile->getClientOriginalName();
-                $imageName = Storage::disk('s3')->put('zeed/apis/users/profile', $uploadedFile, $imageName, "public");
+                $imageName = Storage::disk('do')->put('zeed/users/profile/admin', $uploadedFile, "public");
                 $user->image = $imageName;
                 $accountDetail->profile_image = $imageName;
             }
@@ -213,7 +218,7 @@ class Admins extends Component
 
             DB::commit();
 
-            $message = 'User Updated Sucessfully.';
+            $message = 'User Updated Successfully.';
             session()->flash('message', $message);
         }
 

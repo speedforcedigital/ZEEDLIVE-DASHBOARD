@@ -72,7 +72,9 @@ foreach ($permissionsArray as $item) {
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                    <img class="rounded-full" src="{{$user['accountDetail']['profile_image'] ?? ''}}"
+{{--                                    <img class="rounded-full" src="{{$user['accountDetail']['profile_image'] ?? ''}}"--}}
+{{--                                         width="40" height="40" alt="Patricia Semklo">--}}
+                                    <img class="rounded-full" src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/zeed/users/profile/default.png"
                                          width="40" height="40" alt="Patricia Semklo">
                                 </div>
                                 <div class="font-medium text-slate-800"><a

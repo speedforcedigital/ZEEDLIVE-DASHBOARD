@@ -98,16 +98,16 @@
                             <!-- Start -->
                             <div>
                                 <label class="block text-sm font-medium mb-1" for="mandatory">Profile </label>
-                                <input id="mandatory" class="form-input w-full" type="file" wire:model="image" required />
+                                <input class="form-input w-full" type="file" wire:model="image" required />
                             </div>
                             <!-- End -->
                         </div>
 
-                       <div>
-                        <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 mt-6">
-                            <img class="rounded-full" id="imgInp" src="{{$this->imageURL}}" alt="">
-                       </div>
-                       </div>
+{{--                       <div>--}}
+{{--                        <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3 mt-6">--}}
+{{--                            <img class="rounded-full" id="imgInp" src="{{$this->imageURL}}" alt="">--}}
+{{--                       </div>--}}
+{{--                       </div>--}}
 
 
 
@@ -166,13 +166,13 @@
 
     </div>
 
-    @push('scripts')
-  <script>
-imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    blah.src = URL.createObjectURL(file)
-  }
-}
-  </script>
-@endpush
+{{--    @push('scripts')--}}
+{{--  <script>--}}
+{{--imgInp.onchange = evt => {--}}
+{{--  const [file] = imgInp.files--}}
+{{--  if (file) {--}}
+{{--    blah.src = URL.createObjectURL(file)--}}
+{{--  }--}}
+{{--}--}}
+{{--  </script>--}}
+{{--@endpush--}}
