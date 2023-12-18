@@ -12,7 +12,7 @@ class CategoryManager extends Component
 {
 
     public $category_id, $name, $image;
-    public $addCategory = false;
+//    public $addCategory = false;
     public $updateMode = false;
     public $selectedCategory = null;
     public $selectedBrand= null;
@@ -109,6 +109,7 @@ class CategoryManager extends Component
 
     public function addCategory()
     {
+//        dd($this->categoryName);
         $this->validate([
             'categoryName' => 'required',
         ]);
@@ -171,13 +172,13 @@ class CategoryManager extends Component
         $category->name = $this->newCategoryName;
         $category->save();
 
-        $this->categories = Category::with('brands.modals')->get(); // Refresh categories listing
+        $this->categories = Category::with('brands.modals')->orderBy('id', 'desc')->get(); // Update the categories
         $this->resetCategory();
         $this->resetBrand();
         $this->resetModal();
         $this->editModalOpen = false;
-
-        $this->reset(['newCategoryName', 'editModalOpen']);
+        $this->newCategoryName = null;
+//        $this->reset(['newCategoryName', 'editModalOpen']);
     }
 
     public function closeModal()

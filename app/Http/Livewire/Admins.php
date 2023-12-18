@@ -101,7 +101,7 @@ class Admins extends Component
     {
         $validatedDate = $this->validateOnly($field, [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'mobile' => 'required',
             'gender' => 'required',
             'password' => 'required',
