@@ -51,4 +51,9 @@ class Order extends Model
     {
         return $query->where('is_scadual_live', 1);
     }
+
+    public function commission()
+    {
+        return $this->hasOneThrough(CompanyWalletRecord::class, Lot::class, 'id', 'lot_id', 'lot_id', 'id');
+    }
 }

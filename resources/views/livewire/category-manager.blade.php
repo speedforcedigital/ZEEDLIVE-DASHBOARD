@@ -93,7 +93,7 @@ foreach ($permissionsArray as $item) {
                 <div x-data="{ editModalOpen: @entangle('editModalOpen') , newCategoryName: '' }">
 
                   <!-- Modal trigger button -->
-                  <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="editModalOpen = true" style="height: 38px;">
+                  <button @if (!$selectedCategory) disabled @endif class="  btn bg-indigo-500 hover:bg-indigo-600 text-white ml-2" @click="editModalOpen = true" style="height: 38px;">
                         <svg class="w-4 h-4 fill-current opacity-50 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
                             <g fill="currentColor" stroke="currentColor" class="nc-icon-wrapper">
                                 <line x1="8" y1="2" x2="10" y2="4" fill="none" stroke-linecap="round" stroke-linejoin="round" data-color="color-2"></line>
@@ -224,10 +224,11 @@ foreach ($permissionsArray as $item) {
 
             </div>
                 @error('name')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
-                <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedCategory ? 'no-scroll' : '' }}"
+{{--                <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedCategory ? 'no-scroll' : '' }}"--}}
+                <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
                   wire:model="selectedCategory"
-                  wire:change="selectCategory($event.target.value)"
-                  @if ($selectedCategory) disabled @endif>
+                  wire:change="selectCategory($event.target.value)">
+{{--                  @if ($selectedCategory) disabled @endif>--}}
                   @foreach ($categories as $category)
                   <option value="{{ $category->id }}" {{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected' : '' }} class="{{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected' : '' }}">
                     {{ $category->name }}
@@ -241,6 +242,7 @@ foreach ($permissionsArray as $item) {
 
             <div>
               <!-- Start -->
+                @if(isset($selectedCategory))
               <div x-data="{ selectedCategory: @entangle('selectedCategory') }">
                 <label class="block text-sm font-medium mb-1" for="brand">
                   Brand <span class="text-rose-500">*</span>
@@ -309,9 +311,10 @@ foreach ($permissionsArray as $item) {
                 </div>
                 @error('selectedBrand')<div class="text-xs mt-1 text-rose-500">{{ $message }}</div>@enderror
                 <select size="5"
-                  class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedBrand ? 'no-scroll' : '' }}"
-                  wire:model="selectedBrandId" wire:change="selectBrand($event.target.value)"
-                  @if (!isset($selectedCategory) || empty($selectedCategory) || $selectedBrand) disabled @endif>
+                  class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+{{--                  class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedBrand ? 'no-scroll' : '' }}"--}}
+                  wire:model="selectedBrandId" wire:change="selectBrand($event.target.value)">
+{{--                  @if (!isset($selectedCategory) || empty($selectedCategory) || $selectedBrand) disabled @endif>--}}
                   <!-- Fetch brands from Brand model based on the selected category -->
                   @if (isset($selectedCategory) && $selectedCategory->brands)
                   @foreach ($selectedCategory->brands as $brand)
@@ -325,10 +328,12 @@ foreach ($permissionsArray as $item) {
 
               </div>
               <!-- End -->
+                @endif
             </div>
           </div>
 
           <!-- Additional Column -->
+            @if(isset($selectedBrand))
           <div class="mt-2">
             <div>
               <!-- Start -->
@@ -410,6 +415,7 @@ foreach ($permissionsArray as $item) {
               <!-- End -->
             </div>
           </div>
+            @endif
         </div>
       </div>
     </div>

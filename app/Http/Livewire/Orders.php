@@ -9,16 +9,17 @@ class Orders extends Component
 {
 
     // is_deliverd
-    public $filter = 'pending';
-    public $selected = 'pending';
+    public $filter = 'all';
+    public $selected = 'all';
     public $order;
     public $showModal = false;
     public $search = '';
 
+    public $fromDate, $toDate;
+
     public function render()
     {
         $ordersQuery = Order::orderByDesc('created_at');
-//        dd($ordersQuery);
 
         if ($this->search) {
             $ordersQuery->where(function ($query) {
@@ -31,14 +32,22 @@ class Orders extends Component
             });
         }
 
+
         $allOrders = $ordersQuery->paginate(10);
         $pendingOrders = $ordersQuery->where("is_deliverd", '0')->where("is_shipped", '0')->paginate(10);
         $deliveredOrders = Order::where("is_deliverd", '1')->paginate(10);
         $shippedOrders = Order::where("is_shipped", '1')->where("is_deliverd", '0')->paginate(10);
-//        dd($shippedOrders);
+        $reportedOrders = Order::where("is_reported", '1')->where("is_deliverd", '0')->where("is_shipped", '0')->paginate(10);
+        $returnedOrders = Order::where("is_returned", '1')->paginate(10);
 
-
-        if ($this->filter === 'pending') {
+        if ($this->fromDate && $this->toDate) {
+            $ordersQuery->whereBetween('created_at', [$this->fromDate, $this->toDate]);
+        }
+        $ordersAll = $allOrders->total(); // for all orders filter count
+        if ($this->filter === 'all') {
+            $orders = $allOrders;
+            $totalOrders = $allOrders->total();
+        } elseif ($this->filter === 'pending') {
             $orders = $pendingOrders;
             $totalOrders = $orders->total();
         } elseif ($this->filter === 'shipped') {
@@ -47,6 +56,12 @@ class Orders extends Component
         } elseif ($this->filter === 'delivered') {
             $orders = $deliveredOrders;
             $totalOrders = $deliveredOrders->total();
+        } elseif ($this->filter === 'reported') {
+            $orders = $reportedOrders;
+            $totalOrders = $reportedOrders->total();
+        } elseif ($this->filter === 'returned') {
+            $orders = $returnedOrders;
+            $totalOrders = $returnedOrders->total();
         } else {
             $orders = $allOrders;
             $totalOrders = $allOrders->total();
@@ -56,9 +71,10 @@ class Orders extends Component
         $totalDeliveredOrders = $deliveredOrders->total();
         $totalShippedOrders = $shippedOrders->total();
         $totalOrdersCount = $allOrders->total();
-//        dd($orders);
+        $totalReportedOrders = $reportedOrders->total();
+        $totalReturnedOrders = $returnedOrders->total();
 
-        return view('livewire.order', compact('orders', 'totalOrdersCount', 'totalShippedOrders', 'totalDeliveredOrders', 'totalPendingOrders', 'totalOrders'));
+        return view('livewire.order', compact('orders', 'totalOrdersCount', 'totalShippedOrders', 'totalDeliveredOrders', 'totalPendingOrders', 'totalOrders', 'totalReportedOrders', 'totalReturnedOrders', 'ordersAll'));
     }
 
 

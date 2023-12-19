@@ -33,6 +33,7 @@ class CompanyWalletRecord extends Model
         return $query->where('is_scadual_live', 1);
     }
 
+
 }
 
 

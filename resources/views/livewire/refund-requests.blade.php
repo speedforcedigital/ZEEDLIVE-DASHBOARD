@@ -50,6 +50,9 @@
                             <div class="font-semibold text-left">User</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Email</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Amount</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -93,6 +96,14 @@
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">
                                     <a href="{{route('user.show',$request->user_id)}}"> {{$request->user->name ?? 'No Name'}}</a>
+                                </div>
+                            </td>
+
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="font-medium text-slate-800">
+                                        {{$request->user->email ?? 'Null'}}
+                                    </div>
                                 </div>
                             </td>
 

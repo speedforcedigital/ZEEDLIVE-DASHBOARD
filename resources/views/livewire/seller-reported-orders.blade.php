@@ -54,8 +54,12 @@
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Buyer</div>
-                        </th> <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Order ID</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Status</div>
                         </th>
                         {{--                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
                         {{--                            <div class="font-semibold text-left">Images</div>--}}
@@ -109,6 +113,25 @@
                                 <div class="flex items-center">
                                     <div class="font-medium text-slate-800">
                                         {{$order->order_id ?? 'Null'}}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="font-medium text-slate-800">
+                                        @if($order->is_reported == 1 && $order->is_seller_reported == 1 && $order->is_returned==0)
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                Reported
+                                            </span>
+                                        @elseif($order->is_returned==1)
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-green-700">
+                                                Returned
+                                            </span>
+                                        @endif
+
                                     </div>
                                 </div>
                             </td>
@@ -372,9 +395,10 @@
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    $(document).ready(function(){
-        window.livewire.on('alert_remove',()=>{
-            setTimeout(function(){ $(".alert-success").fadeOut('fast');
+    $(document).ready(function () {
+        window.livewire.on('alert_remove', () => {
+            setTimeout(function () {
+                $(".alert-success").fadeOut('fast');
             }, 3000);
             //reload page
             location.reload();

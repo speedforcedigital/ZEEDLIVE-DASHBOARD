@@ -29,7 +29,8 @@ class RefundRequests extends Component
             $allReports = $allRequests->where(function ($q) {
                 $q->where('account_holder_name', 'like', '%' . $this->search . '%')
                     ->orWhereHas('user', function ($userQuery) {
-                        $userQuery->where('name', 'like', '%' . $this->search . '%');
+                        $userQuery->where('name', 'like', '%' . $this->search . '%')
+                            ->orWhere('email', 'like', '%' . $this->search . '%');
                     })
                     ->orWhere('mobile_number', 'like', '%' . $this->search . '%');
             });
