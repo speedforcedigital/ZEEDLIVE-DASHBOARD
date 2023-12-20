@@ -18,4 +18,9 @@ class RefundRequest extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function wallet()
+    {
+        return $this->belongsTo(Wallet::class, 'user_id', 'user_id');
+    }
 }

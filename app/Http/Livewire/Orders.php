@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\OrderExport;
 use App\Models\Order;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Orders extends Component
 {
@@ -88,5 +91,14 @@ class Orders extends Component
     {
         $this->filter = $type;
         $this->selected = $type;
+    }
+
+    public function export()
+    {
+        // download excel file
+        $orders = Order::all();
+        $fileName = 'orders.xlsx';
+        return Excel::download(new OrderExport($orders), $fileName);
+
     }
 }

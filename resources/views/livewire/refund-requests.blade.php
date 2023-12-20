@@ -56,6 +56,9 @@
                             <div class="font-semibold text-left">Amount</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Balance</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Account Number</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -114,6 +117,15 @@
                                     </div>
                                 </div>
                             </td>
+
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="font-medium text-slate-800">
+                                        {{$request->wallet->balance ?? 'Null'}}
+                                    </div>
+                                </div>
+                            </td>
+
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="font-medium text-slate-800">

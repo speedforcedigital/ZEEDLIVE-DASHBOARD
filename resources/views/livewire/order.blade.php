@@ -81,6 +81,8 @@
         <input type="date" wire:model.lazy="toDate"
                class="rounded-md px-2 py-1 ml-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none "
                placeholder="Search">
+
+
     </div>
 
     <!-- Message Container -->
@@ -93,17 +95,30 @@
 
 
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-2">
-        <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">All Orders <span
-                    class="text-slate-400 font-medium">{{$totalOrders}}</span></h2>
-        </header>
+        <div class="flex justify-between">
+            <header class="px-5 py-4">
+                <h2 class="font-semibold text-slate-800">All Orders <span
+                        class="text-slate-400 font-medium">{{$totalOrders}}</span></h2>
+            </header>
+
+
+            <!-- export button -->
+            <div class="flex">
+                <div class="mt-3 mr-4">
+                    <button id="btnExport" wire:click="export"
+                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-indigo-500 shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">
+                        Export
+                    </button>
+                </div>
+            </div>
+        </div>
 
 
         <div x-data="handleSelect">
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="table-auto w-full">
+                <table class="table-auto w-full" id="myTable">
                     <!-- Table header -->
                     <thead
                         class="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
@@ -333,3 +348,5 @@
         {{ $orders->links() }}
     </div>
 </div>
+
+
