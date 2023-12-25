@@ -41,20 +41,20 @@
                             class="ml-1 {{ $selected === 'delivered' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalDeliveredOrders }}</span>
                     </button>
                 </li>
-                <li class="ml-2">
-                    <button wire:click="filter('reported')"
-                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'reported' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'reported' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
-                        Reported <span
-                            class="ml-1 {{ $selected === 'reported' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalReportedOrders }}</span>
-                    </button>
-                </li>
-                <li class="ml-2">
-                    <button wire:click="filter('returned')"
-                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'returned' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'returned' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
-                        Returned <span
-                            class="ml-1 {{ $selected === 'returned' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalReturnedOrders }}</span>
-                    </button>
-                </li>
+{{--                <li class="ml-2">--}}
+{{--                    <button wire:click="filter('reported')"--}}
+{{--                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'reported' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'reported' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">--}}
+{{--                        Reported <span--}}
+{{--                            class="ml-1 {{ $selected === 'reported' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalReportedOrders }}</span>--}}
+{{--                    </button>--}}
+{{--                </li>--}}
+{{--                <li class="ml-2">--}}
+{{--                    <button wire:click="filter('returned')"--}}
+{{--                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'returned' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'returned' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">--}}
+{{--                        Returned <span--}}
+{{--                            class="ml-1 {{ $selected === 'returned' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $totalReturnedOrders }}</span>--}}
+{{--                    </button>--}}
+{{--                </li>--}}
             </ul>
 
         </div>
@@ -71,19 +71,19 @@
 
     </div>
 
-    <div class="flex items-center ml-2">
-        <label for="fromDate">From Date:</label>
-        <input type="date" wire:model.lazy="fromDate"
-               class="rounded-md px-2 py-1 ml-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none "
-               placeholder="Search">
+{{--    <div class="flex items-center ml-2">--}}
+{{--        <label for="fromDate">From Date:</label>--}}
+{{--        <input type="date" wire:model.lazy="fromDate"--}}
+{{--               class="rounded-md px-2 py-1 ml-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none "--}}
+{{--               placeholder="Search">--}}
 
-        <label for="toDate" class="ml-2">To Date:</label>
-        <input type="date" wire:model.lazy="toDate"
-               class="rounded-md px-2 py-1 ml-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none "
-               placeholder="Search">
+{{--        <label for="toDate" class="ml-2">To Date:</label>--}}
+{{--        <input type="date" wire:model.lazy="toDate"--}}
+{{--               class="rounded-md px-2 py-1 ml-2 border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none "--}}
+{{--               placeholder="Search">--}}
 
 
-    </div>
+{{--    </div>--}}
 
     <!-- Message Container -->
     @if (session()->has('message'))
@@ -103,14 +103,14 @@
 
 
             <!-- export button -->
-            <div class="flex">
-                <div class="mt-3 mr-4">
-                    <button id="btnExport" wire:click="export"
-                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-indigo-500 shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">
-                        Export
-                    </button>
-                </div>
-            </div>
+{{--            <div class="flex">--}}
+{{--                <div class="mt-3 mr-4">--}}
+{{--                    <button id="btnExport" wire:click="export"--}}
+{{--                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-indigo-500 shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">--}}
+{{--                        Export--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
 
 
@@ -144,17 +144,17 @@
                             </th>
                         @endif
 
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Paid by Buyer</div>
-                        </th>
+{{--                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                            <div class="font-semibold text-left">Paid by Buyer</div>--}}
+{{--                        </th>--}}
 
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Commission</div>
-                        </th>
+{{--                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                            <div class="font-semibold text-left">Commission</div>--}}
+{{--                        </th>--}}
 
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Payable to Seller</div>
-                        </th>
+{{--                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                            <div class="font-semibold text-left">Payable to Seller</div>--}}
+{{--                        </th>--}}
 
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Action</div>
@@ -219,21 +219,21 @@
                                 </td>
                             @endif
 
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{$order->total_amount ?? 'Null'}}</div>
-                            </td>
+{{--                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                                <div class="text-left">{{$order->total_amount ?? 'Null'}}</div>--}}
+{{--                            </td>--}}
 
-                            <!-- Commission -->
+{{--                            <!-- Commission -->--}}
 
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div
-                                    class="text-left">{{$order->commission->comission_amount  ?? 'Null'}}</div>
-                            </td>
+{{--                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                                <div--}}
+{{--                                    class="text-left">{{$order->commission->comission_amount  ?? 'Null'}}</div>--}}
+{{--                            </td>--}}
 
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div
-                                    class="text-left">{{$order->total_amount - optional($order->commission)->comission_amount ?? 'Null'}}</div>
-                            </td>
+{{--                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
+{{--                                <div--}}
+{{--                                    class="text-left">{{$order->total_amount - optional($order->commission)->comission_amount ?? 'Null'}}</div>--}}
+{{--                            </td>--}}
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="space-x-1">

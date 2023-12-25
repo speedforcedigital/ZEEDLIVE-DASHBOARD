@@ -227,8 +227,8 @@ foreach ($permissionsArray as $item) {
 {{--                <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $selectedCategory ? 'no-scroll' : '' }}"--}}
                 <select size="5" class="custom-select mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
                   wire:model="selectedCategory"
-                  wire:change="selectCategory($event.target.value)">
-{{--                  @if ($selectedCategory) disabled @endif>--}}
+                  wire:change="selectCategory($event.target.value)"
+                  @if ($selectedCategory) disabled @endif>
                   @foreach ($categories as $category)
                   <option value="{{ $category->id }}" {{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected' : '' }} class="{{ $selectedCategory && $selectedCategory->id == $category->id ? 'selected' : '' }}">
                     {{ $category->name }}
@@ -242,7 +242,7 @@ foreach ($permissionsArray as $item) {
 
             <div>
               <!-- Start -->
-                @if(isset($selectedCategory))
+{{--                @if(isset($selectedCategory))--}}
               <div x-data="{ selectedCategory: @entangle('selectedCategory') }">
                 <label class="block text-sm font-medium mb-1" for="brand">
                   Brand <span class="text-rose-500">*</span>
@@ -328,12 +328,12 @@ foreach ($permissionsArray as $item) {
 
               </div>
               <!-- End -->
-                @endif
+{{--                @endif--}}
             </div>
           </div>
 
           <!-- Additional Column -->
-            @if(isset($selectedBrand))
+{{--            @if(isset($selectedBrand))--}}
           <div class="mt-2">
             <div>
               <!-- Start -->
@@ -415,7 +415,7 @@ foreach ($permissionsArray as $item) {
               <!-- End -->
             </div>
           </div>
-            @endif
+{{--            @endif--}}
         </div>
       </div>
     </div>
