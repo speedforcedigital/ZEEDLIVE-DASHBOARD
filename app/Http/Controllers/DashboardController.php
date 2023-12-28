@@ -574,6 +574,7 @@ class DashboardController extends Controller
         if (is_null($collection)) {
             return redirect()->back();
         }
+
         if ($collection->image) {
             $collection->image = Storage::disk('do')->url($collection->image);
         }

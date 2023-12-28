@@ -43,9 +43,6 @@ class ReportedOrders extends Component
             });
         }
 
-
-
-
         $orders = $allOrders->paginate($perPage);
 //       dd($orders);
 
