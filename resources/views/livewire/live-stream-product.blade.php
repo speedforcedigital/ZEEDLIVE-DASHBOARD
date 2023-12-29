@@ -557,22 +557,24 @@
                                             <button class="text-slate-400 hover:text-slate-500 rounded-full"
                                                     wire:click="view({{ $product->id }})">
                                                 <span class="sr-only">View</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye"
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="icon icon-tabler icon-tabler-eye"
                                                      width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                     stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                     stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
                                                     <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
                                                 </svg>
                                             </button>
 
                                         @else
                                             <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                    wire:click="liveStream({{ $product->id }})">
+                                                    wire:click="view({{ $product->id }})">
                                                 <span class="sr-only">View</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-device-tv"
+                                                     class="icon icon-tabler icon-tabler-eye"
                                                      width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
                                                      stroke="#2c3e50" fill="none" stroke-linecap="round"
                                                      stroke-linejoin="round">
