@@ -7,9 +7,11 @@ use App\Models\Lot;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 
 class LiveStreamProduct extends Component
 {
+    use WithPagination;
 
     public $filter = 'all';
     public $selected = 'all';

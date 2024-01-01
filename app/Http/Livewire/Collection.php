@@ -6,9 +6,11 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\MyCollection;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Collection extends Component
 {
+    use WithPagination;
     public $category_id, $brand_id;
     public $search = '';
 

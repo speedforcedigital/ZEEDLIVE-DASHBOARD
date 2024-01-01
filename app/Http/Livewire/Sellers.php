@@ -16,10 +16,11 @@ use App\Helpers\MakeCurlRequest;
 use App\Models\SellerVerification;
 use App\Helpers\makeCurlPostRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\WithPagination;
 
 class Sellers extends Component
 {
-    use pushNotificationTrait;
+    use pushNotificationTrait,  withPagination;
     public $filterSeller = null;
     public $filterType = 'all';
     public $search = '';

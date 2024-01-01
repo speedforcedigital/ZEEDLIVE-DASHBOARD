@@ -4,9 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Models\Wallet;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Wallets extends Component
 {
+    use withPagination;
     public $wallet;
     public $showModal = false;
     public $wallet_balance;

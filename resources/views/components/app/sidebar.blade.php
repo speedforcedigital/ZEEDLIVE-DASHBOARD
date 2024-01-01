@@ -164,7 +164,7 @@ if (is_array($permissionsArray)) {
                                 <ul class="pl-9 mt-1" :class="{ 'hidden': !open }" x-cloak>
                                     {{-- @if(in_array('Custom Field', $keys)) --}}
                                     <li class="mb-1 last:mb-0">
-                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
+                                        <a class="block @if(Route::is('standard.products')) text-blue-500 @else text-slate-400 @endif hover:text-slate-200 transition duration-150 truncate"
                                            href="{{ route("standard.products") }}">
                                             <span
                                                 class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Standard Products</span>
@@ -173,17 +173,17 @@ if (is_array($permissionsArray)) {
                                     {{-- @endif --}}
                                     {{-- @if(in_array('Global Field', $keys)) --}}
                                     <li class="mb-1 last:mb-0">
-                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
+                                        <a class="block @if(Route::is('livestream.products')) text-blue-500 @else text-slate-400 @endif hover:text-slate-200 transition duration-150 truncate"
                                            href="{{ route('livestream.products') }}">
                                             <span
                                                 class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Live Stream Products</span>
                                         </a>
                                     </li>
                                     <li class="mb-1 last:mb-0">
-                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
+                                        <a class="block @if(Route::is('listings.products')) text-blue-500 @else text-slate-400 @endif hover:text-slate-200 transition duration-150 truncate"
                                            href="{{ route('listings.products') }}">
                                             <span
-                                                class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Listings</span>
+                                                class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Reported Listings</span>
                                         </a>
                                     </li>
                                     {{-- @endif --}}
@@ -256,8 +256,8 @@ if (is_array($permissionsArray)) {
                             </a>
                         </li>
 
-                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['reported/orders','reported/orders'])){{  'bg-slate-900'  }}@endif"
-                            x-data="{ open: {{ in_array(Request::segment(1), ['reported/orders','reported/orders']) ? 1 : 0 }} }">
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(1), ['buyer','seller'])){{  'bg-slate-900'  }}@endif"
+                            x-data="{ open: {{ in_array(Request::segment(1), ['buyer','seller']) ? 1 : 0 }} }">
                             <a class="block text-slate-200 hover:text-white transition duration-150"
                                :class="open && 'hover:text-slate-200'" href="#0"
                                @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
@@ -265,10 +265,10 @@ if (is_array($permissionsArray)) {
                                     <div class="flex items-center">
                                         <svg class="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                                             <path
-                                                class="fill-current @if(in_array(Request::segment(1), ['reported/orders'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif"
+                                                class="fill-current @if(in_array(Request::segment(1), ['buyer'])){{ 'text-indigo-500' }}@else{{ 'text-slate-600' }}@endif"
                                                 d="M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z"/>
                                             <path
-                                                class="fill-current @if(in_array(Request::segment(1), ['seller/reported/orders'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif"
+                                                class="fill-current @if(in_array(Request::segment(1), ['seller'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif"
                                                 d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z"/>
                                         </svg>
                                         <span
@@ -287,15 +287,15 @@ if (is_array($permissionsArray)) {
                             <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                                 <ul class="pl-9 mt-1" :class="{ 'hidden': !open }" x-cloak>
                                     <li class="mb-1 last:mb-0">
-                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
-                                           href="/reported/orders">
+                                        <a class="block @if(Route::is('reported.orders')) text-blue-500 @else text-slate-400 @endif  hover:text-slate-200 transition duration-150 truncate"
+                                           href="{{ route('reported.orders') }}">
                                             <span
                                                 class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Buyer Reports</span>
                                         </a>
                                     </li>
                                     <li class="mb-1 last:mb-0">
-                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
-                                           href="/seller/reported/orders">
+                                        <a class="block @if(Route::is('seller.reported.orders')) text-blue-500 @else text-slate-400 @endif hover:text-slate-200 transition duration-150 truncate"
+                                           href="{{ route('seller.reported.orders') }}">
                                             <span
                                                 class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Seller Reports</span>
                                         </a>

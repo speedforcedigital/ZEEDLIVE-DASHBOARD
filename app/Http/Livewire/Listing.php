@@ -5,9 +5,11 @@ namespace App\Http\Livewire;
 use App\Models\Lot;
 use Livewire\Component;
 use App\Models\UserReport;
+use Livewire\WithPagination;
 
 class Listing extends Component
 {
+    use withPagination;
     public $showModal = false;
     public $report;
     public $search = '';

@@ -62,7 +62,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/brands', Brands::class);
     Route::get('/orders', Orders::class);
     //reported orders
-    Route::get('/reported/orders', ReportedOrders::class)->name('reported.orders');
+    Route::get('/buyer/reported/orders', ReportedOrders::class)->name('reported.orders');
     Route::get('/seller/reported/orders', SellerReportedOrders::class)->name('seller.reported.orders');
 
     Route::middleware('check.permissions:Wallets')->get('/wallets', Wallets::class)->name('wallet.index');

@@ -6,9 +6,11 @@ use App\Models\GlobalField;
 use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlPostRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\WithPagination;
 
 class globalFields extends Component
 {
+    use withPagination;
     public $global_field, $global_field_id;
     public $addGlobalField = false;
     public $updateMode = false;

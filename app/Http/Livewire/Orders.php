@@ -6,10 +6,12 @@ use App\Exports\OrderExport;
 use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Orders extends Component
 {
+    use WithPagination;
 
     // is_deliverd
     public $filter = 'all';

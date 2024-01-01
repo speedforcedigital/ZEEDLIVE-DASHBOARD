@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\DB;
 use Livewire\WithEvents;
 use App\Http\Livewire\SuccessMessage;
 use App\Models\UserReport;
+use Livewire\WithPagination;
 
 class Product extends Component
 {
+    use WithPagination;
     public $filter = 'all';
     public $selected = 'all';
     public $search = '';

@@ -14,9 +14,11 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\WithPagination;
 
 class OffersList extends Component
 {
+    use WithPagination;
     public $offer_id;
 
     public $search = '';

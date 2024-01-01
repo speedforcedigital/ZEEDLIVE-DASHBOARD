@@ -12,11 +12,12 @@ use Livewire\WithFileUploads;
 use App\Helpers\MakeCurlRequest;
 use App\Helpers\makeCurlFileRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\WithPagination;
 
 // protected $listeners = [];
 class Users extends Component
 {
-    use WithFileUploads; use MailTrait; use pushNotificationTrait;
+    use WithFileUploads; use MailTrait; use pushNotificationTrait,  withPagination;
 
     public $user_id, $name, $email, $mobile, $gender, $role, $password, $type, $image;
     public $viewUser = false;

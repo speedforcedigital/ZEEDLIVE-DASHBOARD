@@ -7,6 +7,21 @@
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Reported Listings</h1>
         </div>
+{{--        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">--}}
+{{--            <a href="{{ route('dashboard') }}"--}}
+{{--               class="btn-sm text-white hover:text-white bg-indigo-600 hover:bg-indigo-800">--}}
+{{--                <!-- back button icon -->--}}
+{{--                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-left"--}}
+{{--                     width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"--}}
+{{--                     stroke-linecap="round" stroke-linejoin="round">--}}
+{{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+{{--                    <line x1="5" y1="12" x2="15" y2="12"/>--}}
+{{--                    <line x1="5" y1="12" x2="9" y2="16"/>--}}
+{{--                    <line x1="5" y1="12" x2="9" y2="8"/>--}}
+{{--                </svg>--}}
+{{--                <span>Back</span>--}}
+{{--            </a>--}}
+{{--        </div>--}}
     </div>
     <div class="sm:flex sm:justify-between sm:items-center mb-5">
 

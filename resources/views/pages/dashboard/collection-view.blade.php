@@ -44,6 +44,22 @@
 
             <!-- Product Details -->
             <div class="w-full md:w-1/2 px-4 mb-4">
+                <!-- back button on right side -->
+                <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+                    <a href="<?php echo url()->previous(); ?>"
+                       class="btn-sm text-white hover:text-white bg-indigo-600 hover:bg-indigo-800">
+                        <!-- back button icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-left"
+                             width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <line x1="5" y1="12" x2="15" y2="12"/>
+                            <line x1="5" y1="12" x2="9" y2="16"/>
+                            <line x1="5" y1="12" x2="9" y2="8"/>
+                        </svg>
+                        <span>Back</span>
+                    </a>
+                </div>
                 <!-- Seller Information -->
                 <div class="mb-4">
                     <div class="flex items-center">
@@ -169,7 +185,7 @@
                 class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-blue-500 dark:bg-gray-800/30 group-hover:bg-blue-800 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                 <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor"
                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round"
-                                                                                  stroke-linejoin="round"
+                                                                                   stroke-linejoin="round"
                                                                                   stroke-width="2"
                                                                                   d="M15 19l-7-7 7-7"></path></svg>
                 <span class="hidden">Previous</span>

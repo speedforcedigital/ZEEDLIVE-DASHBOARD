@@ -7,6 +7,22 @@
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl text-slate-800 font-bold"> Livestream Products</h1>
         </div>
+        {{--        <!-- back button on right side -->--}}
+        {{--        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">--}}
+        {{--            <a href="{{ route('dashboard') }}"--}}
+        {{--               class="btn-sm text-white hover:text-white bg-indigo-600 hover:bg-indigo-800">--}}
+        {{--                <!-- back button icon -->--}}
+        {{--                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-left"--}}
+        {{--                     width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none"--}}
+        {{--                     stroke-linecap="round" stroke-linejoin="round">--}}
+        {{--                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+        {{--                    <line x1="5" y1="12" x2="15" y2="12"/>--}}
+        {{--                    <line x1="5" y1="12" x2="9" y2="16"/>--}}
+        {{--                    <line x1="5" y1="12" x2="9" y2="8"/>--}}
+        {{--                </svg>--}}
+        {{--                <span>Back</span>--}}
+        {{--            </a>--}}
+        {{--        </div>--}}
     </div>
 
 
@@ -34,13 +50,13 @@
                             class="ml-1 {{ $selected === 'on_going' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $onGoingProducts }}</span>
                     </button>
                 </li>
-{{--                <li class="m-1">--}}
-{{--                    <button wire:click="filter('ended')"--}}
-{{--                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'ended' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'ended' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">--}}
-{{--                        Closed <span--}}
-{{--                            class="ml-1 {{ $selected === 'ended' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $endedProducts }}</span>--}}
-{{--                    </button>--}}
-{{--                </li>--}}
+                {{--                <li class="m-1">--}}
+                {{--                    <button wire:click="filter('ended')"--}}
+                {{--                            class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'ended' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'ended' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">--}}
+                {{--                        Closed <span--}}
+                {{--                            class="ml-1 {{ $selected === 'ended' ? 'text-indigo-200' : 'text-slate-400' }}">{{ $endedProducts }}</span>--}}
+                {{--                    </button>--}}
+                {{--                </li>--}}
                 <li class="m-1">
                     <button wire:click="filter('sold')"
                             class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border {{ $selected === 'sold' ? 'border-indigo-500' : 'border-transparent' }} shadow-sm {{ $selected === 'sold' ? 'bg-indigo-500 text-white' : 'bg-white text-slate-500' }} duration-150 ease-in-out">
@@ -133,19 +149,19 @@
 
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="flex space-x-1 items-center">
-                                @if (in_array($product->auction->admin_status ,["Pending"]))
+                                    @if (in_array($product->auction->admin_status ,["Pending"]))
 
-{{--                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
-{{--                                                wire:click="approve({{ $product->auction->id }})">--}}
-{{--                                            <span class="sr-only">Approve</span>--}}
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                                 class="icon icon-tabler icon-tabler-check" width="27" height="27"--}}
-{{--                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"--}}
-{{--                                                 stroke-linecap="round" stroke-linejoin="round">--}}
-{{--                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-{{--                                                <path d="M5 12l5 5l10 -10"/>--}}
-{{--                                            </svg>--}}
-{{--                                        </button>--}}
+                                        {{--                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+                                        {{--                                                wire:click="approve({{ $product->auction->id }})">--}}
+                                        {{--                                            <span class="sr-only">Approve</span>--}}
+                                        {{--                                            <svg xmlns="http://www.w3.org/2000/svg"--}}
+                                        {{--                                                 class="icon icon-tabler icon-tabler-check" width="27" height="27"--}}
+                                        {{--                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"--}}
+                                        {{--                                                 stroke-linecap="round" stroke-linejoin="round">--}}
+                                        {{--                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+                                        {{--                                                <path d="M5 12l5 5l10 -10"/>--}}
+                                        {{--                                            </svg>--}}
+                                        {{--                                        </button>--}}
                                         <div
                                             x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
 
@@ -156,8 +172,10 @@
 
                                                     <span class="sr-only">Accept</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                         class="icon icon-tabler icon-tabler-check" width="27" height="27"
-                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
+                                                         class="icon icon-tabler icon-tabler-check" width="27"
+                                                         height="27"
+                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                                         fill="none"
                                                          stroke-linecap="round" stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                         <path d="M5 12l5 5l10 -10"/>
@@ -173,14 +191,15 @@
                                             </div>
 
                                             <!-- Modal overlay -->
-                                            <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                                 x-show="acceptModalOpen"
-                                                 x-transition:enter="transition ease-out duration-200"
-                                                 x-transition:enter-start="opacity-0"
-                                                 x-transition:enter-end="opacity-100"
-                                                 x-transition:leave="transition ease-out duration-100"
-                                                 x-transition:leave-start="opacity-100"
-                                                 x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+                                            <div
+                                                class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                                x-show="acceptModalOpen"
+                                                x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0"
+                                                x-transition:enter-end="opacity-100"
+                                                x-transition:leave="transition ease-out duration-100"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
                                             <!-- Delete Category Modal Dialog -->
                                             <div
@@ -254,19 +273,19 @@
                                                 </div>
                                             </div>
                                         </div>
-{{--                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
-{{--                                                wire:click="reject({{ $product->auction->id }})">--}}
-{{--                                            <span class="sr-only">Reject</span>--}}
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                                 class="icon icon-tabler icon-tabler-ban"--}}
-{{--                                                 width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
-{{--                                                 stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
-{{--                                                 stroke-linejoin="round">--}}
-{{--                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-{{--                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>--}}
-{{--                                                <path d="M5.7 5.7l12.6 12.6"/>--}}
-{{--                                            </svg>--}}
-{{--                                        </button>--}}
+                                        {{--                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+                                        {{--                                                wire:click="reject({{ $product->auction->id }})">--}}
+                                        {{--                                            <span class="sr-only">Reject</span>--}}
+                                        {{--                                            <svg xmlns="http://www.w3.org/2000/svg"--}}
+                                        {{--                                                 class="icon icon-tabler icon-tabler-ban"--}}
+                                        {{--                                                 width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
+                                        {{--                                                 stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
+                                        {{--                                                 stroke-linejoin="round">--}}
+                                        {{--                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+                                        {{--                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>--}}
+                                        {{--                                                <path d="M5.7 5.7l12.6 12.6"/>--}}
+                                        {{--                                            </svg>--}}
+                                        {{--                                        </button>--}}
 
                                         <div
                                             x-data="{ acceptModalOpen: @entangle('acceptModalOpen'), collectionsCount: @entangle('collectionsCount') }">
@@ -277,12 +296,14 @@
                                                         @click="acceptModalOpen = true">
 
                                                     <span class="sr-only">disable</span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ban"
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         class="icon icon-tabler icon-tabler-ban"
                                                          width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                         stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                                        <path d="M5.7 5.7l12.6 12.6" />
+                                                         stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>
+                                                        <path d="M5.7 5.7l12.6 12.6"/>
                                                     </svg>
                                                 </button>
 
@@ -295,14 +316,15 @@
                                             </div>
 
                                             <!-- Modal overlay -->
-                                            <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                                 x-show="acceptModalOpen"
-                                                 x-transition:enter="transition ease-out duration-200"
-                                                 x-transition:enter-start="opacity-0"
-                                                 x-transition:enter-end="opacity-100"
-                                                 x-transition:leave="transition ease-out duration-100"
-                                                 x-transition:leave-start="opacity-100"
-                                                 x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+                                            <div
+                                                class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                                x-show="acceptModalOpen"
+                                                x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0"
+                                                x-transition:enter-end="opacity-100"
+                                                x-transition:leave="transition ease-out duration-100"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
 
                                             <!-- Delete Category Modal Dialog -->
                                             <div
@@ -351,13 +373,15 @@
                                                             </div>
                                                         </div>
                                                         <label class="block">
-                                                            <span class="text-gray-700">Reason <b class="text-red-500">*</b></span>
+                                                            <span class="text-gray-700">Reason <b
+                                                                    class="text-red-500">*</b></span>
                                                             <textarea
                                                                 class="form-textarea mt-1 block w-full"
                                                                 rows="3" wire:model="reason" required></textarea>
                                                         </label>
                                                         <div class="text-red-500 text-xs italic">
-                                                            @error('reason') <span class="reason">{{ $message }}</span> @enderror
+                                                            @error('reason') <span
+                                                                class="reason">{{ $message }}</span> @enderror
                                                         </div>
                                                     </div>
                                                     <!-- Modal footer -->
@@ -403,208 +427,208 @@
                                             </svg>
                                         </button>
 
+                                    @elseif(in_array($product->auction->admin_status , ["Approved", "Rejected"]))
 
-                                @elseif(in_array($product->auction->admin_status , ["Approved", "Rejected"]))
+                                        <div class="space-x-1">
+                                            @if($product->auction->auction_status == "Open")
+                                                {{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+                                                {{--                                                    wire:click="view({{ $product->id }})">--}}
+                                                {{--                                                <span class="sr-only">View</span>--}}
+                                                {{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
+                                                {{--                                                     class="icon icon-tabler icon-tabler-device-tv" width="27"--}}
+                                                {{--                                                     height="27" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"--}}
+                                                {{--                                                     fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
+                                                {{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+                                                {{--                                                    <path--}}
+                                                {{--                                                        d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>--}}
+                                                {{--                                                    <path d="M16 3l-4 4l-4 -4"/>--}}
+                                                {{--                                                </svg>--}}
+                                                {{--                                            </button>--}}
+                                                <div x-data="window.modalController()">
+                                                    <!-- Your button code -->
+                                                    <div class="flex items-center">
+                                                        <!-- Enable Button -->
+                                                        <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                                                wire:click="view({{ $product->id }})">
+                                                            <span class="sr-only">View</span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                 class="icon icon-tabler icon-tabler-device-tv"
+                                                                 width="27" height="27" viewBox="0 0 24 24"
+                                                                 stroke-width="1.5"
+                                                                 stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                                 stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                                                                <path
+                                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+                                                            </svg>
+                                                        </button>
 
-                                    <div class="space-x-1">
-                                        @if($product->auction->auction_status == "Open")
-                                            {{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
-                                            {{--                                                    wire:click="view({{ $product->id }})">--}}
-                                            {{--                                                <span class="sr-only">View</span>--}}
-                                            {{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
-                                            {{--                                                     class="icon icon-tabler icon-tabler-device-tv" width="27"--}}
-                                            {{--                                                     height="27" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"--}}
-                                            {{--                                                     fill="none" stroke-linecap="round" stroke-linejoin="round">--}}
-                                            {{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-                                            {{--                                                    <path--}}
-                                            {{--                                                        d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>--}}
-                                            {{--                                                    <path d="M16 3l-4 4l-4 -4"/>--}}
-                                            {{--                                                </svg>--}}
-                                            {{--                                            </button>--}}
-                                            <div x-data="window.modalController()">
-                                                <!-- Your button code -->
-                                                <div class="flex items-center">
-                                                    <!-- Enable Button -->
-                                                    <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                            wire:click="view({{ $product->id }})">
-                                                        <span class="sr-only">View</span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                             class="icon icon-tabler icon-tabler-device-tv"
-                                                             width="27" height="27" viewBox="0 0 24 24"
-                                                             stroke-width="1.5"
-                                                             stroke="#2c3e50" fill="none" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-                                                            <path
-                                                                d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-                                                        </svg>
-                                                    </button>
+                                                        <!-- Eye Button -->
+                                                        <button
+                                                            class="text-slate-400 hover:text-slate-500 rounded-full ml-2"
+                                                            @click="getVideo('{{ $product->id }}')">
+                                                            <span class="sr-only">View</span>
+                                                            <!-- Your eye icon here -->
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                 class="icon icon-tabler icon-tabler-device-tv"
+                                                                 width="27"
+                                                                 height="27" viewBox="0 0 24 24" stroke-width="1.5"
+                                                                 stroke="#2c3e50"
+                                                                 fill="none" stroke-linecap="round"
+                                                                 stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                <path
+                                                                    d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>
+                                                                <path d="M16 3l-4 4l-4 -4"/>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
 
-                                                    <!-- Eye Button -->
-                                                    <button
-                                                        class="text-slate-400 hover:text-slate-500 rounded-full ml-2"
-                                                        @click="getVideo('{{ $product->id }}')">
-                                                        <span class="sr-only">View</span>
-                                                        <!-- Your eye icon here -->
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                             class="icon icon-tabler icon-tabler-device-tv" width="27"
-                                                             height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                             stroke="#2c3e50"
-                                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                            <path
-                                                                d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/>
-                                                            <path d="M16 3l-4 4l-4 -4"/>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-
-                                                <!-- Your existing modal overlay and dialog -->
-                                                <div
-                                                    class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
-                                                    x-show="rejectModalOpen"
-                                                    x-transition:enter="transition ease-out duration-200"
-                                                    x-transition:enter-start="opacity-0"
-                                                    x-transition:enter-end="opacity-100"
-                                                    x-transition:leave="transition ease-out duration-100"
-                                                    x-transition:leave-start="opacity-100"
-                                                    x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
-
-                                                <div
-                                                    class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                                                    role="dialog"
-                                                    aria-modal="true" x-show="rejectModalOpen"
-                                                    x-transition:enter="transition ease-in-out duration-200"
-                                                    x-transition:enter-start="opacity-0 translate-y-4"
-                                                    x-transition:enter-end="opacity-100 translate-y-0"
-                                                    x-transition:leave="transition ease-in-out duration-200"
-                                                    x-transition:leave-start="opacity-100 translate-y-0"
-                                                    x-transition:leave-end="opacity-0 translate-y-4" aria-hidden="true"
-                                                    x-cloak>
-                                                    <!-- Rest of your modal content -->
+                                                    <!-- Your existing modal overlay and dialog -->
                                                     <div
-                                                        class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
-                                                        @click.outside="rejectModalOpen = false"
-                                                        @keydown.escape.window="rejectModalOpen = false"
-                                                        style="max-width: 900px;">
-                                                        <!-- Modal header -->
+                                                        class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity"
+                                                        x-show="rejectModalOpen"
+                                                        x-transition:enter="transition ease-out duration-200"
+                                                        x-transition:enter-start="opacity-0"
+                                                        x-transition:enter-end="opacity-100"
+                                                        x-transition:leave="transition ease-out duration-100"
+                                                        x-transition:leave-start="opacity-100"
+                                                        x-transition:leave-end="opacity-0" aria-hidden="true"
+                                                        x-cloak></div>
+
+                                                    <div
+                                                        class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                                                        role="dialog"
+                                                        aria-modal="true" x-show="rejectModalOpen"
+                                                        x-transition:enter="transition ease-in-out duration-200"
+                                                        x-transition:enter-start="opacity-0 translate-y-4"
+                                                        x-transition:enter-end="opacity-100 translate-y-0"
+                                                        x-transition:leave="transition ease-in-out duration-200"
+                                                        x-transition:leave-start="opacity-100 translate-y-0"
+                                                        x-transition:leave-end="opacity-0 translate-y-4"
+                                                        aria-hidden="true"
+                                                        x-cloak>
+                                                        <!-- Rest of your modal content -->
                                                         <div
-                                                            class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
-                                                            <div class="flex justify-between items-center">
-                                                                <div
-                                                                    class="font-semibold text-slate-800 dark:text-slate-100">
-                                                                    Live Stream
+                                                            class="bg-white dark:bg-slate-800 rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
+                                                            @click.outside="rejectModalOpen = false"
+                                                            @keydown.escape.window="rejectModalOpen = false"
+                                                            style="max-width: 900px;">
+                                                            <!-- Modal header -->
+                                                            <div
+                                                                class="px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+                                                                <div class="flex justify-between items-center">
+                                                                    <div
+                                                                        class="font-semibold text-slate-800 dark:text-slate-100">
+                                                                        Live Stream
+                                                                    </div>
+
+                                                                    <!-- end livestream button -->
+                                                                    {{--                                                                <button--}}
+                                                                    {{--                                                                    class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md"--}}
+                                                                    {{--                                                                   onclick="window.location.href = '/end/livestream/{{ $product->id }}'">--}}
+                                                                    {{--                                                                    End Stream--}}
+                                                                    {{--                                                                </button>--}}
+
+
+                                                                    <button
+                                                                        class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
+                                                                        @click="handleCloseClick">
+                                                                        <div class="sr-only">Close</div>
+                                                                        <svg class="w-4 h-4 fill-current">
+                                                                            <path
+                                                                                d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z"/>
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- Modal content -->
+                                                            <div class="px-5 py-4" style="background: #1C1F2E">
+                                                                <button
+                                                                    x-show="endButton"
+                                                                    class="bg-red-500 text-white hover:bg-red-600 px-2 py-1 rounded-md"
+                                                                    id="endBtn"
+                                                                    onclick="endLivestream({{ $product->id }})">
+                                                                    End Stream
+                                                                </button>
+                                                                <div id="app">
+
                                                                 </div>
 
-                                                                <!-- end livestream button -->
-                                                                {{--                                                                <button--}}
-                                                                {{--                                                                    class="bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-md"--}}
-                                                                {{--                                                                   onclick="window.location.href = '/end/livestream/{{ $product->id }}'">--}}
-                                                                {{--                                                                    End Stream--}}
-                                                                {{--                                                                </button>--}}
-
-
-                                                                <button
-                                                                    class="text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400"
-                                                                    @click="handleCloseClick">
-                                                                    <div class="sr-only">Close</div>
-                                                                    <svg class="w-4 h-4 fill-current">
-                                                                        <path
-                                                                            d="M7.95 6.536L12.192 2.293a1 1 0 111.414 1.414L9.364 7.95l4.243 4.243a1 1 0 11-1.414 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z"/>
-                                                                    </svg>
-                                                                </button>
                                                             </div>
-                                                        </div>
-                                                        <!-- Modal content -->
-                                                        <div class="px-5 py-4" style="background: #1C1F2E">
-                                                            <button
-                                                                x-show="endButton"
-                                                                class="bg-red-500 text-white hover:bg-red-600 px-2 py-1 rounded-md"
-                                                                id="endBtn"
-                                                                onclick="endLivestream({{ $product->id }})">
-                                                                End Stream
-                                                            </button>
-                                                            <div id="app">
-
-                                                            </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+
+                                            @elseif ($product->auction->auction_status == "Closed")
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                                        wire:click="view({{ $product->id }})">
+                                                    <span class="sr-only">View</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         class="icon icon-tabler icon-tabler-device-tv"
+                                                         width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
+                                                         stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                                                        <path
+                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+                                                    </svg>
+                                                </button>
+
+                                            @elseif ($product->auction->admin_status == "Rejected")
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                                        wire:click="view({{ $product->id }})">
+                                                    <span class="sr-only">View</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         class="icon icon-tabler icon-tabler-eye"
+                                                         width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
+                                                         stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                                                        <path
+                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+                                                    </svg>
+                                                </button>
+
+                                            @else
+                                                <button class="text-slate-400 hover:text-slate-500 rounded-full"
+                                                        wire:click="view({{ $product->id }})">
+                                                    <span class="sr-only">View</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         class="icon icon-tabler icon-tabler-eye"
+                                                         width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
+                                                         stroke="#2c3e50" fill="none" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
+                                                        <path
+                                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
+                                                    </svg>
+                                                </button>
+
+                                            @endif
 
 
+                                            {{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
+                                            {{--                                                    wire:click="liveStream({{ $product->id }})">--}}
+                                            {{--                                                <span class="sr-only">View</span>--}}
+                                            {{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
+                                            {{--                                                     class="icon icon-tabler icon-tabler-device-tv"--}}
+                                            {{--                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
+                                            {{--                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
+                                            {{--                                                     stroke-linejoin="round">--}}
+                                            {{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
+                                            {{--                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>--}}
+                                            {{--                                                    <path--}}
+                                            {{--                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>--}}
+                                            {{--                                                </svg>--}}
+                                            {{--                                            </button>--}}
+                                        </div>
 
-
-                                        @elseif ($product->auction->auction_status == "Closed")
-                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                    wire:click="view({{ $product->id }})">
-                                                <span class="sr-only">View</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-device-tv"
-                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-                                                    <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-                                                </svg>
-                                            </button>
-
-                                        @elseif ($product->auction->admin_status == "Rejected")
-                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                    wire:click="view({{ $product->id }})">
-                                                <span class="sr-only">View</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-eye"
-                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-                                                    <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-                                                </svg>
-                                            </button>
-
-                                        @else
-                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"
-                                                    wire:click="view({{ $product->id }})">
-                                                <span class="sr-only">View</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     class="icon icon-tabler icon-tabler-eye"
-                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"
-                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>
-                                                    <path
-                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>
-                                                </svg>
-                                            </button>
-
-                                        @endif
-
-
-{{--                                            <button class="text-slate-400 hover:text-slate-500 rounded-full"--}}
-{{--                                                    wire:click="liveStream({{ $product->id }})">--}}
-{{--                                                <span class="sr-only">View</span>--}}
-{{--                                                <svg xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                                     class="icon icon-tabler icon-tabler-device-tv"--}}
-{{--                                                     width="27" height="27" viewBox="0 0 24 24" stroke-width="1.5"--}}
-{{--                                                     stroke="#2c3e50" fill="none" stroke-linecap="round"--}}
-{{--                                                     stroke-linejoin="round">--}}
-{{--                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>--}}
-{{--                                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/>--}}
-{{--                                                    <path--}}
-{{--                                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>--}}
-{{--                                                </svg>--}}
-{{--                                            </button>--}}
-                                    </div>
-
-                                @endif
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -669,16 +693,16 @@
 {{--</script>--}}
 
 <script>
-    $(document).ready(function(){
-        window.livewire.on('alert_remove',()=>{
-            setTimeout(function(){ $(".alert-success").fadeOut('fast');
+    $(document).ready(function () {
+        window.livewire.on('alert_remove', () => {
+            setTimeout(function () {
+                $(".alert-success").fadeOut('fast');
             }, 3000);
             //reload page
             location.reload();
         });
     });
 </script>
-
 
 
 <script>
@@ -835,7 +859,7 @@
                     type: 'GET',
                     contentType: 'application/json',
                     success: function (response) {
-                        console.log('checkData',response);
+                        console.log('checkData', response);
                     },
                     error: function (error) {
                         console.error('Ajax error:', error);

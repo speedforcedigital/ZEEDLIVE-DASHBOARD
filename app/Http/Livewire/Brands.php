@@ -7,10 +7,11 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use App\Models\Brand;
 use App\Models\Category;
+use Livewire\WithPagination;
 
 class Brands extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads,  withPagination;
 
     public $brand_id, $name, $image, $category_id;
     public $addBrand = false;

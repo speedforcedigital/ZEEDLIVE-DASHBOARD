@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Octw\Aramex\Aramex;
 
 class ReportedOrders extends Component
 {
+    use withPagination;
 
     public $search = '';
 

@@ -5,9 +5,11 @@ namespace App\Http\Livewire;
 use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SellerReportedOrders extends Component
 {
+    use withPagination;
     public $search = '';
 
     public function render()

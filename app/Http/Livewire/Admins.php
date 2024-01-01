@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\makeCurlFileRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\WithPagination;
 
 class Admins extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads,  withPagination;
 
     public $user_id, $name, $email, $mobile, $gender, $role, $password, $type,  $imageURL;
     public $permission = [];

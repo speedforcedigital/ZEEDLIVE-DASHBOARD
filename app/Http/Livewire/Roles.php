@@ -10,9 +10,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Roles extends Component
 {
+    use withPagination;
     public $updateMode = false;
     public $addRoles = false;
 
