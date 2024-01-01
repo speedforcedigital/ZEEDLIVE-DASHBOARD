@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
-        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2 mb-1">
             <a href="<?php echo url()->previous(); ?>"
                class="btn-sm text-white hover:text-white bg-indigo-600 hover:bg-indigo-800">
                 <!-- back button icon -->
