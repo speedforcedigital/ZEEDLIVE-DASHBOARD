@@ -20,16 +20,10 @@
             <!-- Product Media Gallery -->
             <div class="w-full md:w-1/2 px-4 mb-4 ml-8">
 
-                <!-- Image Slider (you can use a library like Swiper.js) -->
-                <div class="swiper-container product-slider">
+                <div class="mb-4">
                     <h4 class="text-xl font-semibold mb-2">Collection Image</h4>
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="{{  $collection->image }}" alt="Product Image"
-                                 class="w-3/4 h-56  rounded-lg shadow-lg">
-                        </div>
-
-                    </div>
+                    <img src="{{ $collection->image }}" alt="Product Image"
+                         class="w-full h-56 object-none rounded-lg shadow-lg">
                 </div>
 
                 <div class="max-w-2xl mx-auto">
@@ -96,9 +90,9 @@
             </div>
 
 
-
             <!-- Product Details -->
-            <div class="bg-white dark:bg-slate-800 rounded-sm border border-slate-200 dark:border-slate-700 w-auto px-6 mb-4 ml-6">
+            <div
+                class="bg-white dark:bg-slate-800 rounded-sm border border-slate-200 dark:border-slate-700 w-auto px-6 mb-4 ml-6">
                 <!-- back button on right side -->
 
                 <!-- Seller Information -->
@@ -217,7 +211,6 @@
 
                 @endif
             </div>
-
 
 
         </div>
