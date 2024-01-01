@@ -23,7 +23,7 @@
                 <div class="mb-4">
                     <h4 class="text-xl font-semibold mb-2">Collection Image</h4>
                     <img src="{{ $collection->image }}" alt="Product Image"
-                         class="w-full h-56 rounded-lg shadow-lg">
+                         class="h-56 w-full rounded-lg">
                 </div>
 
                 <div class="max-w-2xl mx-auto">
@@ -43,22 +43,24 @@
                             @endforeach
 
                         </div>
-                        <!-- Slider indicators -->
-                        <div class="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
-                            @foreach($collection->gallery_images as $index => $image)
-                                @php
-                                    $isActive = ($index === 0);
-                                @endphp
-                                <button type="button"
-                                        class="w-3 h-3 rounded-full {{ $isActive ? 'bg-blue-500' : 'bg-gray-300' }}"
-                                        aria-current="{{ $isActive }}" aria-label="Slide {{ $index + 1 }}"
-                                        data-carousel-slide-to="{{ $index }}"></button>
-                            @endforeach
-                        </div>
-                        <!-- Slider controls -->
-                        <button type="button"
-                                class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
-                                data-carousel-prev>
+                        @if(count($collection->gallery_images) > 1)
+                            <!-- Slider indicators -->
+                            <div class="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
+                                @foreach($collection->gallery_images as $index => $image)
+                                    @php
+                                        $isActive = ($index === 0);
+                                    @endphp
+                                    <button type="button"
+                                            class="w-3 h-3 rounded-full {{ $isActive ? 'bg-blue-500' : 'bg-gray-300' }}"
+                                            aria-current="{{ $isActive }}" aria-label="Slide {{ $index + 1 }}"
+                                            data-carousel-slide-to="{{ $index }}"></button>
+                                @endforeach
+                            </div>
+                            <!-- Slider controls -->
+
+                            <button type="button"
+                                    class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                                    data-carousel-prev>
             <span
                 class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-blue-500 dark:bg-gray-800/30 group-hover:bg-blue-800 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                 <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor"
@@ -68,10 +70,10 @@
                                                                                   d="M15 19l-7-7 7-7"></path></svg>
                 <span class="hidden">Previous</span>
             </span>
-                        </button>
-                        <button type="button"
-                                class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
-                                data-carousel-next>
+                            </button>
+                            <button type="button"
+                                    class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                                    data-carousel-next>
             <span
                 class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-blue-500 dark:bg-gray-800/30 group-hover:bg-blue-800 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                 <svg class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor"
@@ -81,7 +83,8 @@
                                                                                   d="M9 5l7 7-7 7"></path></svg>
                 <span class="hidden">Next</span>
             </span>
-                        </button>
+                            </button>
+                        @endif
                     </div>
 
 
