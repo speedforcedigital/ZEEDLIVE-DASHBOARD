@@ -65,9 +65,9 @@ foreach ($permissionsArray as $item) {
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                         <div class="font-semibold text-left">Role</div>
                     </th>
-{{--                    <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">--}}
-{{--                        <div class="font-semibold text-left">Status</div>--}}
-{{--                    </th>--}}
+                    <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                        <div class="font-semibold text-left">Status</div>
+                    </th>
                     <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                         <div class="font-semibold text-left">Action</div>
                     </th>
@@ -105,21 +105,21 @@ foreach ($permissionsArray as $item) {
                                 class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">{{ $user['rank'] }}</button>
                         </td>
                         <!-- Status -->
-{{--                        @if($user['is_banned'] == 0)--}}
-{{--                            <td>--}}
-{{--                                 <span--}}
-{{--                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">--}}
-{{--                                        Active--}}
-{{--                                    </span>--}}
-{{--                            </td>--}}
-{{--                        @else--}}
-{{--                            <td>--}}
-{{--                                 <span--}}
-{{--                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">--}}
-{{--                                        Banned--}}
-{{--                                    </span>--}}
-{{--                            </td>--}}
-{{--                        @endif--}}
+                        @if($user['is_banned'] == 0)
+                            <td>
+                                 <span
+                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                            </td>
+                        @else
+                            <td>
+                                 <span
+                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        Banned
+                                    </span>
+                            </td>
+                        @endif
 
                         <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="flex space-x-1 items-center">

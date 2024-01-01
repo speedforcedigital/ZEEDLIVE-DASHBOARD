@@ -15,9 +15,9 @@
                         <!-- Add more slides for additional images -->
                     </div>
                     <!-- Add pagination and navigation controls if needed -->
-                    {{--                    <div class="swiper-pagination"></div>--}}
-                    {{--                    <div class="swiper-button-next"></div>--}}
-                    {{--                    <div class="swiper-button-prev"></div>--}}
+{{--                                        <div class="swiper-pagination"></div>--}}
+{{--                                        <div class="swiper-button-next"></div>--}}
+{{--                                        <div class="swiper-button-prev"></div>--}}
                 </div>
 
                 <!-- Video Embed (you can use an iframe) -->
@@ -134,20 +134,20 @@
             </div>
 
             <div class="w-full md:w-1/2 px-4 mb-4">
-                {{--                <div class="swiper-container gallery-slider mt-4">--}}
-                {{--                    <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>--}}
-                {{--                    <div class="swiper-wrapper" style="height: 400px;">--}}
-                {{--                        @foreach($collection->gallery_images  as $image)--}}
-                {{--                            <div class="swiper-slide">--}}
-                {{--                                <img src="{{ $image->image }}" alt="Gallery Image" class="w-full h-full object-cover rounded-lg shadow-lg">--}}
-                {{--                            </div>--}}
-                {{--                        @endforeach--}}
-                {{--                    </div>--}}
-                {{--                    <!-- Add pagination and navigation controls if needed -->--}}
-                {{--                    <div class="slider-pagination"></div>--}}
-                {{--                    <div class="slider-button-next"></div>--}}
-                {{--                    <div class="slider-button-prev"></div>--}}
-                {{--                </div>--}}
+{{--                                <div class="swiper-container gallery-slider mt-4">--}}
+{{--                                    <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>--}}
+{{--                                    <div class="swiper-wrapper" style="height: 400px;">--}}
+{{--                                        @foreach($collection->gallery_images  as $image)--}}
+{{--                                            <div class="swiper-slide">--}}
+{{--                                                <img src="{{ $image->image }}" alt="Gallery Image" class="w-full h-full object-cover rounded-lg shadow-lg">--}}
+{{--                                            </div>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                    <!-- Add pagination and navigation controls if needed -->--}}
+{{--                                    <div class="slider-pagination"></div>--}}
+{{--                                    <div class="slider-button-next"></div>--}}
+{{--                                    <div class="slider-button-prev"></div>--}}
+{{--                                </div>--}}
                 <div class="max-w-2xl mx-auto">
                     <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>
 
@@ -218,9 +218,9 @@
 
 <script>
     // Get video element and play button
-    var video = document.getElementById("collectionVideo");
-    var playButton = document.getElementById("playButton");
-    var playButtonContainer = document.getElementById("playButtonContainer");
+    const video = document.getElementById("collectionVideo");
+    const playButton = document.getElementById("playButton");
+    const playButtonContainer = document.getElementById("playButtonContainer");
 
     // Add click event listener to play button
     playButton.addEventListener("click", function () {
@@ -237,7 +237,7 @@
     });
 
     // Product Images Slider
-    var productSwiper = new Swiper('.product-slider', {
+    const productSwiper = new Swiper('.product-slider', {
         slidesPerView: 1,
         spaceBetween: 10,
         navigation: {
@@ -251,7 +251,7 @@
     });
 
     // Gallery Images Slider
-    var gallerySwiper = new Swiper('.gallery-slider', {
+    const gallerySwiper = new Swiper('.gallery-slider', {
         slidesPerView: 1,
         spaceBetween: 10,
         navigation: {
