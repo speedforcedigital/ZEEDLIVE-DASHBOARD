@@ -177,7 +177,7 @@
                 <!-- Add to Cart Button (or Bid Button) -->
             </div>
 
-            <div class="w-full md:w-1/2 px-4 mb-4">
+            <div class="w-full md:w-1/2 px-4 mb-4 ml-8">
                 {{--                                <div class="swiper-container gallery-slider mt-4">--}}
                 {{--                                    <h4 class="text-xl font-semibold mb-2">Gallery Images</h4>--}}
                 {{--                                    <div class="swiper-wrapper" style="height: 400px;">--}}
