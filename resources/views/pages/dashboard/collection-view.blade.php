@@ -60,15 +60,16 @@
                 <!-- Photos -->
                 <div class="pswp-gallery" id="collection-gallery">
                     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Gallery images</h2>
-                    @foreach($collection->gallery_images as $index => $image)
-                        <div class="grid grid-cols-3 gap-4 my-6">
-                            <a class="block" href="{{ $image->image }}"  data-pswp-width="1875"
+                    <div class="grid grid-cols-3 gap-4 my-6">
+                        @foreach($collection->gallery_images as $index => $image)
+                            <a class="block" href="{{ $image->image }}" data-pswp-width="1875"
                                data-pswp-height="1900" target="_blank">
                                 <img class="w-full rounded-sm" src="{{ $image->image }}" width="203" height="152"
                                      alt="Gallery Photo">
                             </a>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+
                 </div>
                 <hr class="my-6 border-t border-slate-200"/>
 
