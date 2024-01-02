@@ -23,7 +23,7 @@
                 <div class="mb-4">
                     <h4 class="text-xl font-semibold mb-2">Collection Image</h4>
                     <img src="{{ $collection->image }}" alt="Product Image"
-                         class="rounded-lg" style="height: 350px; width: 450px;">
+                         class="rounded-lg" style="height: 350px; width: 510px;">
                 </div>
 
                 <div class="max-w-2xl mx-auto">
