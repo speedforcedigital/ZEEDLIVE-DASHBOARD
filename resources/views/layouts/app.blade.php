@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
 
 
     <!-- Styles -->
@@ -117,7 +120,7 @@
 </script>
 
 <!-- Page wrapper -->
-<div class="flex h-[100dvh] overflow-hidden">
+<div class="flex h-screen overflow-hidden">
 
     <x-app.sidebar/>
 

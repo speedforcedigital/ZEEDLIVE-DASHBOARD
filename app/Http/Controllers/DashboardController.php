@@ -587,7 +587,6 @@ class DashboardController extends Controller
                 $collection->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
             }
         }
-
         return view('pages.dashboard.collection-view', compact('collection'));
 
     }
