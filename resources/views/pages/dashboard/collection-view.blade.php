@@ -65,7 +65,7 @@
                             <a class="block" href="{{ $image->image }}" data-pswp-width="1875"
                                data-pswp-height="1900" target="_blank">
                                 <img class="w-full rounded-sm" src="{{ $image->image }}" width="203" height="152"
-                                     alt="Gallery Photo">
+                                     alt="Gallery Photo" style="height: 250px; object-fit: cover; object-position: center;">
                             </a>
                         @endforeach
                     </div>
