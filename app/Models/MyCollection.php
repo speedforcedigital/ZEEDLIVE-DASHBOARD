@@ -37,4 +37,9 @@ class MyCollection extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+
+    public function customFields()
+    {
+        return $this->hasMany(CustomField::class, 'category_id');
+    }
 }

@@ -570,6 +570,8 @@ class DashboardController extends Controller
 
     public function collectionView($id)
     {
+        $customFields = $this->getCustomFieldsResponse($id);
+//        dd($customFields);
         $collection = MyCollection::find($id);
         if (is_null($collection)) {
             return redirect()->back();
@@ -587,8 +589,26 @@ class DashboardController extends Controller
                 $collection->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
             }
         }
-        return view('pages.dashboard.collection-view', compact('collection'));
+        return view('pages.dashboard.collection-view', compact('collection','customFields'));
 
+    }
+
+    public function getCustomFieldsResponse($id)
+    {
+        $result = DB::table('custom_fields_response')
+            ->select('*')
+            ->join('custom_fields', 'custom_fields.custom_field_id', '=', 'custom_fields_response.custom_field_id')
+            ->where('collection_id', $id)
+            ->get();
+        $i = 0;
+        if ($result != '' && $result != null) {
+            foreach ($result as $row) {
+                $type[$i]['custom_field_title'] = $row->custom_field_title;
+                $type[$i]['response'] = $row->response;
+                $i++;
+            }
+        }
+        return isset($type) ? $type : null;
     }
 
 

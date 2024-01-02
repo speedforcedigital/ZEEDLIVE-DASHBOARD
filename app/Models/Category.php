@@ -39,4 +39,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Category::class, 'category_followers', 'category_id', 'user_id')->withTimestamps();
     }
+
+    public function customFields()
+    {
+        return $this->hasMany(CustomField::class, 'category_id');
+    }
 }
