@@ -113,7 +113,7 @@
                                     <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                         <img class="rounded-full"
                                              src="https://zeed-live.nyc3.cdn.digitaloceanspaces.com/{{$collection->user->accountDetail->profile_image}}"
-                                             width="40" height="40" alt="Patricia Semklo">
+                                             width="40" height="40" alt="Patricia Semklo" style=" height: 38px; object-fit: cover">
                                     </div>
                                     <div class="font-medium text-slate-800"><a
                                             href="{{ route("user.show", $collection->user->id) }}">{{$collection->user->name}}</a>
