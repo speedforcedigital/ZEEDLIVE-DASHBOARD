@@ -57,7 +57,7 @@ class OffersList extends Component
 
         }
 
-        $offers = $query->where('is_accepted', 1)->paginate($perPage);
+        $offers = $query->where('is_accepted', 0)->paginate($perPage);
         $total_offers = $query->count(); // Count without pagination
 
         return view('livewire.offers', compact('offers', 'total_offers'));
