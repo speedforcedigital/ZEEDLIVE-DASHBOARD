@@ -79,6 +79,11 @@ class User extends Authenticatable implements JWTSubject
         return $Collections;
     }
 
+    public function collections()
+    {
+        return $this->hasMany(Collections::class, 'user_id', 'id');
+    }
+
     public function getRoleAttribute()
     {
         $roles = Role::where('id', $this->role_id)->first();

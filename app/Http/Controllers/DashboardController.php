@@ -564,7 +564,9 @@ class DashboardController extends Controller
         })->get();
         $offers = Offers::where("offer_sender_id", $user->id)->count();
         $orders = Order::where("user_id", $user->id)->get();
-        return view('pages.dashboard.user-view', compact('user', 'products', 'offers', 'orders'));
+       $collections =  $user->collections()->paginate(3);
+//        dd($user->collections);
+        return view('pages.dashboard.user-view', compact('user', 'products', 'offers', 'orders','collections'));
 
     }
 

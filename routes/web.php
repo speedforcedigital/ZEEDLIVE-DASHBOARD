@@ -51,7 +51,7 @@ Route::group(['middleware' => 'protected'], function () {
     Route::get('/get-sales-data', [DashboardController::class, 'getSalesData']);
     Route::get('/get/users-by-age', [DashboardController::class, 'getUsersByAge']);
     Route::get('/get/users-by-gender', [DashboardController::class, 'getUsersByGender']);
-    Route::get('/user/{id}', [DashboardController::class, 'userView'])->name("user.show");
+    Route::get('/user/{id}', [DashboardController::class,'userView'])->name("user.show");
     Route::get('/collection/{id}', [DashboardController::class, 'collectionView'])->name("collection.show");
 
     Route::get('/product/{id}',[ProductController::class, 'view'])->name("product.show");
