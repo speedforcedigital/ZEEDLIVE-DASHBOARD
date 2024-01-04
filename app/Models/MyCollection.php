@@ -42,4 +42,9 @@ class MyCollection extends Model
     {
         return $this->hasMany(CustomField::class, 'category_id');
     }
+
+    public function model()
+    {
+        return $this->belongsTo(Modal::class, 'model_id');
+    }
 }

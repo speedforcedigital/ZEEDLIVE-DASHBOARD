@@ -32,7 +32,7 @@
                     <div class="flex items-center sm:mr-4">
                         <a class="block mr-2 shrink-0" href="#0">
                             <img class="rounded-full" src="{{ $collection->user->accountDetail->profile_image }}"
-                                 width="32" height="32" alt="User 04"/>
+                                 width="32" height="32" alt="User 04" style="height: 30px; object-fit: cover"/>
                         </a>
                         <div class="text-sm whitespace-nowrap">Uploaded by <a class="font-semibold text-slate-800"
                                                                               href="{{ route('user.show',  $collection->user->id) }}">{{ $collection->user->name }}</a>
@@ -159,6 +159,11 @@
                             <div class="text-sm">Brand</div>
                             <div
                                 class="text-sm font-medium text-slate-800 ml-2">{{$collection->brand->name ?? ''}}</div>
+                        </li>
+                        <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                            <div class="text-sm">Model</div>
+                            <div
+                                class="text-sm font-medium text-slate-800 ml-2">{{$collection->model->name ?? ''}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Gender</div>

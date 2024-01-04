@@ -36,4 +36,5 @@ class Modal extends Model
     {
         return $this->belongsToMany(Modal::class, 'model_followers', 'model_id', 'user_id')->withTimestamps();
     }
+
 }

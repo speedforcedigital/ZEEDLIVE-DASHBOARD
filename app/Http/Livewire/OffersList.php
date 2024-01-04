@@ -10,6 +10,7 @@ use App\Models\MyCollection;
 use App\Models\Offers;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Traits\MailTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -18,7 +19,8 @@ use Livewire\WithPagination;
 
 class OffersList extends Component
 {
-    use WithPagination;
+    use WithPagination, MailTrait;
+
     public $offer_id;
 
     public $search = '';
@@ -57,7 +59,7 @@ class OffersList extends Component
 
         }
 
-        $offers = $query->where('is_accepted', 0)->paginate($perPage);
+        $offers = $query->where('is_accepted', 1)->paginate($perPage);
         $total_offers = $query->count(); // Count without pagination
 
         return view('livewire.offers', compact('offers', 'total_offers'));
@@ -149,7 +151,7 @@ class OffersList extends Component
                 );
 
                 $this->sendMail($sellerParams);
-                $message = 'Offer Accepted Sucessfully.';
+                $message = 'Offer Accepted Successfully.';
                 DB::commit();
                 return redirect()->route('offers')->with('message', $message);
 //                return response()->json($data, $status);
@@ -210,13 +212,13 @@ class OffersList extends Component
 
         $this->sendMail($buyerParams);
 
-     //send email to seller
+        //send email to seller
         $sellerParams = array(
             'to' => $sellerData->email,
             'from' => env('MAIL_FROM_ADDRESS'),
             'fromname' => "Zeed Offer",
             'subject' => "Zeed Offer Rejection",
-            'text' =>  "Moderator has rejected your offer due to following reason:-“" . $this->reason . "”.",
+            'text' => "Moderator has rejected your offer due to following reason:-“" . $this->reason . "”.",
         );
         $this->sendMail($sellerParams);
 
@@ -232,30 +234,6 @@ class OffersList extends Component
         $data['created_at'] = $created_at;
         $data['updated_at'] = $updated_at;
         $transaction = DB::table('wallet_transactions')->insert($data);
-    }
-
-    public function sendMail($params)
-    {
-        $url = 'https://api.sendgrid.com/';
-        $sendgrid_apikey = env("MAIL_PASSWORD");
-
-        $request = $url . 'api/mail.send.json';
-        // Generate curl request
-        $session = curl_init($request);
-        // Tell PHP not to use SSLv3 (instead opting for TLS)
-        curl_setopt($session, CURLOPT_SSLVERSION, 'CURL_SSLVERSION_TLSv1_2');
-        curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
-        // Tell curl to use HTTP POST
-        curl_setopt($session, CURLOPT_POST, true);
-        // Tell curl that this is the body of the POST
-        curl_setopt($session, CURLOPT_POSTFIELDS, $params);
-        // Tell curl not to return headers, but do return the response
-        curl_setopt($session, CURLOPT_HEADER, false);
-        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-        // obtain response
-        $response = curl_exec($session);
-        curl_close($session);
-        json_decode($response);
     }
 
 
