@@ -8,7 +8,7 @@
             <div>
                 <div class="mb-6">
                     <a class="btn-sm px-3 bg-white border-slate-200 hover:border-slate-300 text-slate-600"
-                       href="{{route('collections.index')}}">
+                       href="{{route('standard.products')}}">
                         <svg class="fill-current text-slate-400 mr-2" width="7" height="12" viewBox="0 0 7 12">
                             <path d="M5.4.6 6.8 2l-4 4 4 4-1.4 1.4L0 6z"/>
                         </svg>
@@ -28,7 +28,7 @@
                     <!-- Author -->
                     <div class="flex items-center sm:mr-4">
                         <a class="block mr-2 shrink-0" href="#0">
-                            <img class="rounded-full" src="{{ $lot->auction->user->profile_image }}"
+                            <img class="rounded-full" src="{{ $lot->auction->user->image }}"
                                  width="32" height="32" alt="User 04" style="height: 30px; object-fit: cover"/>
                         </a>
                         <div class="text-sm whitespace-nowrap">Uploaded by <a class="font-semibold text-slate-800" href="{{ route('user.show',  $lot->auction->user->id) }}">{{ $lot->auction->user->name }}</a>
