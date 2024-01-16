@@ -100,13 +100,13 @@
                         <ul>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">Starting Bid</div>
-                                <div class="text-sm font-medium text-slate-800 ml-2">{{ number_format($lot->auction->auction_start_price, 2) }} SAR</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ number_format($lot->auction->auction_start_price, 0) }} SAR</div>
                             </li>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">Current Bid</div>
                                 <div class="text-sm font-medium text-slate-800 ml-2">
                                     @if(count($lot->bids) > 0)
-                                        {{ number_format($lot->bids->first()->amount, 2) }} SAR
+                                        {{ number_format($lot->bids->first()->amount, 0) }} SAR
                                     @else
                                         No Bids
                                     @endif
