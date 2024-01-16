@@ -106,6 +106,24 @@
                 </div>
                 @endif
 
+                @if($lot->auction->type == 'Buy Now')
+                <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
+                    <div class="flex justify-between space-x-1 mb-5">
+                        <div class="text-md text-slate-800 font-bold">Product Details</div>
+                    </div>
+                        <ul>
+                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                                <div class="text-sm">Selling Price</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ number_format($lot->price, 0) }} SAR</div>
+                            </li>
+                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                                <div class="text-sm">Status</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">$lot->auction->auction_status</div>
+                            </li>
+                        </ul>
+                </div>
+                @endif
+
                 <!-- 3rd block -->
                 <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
                     <div class="flex justify-between space-x-1 mb-5">
