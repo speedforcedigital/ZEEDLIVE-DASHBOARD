@@ -94,13 +94,33 @@
                 <!-- 2nd block -->
                 <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
                     <div class="flex justify-between space-x-1 mb-5">
-                        <div class="text-md text-slate-800 font-bold">Offers</div>
-
+                    @if($lot->auction->type == 'Auction')
+                        <div class="text-md text-slate-800 font-bold">Auction Details</div>
+                        <ul>
+                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                                <div class="text-sm">Starting Bid</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->auction_start_price }} SAR</div>
+                            </li>
+                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                                <div class="text-sm">Current Bid</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">
+                                @if(count($lot->bids) > 0 )
+                                    {{$lot->bids->first()->amount }} SAR
+                                @else
+                                    No Bids
+                                @endif
+                                </div>
+                            </li>
+                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                                <div class="text-sm">Start Date</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->start_time }}</div>
+                            </li>
+                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
+                                <div class="text-sm">End Date</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->end_time }}</div>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="space-y-3">
-                        <div class="text-sm text-slate-800 font-semibold">Bid Offers</div>
-                    
-                    </ul>
                 </div>
 
                 <!-- 3rd block -->
