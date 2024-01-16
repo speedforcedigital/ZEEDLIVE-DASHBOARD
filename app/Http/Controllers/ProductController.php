@@ -15,6 +15,7 @@ class ProductController extends Controller
     public function view($id)
     {
         $lot = Lot::where("id", $id)->with("auction")->first();
+        $customFields = $this->getCustomFieldsResponse($id);
         if ($lot->image != null) {
             $lot->image = Storage::disk('do')->url($lot->image);
         }
@@ -30,7 +31,7 @@ class ProductController extends Controller
                 $lot->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
             }
         }
-        return view("products.show", compact('lot'));
+        return view("products.show", compact('lot','customFields'));
     }
 
     public function convertProduct($productID)
@@ -69,6 +70,24 @@ class ProductController extends Controller
         $this->sendMail($sellerParams);
 
         return response()->json(['message' => 'Product Converted Successfully.'], 200);
+    }
+
+    public function getCustomFieldsResponse($id)
+    {
+        $result = DB::table('custom_fields_response')
+            ->select('*')
+            ->join('custom_fields', 'custom_fields.custom_field_id', '=', 'custom_fields_response.custom_field_id')
+            ->where('collection_id', $id)
+            ->get();
+        $i = 0;
+        if ($result != '' && $result != null) {
+            foreach ($result as $row) {
+                $type[$i]['custom_field_title'] = $row->custom_field_title;
+                $type[$i]['response'] = $row->response;
+                $i++;
+            }
+        }
+        return isset($type) ? $type : null;
     }
 
     public function sendMail($params)
