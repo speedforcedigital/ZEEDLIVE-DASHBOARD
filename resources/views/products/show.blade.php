@@ -28,8 +28,10 @@
                     <!-- Author -->
                     <div class="flex items-center sm:mr-4">
                         <a class="block mr-2 shrink-0" href="#0">
+                            <img class="rounded-full" src="{{ $lot->auction->user->profile_image }}"
+                                 width="32" height="32" alt="User 04" style="height: 30px; object-fit: cover"/>
                         </a>
-                        <div class="text-sm whitespace-nowrap">Uploaded by <a class="font-semibold text-slate-800" href="{{ route('user.show',  $lot->user->id) }}">{{ $lot->user->name }}</a>
+                        <div class="text-sm whitespace-nowrap">Uploaded by <a class="font-semibold text-slate-800" href="{{ route('user.show',  $lot->auction->user->id) }}">{{ $lot->auction->user->name }}</a>
                         </div>
                     </div>
 
