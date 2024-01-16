@@ -149,7 +149,7 @@
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Condition</div>
                             <div class="flex items-center whitespace-nowrap">
-                                <div class="text-sm font-medium text-slate-800">{{$lot->condition}}</div>
+                                <div class="text-sm font-medium text-slate-800">{{$lot->conditions}}</div>
                             </div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
