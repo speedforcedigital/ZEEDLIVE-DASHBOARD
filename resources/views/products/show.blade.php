@@ -99,29 +99,7 @@
                     </div>
                     <ul class="space-y-3">
                         <div class="text-sm text-slate-800 font-semibold">Bid Offers</div>
-                        <!-- @if(count($lot->offers) > 0)
-                            @foreach($collection->offers as $offer)
-                                <li class="border-b border-slate-200">
-                                    <div class="flex justify-between">
-                                        <div class="grow flex items-center">
-                                            <div class="relative mr-3">
-                                                <img class="w-8 h-8 rounded-full"
-                                                     src="{{ $offer->user->accountDetail->profile_image }}"
-                                                     width="32" height="32" alt="User 08"/>
-                                            </div>
-                                            <div class="truncate">
-                                                <span
-                                                    class="text-sm font-medium text-slate-800">{{ $offer->user->name }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="text-sm font-medium text-slate-800 ml-2">{{ $offer->amount }}SAR
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        @else
-                            <p class="mt-4">No offers in this collection.</p>
-                        @endif -->
+                    
                     </ul>
                 </div>
 
