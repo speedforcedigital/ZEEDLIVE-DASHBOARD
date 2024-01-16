@@ -44,24 +44,6 @@
                          alt="Meetup"/>
                 </figure>
 
-                 <!-- @if($lot->video)
-                    <div class="mt-4">
-                        <h4 class="text-xl font-semibold mb-2">Product Video</h4>
-                        <div class="relative">
-                            <video id="productVideo" controls width="100%" height="auto" class="rounded-lg shadow-lg">
-                                <source src="{{ $lot->video }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div id="playButtonContainer" class="absolute inset-0 flex items-center justify-center">
-                                <button id="playButton"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-                                    Play Video
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endif -->
-
                 <!-- Post content -->
                 <div>
                     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Lot Description</h2>
@@ -92,8 +74,8 @@
             <!-- Sidebar -->
             <div class="space-y-4">
                 <!-- 2nd block -->
+                @if($lot->auction->type == 'Auction')
                 <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
-                    @if($lot->auction->type == 'Auction')
                     <div class="flex justify-between space-x-1 mb-5">
                         <div class="text-md text-slate-800 font-bold">Auction Details</div>
                     </div>
@@ -121,8 +103,8 @@
                                 <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->end_time->format('Y-m-d g:i A') }}</div>
                             </li>
                         </ul>
-                    @endif
                 </div>
+                @endif
 
                 <!-- 3rd block -->
                 <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
