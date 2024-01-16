@@ -155,14 +155,7 @@
                                 <div class="text-sm font-medium text-slate-800">{{$lot->appendices}}</div>
                             </div>
                         </li>
-                        @foreach($customFields as $field)
-                            <li class="flex items-center justify-between py-3 border-b border-slate-200">
-                                <div class="text-sm">{{$field['custom_field_title']}}</div>
-                                <div class="flex items-center whitespace-nowrap">
-                                    <div class="text-sm font-medium text-slate-800">{{$lot['response']}}</div>
-                                </div>
-                            </li>
-                        @endforeach
+                        
 
                     </ul>
                 </div>
