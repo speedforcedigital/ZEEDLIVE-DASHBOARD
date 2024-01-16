@@ -121,6 +121,7 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
                 </div>
 
                 <!-- 3rd block -->
