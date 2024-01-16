@@ -16,11 +16,11 @@
                     </a>
                 </div>
                 <div class="text-sm font-semibold text-indigo-500 uppercase mb-2">
-                    Created: {{ $collection->created_at->format('D j M, Y - g:i A') }}
+                    Created: {{ $lot->created_at->format('D j M, Y - g:i A') }}
                 </div>
                 <header class="mb-4">
                     <!-- Title -->
-                    <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-2">{{ $collection->title }}</h1>
+                    <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-2">{{ $lot->title }}</h1>
                 </header>
 
                 <!-- Meta -->
@@ -28,7 +28,7 @@
                     <!-- Author -->
                     <div class="flex items-center sm:mr-4">
                         <a class="block mr-2 shrink-0" href="#0">
-                            <img class="rounded-full" src="{{ $collection->user->accountDetail->profile_image }}"
+                            <img class="rounded-full" src="{{ $lot->user->accountDetail->profile_image }}"
                                  width="32" height="32" alt="User 04" style="height: 30px; object-fit: cover"/>
                         </a>
                         <div class="text-sm whitespace-nowrap">Uploaded by <a class="font-semibold text-slate-800" href="{{ route('user.show',  $lot->user->id) }}">{{ $lot->user->name }}</a>
@@ -64,8 +64,8 @@
 
                 <!-- Post content -->
                 <div>
-                    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Collection Description</h2>
-                    <p class="mb-6">{{ $collection->description }}</p>
+                    <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Lot Description</h2>
+                    <p class="mb-6">{{ $lot->description }}</p>
 
                 </div>
 
@@ -75,7 +75,7 @@
                 <div  id="collection-gallery">
                     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Gallery images</h2>
                     <div class="grid grid-cols-3 gap-4 my-6">
-                        @foreach($collection->gallery_images as $index => $image)
+                        @foreach($lot->gallery_images as $index => $image)
                             <a class="block" href="{{ $image->image }}" data-pswp-width="1875"
                                data-pswp-height="1900" target="_blank">
                                 <img class="w-full rounded-sm" src="{{ $image->image }}" width="203" height="152"
@@ -87,14 +87,10 @@
 
                 </div>
                 <hr class="my-6 border-t border-slate-200"/>
-
-
             </div>
 
             <!-- Sidebar -->
             <div class="space-y-4">
-
-
                 <!-- 2nd block -->
                 <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
                     <div class="flex justify-between space-x-1 mb-5">
@@ -102,8 +98,8 @@
 
                     </div>
                     <ul class="space-y-3">
-                        <div class="text-sm text-slate-800 font-semibold">Collection Offers</div>
-                        @if(count($collection->offers) > 0)
+                        <div class="text-sm text-slate-800 font-semibold">Bid Offers</div>
+                        <!-- @if(count($lot->offers) > 0)
                             @foreach($collection->offers as $offer)
                                 <li class="border-b border-slate-200">
                                     <div class="flex justify-between">
@@ -125,36 +121,7 @@
                             @endforeach
                         @else
                             <p class="mt-4">No offers in this collection.</p>
-                        @endif
-                    </ul>
-
-                    <ul class="space-y-3 mt-2">
-                        <div class="text-sm text-slate-800 font-semibold">Accepted Offers</div>
-                        @if(count($collection->offers) > 0)
-                            @foreach($collection->offers as $offer)
-                                @if($offer->is_accepted == "1")
-                                    <li class="border-b border-slate-200">
-                                        <div class="flex justify-between">
-                                            <div class="grow flex items-center">
-                                                <div class="relative mr-3">
-                                                    <img class="w-8 h-8 rounded-full"
-                                                         src="{{ $offer->user->accountDetail->profile_image }}"
-                                                         width="32" height="32" alt="User 08"/>
-                                                </div>
-                                                <div class="truncate">
-                                                <span
-                                                    class="text-sm font-medium text-slate-800">{{ $offer->user->name }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="text-sm font-medium text-slate-800 ml-2">{{ $offer->amount }}SAR
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endif
-                            @endforeach
-                        @else
-                            <p class="mt-4">No Accepted offer in this collection.</p>
-                        @endif
+                        @endif -->
                     </ul>
                 </div>
 
@@ -167,54 +134,54 @@
                     <ul>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Category</div>
-                            <div class="text-sm font-medium text-slate-800 ml-2">{{$collection->category->name}}</div>
+                            <div class="text-sm font-medium text-slate-800 ml-2">{{$lot->category->name}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Brand</div>
                             <div
-                                class="text-sm font-medium text-slate-800 ml-2">{{$collection->brand->name ?? ''}}</div>
+                                class="text-sm font-medium text-slate-800 ml-2">{{$lot->brand->name ?? ''}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Model</div>
                             <div
-                                class="text-sm font-medium text-slate-800 ml-2">{{$collection->model->name ?? ''}}</div>
+                                class="text-sm font-medium text-slate-800 ml-2">{{$lot->model->name ?? ''}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Gender</div>
-                            <div class="text-sm font-medium text-slate-800 ml-2">{{$collection->gender}}</div>
+                            <div class="text-sm font-medium text-slate-800 ml-2">{{$lot->gender}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Year</div>
                             <div class="flex items-center whitespace-nowrap">
                                 {{--                                <div class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></div>--}}
-                                <div class="text-sm font-medium text-slate-800">{{$collection->year}}</div>
+                                <div class="text-sm font-medium text-slate-800">{{$lot->year}}</div>
                             </div>
                         </li>
 
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Color</div>
                             <div class="flex items-center whitespace-nowrap">
-                                <div class="text-sm font-medium text-slate-800">{{$collection->color}}</div>
+                                <div class="text-sm font-medium text-slate-800">{{$lot->color}}</div>
                             </div>
                         </li>
 
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Condition</div>
                             <div class="flex items-center whitespace-nowrap">
-                                <div class="text-sm font-medium text-slate-800">{{$collection->condition}}</div>
+                                <div class="text-sm font-medium text-slate-800">{{$lot->condition}}</div>
                             </div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Appendices</div>
                             <div class="flex items-center whitespace-nowrap">
-                                <div class="text-sm font-medium text-slate-800">{{$collection->appendices}}</div>
+                                <div class="text-sm font-medium text-slate-800">{{$lot->appendices}}</div>
                             </div>
                         </li>
                         @foreach($customFields as $field)
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">{{$field['custom_field_title']}}</div>
                                 <div class="flex items-center whitespace-nowrap">
-                                    <div class="text-sm font-medium text-slate-800">{{$field['response']}}</div>
+                                    <div class="text-sm font-medium text-slate-800">{{$lot['response']}}</div>
                                 </div>
                             </li>
                         @endforeach
@@ -231,3 +198,4 @@
 </x-app-layout>
 
 <script type="module" src="{{asset('js/photoswipe.js')}}"></script>
+
