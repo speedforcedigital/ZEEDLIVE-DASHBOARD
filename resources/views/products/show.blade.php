@@ -114,11 +114,11 @@
                             </li>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">Start Date</div>
-                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->start_time }}</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->start_time->format('g:i A') }}</div>
                             </li>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">End Date</div>
-                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->end_time }}</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->end_time->format('g:i A') }}</div>
                             </li>
                         </ul>
                     @endif
