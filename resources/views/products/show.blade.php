@@ -37,9 +37,7 @@
 
                 </div>
 
-                @dump($lot)
-
-                @if($lot->auction->type == 'Live Streams')
+                @if($lot->auction->is_scadual_live == '1')
                 <div class="mb-6">
                     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Live Stream</h2>
                     <div id="zego-video-container"></div>
