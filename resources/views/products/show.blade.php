@@ -230,7 +230,17 @@
   });
 
   // Configure your credentials here (token and signature)
+  var zegoClient = new ZegoClient();
+    zegoClient.config({
+        token: "{{ $zegoToken->token }}",
+        signature: "{{ $zegoSignature->signature }}",
+        // Other configuration settings
+    });
 
+    // Start the stream and attach it to the container
+    zegoClient.startPreview({
+        video: document.getElementById('zego-video-container'),
+        // Additional options
+    });
   // Start the ZegoExpress SDK
-  zg.startPreview(document.getElementById('zego-video-container')); // Start previewing the local stream (you should have a video element with the id 'preview-video' in your HTML)
 </script>
