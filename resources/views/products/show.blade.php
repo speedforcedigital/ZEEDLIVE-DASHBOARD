@@ -118,7 +118,7 @@
                             </li>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">Status</div>
-                                <div class="text-sm font-medium text-slate-800 ml-2">$lot->auction->auction_status</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->auction_status }}</div>
                             </li>
                         </ul>
                 </div>
