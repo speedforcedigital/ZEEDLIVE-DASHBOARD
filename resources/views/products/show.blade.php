@@ -37,6 +37,8 @@
 
                 </div>
 
+                @dump($lot->auction->type)
+
                 @if($lot->auction->type == 'Live Streams')
                 <div class="mb-6">
                     <h2 class="text-xl leading-snug text-slate-800 font-bold mb-2">Live Stream</h2>
