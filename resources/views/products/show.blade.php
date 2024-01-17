@@ -188,5 +188,4 @@
     </div>
 
 </x-app-layout>
-
 <script type="module" src="{{asset('js/photoswipe.js')}}"></script>
