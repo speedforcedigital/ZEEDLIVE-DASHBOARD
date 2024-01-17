@@ -140,12 +140,12 @@
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Brand</div>
                             <div
-                                class="text-sm font-medium text-slate-800 ml-2">{{$lot->brand->name ?? ''}}</div>
+                                class="text-sm font-medium text-slate-800 ml-2">{{$lot->Brand ?? ''}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Model</div>
                             <div
-                                class="text-sm font-medium text-slate-800 ml-2">{{$lot->model->name ?? ''}}</div>
+                                class="text-sm font-medium text-slate-800 ml-2">{{$lot->Modal ?? ''}}</div>
                         </li>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Gender</div>
