@@ -196,6 +196,7 @@
 
 </x-app-layout>
 <script type="module" src="{{asset('js/photoswipe.js')}}"></script>
+<script src="{{asset('/js/ZegoExpressWebRTC-3.0.0.js')}}"></script>
 <script>
     // Initialize Zego with the token and signature
     var zegoClient = new ZegoClient();
