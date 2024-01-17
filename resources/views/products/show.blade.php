@@ -198,17 +198,39 @@
 <script type="module" src="{{asset('js/photoswipe.js')}}"></script>
 <script src="{{asset('/js/ZegoExpressWebRTC-3.0.0.js')}}"></script>
 <script>
-    // Initialize Zego with the token and signature
-    var zegoClient = new ZegoClient();
-    zegoClient.config({
-        token: "{{ $zegoToken->token }}",
-        signature: "{{ $zegoSignature->signature }}",
-        // Other configuration settings
-    });
+  const appID = '1553886775';
+  const server = 'wss://webrtca.zego.im/ws'; // You can change the server URL as needed
 
-    // Start the stream and attach it to the container
-    zegoClient.startPreview({
-        video: document.getElementById('zego-video-container'),
-        // Additional options
-    });
+  // Initialize ZegoExpress SDK
+  const zg = new ZegoExpressEngine(appID, server);
+
+  // Set up event listeners for debugging purposes (optional)
+  zg.on('onDebugLog', (logInfo) => {
+    console.log('Debug Log:', logInfo);
+  });
+
+  // Set up event listeners for state changes (optional)
+  zg.on('onEngineStateUpdate', (result) => {
+    if (result.state === 'running') {
+      console.log('ZegoExpress SDK is running');
+    } else {
+      console.warn('ZegoExpress SDK is not running');
+    }
+  });
+
+  // Set up event listeners for stream updates (optional)
+  zg.on('onStreamUpdated', (type, streamList) => {
+    if (type === 'added') {
+      console.log('New stream added:', streamList);
+      // Handle newly added streams here
+    } else if (type === 'deleted') {
+      console.log('Stream removed:', streamList);
+      // Handle removed streams here
+    }
+  });
+
+  // Configure your credentials here (token and signature)
+
+  // Start the ZegoExpress SDK
+  zg.startPreview(document.getElementById('zego-video-container')); // Start previewing the local stream (you should have a video element with the id 'preview-video' in your HTML)
 </script>
