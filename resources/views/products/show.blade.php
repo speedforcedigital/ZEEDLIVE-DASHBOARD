@@ -84,7 +84,7 @@
                 @if($lot->auction->type == 'Auction')
                 <div class="bg-white p-5 shadow-lg rounded-sm border border-slate-200 lg:w-72 xl:w-80">
                     <div class="flex justify-between space-x-1 mb-5">
-                        <div class="text-md text-slate-800 font-bold">Auction Details</div>
+                    <div class="text-sm text-slate-800 font-semibold">Auction Details</div>
                     </div>
                         <ul>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
