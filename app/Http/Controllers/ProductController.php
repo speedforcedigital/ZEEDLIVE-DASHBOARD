@@ -15,7 +15,12 @@ class ProductController extends Controller
     public function view($id)
     {
         $lot = Lot::where("id", $id)->with("auction")->first();
-        $customFields = $this->getCustomFieldsResponse($id);
+        // Get Zego Token and Signature
+        $zegoController = new \App\Http\Controllers\Zego();
+        $zegoToken = $zegoController->getToken($id)->getData();
+        $zegoSignature = $zegoController->getSignature($id)->getData();
+
+    $customFields = $this->getCustomFieldsResponse($id);
         if ($lot->image != null) {
             $lot->image = Storage::disk('do')->url($lot->image);
         }
@@ -31,7 +36,7 @@ class ProductController extends Controller
                 $lot->gallery_images[$key]->image = Storage::disk('do')->url($value->image);
             }
         }
-        return view("products.show", compact('lot','customFields'));
+        return view("products.show", compact('lot', 'customFields', 'zegoToken', 'zegoSignature'));
     }
 
     public function convertProduct($productID)

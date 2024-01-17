@@ -37,6 +37,10 @@
 
                 </div>
 
+                <div class="mb-6">
+                    <div id="zego-video-container"></div>
+                </div>
+
                 <!-- Image -->
                 <figure class="mb-6">
                     <img class="w-full rounded-sm" src="{{ $lot->image }}" width="640" height="360"
@@ -189,3 +193,18 @@
 
 </x-app-layout>
 <script type="module" src="{{asset('js/photoswipe.js')}}"></script>
+<script>
+    // Initialize Zego with the token and signature
+    var zegoClient = new ZegoClient();
+    zegoClient.config({
+        token: "{{ $zegoToken['token'] }}",
+        signature: "{{ $zegoSignature['signature'] }}",
+        // Other configuration settings
+    });
+
+    // Start the stream and attach it to the container
+    zegoClient.startPreview({
+        video: document.getElementById('zego-video-container'),
+        // Additional options
+    });
+</script>
