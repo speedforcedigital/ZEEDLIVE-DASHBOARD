@@ -37,7 +37,7 @@
 
                 </div>
 
-                @dump($lot->auction->type)
+                @dump($lot)
 
                 @if($lot->auction->type == 'Live Streams')
                 <div class="mb-6">
