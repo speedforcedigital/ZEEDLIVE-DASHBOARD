@@ -197,8 +197,8 @@
     // Initialize Zego with the token and signature
     var zegoClient = new ZegoClient();
     zegoClient.config({
-        token: "{{ $zegoToken['token'] }}",
-        signature: "{{ $zegoSignature['signature'] }}",
+        token: "{{ $zegoToken->token }}",
+        signature: "{{ $zegoSignature->signature }}",
         // Other configuration settings
     });
 
