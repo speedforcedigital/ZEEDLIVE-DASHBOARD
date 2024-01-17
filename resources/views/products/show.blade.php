@@ -130,8 +130,6 @@
                         <div class="text-sm text-slate-800 font-semibold">Additional Details</div>
                     </div>
 
-                    @dump($lot)
-
                     <ul>
                         <li class="flex items-center justify-between py-3 border-b border-slate-200">
                             <div class="text-sm">Category</div>
