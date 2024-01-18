@@ -113,7 +113,12 @@
                             </li>
                             <li class="flex items-center justify-between py-3 border-b border-slate-200">
                                 <div class="text-sm">End Date</div>
-                                <div class="text-sm font-medium text-slate-800 ml-2">{{ $lot->auction->end_time->format('Y-m-d g:i A') }}</div>
+                                <div class="text-sm font-medium text-slate-800 ml-2">
+                                @if ($lot && $lot->auction && $lot->auction->start_time)
+                                    <?php echo e($lot->auction->end_time->format('Y-m-d g:i A')); ?>
+                                @else
+                                    N/A <!-- Handle the case where any of the properties is null -->
+                                @endif
                             </li>
                         </ul>
                 </div>
